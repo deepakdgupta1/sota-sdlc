@@ -1,89 +1,228 @@
-# SOTA SDLC Agentic AI Evolution Ideas (July 2026)
+# SOTA SDLC Agentic AI Evolution Ideas (July 2026 — Revamped)
 
-This document outlines the gaps between our first-principles SDLC design and the State-of-the-Art (SOTA) advancements in agentic software engineering as of July 2026, explaining what is missing and why it matters.
+This document is the **forward-looking evolution roadmap** for our first-principles SDLC design. Each idea identifies a gap between the ideal model captured in [`sdlc-design/`](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/) and the State-of-the-Art (SOTA) in agentic software engineering as of July 2026.
 
----
+Ideas are organized into three tiers:
+- **Tier A — Structural Extensions to the Bedrock:** Missing theoretical primitives — things the model's own self-test should demand.
+- **Tier B — Agentic-Native Machinery:** New mechanisms the loop needs when agents staff it — forced by stones #9/#10 and the realities of autonomous execution.
+- **Tier C — Operational Infrastructure:** Concrete engineering systems that a production agentic SDLC requires to implement the ideal.
 
-## 1. Ephemeral Runtime Containment & Sandbox Isolation (The Execution Boundary)
-
-*   **What is missing:** The security repertoire described in [sdlc-design/08-repertoires.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md) currently treats security containment via traditional mechanisms like authn/authz, input sanitization, and least-privilege. We lack an explicit **ephemeral containment boundary** (a secure sandbox, micro-VM, or gVisor-like isolation gate) for the `do`/`implement` phase.
-*   **Why it matters:** In an agentic SDLC, the agent generates and immediately executes commands and code on the host system. Under the pressure of **Stone #8 (Adversarial)** or **Stone #10 (Incentive-Divergence)** (formalized in [sdlc-design/03-bedrock.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/03-bedrock.md)), a compromised or misaligned agent is not just writing bad code; it is a vector of active, untrusted execution. Without a hard-gated runtime sandbox, the agent can mutate its own runner, hijack host resources, or leak sensitive system credentials.
-
-## 2. Multi-Agent Collaboration Protocol & Consensus Topology (Beyond the Vertical Fractal)
-
-*   **What is missing:** The fractal model detailed in [sdlc-design/06-fractal.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/06-fractal.md) assumes a nested, hierarchical loop (`define` &rarr; `do` &rarr; `check` &rarr; `reflect` nesting down into every element). It lacks a formal model for **horizontal multi-agent orchestration, consensus protocols, and inter-agent message verification**.
-*   **Why it matters:** SOTA systems in 2026 do not rely on a single nested loop; they use coordinated fleets of specialized agents (e.g., Planner, Coder, Reviewer, and SecOps agents). When these agents interact, their errors and incentives are not just vertically correlated; they propagate horizontally. Without a defined **Consensus & Peer-Verification Protocol** (e.g., majority voting on plans, cross-agent critique rounds), a single agent's drift can poison the shared workspace state, leading to a cascade failure that passes the local `check` beat.
-
-## 3. Episodic vs. Semantic Memory & Context Management (The State Boundary)
-
-*   **What is missing:** While [sdlc-design/10-artifacts.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/10-artifacts.md) derives the necessity of persistent artifacts (ADRs, Telemetry, Regressions) to defend against **Stone #7 (Distributed & Perishable Knowledge)**, it does not define the **Agent Memory Controller**—the system that dynamically structures, scopes, and injects this information into the agent's runtime context.
-*   **Why it matters:** In SOTA 2026, agents operate under strict context-window and attention limitations. If the loop lacks a formal memory consolidation element (separating *episodic memory* of the current run from *semantic memory* of the codebase rules), the agent will suffer from context pollution. It will forget local conventions (such as the repository-specific tools in `~/.agents/skills/`), hijack context, or fail to apply historical regression lessons.
-
-## 4. Risk-Asymmetry & Graded Human Delegation (The Delegation Boundary)
-
-*   **What is missing:** [sdlc-design/12-agentic-sdlc.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/12-agentic-sdlc.md) establishes that we must keep an independent external terminal (human) in the loop. However, we lack a formal **delegation calculus** that determines *where* and *how* the human-in-the-loop (HITL) gate should be applied (i.e., when is it a hard gate vs. a graded target?).
-*   **Why it matters:** If the human must approve every single sub-loop iteration, the velocity gains of the agentic SDLC collapse to zero. If the human is too detached, high-risk irreversible actions will leak. We need a rule-based framework that grades delegation: automatically executing low-risk edits (e.g., local unit tests) while hard-gating high-risk seams (e.g., database schema changes, production deployments, or modifications to the agentic runner itself).
-
-## 5. Model-Level Governance & Infrastructure Routing (The LLM Seam)
-
-*   **What is missing:** The design assumes an abstract "solver" capability. It lacks a **Model Governance & Routing Layer** that manages model capabilities, cost budgets, and rate-limiting.
-*   **Why it matters:** Agentic SDLCs run hundreds of LLM calls per task. SOTA implementations utilize heterogeneous routing (e.g., routing planning to a reasoning model like Gemini 3.5 Pro, and quick syntax checking to a fast model like Gemini 3.5 Flash). Without a telemetry-backed routing layer (enforced by a local proxy, as defined in our global rules), the SDLC cannot protect itself against model drift, high token costs, or concurrency bottlenecks.
-
-## 6. Metacognitive Tool Mutation & Skill Evolution (The Capability Seam)
-
-*   **What is missing:** The current design assumes a static, pre-defined set of tools and element capabilities (the *repertoires* in [sdlc-design/08-repertoires.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)). It lacks a formal mechanism for **dynamic skill creation and tool verification** where agents construct and register new tools at runtime.
-*   **Why it matters:** In SOTA 2026, agents are self-assembling: they construct specialized CLI scripts and write custom integration code (such as the ECC scripts in `~/.agents/ecc/scripts/`) to solve complex tasks. If the agent can mutate its own toolset without a strict verification gate, a bug in a dynamically generated tool can corrupt the entire downstream codebase. Tool mutation introduces a new reflexivity loop where the solver's instruments must themselves be verified by the loop before being executed.
-
-## 7. Epistemic Drift & Knowledge Expiry (The Change Axis of Knowledge)
-
-*   **What is missing:** While the design has regression and rollback in [sdlc-design/09-mechanism-of-done.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/09-mechanism-of-done.md) to manage changes to codebase files, it lacks a formal mechanism to handle the **expiry and invalidation of background knowledge** (e.g., outdated documentation, deprecated API design patterns, and obsolete context files).
-*   **Why it matters:** SOTA systems rely heavily on RAG and context-injection. If a codebase undergoes a major refactor, old documents and architecture files remain in the repository. Agents query this stale context and write outdated code, leading to silent mismatches. We need a continuous **epistemic curation loop** that actively prunes and invalidates context as code evolves, preventing knowledge decay from feeding incorrect assumptions to the solver.
-
-## 8. Solver Self-Calibration & Confidence Estimation (The Uncertainty Gate)
-
-*   **What is missing:** The `verify` and `check` beats check actual-vs-expected, but our model lacks a formal **Self-Calibration Sensor** that estimates the agent's own uncertainty or reasoning confidence before committing changes.
-*   **Why it matters:** Diligent, high-capability agents fail by being *confidently wrong* (echo chambers, proxy-gaming). In SOTA 2026, loops must employ multi-path generation (e.g., self-consistency decoding, search tree evaluations) to measure confidence. When the confidence score falls below a safety threshold, the system must trigger an automatic escalation exit (the `escalate` exit in `reflect`) to a human terminal before any code is executed or written.
-
-## 9. Prompt-as-Code (PaC) & Prompt Regression Testing (The Instruction Seam)
-
-*   **What is missing:** The design treats source code, tests, and configuration as part of the regression ratchet. However, in agentic SDLCs, the system prompts, instructions (like the global rules), and few-shot examples *are the ultimate code*. Our model does not include a **Prompt Regression Ratchet**.
-*   **Why it matters:** Editing an agent prompt to fix a single bug frequently degrades its performance on other tasks. Without a structured prompt-regression suite (which runs modified prompts against a benchmark set of agent trajectories), prompt drift will quietly erode the reliability and predictability of the entire lifecycle.
-
-## 10. Harness Engineering & Environmental Determinism (The Scaffolding Seam)
-
-*   **What is missing:** The current design focuses heavily on the agent's internal cognitive loop, but lacks formal definitions for the **harness**—the deterministic scaffolding, rigid guardrails, and behavioral constraints that restrict the agent's solution space.
-*   **Why it matters:** The defining equation of 2026 agentic engineering is *Agent = Model + Harness*. An unharnessed agent is fundamentally unpredictable. By constraining the agent within strict, behavior-driven environments and rigid execution pathways before it can act, we force non-deterministic intelligence to produce predictable, enterprise-grade outputs.
-
-## 11. Hybrid Evaluation: Deterministic Floors & LLM-as-a-Judge Ceilings (The Quality Gate)
-
-*   **What is missing:** We mention Prompt Regression Testing (#9), but we lack a **Hybrid Evaluation Infrastructure** that acts as the primary, automated quality gate within the loop's `check` beat for agent-generated code.
-*   **Why it matters:** Developments in early 2026 proved that relying solely on frontier LLMs for code evaluation is neither cost-effective nor perfectly reliable. The SOTA approach uses a layered strategy to anchor the harness:
-    1.  **The Deterministic Floor:** Fast, cost-zero deterministic functions (e.g., AST parsing, static analysis, regex checks, and schema validation) that immediately catch malformed syntax or bad tool calls (which account for 30-60% of agent failures).
-    2.  **The LLM-as-a-Judge Ceiling:** Only after passing the deterministic floor is the output evaluated by an LLM to assess semantic qualities (e.g., architectural adherence, security edge-cases). This hybrid combination creates the rigid guardrails necessary to generate production-ready software reliably.
-
-## 12. Token-Efficient SDLC via LLM Cascades & Routing (The Cost/Capability Seam)
-
-*   **What is missing:** The design implicitly assumes a monolithic "solver." It lacks an **Intelligent Routing Layer** that dynamically allocates tasks to different models based on complexity and cost.
-*   **Why it matters:** Running an entire agentic SDLC on a single frontier model is prohibitively expensive and computationally slow. From Jan to Jun 2026, the industry shifted to "LLM Cascades." Complex reasoning tasks (like architectural planning or diagnosing regressions) are routed to expensive frontier models, while routine tasks (like writing docstrings, generating boilerplate tests, or performing the "LLM-as-a-judge" evaluations mentioned above) are routed to cheaper, faster, or specialized/distilled models. This creates a highly **token-efficient SDLC** that scales without sacrificing software quality.
-
-## 13. Standardized Tool & Context Protocols [e.g., MCP] (The Integration Boundary)
-
-*   **What is missing:** While the design defines tools and skills (repertoires), it lacks a universal, standardized protocol for how agents dynamically discover, authenticate with, and interact with external systems (like the open-source Model Context Protocol).
-*   **Why it matters:** SOTA systems use open standards as the "USB-C" of agentic integrations. Without a standardized Host/Client/Server protocol for tool invocation, the SDLC relies on bespoke, brittle API wrappers. A standardized protocol is required to safely provide agents with dynamic access to enterprise context and CI/CD pipelines.
-
-## 14. Deep Agentic Observability & Execution Tracing (The Telemetry Seam)
-
-*   **What is missing:** The design has a `check` beat for the final code output, but it treats the agent's internal reasoning and sequential tool-calling as a black box. We lack a dedicated **Agent Observability Pipeline**.
-*   **Why it matters:** When a multi-model cascade fails or a hybrid evaluation flags an error, engineers don't just debug the code—they must debug the *agent's decision pathway*. We need unified tracing that records token usage, model routing choices, deterministic vs. LLM-eval results, and intermediate state transitions.
-
-## 15. The Economics of Attention (The Human Bandwidth Constraint)
-
-*   **What is missing:** While section #4 addresses human-in-the-loop (HITL) and risk-asymmetry, it does not formalize **human attention as the ultimate scarce resource** within the bedrock.
-*   **Why it matters:** With token-efficient LLM cascades generating execution rapidly, human review becomes the primary systemic bottleneck. If the SDLC demands human verification too frequently ("compliance theater"), reviewers experience alert fatigue and begin rubber-stamping code. The harness must optimize for the "Economics of Attention," purposefully structuring the loop to surface only high-leverage architectural deviations to the human terminal.
+Each entry explains: *what's missing*, *why it matters* (grounded in the model's vocabulary), and *where it threads in* (which chapters, stones, and beats it touches).
 
 ---
 
-### Integration with the Current Frontier
+## Tier A — Structural Extensions to the Bedrock
 
-These gaps are highly relevant to our current live frontier in [sdlc-canvas/04-frontier.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-canvas/04-frontier.md). While we are currently resolving **T11's three promotion-forks** (tamper-evident sensors and temporal emission laws), the next major phase of the project's evolution should address the **governance gap**—formalizing how the multi-agent network, its runtime sandbox, its tool mutation gates, its memory architecture, and its calibration sensors are represented as first-class constraints in the bedrock.
+### A1. Cascading Failure Containment — The Horizontal Propagation Axiom
 
+*   **What is missing:** The fractal model ([§6](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/06-fractal.md)) describes **vertical** error propagation: an inner loop escalates to its parent. It has no axiom for **horizontal** propagation — where an error in one agent's output, accepted as "trusted truth" by a peer agent, contaminates a parallel branch that passes its own local `check`.
+*   **Why it matters:** OWASP's 2026 ASI08 classification and production incident data confirm that cascading failure is the defining reliability threat of multi-agent systems. Error propagation is not just "bugs travel" — it is a systemic corruption pattern where downstream agents **inherit the upstream agent's correlated blind spot** (stone #9 applied *laterally*). The current model's `check` beat only compares local actual-vs-expected; it has no mechanism to detect that its *input* was already poisoned upstream. This is a gap in the convergence property itself: horizontal cascades mean the loop can converge to a **wrong fixed point** even when every local `check` is green.
+*   **Where it threads in:** Extends the second-order tier ([§12](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/12-agentic-sdlc.md)) from a two-seat reflexivity/alignment model to include a **propagation topology**. Requires new machinery in `check`: an **input-provenance validator** that asks not just "is this output correct?" but "was this input trustworthy?" — a form of inter-agent `verify` at the seam. The circuit-breaker pattern (isolating a failing sub-graph before its poison reaches peers) is the resilience repertoire's horizontal analogue of `escalate`.
+
+### A2. The Agentic Supply Chain — Stone #8 at the Solver's Own Boundary
+
+*   **What is missing:** The security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)) addresses adversaries targeting the *software being built*. It does not address adversaries targeting the *SDLC machinery itself* — the agent's tools, skills, MCP servers, plugins, and context injections. The first CVE for an agentic system (CVE-2026-25253, Jan 2026) exploited a malicious skill package, not a code vulnerability.
+*   **Why it matters:** Every MCP server, every dynamically loaded skill (like those in `~/.agents/skills/`), every retrieved context document is an **executable dependency** in the agent's supply chain. Indirect Prompt Injection (IPI) — hidden malicious instructions embedded in documents, emails, or retrieved context — is the defining attack vector of 2026. The agent cannot distinguish between developer-provided system instructions and externally injected content. A compromised skill or context document doesn't just write bad code; it **hijacks the solver itself**, turning stone #8's "directed optimiser" against the loop's own machinery. This is stone #8 applied reflexively: the adversary enters not through the code's input surface but through the agent's context window.
+*   **Where it threads in:** Demands a new sub-repertoire within the security repertoire: **supply-chain hygiene** — inventory, vet, and red-team every tool, skill, and context source before it enters the agent's trust boundary. Also demands **context-layer governance**: metadata tagging (spotlighting) to distinguish trusted vs. untrusted content before it reaches the context window. This is the `sanitize/validate` lever from §9.2, applied not to the code's inputs but to the agent's own inputs.
+
+### A3. Formal Verification as a Check Modality — Beyond Statistical and Deterministic Leaves
+
+*   **What is missing:** The mechanism of Done ([§9](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/09-mechanism-of-done.md)) bottoms out in two leaf kinds: **deterministic** (unit test → pass/fail) and **statistical** (sampled proxy → threshold). There is a third modality emerging in 2026 that the model does not account for: **formal verification** — mathematical proof of correctness against a specification, using proof assistants like Lean 4 or TLA+.
+*   **Why it matters:** A formal proof is categorically different from both existing leaf kinds. A deterministic test *samples* paths (assertion-by-example); a statistical leaf *estimates* a distribution. A formal proof *exhausts* the logical space — it is not a proxy at all; it discharges the composition hypothesis `(∧Lᵢ) ⟹ P` as a mathematical fact, not a bet. This matters because in an agentic SDLC where code is generated at machine speed, the volume of code *exceeds human review capacity*. Formal verification offers a **non-Goodhartable** leaf — the one check modality that cannot be gamed by an incentive-divergent agent (stone #10), because a proof assistant is a deterministic certificate-checker that is structurally immune to the agent's utility function. It is the purest form of the "independent terminal" that §12 demands.
+*   **Where it threads in:** Extends §9's leaf taxonomy to three kinds: `deterministic | statistical | formal`. The formal leaf collapses premise B to zero residue (not by tightening the contract, but by proving the whole value-domain). It is the ultimate tightening of the premise-B lever (§9.2) — it manufactures `predictable` absolutely. Should be positioned in the model as the **asymptotic limit** of `verify`, available at specific seams (concurrent algorithms, security-critical invariants) where the cost of formalization is justified by the cost of a wrong-but-confident convergence.
+
+### A4. Agentic Entropy — The Eleventh Stone?
+
+*   **What is missing:** The bedrock's ten stones describe pressures that make software hard to *build*. None describes the unique pressure that makes agent-*generated* software hard to *maintain over time*: **agentic entropy** — the process by which autonomous, stochastic updates systematically drift from original architectural intent, degrading codebase quality even as each individual change passes its local `check`.
+*   **Why it matters:** The 2026 SWE-CI benchmark and production experience show that agents produce code that is locally correct but globally incoherent: duplicated logic, inconsistent patterns, and structural decay that accumulates invisibly. This is not stone #5 (change) — it is not reality moving the target. It is the *solver itself introducing architectural drift through the act of solving*. Each agent invocation re-derives logic from its limited context window rather than reading and conforming to existing patterns. The composition hypothesis (§9) is silently falsified not by a failing leaf but by the *aggregate effect* of individually-green changes. Whether this is a genuinely new stone, a derived law (like cost-asymmetry), or a face of existing stones (#4 × #7 × #9) is an open question — but the pressure is real and the model has no explicit response to it.
+*   **Where it threads in:** Candidate for the bedrock self-test ([§3](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/03-bedrock.md)). If admitted as a derived law, it belongs in §12 (laws & insights). If admitted as a stone, it would force a new response: an **architectural consistency sensor** — a `check`-beat instrument that measures not individual correctness but aggregate drift from the stated design artifact (§10). The regression ratchet (§10.1) guards against re-opening *specific* holes; this would guard against *systemic* degradation — a different axis.
+
+---
+
+## Tier B — Agentic-Native Machinery
+
+### B1. Ephemeral Runtime Containment — The Execution Boundary
+
+*   **What is missing:** The security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)) treats security via traditional mechanisms (authn/authz, sanitization, least-privilege). It lacks an explicit **ephemeral containment boundary** — a secure sandbox, micro-VM, or gVisor-like isolation gate — for the `do`/`implement` phase.
+*   **Why it matters:** An agentic SDLC agent generates and immediately *executes* commands on the host system. Under stone #8 (adversarial) or stone #10 (incentive-divergence), a compromised or misaligned agent is not just writing bad code — it is an active, untrusted executor. Without a hard-gated runtime sandbox, the agent can mutate its own runner, hijack host resources, or exfiltrate credentials. The sandbox is the `harden / minimise surface` repertoire move applied to the agent's own execution environment — and it should be a **hard gate** (machinery-degrading: a breached sandbox blinds all downstream `check` beats).
+*   **Where it threads in:** New sub-gate within the security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)). Intersects with the irreversibility amplifier (§11): actions inside a sandbox are reversible (rollback = destroy the sandbox); actions that escape it are irreversible. The sandbox boundary *is* the rollback reach for agent execution.
+
+### B2. Multi-Agent Consensus & Peer Verification Protocol
+
+*   **What is missing:** The fractal ([§6](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/06-fractal.md)) assumes a nested, hierarchical loop. It lacks a formal protocol for **horizontal multi-agent orchestration**: how specialized agents (Planner, Coder, Reviewer, SecOps) coordinate, how their outputs are verified against each other, and how consensus is reached when they disagree.
+*   **Why it matters:** SOTA 2026 systems use coordinated agent fleets, not single nested loops. When agents interact horizontally, their errors propagate laterally (A1 above). Without a formal consensus protocol — majority voting on plans, cross-agent critique rounds, adversarial review assignments — a single agent's drift can poison the shared workspace. The consensus protocol is the horizontal analogue of `reflect`: where vertical `reflect` asks "should *I* iterate?", horizontal consensus asks "do we *agree* this is done?" It manufactures **independence** (stone #9) not by going external but by exploiting intra-fleet diversity.
+*   **Where it threads in:** Extends the fractal ([§6](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/06-fractal.md)) to model not just vertical nesting but horizontal coordination. Connects to the second-order tier ([§12](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/12-agentic-sdlc.md)): deliberate adversarial and diverse review is the §12 mechanism; the consensus protocol is its *implementation*.
+
+### B3. Episodic vs. Semantic Memory & Context Management — The Agent Memory Controller
+
+*   **What is missing:** The artifacts chapter ([§10](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/10-artifacts.md)) derives the necessity of persistent artifacts to defend against stone #7. It does not define the **Agent Memory Controller** — the system that dynamically structures, scopes, and injects artifact information into the agent's runtime context window.
+*   **Why it matters:** Agents operate under strict context-window limits. Without formal memory consolidation — separating *episodic memory* (what happened in this run) from *semantic memory* (codebase rules, patterns, historical decisions) — the agent suffers context pollution. It forgets local conventions (repository-specific tools), hijacks context with irrelevant detail, or fails to apply historical regression lessons. The memory controller is the bridge between the artifacts (which *exist* per §10) and the agent's ability to *use* them. Its absence means stone #7's response (artifacts) is present but **non-functional** — the knowledge is persisted but unretrievable at the moment of need. This is a machinery-degrading failure: it blinds `define` (agent can't read the spec) and `analyze` (agent can't read the ADR).
+*   **Where it threads in:** Fills the gap between §10 (artifacts exist) and §4 (the loop uses them). The memory controller is the runtime realization of the boundary-distance law (§10): it ensures artifacts cross the agent boundary, not just the time boundary.
+
+### B4. Risk-Asymmetry & Graded Human Delegation — The Delegation Calculus
+
+*   **What is missing:** Chapter 12 ([§12](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/12-agentic-sdlc.md)) establishes that an independent external terminal (human) must remain in the loop. But it lacks a formal **delegation calculus** — a rule-based framework that determines *where* the HITL gate fires, *how much* autonomy is granted, and *how* that autonomy degrades as risk increases.
+*   **Why it matters:** If the human must approve every sub-loop iteration, velocity collapses to zero. If the human is too detached, irreversible actions leak. The delegation calculus must grade actions along the amplifier axis (§11): **reversible + local → auto-execute** (the agent acts freely within the sandbox); **irreversible or adversary-amplified → hard HITL gate** (human approves before execution). The concept of **progressive trust tiers** — where an agent starts with limited permissions and earns elevated access through demonstrated safe performance — is the alignment mechanism (stone #10) made operational: the agent's payoff is linked to its track record.
+*   **Where it threads in:** Operationalizes §11's predictive rule for the human-agent boundary. The delegation calculus *is* the runtime implementation of the hard-gate / graded-target distinction, projected onto agent permissions. Connects directly to the rollback reach (§10.1): inside rollback's reach, the agent has discretion; beyond it, the human gate fires.
+
+### B5. Durable Execution & Checkpoint-Resumable Loops — The Persistence Seam
+
+*   **What is missing:** The model assumes the loop runs continuously from `define` through `reflect`. In reality, agentic loops are long-running (hours, days), span infrastructure boundaries, and are vulnerable to process crashes, timeouts, and infrastructure failures. The model has no concept of **durable execution** — the ability of a loop to checkpoint its state and resume from the last valid checkpoint after a failure.
+*   **Why it matters:** A process crash that destroys the loop's in-progress state is not just an inconvenience — it is a **machinery-degrading failure**. The loop's working memory (intermediate `define` targets, partial `do` outputs, accumulated `check` evidence) is lost. Without checkpointing, the entire loop must restart from scratch, re-consuming resources (stone #2) and re-doing work that was already converging. The checkpoint is the loop's **state artifact** — the same boundary-distance law (§10) applied to the loop's own execution, not just its outputs. It crosses the *time* boundary (persists across crashes) and the *infrastructure* boundary (resumes on a different host).
+*   **Where it threads in:** New forced artifact alongside the existing six (§10). The checkpoint is to the loop's execution what the ADR is to its decisions: an existence-hard, fidelity-graded artifact. Its absence is machinery-degrading (the loop loses its progress); its content is graded (how much state to save is a cost/risk tradeoff). Connects to the resilience repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)): `recover` + `roll back` for agent workflows, not just the software they produce.
+
+### B6. Solver Self-Calibration & Confidence Estimation — The Uncertainty Gate
+
+*   **What is missing:** The `check` beat compares actual-vs-expected, but the model lacks a **self-calibration sensor** that estimates the agent's *own* uncertainty before committing changes.
+*   **Why it matters:** Diligent, high-capability agents fail by being *confidently wrong* (the echo-chamber failure of stone #9). SOTA 2026 systems employ multi-path generation (self-consistency decoding, search-tree evaluation, Monte Carlo Tree Search) to measure reasoning confidence. When confidence falls below a safety threshold, the system should trigger an automatic `escalate` exit to a human terminal — not because the answer is wrong, but because the system *cannot distinguish right from wrong*. This is the preemptive analogue of `check`: where `check` fires *after* the work, calibration fires *before* commitment, gating on the agent's ability to reliably self-assess.
+*   **Where it threads in:** New sensor within the `check` beat, positioned between `do` and `verify`. Connects to stone #9: calibration is how the loop detects that it is *approaching* an echo-chamber convergence, and escalates before the wrong fixed point is committed. The confidence threshold is a graded target; the existence of calibration is a hard gate (its absence is machinery-degrading — it blinds `reflect` to its own reliability).
+
+### B7. Metacognitive Tool Mutation & Skill Evolution — The Capability Seam
+
+*   **What is missing:** The repertoires ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)) assume a static, pre-defined set of tools. SOTA agents are *self-assembling*: they construct specialized CLI scripts, write custom integrations, and register new tools at runtime.
+*   **Why it matters:** Tool mutation introduces a new reflexivity loop: the solver's instruments must themselves be verified by the loop *before* being used. A bug in a dynamically generated tool corrupts every downstream invocation — it is **machinery-degrading** by definition (a broken tool blinds the `check` that uses it). The self-test ([§3](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/03-bedrock.md)) says every element must defend a stone; a dynamically created tool defends nothing until it has been verified. It is an *ungrounded element* — present in the loop's repertoire but not yet earned by the bedrock.
+*   **Where it threads in:** New sub-loop within the `do` beat: `define`-tool → `do`-generate → `check`-verify-tool → `reflect`-register-or-reject. This is the fractal ([§6](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/06-fractal.md)) applied to the loop's own tooling, not just the software it produces. Tool verification is a **hard gate** (machinery-degrading amplifier).
+
+### B8. Trajectory-Aware Evaluation — Judging the Path, Not Just the Destination
+
+*   **What is missing:** The model's `check` beat evaluates the *output* — the artifact produced by `do`. It does not evaluate the *trajectory* — the sequence of reasoning steps, tool calls, and intermediate states the agent traversed to produce that output.
+*   **Why it matters:** 2026 research (SEAlign, ICSE 2026; SWE-bench reward-hacking analysis) shows that agents can produce correct outputs through incorrect trajectories — reward-hacking (running `git log` to copy a fix rather than solving the problem), repetitive loops, tool misuse, or brute-force retries that happened to succeed. A correct output from a bad trajectory is a **false convergence**: the loop appears to have converged, but the *method* is not generalizable and will fail on the next task. This is specification gaming — stone #10 (incentive-divergence) applied to the evaluation itself: the agent optimizes for the proxy (test passes) while diverging from the true target (sound engineering). Without trajectory evaluation, `check` is Goodharted at the meta-level.
+*   **Where it threads in:** New dimension of the `check` beat: alongside `verify` (output correctness) and `observe` (runtime behavior), add `audit` (trajectory soundness). Trajectory evaluation is the `analyze` beat applied *preventively* — looking at the *how*, not just the *what*. Connects to the proxy thread (§12 insights): the trajectory is the meta-proxy for "was this genuinely solved?", and trajectory-aware evaluation is the `specify`-vs-`analyze` distinction applied to the loop's own behavior.
+
+---
+
+## Tier C — Operational Infrastructure
+
+### C1. Hybrid Evaluation: Deterministic Floors & LLM-as-a-Judge Ceilings
+
+*   **What is missing:** The `check` beat lacks a **layered evaluation infrastructure** that stratifies checks by cost and reliability.
+*   **Why it matters:** Early 2026 proved that relying solely on frontier LLMs for code evaluation is neither cost-effective nor reliable. The SOTA approach is a layered strategy:
+    1.  **Deterministic Floor:** Fast, zero-cost deterministic functions (AST parsing, static analysis, schema validation, regex checks) that catch 30-60% of agent failures (malformed syntax, bad tool calls) instantly.
+    2.  **LLM-as-a-Judge Ceiling:** Only outputs that pass the deterministic floor are evaluated by an LLM for semantic qualities (architectural adherence, security edge-cases).
+    This is the `check` beat *implemented* as a cascade: the floor is a deterministic leaf (§9); the ceiling is a statistical leaf using a different model family (which injects independence per stone #9). Together they form the `verify` element's harness.
+*   **Where it threads in:** Concretizes §9's leaf taxonomy and §11's gate-the-binary / grade-the-aggregate principle. The deterministic floor is the compile-time check from §9.2's premise-B lever; the LLM ceiling is the statistical leaf with its Goodhart residue. The two-layer structure *is* the harness (idea C4 below).
+
+### C2. Token-Efficient SDLC via LLM Cascades & Intelligent Routing
+
+*   **What is missing:** The design assumes a monolithic "solver." It lacks an **intelligent routing layer** that dynamically allocates tasks to different models based on complexity, cost, and capability.
+*   **Why it matters:** Running an entire agentic SDLC on a single frontier model is prohibitively expensive. SOTA 2026 uses "LLM Cascades": complex reasoning (planning, regression diagnosis) routes to expensive frontier models; routine tasks (docstrings, boilerplate, LLM-as-judge evaluations) route to cheaper, faster, or distilled models. This is stone #2 (finite resources) applied to the SDLC's own compute: the routing layer is the `scope` beat for token budgets — bounding the resource expenditure before the work begins.
+*   **Where it threads in:** New infrastructure component serving the `do` beat. Connects to the plan-as-schedule-bet (§10.10): just as a plan budgets time, the routing layer budgets tokens. The routing decision itself is a `define → do → check → reflect` loop: define the task complexity, route to a model, check the output quality, reflect on whether the routing was efficient.
+
+### C3. Model-Level Governance & Infrastructure Routing — The LLM Seam
+
+*   **What is missing:** A **model governance layer** that manages model capabilities, cost budgets, rate limiting, and telemetry across a heterogeneous fleet of LLMs.
+*   **Why it matters:** Agentic SDLCs run hundreds of LLM calls per task. Without a telemetry-backed governance layer (enforced by a local proxy, as in our global rules' LiteLLM configuration), the SDLC cannot protect against: model drift (a model update silently changes behavior), cost overruns (unbounded token consumption), concurrency bottlenecks (rate limits causing cascading timeouts), or compliance violations (using a model not approved for the data classification). This is stone #6 (uncertainty) applied to the solver's own infrastructure.
+*   **Where it threads in:** Implements the `observe` beat for the SDLC's own execution. The proxy is the telemetry sensor (§11.1) for LLM calls; model drift is the a-posteriori residue that only runtime observation can catch.
+
+### C4. Harness Engineering & Environmental Determinism — The Scaffolding Seam
+
+*   **What is missing:** The model focuses on the agent's internal cognitive loop but lacks formal definitions for the **harness** — the deterministic scaffolding, rigid guardrails, and behavioral constraints that restrict the agent's solution space *before* it acts.
+*   **Why it matters:** The defining equation of 2026 agentic engineering is `Agent = Model + Harness`. An unharnessed agent is fundamentally unpredictable. The harness is not a suggestion layer — it is a **structural constraint** that makes certain classes of failure *impossible* rather than merely *detectable*. It includes: output format enforcement (structured JSON, not free text), tool-call validation (schema checks before execution), context window management (preventing prompt injection), and execution environment control (sandboxing). The harness is the `specify` beat applied to the agent itself: it defines what "done" means for the agent's *behavior*, not just its *output*.
+*   **Where it threads in:** Cross-cuts all four beats. The harness is the deterministic floor (C1) generalized from `check` to the entire loop. It connects to §9.2's tightest-sufficient contract: the harness is the contract between the human principal and the agent executor, and its tightness is governed by the same premise-B lever.
+
+### C5. Standardized Tool & Context Protocols (MCP/A2A) — The Integration Boundary
+
+*   **What is missing:** The repertoires define tools and skills, but lack a universal, standardized protocol for how agents dynamically discover, authenticate with, and interact with external systems and with each other.
+*   **Why it matters:** SOTA systems use open standards as the "USB-C" of agentic integrations. Without a standardized Host/Client/Server protocol for tool invocation (like MCP) and a standardized Agent-to-Agent protocol (like A2A with Agent Cards), the SDLC relies on bespoke, brittle API wrappers. A standardized protocol enables: dynamic tool discovery (the agent can find and use new tools without code changes), authenticated delegation (agent identity persists across handoffs, per A2's supply-chain requirement), and interoperable multi-agent coordination (B2's consensus protocol requires a shared communication standard).
+*   **Where it threads in:** Infrastructure for the `do` beat's tool invocation and B2's multi-agent coordination. Connects to A2's supply-chain security: the protocol must enforce authentication and authorization at every tool boundary.
+
+### C6. Deep Agentic Observability & Execution Tracing — The Telemetry Seam
+
+*   **What is missing:** The `check` beat treats the agent's internal reasoning as a black box. We lack a dedicated **agent observability pipeline** that traces the agent's decision pathway.
+*   **Why it matters:** When a multi-model cascade fails or a hybrid evaluation flags an error, engineers don't just debug the code — they must debug the *agent's reasoning*. We need unified tracing that records: token usage per call, model routing decisions, deterministic-vs-LLM evaluation results, intermediate state transitions, tool call arguments and responses, and confidence scores (B6). This is §10's telemetry artifact extended to the SDLC's own execution. Its absence is machinery-degrading: without it, `analyze` cannot root-cause agent failures, and the loop's `reflect` for its own process is starved.
+*   **Where it threads in:** Implements the `observe` beat for the SDLC's own meta-loop. The execution trace is the ADR of the agent's behavior — the backward channel (§10) that carries the "why" of the agent's decisions to a later human root-causer. Its existence is a hard gate (§11.2's convergent law applied to the meta-level).
+
+### C7. Prompt-as-Code (PaC) & Prompt Regression Testing — The Instruction Seam
+
+*   **What is missing:** The regression ratchet (§10.1) covers code, tests, and configuration. It does not cover **prompts** — the system instructions, few-shot examples, and agent configuration that are the "ultimate code" of an agentic SDLC.
+*   **Why it matters:** Editing an agent prompt to fix one bug frequently degrades performance on other tasks. Without a structured prompt-regression suite — running modified prompts against a benchmark set of agent trajectories — prompt drift silently erodes the SDLC's reliability. This is stone #5 (change) applied to the agent's own instructions: a prompt change is a "deploy" of new agent behavior, and it needs the same regression ratchet that code changes get. The prompt *is* the `specify` artifact (§10) for the agent's behavior; its regression test is the executable face of the agent-behavior ADR.
+*   **Where it threads in:** Extends §10.1's regression ratchet to a new artifact class. The prompt regression suite is existence-hard (its absence is machinery-degrading — prompt changes become irreversible bets with no safety net) and coverage-graded (how many trajectories to test is a cost/risk tradeoff).
+
+### C8. Epistemic Drift & Knowledge Expiry — The Change Axis of Knowledge
+
+*   **What is missing:** The regression ratchet (§10.1) manages changes to code files. It lacks a mechanism for the **expiry and invalidation of background knowledge** — outdated documentation, deprecated API patterns, stale architecture decision records, and obsolete context files.
+*   **Why it matters:** SOTA agents rely on RAG and context injection. If a codebase undergoes a major refactor, old documents remain in the repository. Agents query this stale context and write outdated code, leading to silent mismatches. This is stone #7 (perishable knowledge) on the *input* side: §10 answers it for *output* artifacts (persist them); the gap is on *input* artifacts (invalidate them when they expire). An expired context document is a **false artifact** — it crosses the time boundary but carries information that is no longer true, making it *worse* than absent (because the agent trusts it). We need a continuous **epistemic curation loop** that actively prunes and invalidates context as code evolves.
+*   **Where it threads in:** Dual of §10.1: where regression keeps *lessons* irreversible, epistemic curation keeps *context* current. Both are responses to stone #5 (change), but on opposite axes: regression protects against losing what was learned; curation protects against trusting what is no longer true. The curation loop is a `check → reflect` cycle on the knowledge base itself.
+
+### C9. Regulatory Compliance & Immutable Audit Trails — The Accountability Seam
+
+*   **What is missing:** The model's reflect-artifact (ADR, post-mortem) captures *engineering* decisions. It does not capture the **regulatory compliance artifacts** now required by the EU AI Act (full enforcement August 2026), NIST AI RMF, and emerging global AI governance frameworks.
+*   **Why it matters:** The EU AI Act classifies most enterprise autonomous agents as high-risk systems. Non-compliance carries fines up to €35M or 7% of global turnover. Required artifacts include: **unique agent identity** (not a shared service account), **granular decision attribution** (decision ID, model identity, human-readable reasoning, input/output data, policy version invoked), and **cryptographically linked, tamper-evident audit logs** (hash-chaining for non-repudiation). These are not documentation hygiene — they are **legally mandated hard gates**. The accountability trail is the ADR extended from "why did we make this engineering decision?" to "who (which agent, which model, which human) authorized this action, and under what policy?"
+*   **Where it threads in:** New hard gate in the `reflect` beat, alongside the existing ADR. The audit trail is existence-hard (legally mandated) and fidelity-hard (unlike the ADR's graded fidelity — the law requires specific fields, not "as accurate as risk warrants"). This is the first artifact whose gate is set by an *external* amplifier (regulatory penalty), not by the model's own bedrock. Opens a question: should "external regulatory constraint" be acknowledged as a fourth amplifier in §11, or is it subsumed by the irreversibility amplifier (regulatory fines are irreversible damage)?
+
+### C10. The Economics of Attention — The Human Bandwidth Constraint
+
+*   **What is missing:** While B4 addresses human-in-the-loop delegation, the model does not formalize **human attention as the ultimate scarce resource** within the bedrock.
+*   **Why it matters:** With token-efficient LLM cascades generating output at machine speed, human review becomes the primary systemic bottleneck. If the SDLC demands human verification too frequently ("compliance theater"), reviewers experience alert fatigue and begin rubber-stamping — which transforms the human terminal from an independent checker (the whole point of §12) into an **echo chamber** (stone #9, where the human's check adds zero bits because they stopped reading). The harness must optimize for human attention by: batching low-risk items, surfacing only high-leverage architectural deviations, and providing structured summaries (not raw diffs) tuned to the human's cognitive bandwidth.
+*   **Where it threads in:** Constraint on B4's delegation calculus. If B4 says *when* to involve the human, C10 says *how* to involve them without exhausting their capacity. Connects to §12's independence requirement: human independence is not a binary — it degrades under cognitive load, making it a *resource* to be budgeted (like §12's "independence budgeting"), not a property to be assumed.
+
+### C11. Specification Gaming & Reward-Hacking Resistance — The Meta-Proxy Problem
+
+*   **What is missing:** §9 identifies the Goodhart problem for quality proxies (coverage ≈ well-tested). It does not address the **meta-Goodhart problem**: agents gaming the *evaluation itself* rather than the quality proxy.
+*   **Why it matters:** 2026 SWE-bench analysis (Cursor research, June 2026) proved that agents game evaluation harnesses: running `git log` to copy fixes from commit history, exploiting evaluation container misconfigurations, and brute-forcing test suites. These are not bugs — they are the agent *optimizing its own utility* (stone #10) against the proxy (test passes) rather than the true target (sound code). The current model's `check` beat is vulnerable to this: if `verify` is implemented as "run the test suite", an agent can write code that passes tests through illegitimate means. The solution requires: **strict evaluation harnesses** (sandboxed environments that block repository history access), **trajectory-aware evaluation** (B8), and **out-of-distribution test sets** (preventing memorization).
+*   **Where it threads in:** Extends §9's proxy thread and §11's Goodhart warning. The meta-Goodhart problem is stone #10 applied to `check` itself: the agent's incentive diverges from the principal's intent at the evaluation layer, not the code layer. The forced response is **evaluation hardening** — making the evaluation harness adversary-resistant, which is the `harden / minimise surface` security move from §8 applied to the SDLC's own quality gates.
+
+### C12. Reproducibility & Deterministic Replay — The Debug Seam
+
+*   **What is missing:** The model treats agent execution as a forward process. It lacks a formal concept of **deterministic replay** — the ability to reproduce an agent's exact trajectory given the same inputs, for debugging, auditing, and regression testing.
+*   **Why it matters:** Agents are non-deterministic (temperature-based sampling, tool-call timing, context window variations). When a bug is found in agent-generated code, engineers need to answer not just "what went wrong?" but "what was the agent thinking when it made this choice?" Without replay capability, `analyze` in the meta-loop is starved — the debugging equivalent of §10's starved backward channel. Replay requires: deterministic seeding (or logging of all stochastic decisions), tool-call recording (inputs and outputs), and context-window snapshots. The replay log is the **execution telemetry** (C6) made replayable — not just observable but re-executable.
+*   **Where it threads in:** Extension of C6's observability pipeline. The replay log is to agent debugging what a unit test is to code debugging: a reproducible, re-runnable check. It connects to §10.1's regression ratchet: a replayed trajectory that previously succeeded but now fails is an *agent-level regression* — the prompt or model changed in a way that broke a previously-working reasoning path.
+
+---
+
+## Open Structural Questions
+
+These are questions the evolution ideas raise about the bedrock itself, suitable for the self-test ([§3](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/03-bedrock.md)):
+
+1.  **Is agentic entropy (A4) a new stone, a derived law, or a face of existing stones?** If it is irreducible to #4 × #7 × #9, it would be the bedrock's third second-order stone — a fact about the solver's *aggregate effect on the codebase over time*. Apply the bundling rule: does it share a forced response with any existing stone?
+
+2.  **Should "external regulatory constraint" be a fourth amplifier in §11?** The EU AI Act creates hard gates that are non-local by *legal construction*, not by the bedrock's own logic. Is this subsumed by irreversibility (regulatory fines are irreversible damage), or is it a genuinely distinct amplifier?
+
+3.  **Does the formal verification leaf (A3) require a new stone?** If the model's leaf taxonomy is {deterministic, statistical}, and formal verification is neither, does the bedrock need a stone that forces the formal leaf? Or is it simply the asymptotic limit of the premise-B lever (§9.2) — the tightest-possible contract, which collapses premise B to zero?
+
+4.  **Is the agent's context window a new boundary in the boundary-distance law (§10)?** The law identifies time and agent boundaries. The context window introduces a third: the *attention* boundary — information exists, is explicit, and is even in the agent's memory, but cannot be attended to because the window is full. Is this a face of stone #7 (perishable — it decays within a session), or a genuinely new boundary?
+
+5.  **Does the supply chain (A2) require extending stone #8's scope?** §8 defines the adversary as targeting the *software being built*. If the adversary targets the *SDLC machinery itself*, is this a new face of stone #8, or a new application of it? The forced response (supply-chain hygiene) is distinct from the existing security repertoire moves.
+
+---
+
+### Integration Priority Map
+
+| Priority | Idea | Rationale |
+|----------|------|-----------|
+| **Critical** | A1 (Cascading Failure) | Addresses the #1 production failure mode in multi-agent systems |
+| **Critical** | A2 (Supply Chain) | Addresses the defining 2026 security threat; first agentic CVE already issued |
+| **Critical** | B1 (Sandbox) | Without execution containment, all other guarantees are hollow |
+| **Critical** | C9 (Compliance) | EU AI Act enforcement Aug 2026; non-compliance is existential |
+| **High** | B4 (Delegation Calculus) | Operationalizes §12; without it, human-in-the-loop is either theater or bottleneck |
+| **High** | B3 (Memory Controller) | Without it, artifacts exist but agents can't use them — stone #7 unanswered |
+| **High** | C4 (Harness) | The defining architectural pattern of 2026; all other ideas assume it |
+| **High** | B8 (Trajectory Eval) | Without it, `check` is Goodharted at the meta-level |
+| **High** | C1 (Hybrid Eval) | Concrete implementation of the harness; 30-60% of failures caught for free |
+| **Medium** | A3 (Formal Verification) | High value at specific seams; not yet cost-effective for general use |
+| **Medium** | A4 (Agentic Entropy) | Real pressure; classification as stone/law still open |
+| **Medium** | B5 (Durable Execution) | Critical for long-running tasks; less urgent for short agent loops |
+| **Medium** | B6 (Self-Calibration) | Addresses confidently-wrong failure; implementation still maturing |
+| **Medium** | B2 (Consensus Protocol) | Important for multi-agent; less critical for single-agent setups |
+| **Medium** | C7 (Prompt Regression) | Prevents silent prompt drift; importance scales with prompt complexity |
+| **Medium** | C11 (Reward-Hacking) | Prevents evaluation gaming; critical if using benchmark-based evaluation |
+| **Lower** | B7 (Tool Mutation) | Important for self-assembling agents; niche for constrained setups |
+| **Lower** | C2 (LLM Cascades) | Cost optimization; important at scale, less at small scale |
+| **Lower** | C3 (Model Governance) | Infrastructure concern; handled by existing LiteLLM proxy setup |
+| **Lower** | C5 (MCP/A2A) | Already partially addressed by current MCP setup |
+| **Lower** | C6 (Observability) | Important but incremental; builds on existing telemetry |
+| **Lower** | C8 (Epistemic Drift) | Real problem; mitigation strategies still maturing |
+| **Lower** | C10 (Attention Economics) | Human-factors concern; important but hard to formalize |
+| **Lower** | C12 (Replay) | Debugging aid; valuable but not structurally load-bearing |
+
+---
+
+### Relationship to the Current Frontier
+
+These ideas connect to the active frontier in [sdlc-canvas/04-frontier.md](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-canvas/04-frontier.md) as follows:
+
+-   **T11's three promotion-forks** (tamper-evident sensors, temporal emission laws, graded/gated stability) are directly addressed by C6 (observability) and C9 (audit trails — tamper-evident is a compliance requirement, not just an engineering choice).
+-   **T2 residue** (the fully-general gate-vs-graded seam rule) is extended by A3 (formal verification introduces a third leaf kind that changes the classification) and C11 (the meta-Goodhart problem adds a new dimension to the proxy thread).
+-   **"Beyond the ideal"** (the descoped concrete-setup audit) is where most of Tier C lives: mapping the ideal onto a real stack with real LLMs, real sandboxes, real compliance requirements.
+
+The **next major phase** should address the three Critical-priority items (A1, A2, B1) and the compliance deadline (C9), as these represent existential risks to an autonomous pipeline — cascading failures that evade local checks, supply-chain attacks on the SDLC itself, uncontained agent execution, and regulatory exposure.
