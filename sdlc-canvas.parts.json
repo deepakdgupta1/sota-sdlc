@@ -1,0 +1,15 @@
+{
+  "title": "SDLC First-Principles Canvas — Living State Document",
+  "source": "sdlc-first-principles-canvas.md (split into 8 parts for maintainability)",
+  "note": "Source of truth is the parts below. The viewer fetches this manifest, then the parts in order, and concatenates them.",
+  "parts": [
+    "sdlc-canvas/00-framing.md",
+    "sdlc-canvas/01-bedrock-atom-fractal.md",
+    "sdlc-canvas/02-elements-flow-circuit-artifacts.md",
+    "sdlc-canvas/03-mechanism-of-done.md",
+    "sdlc-canvas/04-frontier.md",
+    "sdlc-canvas/05-laws-and-insights.md",
+    "sdlc-canvas/06-iteration-log.md",
+    "sdlc-canvas/07-interactive-diagrams.md"
+  ]
+}
