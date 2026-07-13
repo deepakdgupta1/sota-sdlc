@@ -14,10 +14,11 @@ machine's shape is forced.
 
 **How it works.** The chain has four links, each detailed in a later chapter:
 
-1. **The bedrock** (Chapter 3) — nine brute facts ("stones") about reality that make software hard:
+1. **The bedrock** (Chapter 3) — ten brute facts ("stones") about reality that make software hard:
    intent is hidden, resources are finite, systems exceed one mind, we make mistakes, reality
    changes, reality is uncertain, knowledge is scattered and perishable, adversaries hunt weakness,
-   and — in the autonomous case — a checker can share the doer's blind spot.
+   and the two second-order stones — reflexivity (#9, where a checker shares the doer's blind spot) and
+   incentive-divergence (#10, where a delegated doer pursues its own utility).
 2. **The loop** (Chapter 4) — those facts force exactly one atom: `define → do → check → reflect`,
    repeated until good enough, then stopped.
 3. **The behaviours** (Chapter 2) — the way the loop runs produces four behaviours: it **converges**,
