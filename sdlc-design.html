@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+<script src="vendor/marked.min.js"></script>
+<script src="vendor/cytoscape.min.js"></script>
 <style>
 :root{
   --bg:#080a0f; --bg2:#0d1017; --bg3:#11151f;
@@ -109,8 +109,6 @@ aside.ladder .rail{position:absolute;left:-14px;top:0;bottom:0;width:2px;backgro
   background:linear-gradient(90deg,rgba(244,114,182,.12),rgba(139,124,246,.05));border-radius:10px}
 #content blockquote.callout p:first-child::before{content:"⟐ AUTONOMY";display:inline-block;font-family:"JetBrains Mono",monospace;
   font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--accent3);background:rgba(244,114,182,.14);
-  border:1px solid rgba(244,114,182,.3);border-radius:6px;padding:2px 7px;margin-right:9px;vertical-align:middle}
-#content blockquote.callout p:first-child{}
 #content ul,#content ol{padding-left:22px}
 #content li{margin:6px 0;color:var(--fg-soft)}
 #content li::marker{color:var(--accent)}
