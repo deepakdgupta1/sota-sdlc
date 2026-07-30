@@ -8,10 +8,11 @@
       "port": 4321
     },
     {
-      "name": "design",
+      "name": "snapshot",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "4330"],
-      "port": 4330
+      "port": 4330,
+      "url": "http://localhost:4330"
     }
   ]
 }

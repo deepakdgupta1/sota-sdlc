@@ -1,0 +1,23 @@
+{
+  "title": "The Ideal SDLC — A First-Principles Design",
+  "asOf": "2026-07-30",
+  "rationale": "docs/RATIONALE.md",
+  "note": "Normative snapshot, frozen as of asOf. Source of truth is the parts below; the viewer fetches this manifest, then every part in order, and concatenates them. Paths are relative to the page that loads this manifest (sdlc-design.html, at the repository root). The rationale ledger is the final part so that every #R-* anchor resolves in-page.",
+  "parts": [
+    "docs/snapshot/00-front-matter.md",
+    "docs/snapshot/01-system-at-a-glance.md",
+    "docs/snapshot/02-destination-four-properties.md",
+    "docs/snapshot/03-bedrock.md",
+    "docs/snapshot/04-atom-unit-control-loop.md",
+    "docs/snapshot/05-elements.md",
+    "docs/snapshot/06-fractal.md",
+    "docs/snapshot/07-lifecycle.md",
+    "docs/snapshot/08-repertoires.md",
+    "docs/snapshot/09-mechanism-of-done.md",
+    "docs/snapshot/10-artifacts.md",
+    "docs/snapshot/11-hard-gates-vs-graded.md",
+    "docs/snapshot/12-agentic-sdlc.md",
+    "docs/snapshot/13-appendices.md",
+    "docs/RATIONALE.md"
+  ]
+}
