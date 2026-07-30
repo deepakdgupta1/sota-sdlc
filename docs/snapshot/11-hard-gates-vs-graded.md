@@ -1,5 +1,7 @@
 ## 11. Hard gates versus graded targets
 
+<sup>[↪ Why](#r-gate-01)</sup>
+
 **What it is.** Most targets are **graded**: `check` measures how well the work did on a quality range,
 and `decide` retains discretion — it can *accept* a known gap. A **hard gate** is a leaf where the
 *accept* exit is **deleted**: a single violation blocks, full stop, no amount of quality elsewhere buys
@@ -25,7 +27,7 @@ violation non-local — adversary-amplified, irreversible, or does it blind the 
 gaming; and a hard gate with *no* amplifier behind it is mis-typed. Non-compensability — not
 "importance" — is what makes a rule a gate.
 
-> ▸ **Chart — "Hard gate or graded target?"** · *L3 · gating overlay.* One decision node: is a single
+> ▸ **Chart — "Hard gate or graded target?"** <sup>[↪ Why](#r-gate-01)</sup> · *L3 · gating overlay.* One decision node: is a single
 > violation non-local? Three amplifiers route to *hard gate*; their absence routes to *graded target*.
 
 ```pipeline-graph
@@ -58,6 +60,8 @@ gaming; and a hard gate with *no* amplifier behind it is mis-typed. Non-compensa
 ```
 
 ### 11.1 How much observability is enough? — the silent-failure gate
+
+<sup>[↪ Why](#r-gate-02)</sup> <sup>[↪ Why `observe` is forced](#r-loop-03)</sup>
 
 Chapter 5 forced `observe` to **own a sensor at all** (the loop may not outsource detection to
 whoever gets hurt). But *how much* to instrument is a separate question, and it has a precise answer:
@@ -98,6 +102,8 @@ a graded target.
 
 ### 11.2 The convergent law — existence is gated, fidelity is graded
 
+<sup>[↪ Why](#r-gate-03)</sup>
+
 Four derivations in this document were run independently, and they all landed on the **same shape**:
 
 | Artifact | Serves | Its absence… | Its fidelity… |
@@ -118,7 +124,7 @@ proxy and hard-gating a proxy invites gaming (§11.1's coverage argument, §7.1'
 This is the cleanest one-line compression of Chapters 7–11: *what the loop must write down is
 non-negotiable; how well it writes it down is priced by risk.*
 
-> ▸ **Chart — "The convergent law"** · *L3 · one law, four instances.* Four independently-derived
+> ▸ **Chart — "The convergent law"** <sup>[↪ Why](#r-gate-03)</sup> · *L3 · one law, four instances.* Four independently-derived
 > artifacts, one shape: existence feeds the hard-gate band (absence is machinery-degrading); fidelity
 > feeds the graded band (a Goodhartable proxy, priced by residual risk).
 

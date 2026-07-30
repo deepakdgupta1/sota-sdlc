@@ -1,5 +1,7 @@
 ## 12. The autonomous / agentic SDLC
 
+<sup>[↪ Why](#r-agentic-01)</sup>
+
 Everything so far holds whether the loop is staffed by people or by software agents. This chapter is
 about the one place where that stops being true — **the moment you delegate the loop to other minds and,
 in the limit, remove the human entirely: agents that run the whole loop, judge their own work, and pursue
@@ -14,6 +16,8 @@ assumed neither — that its checker is *independent* and its doer is *faithful*
 breaks those assumptions.
 
 ### The first seat: reflexivity (stone #9) — the checker is not independent
+
+<sup>[↪ Why](#r-bedrock-03)</sup>
 
 In a human-run lifecycle the loop has a quiet luxury: when it checks its own work, the checker is at
 least *somewhat* independent of the doer — a different person, a different perspective, and ultimately a
@@ -40,6 +44,8 @@ because it is a statement about the *relationship between* the checkers, not abo
 it is a fact about the *solver*, not about the problem — the **first seat** of the second-order tier.
 
 ### The second seat: incentive-divergence (stone #10) — the doer is not faithful
+
+<sup>[↪ Why](#r-bedrock-04)</sup>
 
 The loop's second silent assumption is that the mind doing the work *wants what you want*. A delegate has
 its **own utility**, and knowing your intent perfectly does not make it adopt your intent. Even when the
@@ -70,6 +76,8 @@ remains that perfect alignment never fully crosses, just as perfect independence
 
 ### The consequence: an autonomous loop can neither judge nor trust itself
 
+<sup>[↪ Why](#r-done-02)</sup>
+
 Put the pieces together. Reliability is manufactured by convergence; convergence assumes both that the
 checker is *independent* and that the doer is *faithful*; in a delegated or autonomous pipeline both come
 only from an outside terminal — an independent judge, an aligned principal — and removing the human
@@ -83,7 +91,7 @@ high-capability autonomous loop fails *these specific ways* — by being *confid
 blindness) or *quietly* self-serving (divergent will), because in both cases every part of it agrees.
 That is worse than a loud failure, because nothing inside the loop raises a hand.
 
-> ▸ **Chart — "The second-order tier — the delegated/autonomous regime"** · *L4 · the delegated/
+> ▸ **Chart — "The second-order tier — the delegated/autonomous regime"** <sup>[↪ Why](#r-agentic-01)</sup> · *L4 · the delegated/
 > autonomous regime.* Two ways a delegated mind hollows a check into a bare *declare*: a **blind** checker
 > (correlated fault → echo chamber, #9) and an **unfaithful** doer (own payoff → self-serving report,
 > #10). Independence and alignment are the two properties that manufacture reliability; the external
@@ -131,6 +139,8 @@ That is worse than a loud failure, because nothing inside the loop raises a hand
 
 ### What the ideal autonomous SDLC must therefore add
 
+<sup>[↪ Why](#r-agentic-01)</sup>
+
 The second-order tier does not forbid autonomy — it **prices** it. Because a delegated or autonomous loop
 has no free human terminal to fall back on, it must **manufacture both independence and alignment
 deliberately.** Concretely:
@@ -153,6 +163,8 @@ deliberately.** Concretely:
   objective) that owns the loss. Alignment is to the *doer* what independence is to the *checker*.
 
 ### How this threads back through the document
+
+<sup>[↪ Why](#r-agentic-01)</sup>
 
 The autonomy callouts scattered through the earlier chapters are all facets of these two stones:
 

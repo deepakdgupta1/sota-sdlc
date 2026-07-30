@@ -75,7 +75,7 @@ _Active frontier_
   in, because it would renumber the bedrock and formalize a 'second-order' stone class. **· Iteration 34
   (documentation-parity pass — no derivation advanced):** design doc synced to iter 33 (Ch 7 node-kinds +
   §7.1 schedule bet · §10.1 change axis · §11.1 silent-failure gate · §11.2 convergent law · Appendix C
-  road-ahead), `HANDOFF.md` refreshed, **T10 closed** (both diagram fixes landed). **· Iteration 35 (T6
+  road-ahead), the handoff document refreshed, **T10 closed** (both diagram fixes landed). **· Iteration 35 (T6
   folded in — the bedrock pressure-test is CLOSED):** the user resolved both held forks → **admit
   conditional second-order stone #10 (incentive-divergence)** and **formalize the second-order tier** (order
   = arity of referent). Also landed the settled parts: **(i)** 8 first-order stones pairwise-irreducible +
@@ -90,9 +90,10 @@ _Active frontier_
   3. **Beyond the ideal** — the descoped concrete-setup audit (map a real stack: mis-typed gates ·
      undefended stones · collapsible ceremony), a **separate exercise** and the natural next project once
      1–2 close.
-  *(Docs: design doc + `HANDOFF.md` are at **full iter-35 parity** — the design-doc fold-in landed as
+  *(Docs: the snapshot (`docs/snapshot/`) is at **full iter-35 parity** — the fold-in landed as
   iteration 36, a documentation-parity pass: ten-stone bedrock, the second-order-tier section, Ch 12
-  reworked to both seats, the L0/bedrock/L4 charts updated, glossary + stones-matrix + Appendix C synced.)*
+  reworked to both seats, the L0/bedrock/L4 charts updated, glossary + stones-matrix + Appendix C synced.
+  The Tier E model repairs in `ROADMAP.md` §3 are **not** yet applied.)*
 
 _Open derivation frontiers_
 - **T2 · Proxy-leaves: graded by default, gated only at non-compensatory seams** *(open; ex-G1,

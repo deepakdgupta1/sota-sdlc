@@ -1,11 +1,24 @@
 ## 3. The bedrock: why the work is hard
 
+<sup>[↪ Why](#r-bedrock-01)</sup>
+
 **What it is.** First principles, literally: the unavoidable truths about reality that make software
 engineering hard. We call them **stones**. Every stage, tool, and artifact in the SDLC is a *response*
 to one or more stones — never a convention. There are **eight** first-order stones (facts about the
 *problem*), plus **two** second-order stones (facts about the *solver* — about who staffs the loop) that
 activate only when the work is delegated or fully autonomous. The eight first-order stones are
 **pairwise-irreducible**: none is a special case of another.
+
+> **What kind of claim this is.** The bedrock is a **derived, pressure-tested hazard taxonomy with an
+> explicit admission criterion** — not a proof of exhaustiveness. A pressure earns a seat when it is a
+> brute fact about reality (not a contingent choice), it forces a response the existing stones do not
+> already force, and it survives the three-direction self-test below. That criterion is what makes the
+> taxonomy useful and falsifiable: a candidate eleventh stone is *admitted* by meeting it, not excluded
+> by a closed count. What is **not** established is that exactly eight first-order stones and exactly
+> two second-order seats are the only possibilities — the bundling rule is a **self-test heuristic, not
+> an identity criterion**, because the relation between pressures and responses is many-to-many. Read
+> the counts as the current, well-tested state of the taxonomy; read the criterion as the thing that
+> would settle any dispute about them.
 
 **Why this matters.** The stones are the model's foundation and its test. If a needed element rests on
 *no* stone, the model has a spurious part. If a stone has *no* element defending it, the model has a
@@ -19,6 +32,8 @@ forced response (the **bundling rule**). That is why "distributed" and "perishab
 different machinery).
 
 ### The eight first-order stones
+
+<sup>[↪ Why](#r-bedrock-02)</sup>
 
 | # | Stone (brute fact) | What it forces |
 |---|---|---|
@@ -43,14 +58,19 @@ Two clarifications that keep the stones distinct:
 
 ### The second-order tier — two stones about who staffs the loop
 
+<sup>[↪ Why](#r-bedrock-03)</sup>
+
 The first eight stones are facts about the *problem*. The last two are different in kind — they are
 facts about the **solver**, specifically about *who staffs the loop* once the work is delegated to other
 minds (human or agent). They form a small **second-order tier**, and they share three traits: each is
 **relational** (you cannot even state it with a single mind), each is **conditional** (it collapses back
 to nothing when one aligned mind does everything), and each erodes **reliable** by hollowing a genuine
-`check` into a bare `declare`. The tier has exactly **two seats**, because the loop makes exactly two
-silent assumptions about the minds it delegates to — that the checker is **independent**, and that the
-doer is **faithful**.
+`check` into a bare `declare`. The tier has **two seats**, because the loop makes two silent assumptions
+about the minds it delegates to — that the checker is **independent**, and that the doer is
+**faithful**. *Two* is the count the admission criterion currently yields, not a proven ceiling: two
+further candidates (a delegate's **capability** and its **liveness**) were judged to fold into #4 and #7
+respectively rather than open a third seat. Those folds are judgments made under the criterion, and
+whether they are adequately argued is an open question (`ROADMAP.md` §8, Q10).
 
 9. **Reflexivity — the checker shares the doer's fault.** *(Second-order, conditional — it bites in an
    automated, autonomous, multi-agent pipeline.)* The agents that staff `check` and `reflect` are the
@@ -81,7 +101,7 @@ can). Both are conditional on delegation: with one aligned mind — or a genuine
 terminal — the tier is bounded; remove that terminal and **an autonomous loop can neither judge nor
 trust itself.** Both are treated in full, with their forced responses, in **Chapter 12**.
 
-> ▸ **Chart — "The bedrock — ten forces"** · *L1 · the forces.* Each stone on the left; the element
+> ▸ **Chart — "The bedrock — ten forces"** <sup>[↪ Why](#r-bedrock-01)</sup> · *L1 · the forces.* Each stone on the left; the element
 > or repertoire it forces on the right. This is the "why" behind every part of the loop.
 
 ```pipeline-graph

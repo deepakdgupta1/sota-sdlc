@@ -1,5 +1,7 @@
 ## 5. The loop, fully staffed: the elements
 
+<sup>[↪ Why](#r-loop-01)</sup>
+
 **What it is.** The **elements** are the concrete jobs that staff the loop's beats in the *outermost*
 SDLC loop. They are not a checklist bolted on by habit; they are the **anatomy of the loop**, each one
 forced by a specific stone. Every element is a *verb*, because each names an action.
@@ -22,6 +24,8 @@ defends nothing and the model flags it as ceremony.
 
 ### Two planes: beats vs. elements
 
+<sup>[↪ Why](#r-loop-01)</sup>
+
 There is a subtle but important distinction. The **beats** (`define → do → check → reflect`) are
 *scale-invariant* — the same four recur at every level of the system. The **elements** (specify … decide)
 are the *outermost* loop's particular staffing of those beats. `analyze` and `decide`, for instance,
@@ -30,6 +34,8 @@ activities. Keep the two planes separate and the fractal (Chapter 6) makes sense
 looks like a contradiction.
 
 ### Why there is no separate "decompose"
+
+<sup>[↪ Why](#r-loop-01)</sup>
 
 An earlier version of the model had a distinct `decompose` element. It was removed because it did no
 work `design` wasn't already doing: `design`'s output *is* the decomposition, the loop re-applies

@@ -10,10 +10,34 @@
 > — the terse, evolving state file with the full audit trail of *how* we arrived here (the Socratic
 > Q&A, the iteration log, the open research tracks). When the two disagree, the canvas is the source
 > of truth for *reasoning*; this document is the source of truth for *understanding*.
+>
+> **This snapshot is frozen as of 2026-07-30** (`asOf` in `docs/snapshot.parts.json`). It is
+> historical truth as of that date, not a promise of perpetual factual freshness. A substantive
+> change advances the date and updates the affected rationale entries in the same commit.
+
+### The four sources of truth
+
+<sup>[↪ Why](#r-method-01)</sup>
+
+This repository has exactly four. Nothing else is normative — and precedence is declared here and
+nowhere else, so that a disagreement between any two of them has one settled answer.
+
+| Document | Role | Wins on |
+|---|---|---|
+| [canvas](index.html) — `sdlc-canvas/` | the Socratic derivation, the audit trail, and the open-tracks register | **reasoning** |
+| this snapshot — `docs/snapshot/` | the normative statement of the model | **presentation** |
+| [rationale ledger](#rationale-ledger) — `docs/RATIONALE.md` | why each contested decision has its current shape, with dated external evidence | **justification** |
+| roadmap — `ROADMAP.md` | phases and gates, the Tier D and Tier E registers, traceability, open questions | **forward work** |
+
+**Method.** Model changes are derived in the canvas first, then this snapshot is regenerated from
+it. The canvas's `▶ RESUME INSTRUCTIONS` section states the method and is authoritative on it.
+Appendix D covers how to run and edit these documents.
 
 ---
 
 ## How to read this document
+
+<sup>[↪ Why](#r-method-01)</sup>
 
 The document is a **zoom lens**. It starts at the widest possible view — the entire machine in one
 picture — and then descends, chapter by chapter, into finer and finer detail. Each chapter answers
@@ -28,6 +52,8 @@ Wherever autonomy changes the picture, a callout marked **⟐ Under autonomy** f
 **Chapter 12** gathers those threads into one place.
 
 ### The chart ladder
+
+<sup>[↪ Why](#r-method-01)</sup>
 
 Every chapter carries at least one **interactive chart**. The charts are a single cohesive set,
 ordered from the coarsest view to the finest, and cross-linked so you can *zoom out* to the parent

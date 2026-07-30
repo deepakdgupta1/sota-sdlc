@@ -1,5 +1,7 @@
 ## 4. The atom: the unit control loop
 
+<sup>[↪ Why](#r-loop-01)</sup>
+
 **What it is.** Everything in the SDLC reduces to a single feedback loop, repeated:
 
 > **`set a target → do the work → check the result → reflect → (re-aim and repeat)`**
@@ -43,7 +45,7 @@ terminal, the place where a genuinely outside judgement can enter. This is norma
 becomes structurally load-bearing under autonomy (Chapter 12): remove the human and the loop loses its
 only independent ground.
 
-> ▸ **Chart — "The unit loop, fully staffed"** · *L2 · the atom.* The four beats across the top; the
+> ▸ **Chart — "The unit loop, fully staffed"** <sup>[↪ Why](#r-loop-01)</sup> · *L2 · the atom.* The four beats across the top; the
 > elements that staff each beat below them; the cross-cutting repertoire along the bottom; the dashed
 > `re-target` edge closing the loop. Chapter 5 walks the elements one by one.
 

@@ -6,17 +6,21 @@ Omnibus is in force as Regulation (EU) 2026/1744 and *replaced* Article 4**, whi
 until 2 Aug 2026; **C3b's P1 conformance check executed — no cost ceiling exists**; the SWE-Bench Pro
 retraction restated (a recommendation, not the benchmark). *Prior:* **rev 2** — round-2 review corrections
 (E5, E11, E12, D4, A2, A3, C3b, Phase 2 evidence, three traceability rows, new Q10) · **Supersedes:** the
-Integration Priority Map in
-[`sdlc-evolution-ideas.md`](sdlc-evolution-ideas.md) · **Extends:** Appendix C's road ahead
-([`13-appendices.md:133`](sdlc-design/13-appendices.md:133)) and the canvas open-tracks register
-([`04-frontier.md`](sdlc-canvas/04-frontier.md))
+Integration Priority Map in the retired idea catalogue
+(`docs-history-2026-07-30:sdlc-evolution-ideas.md#integration-priority-map`) · **Extends:** the canvas
+open-tracks register ([`04-frontier.md`](sdlc-canvas/04-frontier.md)). *As of 2026-07-30 this file is the
+repository's only decision queue: Appendix C's "road ahead" was retired into it, and the snapshot now
+carries the model only.*
 
 This is the **authoritative forward plan**. It merges three previously separate queues:
 
-1. the twelve-plus-four **evolution ideas** (Tiers A/B/C) in `sdlc-evolution-ideas.md`;
+1. the twelve-plus-four **evolution ideas** (Tiers A/B/C), formerly a standalone catalogue and now
+   carried entirely by the traceability table in **§6**
+   (`docs-history-2026-07-30:sdlc-evolution-ideas.md`);
 2. the canvas **derivation frontier** (T11's three promotion forks, T2's residue, the descoped audit);
-3. the surviving findings of the July-2026 external review, as adjudicated in
-   [`REVIEW-ASSESSMENT-2026-07.md`](REVIEW-ASSESSMENT-2026-07.md).
+3. the surviving findings of the July-2026 external review, whose adjudication now lives in the
+   rationale ledger [`docs/RATIONALE.md`](docs/RATIONALE.md) — see the `R-EVIDENCE-*` entries
+   (`docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md`).
 
 Nothing in the existing queues is deleted. Every prior item ID (A1–A4, B1–B8, C1–C12, T2, T11) keeps its
 identity and appears in the traceability table in **§6**, with its new phase and the reason for any move.
@@ -32,7 +36,7 @@ The review's best formulation, adopted verbatim as this roadmap's constraint:
 
 This is not a departure from Chapter 12 — it is its operational form. Ch 12 already holds that the
 second-order tier "does not forbid autonomy — it **prices** it"
-([`12-agentic-sdlc.md:134`](sdlc-design/12-agentic-sdlc.md:134)). What the repository lacks is the
+([`12-agentic-sdlc.md`](docs/snapshot/12-agentic-sdlc.md)). What the repository lacks is the
 machinery that **collects** that price whether or not the agent cooperates. Independence and alignment
 asserted in prose are not independence and alignment; they become real only when a system outside the
 agent's reach enforces them.
@@ -54,7 +58,7 @@ capability broker."
 
 | Track | What it produces here | Where it is built |
 |---|---|---|
-| **Track M — model repairs** (Tier E) | edits to `sdlc-canvas/` then `sdlc-design/` | here, end to end |
+| **Track M — model repairs** (Tier E) | edits to `sdlc-canvas/` then `docs/snapshot/` | here, end to end |
 | **Track F — factory** (Tier D) | executable schemas, policy contracts, trust-boundary specs, decision tables | specified here · **implemented in a separate build repository** |
 | **Track C — canvas frontier** (T11, T2) | continued Socratic derivation | here, end to end |
 
@@ -62,11 +66,13 @@ Track F items are marked **[spec]** where this repository's deliverable is a spe
 implementation is downstream. A spec is done when a competent engineer could build it without asking us a
 question — not when it reads well.
 
-**Method note.** Track M and Track C must obey the canvas's `▶ RESUME INSTRUCTIONS` and the derivation
-discipline in [`HANDOFF.md:127`](HANDOFF.md:127): derive in the canvas, then regenerate the design doc.
-Track F is different in kind — it is the concrete-systems work that `HANDOFF.md:139` deliberately
-descoped, so it does **not** enter the canvas as bedrock derivation. It gets its own artifacts, and the
-canvas's ideal stays uncontaminated. That was the right call in iteration 28 and it stays the right call.
+**Method note.** Track M and Track C must obey the canvas's `▶ RESUME INSTRUCTIONS`
+([`00-framing.md`](sdlc-canvas/00-framing.md)), which since 2026-07-30 is the single authoritative
+statement of the derivation discipline: derive in the canvas, then regenerate the snapshot. Track F is
+different in kind — it is the concrete-systems work descoped at **iteration 28**, so it does **not** enter
+the canvas as bedrock derivation. It gets its own artifacts, and the canvas's ideal stays uncontaminated.
+That was the right call in iteration 28 and it stays the right call. See
+[`R-METHOD-03`](docs/RATIONALE.md#r-method-03).
 
 ---
 
@@ -74,7 +80,7 @@ canvas's ideal stays uncontaminated. That was the right call in iteration 28 and
 
 Phases are gated, not scheduled. A phase opens when its entry condition holds, and the gate is
 **non-compensatory** — every condition must clear, in the same spirit as §11's hard gates. Dates are
-deliberately absent: this is a decision queue, and a schedule bet ([`07-lifecycle.md`](sdlc-design/07-lifecycle.md) §7.1)
+deliberately absent: this is a decision queue, and a schedule bet ([`07-lifecycle.md`](docs/snapshot/07-lifecycle.md) §7.1)
 over work whose scope is still being derived would be a bet with no premise.
 
 ```
@@ -95,7 +101,7 @@ Three Phase 1 components cannot be specified over the model as it currently stan
   currently has two incompatible readings of its own four axes (see **E1**) — the policy would encode the
   collision.
 - An **evidence-sufficiency rule** needs security expressible as testable invariants. "All of `secure` is
-  hard, wholesale" ([`11-hard-gates-vs-graded.md:13`](sdlc-design/11-hard-gates-vs-graded.md:13)) is not
+  hard, wholesale" ([`11-hard-gates-vs-graded.md`](docs/snapshot/11-hard-gates-vs-graded.md)) is not
   machine-evaluable and, taken literally, blocks every release (see **E3**).
 - An **artifact-existence gate** (D5/D7) must know *at what granularity* it attaches. §6.4 and §11.2
   currently disagree at collapsed nodes (see **E4**).
@@ -110,6 +116,13 @@ each defect into executable policy, which is precisely the compounding this exer
 New tier. Each item is a correction to the derivation or its expression, ordered by what Phase 1 needs
 first. All are in the model's own vocabulary; none requires new bedrock.
 
+> **On the `chapter:line` shorthands below.** References of the form `12:34` or `10:98` were written
+> against the pre-consolidation files and their line numbers have since shifted. They resolve against the
+> baseline tag — `git show docs-history-2026-07-30:sdlc-design/12-agentic-sdlc.md` — and are left as
+> written rather than re-anchored, because each is a working note attached to an unapplied repair and will
+> be re-resolved when that repair is derived. New references use a section or row identifier, never a line
+> number: see [`R-METHOD-04`](docs/RATIONALE.md#r-method-04).
+
 | ID | Repair | Where | Why now |
 |---|---|---|---|
 | **E1** | Split a work unit into a **boundary** (scope · exclusions · authority · budget) and an **acceptance vector** (the Ch 2 apex four + named target qualities). Retire the phrase "four-axis schema" for the propagation rule. | `09` §Propagation, `05-laws-and-insights` | D1/D6 encode this schema |
@@ -122,7 +135,7 @@ first. All are in the model's own vocabulary; none requires new bedrock.
 | **E8** | Regression lifecycle: preserve the **lesson** and its rationale irreversibly; govern the **test instance** (retire obsolete, redundant, misleading tests). Retract "none is dropped" (`10:98`). | `10` §10.1 | prevents a P2 ratchet that decays into noise |
 | **E9** | Stone #10's **agent branch**: for non-persistent inference there is no payoff to shape, so the response is **capability containment · proxy-resistant evaluation · independent evidence**, not incentives. Keep the incentive branch for delegation to persistent parties (vendors, teams, contractors). | `03` #10, `12` §second seat | B4/D9 progressive trust rests on it |
 | **E10** | State **where non-apex qualities live** — performance, accessibility, maintainability, privacy are `specify` content and acceptance-vector entries, not new axes. Give the mapping rule. | `02`, `09` | removes the review's strongest remaining ambiguity |
-| **E11** | Factual and internal-consistency corrections **(substantially rewritten in rev 2 — the first version of this item was itself wrong):** **(a) A3 contradicts `12:34`** — formal proof relocates the blind spot, it does not eliminate it, so "non-Goodhartable" and "premise B → zero" are retracted; the *primary* evidence is now external, not merely our internal contradiction: arXiv 2605.30914 reports **specification hacking**, "models exploit weak formal specifications instead of implementing the intended solutions" — a model Goodharting a formal verifier. **(b)** EU AI Act timeline and classification (see §7), with Article 50 stated conditionally. **Rev 3 — this sub-item's own correction was stale within weeks and is itself corrected:** the Omnibus is now **Regulation (EU) 2026/1744**, in force **27 Jul 2026**, and it **replaced Article 4** rather than leaving it untouched; Article 50 applies from **2 Aug 2026** (transitional to 2 Dec 2026), so it was not "biting now" when we wrote that it was. *The lesson is not the dates — it is that a legal-status paragraph decays and must carry its verification date and source, which §7 now does.* **(c) CVE-2026-25253, per NVD:** OpenClaw before `2026.1.29` "obtains a `gatewayUrl` value from a query string and automatically makes a WebSocket connection **without prompting**, sending a token value" (CVSS 8.8). A2's "not a code vulnerability" is therefore wrong — but it is **not** a sandbox escape, **not** a crafted-skill package, and **not** patched in "v2.3.1"; that mechanism was our own invention. Drop "first agentic CVE" absent a defensible definition. **(d)** **One** formal-methods citation was mislabelled, not two: 2511.17330 *is* titled "Agentic Verification of Software Systems" and does support the sentence attached to it (seL4 22 person-years; CompCert 6 person-years / 100,000 proof lines). | `sdlc-evolution-ideas.md` A3/A2/C9 · `REVIEW-ASSESSMENT-2026-07.md` §3–§4 | wrong facts anchoring Critical priorities — including **our own** first correction |
+| **E11** | Factual and internal-consistency corrections **(substantially rewritten in rev 2 — the first version of this item was itself wrong):** **(a) A3 contradicts `12:34`** — formal proof relocates the blind spot, it does not eliminate it, so "non-Goodhartable" and "premise B → zero" are retracted; the *primary* evidence is now external, not merely our internal contradiction: arXiv 2605.30914 reports **specification hacking**, "models exploit weak formal specifications instead of implementing the intended solutions" — a model Goodharting a formal verifier. **(b)** EU AI Act timeline and classification (see §7), with Article 50 stated conditionally. **Rev 3 — this sub-item's own correction was stale within weeks and is itself corrected:** the Omnibus is now **Regulation (EU) 2026/1744**, in force **27 Jul 2026**, and it **replaced Article 4** rather than leaving it untouched; Article 50 applies from **2 Aug 2026** (transitional to 2 Dec 2026), so it was not "biting now" when we wrote that it was. *The lesson is not the dates — it is that a legal-status paragraph decays and must carry its verification date and source, which §7 now does.* **(c) CVE-2026-25253, per NVD:** OpenClaw before `2026.1.29` "obtains a `gatewayUrl` value from a query string and automatically makes a WebSocket connection **without prompting**, sending a token value" (CVSS 8.8). A2's "not a code vulnerability" is therefore wrong — but it is **not** a sandbox escape, **not** a crafted-skill package, and **not** patched in "v2.3.1"; that mechanism was our own invention. Drop "first agentic CVE" absent a defensible definition. **(d)** **One** formal-methods citation was mislabelled, not two: 2511.17330 *is* titled "Agentic Verification of Software Systems" and does support the sentence attached to it (seL4 22 person-years; CompCert 6 person-years / 100,000 proof lines). | `docs-history-2026-07-30:sdlc-evolution-ideas.md` A3/A2/C9 · ledger `R-EVIDENCE-01`/`-02`/`-04` | wrong facts anchoring Critical priorities — including **our own** first correction |
 | **E12** | **The one genuine retraction.** The bundling rule ("two pressures are one stone iff they share a response") is a **self-test heuristic, not an identity criterion**, because the document itself grants the relation is many-to-many (`03:40`). It therefore cannot establish *exactly* eight first-order stones or *exactly* two second-order seats. Restate the bedrock as a **derived, pressure-tested hazard taxonomy with an explicit admission criterion** — which is what it actually is, and what makes it useful. Keep every stone; drop the claim of proven exhaustiveness. **Consequent sub-item (rev 2):** once the count is a judgment rather than a proof, the two one-line folds that justify the second-order tier — "capability folds to #4, liveness to #7" (`05-laws-and-insights:160`) — must be **stated as criterion-based judgments with their residue recorded**, not asserted in passing. See **Q10**. This records the judgment; it does not re-open T6. | `03`, `13` Appendix A, `05-laws-and-insights` | an overclaimed foundation is the one thing that discredits the whole model on contact with an enterprise reviewer |
 | **E13** | Extend the leaf/modality taxonomy from {deterministic, statistical} to **{deterministic, statistical, formal, simulated, human-experiential, runtime-assured}**, each with its own residue and its own Goodhart surface. | `09` §Termination, glossary | A3 and B6 both need the slot |
 
@@ -165,7 +178,7 @@ or more existing B/C items, named in the last column so nothing is orphaned.
 ### 4.1 · Rollback's reach is an effect envelope, not a compute boundary *(rev 3 — corrected)*
 
 **What this roadmap said, and why it was wrong.** D4 asserted that "the sandbox boundary *is* rollback's
-reach for agent execution," citing [`10-artifacts.md:186`](sdlc-design/10-artifacts.md:186). That
+reach for agent execution," citing [`10-artifacts.md`](docs/snapshot/10-artifacts.md). That
 equivalence holds only for effects **confined to the sandbox**, and the citation does not support it: the
 design says an autonomous pipeline "should treat **rollback's reach as its permission boundary**" — reach
 first, permission derived from it. D4 inverted that into *containment defines reach*, which is the opposite
@@ -202,8 +215,8 @@ from the register is treated as irreversible, by the same default rule E3(c) app
 
 **Consequences elsewhere.** B4's "inside rollback's reach, the agent has discretion" stays correct — it was
 always stated over reach, not over the sandbox — but it now resolves against the register rather than
-against containment. B1's identical equivalence in
-[`sdlc-evolution-ideas.md`](sdlc-evolution-ideas.md) is corrected in place. D4 is not weakened as a
+against containment. B1's identical equivalence in the retired idea catalogue was corrected there before it was retired
+(`docs-history-2026-07-30:sdlc-evolution-ideas.md#b1-ephemeral-runtime-containment`). D4 is not weakened as a
 component; it is scoped to the job it can actually do.
 
 **Also Phase 1 (Track M/A-side, derivation not infrastructure):**
@@ -300,7 +313,7 @@ needs calibration as much as the agent does.
    unversioned file outside this repository, and a *second, non-running* copy carrying a `max_budget` key is
    what made the presumption believable — so the configuration must be **versioned into the evidence graph
    (D5) and conformance-tested (D6)**, not cited as ambient infrastructure. Full result:
-   [`REVIEW-ASSESSMENT-2026-07.md`](REVIEW-ASSESSMENT-2026-07.md) §1 · D14 and §4 · row 15.
+   [`R-EVIDENCE-07`](docs/RATIONALE.md#r-evidence-07).
 4. **C5b · MCP/A2A interoperability** conveniences, on top of D3's trust boundary.
 5. **T2 expansion** — widen T2-tier autonomy only against pre-declared, stable evidence thresholds.
 6. **C9b · regulatory conformity** — activated by classification, not by calendar (see §7).
@@ -314,9 +327,9 @@ needs calibration as much as the agent does.
 | ID | Was | Now | Δ | Note |
 |---|---|---|---|---|
 | A1 Cascading failure | Critical | **P1** | = | OWASP ASI08 confirmed |
-| A2 Supply chain | Critical | **P1** | ✎ | ClawHavoc is A2's evidence; CVE-2026-25253 routes to **D3/D6**, not here — *corrected rev 2* (E11) |
-| A3 Formal verification | Medium | **P3** + `E11`/`E13` | ⇄ ✎ | claim retracted now; adoption later |
-| A4 Agentic entropy | Medium | **P1** | ↑ | SWE-CI gives the pressure empirical backing |
+| A2 Supply chain | Critical | **P1** | ✎ | see [`R-EVIDENCE-02`](docs/RATIONALE.md#r-evidence-02) · ClawHavoc is A2's evidence; CVE-2026-25253 routes to **D3/D6**, not here — *corrected rev 2* (E11) |
+| A3 Formal verification | Medium | **P3** + `E11`/`E13` · see [`R-EVIDENCE-04`](docs/RATIONALE.md#r-evidence-04) | ⇄ ✎ | claim retracted now; adoption later |
+| A4 Agentic entropy | Medium | **P1** | ↑ | see [`R-EVIDENCE-06`](docs/RATIONALE.md#r-evidence-06) · SWE-CI gives the pressure empirical backing |
 | B1 Sandbox | Critical | **P1 → D4** | ✎ | stands on containment / defence-in-depth; **not** justified by CVE-2026-25253 (*rev 2*, E11); **and the sandbox boundary is not rollback's reach** — *corrected rev 3*, see §4.1 |
 | B2 Consensus protocol | Medium | **P3** | ↓ | authority denied; benefit must be measured first |
 | B3 Memory controller | High | **P2** | = | binds under real-repository volume |
@@ -394,7 +407,7 @@ not a lucky escape.
 
 *Verification standing:* eur-lex.europa.eu returned an empty body to direct fetch; the facts above rest on
 three independent legal analyses in agreement, not on the primary text. Before any **C9b** conformity
-decision, read the OJ text. See `REVIEW-ASSESSMENT-2026-07.md` §4, rows 1 and 4.
+decision, read the OJ text. See [`R-EVIDENCE-01`](docs/RATIONALE.md#r-evidence-01).
 
 **And one trap worth naming.** Using AI to **evaluate developer productivity, rank engineers, or allocate
 work algorithmically** *is* Annex III (employment) high-risk. A software factory that instruments its
@@ -406,7 +419,8 @@ line and should be designed as an aggregate process measure, never a per-individ
 
 ## 8 · Open questions register
 
-Q1–Q5 are carried unchanged from `sdlc-evolution-ideas.md`. Q6–Q9 are new, from this exercise. **Q10** is
+Q1–Q5 are carried unchanged from the retired idea catalogue
+(`docs-history-2026-07-30:sdlc-evolution-ideas.md#open-structural-questions`). Q6–Q9 are new, from this exercise. **Q10** is
 new at rev 2, from the round-2 review.
 
 | # | Question | Owner |
@@ -425,7 +439,7 @@ new at rev 2, from the round-2 review.
 **Candidate resolution for Q2 / Q9, offered for the user's judgement rather than assumed.**
 
 The fractal says every loop sits inside a larger loop
-([`06-fractal.md:6`](sdlc-design/06-fractal.md:6)). A statutory or contractual obligation is then not a
+([`06-fractal.md`](docs/snapshot/06-fractal.md)). A statutory or contractual obligation is then not a
 new kind of pressure at all — it is the **parent loop's `specify` output**, arriving as an inherited
 target from a scope the organisation does not own. On that reading:
 
@@ -462,12 +476,21 @@ Stated so a later session does not mistake absence for oversight.
   holds.
 - **It does not treat any benchmark, any consensus of agents, or any self-reported confidence as
   authority.** After OpenAI's retraction of its SWE-Bench Pro recommendation and the 24.2 pp mergeability
-  gap, benchmark standing is an input to calibration, never to permission.
+  gap, benchmark standing is an input to calibration, never to permission — see
+  [`R-EVIDENCE-05`](docs/RATIONALE.md#r-evidence-05).
 
 - **It does not treat any control as present because the environment is presumed to supply it.** The C3b
   check (§5 · Phase 3 item 3) found the one presumed control nobody had read — a cost ceiling — absent. Every "already
   handled by existing infrastructure" claim in this repository is a **P1 conformance obligation** until its
-  configuration has been read and versioned.
+  configuration has been read and versioned — see [`R-EVIDENCE-07`](docs/RATIONALE.md#r-evidence-07).
+- **It does not borrow authority from published guidance that does not cover the phase in question.** NIST
+  SP 800-218A excludes the deployment and operation of AI systems from its own scope, so it cannot stand as
+  converged guidance for an agentic control plane — see
+  [`R-EVIDENCE-03`](docs/RATIONALE.md#r-evidence-03).
+- **It does not treat its own source review as verifiable.** The July-2026 external review was never
+  retained in this repository, so every characterisation of what it argued is unfalsifiable; the surviving
+  findings stand on independently verified sources instead — see
+  [`R-EVIDENCE-08`](docs/RATIONALE.md#r-evidence-08).
 
 ---
 
@@ -476,10 +499,11 @@ Stated so a later session does not mistake absence for oversight.
 **Immediate next move:** open **Q6** and **Q7** with the user Socratically — they block D10 and D5/D7
 respectively, and both are genuine forks rather than editorial choices. Then execute Phase 0 in dependency
 order: **E12 → E1 → E3 → E4 → E2 → E6 → E9 → E13 → E5 → E7 → E8 → E10 → E11**, deriving in the canvas and
-regenerating `sdlc-design/` per the maintenance rule
-([`13-appendices.md:155`](sdlc-design/13-appendices.md:155)).
+regenerating `docs/snapshot/` per the maintenance rule
+([`13-appendices.md`](docs/snapshot/13-appendices.md)).
 
 **Progress convention.** Mark each item `[ ]` → `[~]` → `[x]` in this file as it moves, and log the
 iteration in [`sdlc-canvas/06-iteration-log.md`](sdlc-canvas/06-iteration-log.md). This file is the
-roadmap's source of truth; `sdlc-evolution-ideas.md` remains the idea *catalogue* and its priority table
-now points here.
+roadmap's source of truth. The former idea *catalogue* was retired on 2026-07-30 — all **24** of its item
+IDs are carried by the traceability table in §6, and its long-form entries remain retrievable with
+`git show docs-history-2026-07-30:sdlc-evolution-ideas.md`.

@@ -1,5 +1,7 @@
 ## 6. The fractal: one shape at every scale
 
+<sup>[↪ Why](#r-loop-04)</sup>
+
 **What it is.** The loop is not a top-level ceremony with different machinery underneath. It is a
 **fractal**: the same `define → do → check → reflect` shape repeats **in both directions** —
 
@@ -20,7 +22,7 @@ relabelling four blank boxes `define/do/check/reflect` *asserts* the inward clai
 answers the sharp question their concreteness invites: **is all of this mandatory, or does the ceremony
 collapse when it would cost more than it saves?**
 
-> ▸ **Chart — "The fractal — one shape, every scale"** · *L2 · scaling.* The scope nesting (top); any
+> ▸ **Chart — "The fractal — one shape, every scale"** <sup>[↪ Why](#r-loop-04)</sup> · *L2 · scaling.* The scope nesting (top); any
 > scope expanding into the four beats (middle); any beat or element expanding into its own four-beat loop
 > (bottom). Escalation runs upward to a human; a dashed exit runs to *bedrock* — a leaf so certain it
 > collapses to bare `do` (the base case, §6.4).
@@ -75,6 +77,8 @@ collapse when it would cost more than it saves?**
 
 ### 6.1 The move, stated once — and where it stops
 
+<sup>[↪ Why](#r-loop-04)</sup>
+
 Addressing any element is a loop because the element has its own hidden target, its own way to be wrong,
 and its own finite budget — the same stones, one scale down. Two facts make the inner loop more than a
 slogan:
@@ -109,6 +113,8 @@ a loop). That base case — and when a loop may collapse *early* — is §6.4.
 
 ### 6.2 Example 1 — Feature A: rate limiting (a graded feature)
 
+<sup>[↪ Why](#r-loop-04)</sup>
+
 **The feature.** Protect a public API so no client can exhaust it, while legitimate bursts still
 succeed. The outer loop, concretely: `define` = "≤600 req/min per key, bursts still pass, over-limit →
 `429` + `Retry-After`"; `do` = a token-bucket over Redis counters; `check` = a load test plus production
@@ -118,7 +124,7 @@ false-positive rate is too high.
 Now open every element. The chart shows the skeleton and names each element's inner loop; the table that
 follows *is* the full expansion — every row is a complete `define → do → check → reflect`.
 
-> ▸ **Chart — "Feature A — rate limiting, every element opened"** · *L2 · concrete.* The four beats,
+> ▸ **Chart — "Feature A — rate limiting, every element opened"** <sup>[↪ Why](#r-loop-04)</sup> · *L2 · concrete.* The four beats,
 > staffed by the eight elements with their real jobs. Each element is itself a loop (detailed in the
 > table); `reflect`'s two elements are opened fully in the next chart.
 
@@ -179,7 +185,7 @@ risk (Goodhart, §9). That untested edge is exactly what `observe` later catches
 `analyze` then root-causes. And because `reflect` is where the loop's thinking lives, it is worth seeing
 fully opened:
 
-> ▸ **Chart — "Feature A — the reflect beat, opened inward"** · *L3 · inside reflect.* `analyze` runs a
+> ▸ **Chart — "Feature A — the reflect beat, opened inward"** <sup>[↪ Why](#r-loop-02)</sup> · *L3 · inside reflect.* `analyze` runs a
 > diagnosis loop (hypothesise → test against the evidence → refine); `decide` runs a deliberation loop
 > (frame the exits → pick → pre-mortem → commit). `decide`'s inner `escalate` *is* the outer loop's
 > `escalate` — the arrow you can trace to close the fractal.
@@ -229,6 +235,8 @@ fully opened:
 
 ### 6.3 Example 2 — Feature B: password reset (a hard-gated feature)
 
+<sup>[↪ Why](#r-gate-01)</sup>
+
 **The feature.** Let a user who has forgotten their password regain access — *securely*. The outer loop:
 `define` = "email → a 30-min single-use token → set a new password, without revealing whether the email
 is registered, invalidating other sessions on completion"; `do` = the flow; `check` = tests, a security
@@ -237,7 +245,7 @@ review, and telemetry (completion sits at a low 68%); `reflect` = why so low?
 The *same eight elements*, the *same recipe* — but a directed adversary (stone #8) changes what the inner
 checks must ask and, decisively, removes `decide`'s freedom to skip them.
 
-> ▸ **Chart — "Feature B — password reset, every element opened"** · *L2 · concrete.* The identical
+> ▸ **Chart — "Feature B — password reset, every element opened"** <sup>[↪ Why](#r-gate-01)</sup> · *L2 · concrete.* The identical
 > skeleton to Feature A — the fractal is feature-independent — with each element's job specialised for a
 > security target.
 
@@ -297,7 +305,7 @@ check is no longer "do the parts wire up?" but "is a *forbidden output* reachabl
 `verify`'s inner `reflect`, on finding the untested timing channel, **cannot take the `accept` exit** —
 `secure` is a hard gate wholesale (§9.3, §11).
 
-> ▸ **Chart — "Feature B — design & verify against an adversary"** · *L3 · inside two elements.*
+> ▸ **Chart — "Feature B — design & verify against an adversary"** <sup>[↪ Why](#r-apex-02)</sup> · *L3 · inside two elements.*
 > `design`'s inner `check` is a security composition test against the forbidden-output wall (§9.3);
 > `verify`'s inner `reflect` finds the untested timing channel, but its `accept` exit is deleted because
 > `secure` is a hard gate (§11).
@@ -350,6 +358,8 @@ check is no longer "do the parts wire up?" but "is a *forbidden output* reachabl
 
 ### 6.4 Is all this ceremony a must? — reducibility and the base case
 
+<sup>[↪ Why](#r-loop-04)</sup>
+
 **No — and the model says precisely when.** The full four-beat loop is a *response to stones*; where a
 stone does not bite for a given piece of work, the beat it forces yields no information, and running it
 is pure cost. So a loop may **collapse toward bare `do`** exactly as its stones fall away:
@@ -372,7 +382,7 @@ Two independent base cases bound the recursion, on the model's two axes:
 - **Inward (how much ceremony per node)** is this section: run a beat only while its stone is present. A
   certain, atomic, cheap-to-redo step is the inward leaf — bare `do`, no `check`, no `reflect`.
 
-> ▸ **Chart — "When the loop collapses — is the ceremony a must?"** · *L3 · reducibility.* Per node: if
+> ▸ **Chart — "When the loop collapses — is the ceremony a must?"** <sup>[↪ Why](#r-loop-04)</sup> · *L3 · reducibility.* Per node: if
 > the forcing stone is absent, collapse to bare `do` — *unless* a violation would be non-local (a hard
 > gate, §11), or a "trivial" step keeps failing (a hidden stone — re-expand). Outward depth stops
 > separately, at a checkable leaf (§9).

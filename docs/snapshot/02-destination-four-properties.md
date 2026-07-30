@@ -1,10 +1,14 @@
 ## 2. The destination: four properties
 
+<sup>[↪ Why](#r-apex-01)</sup>
+
 Before building anything, name what "good" means — because you cannot check work against nothing.
 A good SDLC produces **four distinct properties**, in **two families**. They are distinct because
 each guards against a *different* way the work can fail, and you can have any one without the others.
 
 ### The two families
+
+<sup>[↪ Why](#r-apex-01)</sup>
 
 **Point-properties** are measured at a *single* point — one task, in one context.
 
@@ -40,6 +44,8 @@ the easy one. The range has two very different sources of hardness, and each for
 
 ### Why security is a fourth seat, not a corner of resilience
 
+<sup>[↪ Why](#r-apex-02)</sup>
+
 It is tempting to file security under "resilience on the hardest context." That is wrong, and the
 distinction is load-bearing. The machinery that manufactures resilience — redundancy, retries,
 graceful degradation — is *statistical*: it assumes hardship arrives at random and rare events are
@@ -50,6 +56,8 @@ different *opponent* — so security takes a fourth seat beside resilience, with
 (Chapter 8).
 
 ### They are genuinely independent
+
+<sup>[↪ Why](#r-apex-01)</sup>
 
 Each property is independent of its family sibling — you can hold one and fail the other:
 
@@ -64,7 +72,7 @@ Each property is independent of its family sibling — you can hold one and fail
 Because each combination exists, none of the four reduces to another. All four must be produced on
 purpose.
 
-> ▸ **Chart — "The four properties"** · *L1 · the destination.* A zoom into the top band of the
+> ▸ **Chart — "The four properties"** <sup>[↪ Why](#r-apex-01)</sup> · *L1 · the destination.* A zoom into the top band of the
 > complete circuit: the two families, the behaviour that produces each property, and the two
 > independence relations (⟂).
 

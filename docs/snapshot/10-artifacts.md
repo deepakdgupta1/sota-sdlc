@@ -1,5 +1,7 @@
 ## 10. What each loop leaves behind: the artifacts
 
+<sup>[↪ Why](#r-artifact-01)</sup>
+
 **What it is.** An **artifact** is the persistent, explicit carrier of a loop's target, result, or
 lesson. Specs, code, tests, telemetry, decision records, post-mortems, version history, runbooks — each
 is the durable residue of a beat.
@@ -25,6 +27,8 @@ cross in a head.
 
 ### The boundary-distance law
 
+<sup>[↪ Why](#r-artifact-01)</sup>
+
 How *durable* an artifact is *forced* to be scales with the **distance between its producer and its
 consumer**:
 
@@ -40,7 +44,7 @@ consumer**:
   reflect-artifact is a **hard gate** (Chapter 11), not documentation hygiene: it is the only *backward*
   channel the loop has, and it is what makes `reflect` the loop's one *learning* beat.
 
-> ▸ **Chart — "The artifacts"** · *L2 · persistence overlay.* Each beat produces its carrier (left →
+> ▸ **Chart — "The artifacts"** <sup>[↪ Why](#r-artifact-01)</sup> · *L2 · persistence overlay.* Each beat produces its carrier (left →
 > middle); each carrier crosses the *time* and/or *agent* boundary (middle → right).
 
 ```pipeline-graph
@@ -83,6 +87,8 @@ consumer**:
 ```
 
 ### 10.1 The change axis: the regression ratchet and the rollback net
+
+<sup>[↪ Why](#r-artifact-02)</sup>
 
 Stone #5 — *reality keeps changing* — bites the over-time loop on **two faces**, and each face forces
 its own organ. Together they are the change-axis counterpart of the #6 pair (`degrade` / `recover`,
@@ -138,7 +144,7 @@ machinery. And together the two organs buy `resilient` its **"over time"** claus
 buy the *context* clause, while without the ratchet the envelope is only momentary — it leaks every
 time change re-opens an old hole.
 
-> ▸ **Chart — "The change axis — regression & rollback"** · *L3 · the time axis.* Stone #5's two
+> ▸ **Chart — "The change axis — regression & rollback"** <sup>[↪ Why](#r-artifact-02)</sup> · *L3 · the time axis.* Stone #5's two
 > faces force two dual organs: the post-mortem compiled into an auto-firing, monotonically-accumulating
 > `verify` check (existence gated, coverage graded), and the backward move in version-space whose
 > reach defines the graded region (the gate falls at its limit).

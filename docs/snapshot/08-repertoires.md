@@ -1,5 +1,7 @@
 ## 8. The two repertoires: resilience and security
 
+<sup>[↪ Why](#r-apex-02)</sup>
+
 **What it is.** Some responses are not beats in the forward flow — they are a **repertoire** of moves
 the loop can invoke from `reflect`, at *any* element and *any* scale, mostly at run time. There are two
 repertoires, one per source of hardness, and together they manufacture the two envelope-properties.
@@ -9,6 +11,8 @@ sampler — stones #5, #6) and *directed* (a worst-case searcher — stone #8). 
 because the statistical moves that beat randomness can be turned *against* you by a searcher.
 
 ### The resilience repertoire — against random hardship (→ resilient)
+
+<sup>[↪ Why](#r-apex-02)</sup>
 
 | Response | What it does | Example |
 |---|---|---|
@@ -28,6 +32,8 @@ fix stuck at build time.
 
 ### The security repertoire — against a directed adversary (→ secure)
 
+<sup>[↪ Why](#r-bedrock-05)</sup>
+
 | Response | What it does | Example |
 |---|---|---|
 | **authenticate / authorize** | Prove identity, then gate every action by least privilege. | Signed-in ≠ allowed; check the permission on each request. |
@@ -40,7 +46,7 @@ Chapter 9 — but here its floor is set by an *attacker*, not by natural varianc
 "never trust external data" is a **hard gate** (Chapter 11) and not merely good advice: the downside is
 non-local.
 
-> ▸ **Chart — "The two repertoires"** · *L2 · cross-cutting.* Left: random hardness → resilient →
+> ▸ **Chart — "The two repertoires"** <sup>[↪ Why](#r-apex-02)</sup> · *L2 · cross-cutting.* Left: random hardness → resilient →
 > four resilience moves. Right: a directed adversary → secure → four security moves. Same shape,
 > different opponent.
 

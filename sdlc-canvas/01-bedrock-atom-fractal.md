@@ -110,10 +110,24 @@ aligned agent**. #9 is a doer↔checker *correlation* — which is *why* it is i
 monadic vs joint-relational). The partition **predicts the class's shape**: second-order stones are
 **relational** (≥2 roles), **conditional** (collapse when the configuration degenerates), and erode a
 *point-property* by breaking a **silent assumption the loop makes about who staffs it**. The loop makes
-exactly **two** such assumptions — the checker is **independent** and the doer is **faithful** — so the
-tier has **exactly two seats**: **#9 reflexivity** (epistemic; breach → *echo-chamber* `declare`) and
-**#10 incentive-divergence** (conative; breach → *self-serving* `declare`). Capability folds to #4
-(monadic); liveness folds to #7 — neither opens a third seat.
+**two** such assumptions — the checker is **independent** and the doer is **faithful** — so the
+tier has **two seats**: **#9 reflexivity** (epistemic; breach → *echo-chamber* `declare`) and
+**#10 incentive-divergence** (conative; breach → *self-serving* `declare`).
+
+> **E12 · the epistemic status of the counts (2026-07-30).** "Exactly two seats" is retracted as a
+> *proof* and restated as the current output of the **admission criterion**: the bundling rule is a
+> self-test heuristic, not an identity criterion, because the pressure→response relation is
+> many-to-many (`03:40`). Every stone stands; only the exhaustiveness claim goes. The bedrock is a
+> **derived, pressure-tested hazard taxonomy with an explicit admission criterion** — which is what it
+> has always actually been, and what makes it falsifiable rather than merely asserted.
+>
+> Consequently the two folds — **capability → #4** (monadic) and **liveness → #7** — are
+> **criterion-based judgments, not passing assertions**, and their residue is **not yet recorded**:
+> capability's forced responses (routing, decomposition, tool acquisition, capability selection,
+> escalation) are not #4's verify-and-analyze, and liveness's (budgets, timeouts, checkpointing,
+> durable execution) are not #7's *artifact*. Whether the folds are adequately argued is **Q10**
+> (`ROADMAP.md` §8) — open, and the user's call whether to take up. **This records the judgment; it
+> does not reopen T6.** The stone count is not being re-derived.
 
 ## 4. The atom — the unit control loop
 

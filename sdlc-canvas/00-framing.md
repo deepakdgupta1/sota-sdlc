@@ -5,8 +5,8 @@
 > SDLC, and why every piece is logically required.* It is written so the whole journey can
 > be resumed from this file alone, with a fresh/cleared context.
 
-- **Last updated:** iteration 36 (**documentation-parity pass — synced the design doc to the iter-35 model; no derivation advanced**): folded the closed T6 into `sdlc-design-document.md` — Ch 3 bedrock reworked (ten stones; the three-direction self-test with the **bundling rule**; a new **"second-order tier"** section with #9 as the first seat and **#10 incentive-divergence** as the second; bedrock chart → **"ten forces"**), Ch 12 restructured to both seats (+ the **alignment** machinery + a broadened L4 **"second-order tier"** chart), the L0 circuit chart + Ch 2 autonomy callout gain the #10 node/edge, and the glossary, stones-matrix (row 10), and Appendix C (parity + road-ahead) updated. All 21 design-doc charts validate; both viewers render clean. **Design doc + `HANDOFF.md` now at full iter-35 parity.** *(Prior: iter 35 — **T6 folded into the canvas → the bedrock pressure-test CLOSED**: admitted conditional second-order **stone #10 (incentive-divergence)** + formalized the second-order tier (order = arity of referent; two seats — independence #9 · alignment #10); 8 first-order stones pairwise-irreducible + the bundling rule; cost-asymmetry rejected → §12. **Bedrock is now 8 first-order + 2 second-order.** iter 34 — doc-parity pass to iter 33, **T10 closed**; iter 33 — parallel fold-in closed **T3/T7/T8/T11** + folded T9 (§10.8/§10.9/§10.10, the existence-hard/fidelity-graded law); iter 32 — §10.7. Full trail: §13.)*
-- **Status:** canvas = **ideal MUST-HAVE** derivation (concrete-setup audit descoped, iteration 28). Apex **four properties** (reliable · predictable · resilient · secure); behaviour→property map complete (**preempts→secure**); `secure` recurses every seam (§10.3); hard gate = non-compensatory leaf, 3 amplifiers (§10.4); **`reflect` = forced-MUST-HAVE beat / only *backward* channel (§10.5)**; **`observe` = forced sensor; telemetry = detector + analyze-operand, graded-with-gates (§10.6)**; bedrock **8 first-order stones + two conditional 2nd-order (reflexivity #9 · incentive-divergence #10, §3), on a formalized second-order tier**; artifacts (§9, + boundary-distance law); Done / design-as-a-bet / two bars (§10–§10.2). **All open work: §11 Open-tracks register.** Active: **T3/T6/T7/T8/T11 closed** (iter 33 → §10.8/§10.9/§10.10; **iter 35 → §3 stone #10 + the second-order tier**) + the *existence-hard / fidelity-graded* convergent law (§12); T9/T10 folded/closed. Next: **T11's three promotion-forks · T2's general-seam residue** (roadmap heads §11). Docs: design doc + `HANDOFF.md` **synced to full iter-35 parity** (design-doc parity pass, iter 36 → ten-stone bedrock, second-order tier, the two updated charts).
+- **Last updated:** iteration 36 (**documentation-parity pass — synced the design doc to the iter-35 model; no derivation advanced**): folded the closed T6 into `sdlc-design-document.md` — Ch 3 bedrock reworked (ten stones; the three-direction self-test with the **bundling rule**; a new **"second-order tier"** section with #9 as the first seat and **#10 incentive-divergence** as the second; bedrock chart → **"ten forces"**), Ch 12 restructured to both seats (+ the **alignment** machinery + a broadened L4 **"second-order tier"** chart), the L0 circuit chart + Ch 2 autonomy callout gain the #10 node/edge, and the glossary, stones-matrix (row 10), and Appendix C (parity + road-ahead) updated. All 21 design-doc charts validate; both viewers render clean. **The snapshot (`docs/snapshot/`) is now at full iter-35 parity.** *(Prior: iter 35 — **T6 folded into the canvas → the bedrock pressure-test CLOSED**: admitted conditional second-order **stone #10 (incentive-divergence)** + formalized the second-order tier (order = arity of referent; two seats — independence #9 · alignment #10); 8 first-order stones pairwise-irreducible + the bundling rule; cost-asymmetry rejected → §12. **Bedrock is now 8 first-order + 2 second-order.** iter 34 — doc-parity pass to iter 33, **T10 closed**; iter 33 — parallel fold-in closed **T3/T7/T8/T11** + folded T9 (§10.8/§10.9/§10.10, the existence-hard/fidelity-graded law); iter 32 — §10.7. Full trail: §13.)*
+- **Status:** canvas = **ideal MUST-HAVE** derivation (concrete-setup audit descoped, iteration 28). Apex **four properties** (reliable · predictable · resilient · secure); behaviour→property map complete (**preempts→secure**); `secure` recurses every seam (§10.3); hard gate = non-compensatory leaf, 3 amplifiers (§10.4); **`reflect` = forced-MUST-HAVE beat / only *backward* channel (§10.5)**; **`observe` = forced sensor; telemetry = detector + analyze-operand, graded-with-gates (§10.6)**; bedrock **8 first-order stones + two conditional 2nd-order (reflexivity #9 · incentive-divergence #10, §3), on a formalized second-order tier**; artifacts (§9, + boundary-distance law); Done / design-as-a-bet / two bars (§10–§10.2). **All open work: §11 Open-tracks register.** Active: **T3/T6/T7/T8/T11 closed** (iter 33 → §10.8/§10.9/§10.10; **iter 35 → §3 stone #10 + the second-order tier**) + the *existence-hard / fidelity-graded* convergent law (§12); T9/T10 folded/closed. Next: **T11's three promotion-forks · T2's general-seam residue** (roadmap heads §11). Docs: the snapshot (`docs/snapshot/`) **synced to full iter-35 parity** (design-doc parity pass, iter 36 → ten-stone bedrock, second-order tier, the two updated charts). **Tier E model repairs from `ROADMAP.md` §3 are not yet applied to either document.**
 
 ---
 
@@ -15,14 +15,24 @@
 You are the assistant resuming a Socratic teaching journey with the user. Do this:
 
 1. Read this entire document — it is the complete derived model and the current frontier.
-2. **Method (do not break it):** Socratic + first-principles + handholding. *Ask, let the
-   user reason, then reflect/sharpen their answer and slot it into the model.* Do not
-   lecture or hand over answers unless the user explicitly asks ("what's the answer?").
-   Maintain an evolving visual when it helps; visuals are regenerable from this file, so
+2. **Method (do not break it).** This is a **Socratic + first-principles + handholding** teaching
+   journey. *Ask, let the user reason, then reflect/sharpen their answer and slot it into the
+   model.* Do **not** lecture or hand over answers unless the user explicitly asks ("what's the
+   answer?"). Maintain an evolving visual when it helps; visuals are regenerable from this file, so
    they are disposable.
 3. Go to **§11 Current frontier** and continue from the **pending question** there.
 4. After each meaningful step, **update this document** (the model sections + §11 frontier + §13 log).
-   This file — not the chat history — is the source of truth.
+   This file — not the chat history — is the source of truth. Then regenerate
+   `docs/snapshot/` from it: the canvas wins on *reasoning*, the snapshot wins on *presentation*,
+   and a disagreement between them is itself a sync task.
+5. **Scope discipline.** This canvas derives the **ideal MUST-HAVE** SDLC: what *any* such lifecycle
+   is logically forced to contain. It is **not** a map of the user's current setup — auditing a
+   concrete stack against the ideal was **descoped on purpose** at iteration 28, so the ideal stays
+   uncontaminated by what a given setup already has or lacks. Concrete-systems work (the Tier D
+   control plane in `ROADMAP.md` §4) therefore does **not** enter this canvas as bedrock derivation;
+   it gets its own artifacts.
+6. **This section is the authoritative statement of the method.** It is stated here and nowhere
+   else. `ROADMAP.md` §1 and `docs/snapshot/00-front-matter.md` both defer to it.
 
 ---
 

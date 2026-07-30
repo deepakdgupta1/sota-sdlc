@@ -1,5 +1,7 @@
 ## 7. The lifecycle: the process flow
 
+<sup>[↪ Why](#r-loop-05)</sup>
+
 **What it is.** The familiar left-to-right lifecycle — discover, define, design, plan, build, verify,
 release, operate — is not a separate model. It is the **projection** of the loop onto the timeline of a
 single release: the beats laid out in order, with the feedback edges drawn back in.
@@ -38,7 +40,7 @@ The projection is made of **four node-kinds**, and only the first is a stone-def
 
 One box is still unaccounted for by that list — **plan** — and it earns its seat a different way.
 
-> ▸ **Chart — "The lifecycle (process flow)"** · *L2 · lifecycle.* The forward flow in solid arrows;
+> ▸ **Chart — "The lifecycle (process flow)"** <sup>[↪ Why](#r-loop-05)</sup> · *L2 · lifecycle.* The forward flow in solid arrows;
 > the build loop, the operate loop, the shift-left edge, and the Ouroboros in dashed arrows.
 
 ```pipeline-graph
@@ -84,6 +86,8 @@ One box is still unaccounted for by that list — **plan** — and it earns its 
 
 ### 7.1 A plan is a schedule bet
 
+<sup>[↪ Why](#r-gate-03)</sup>
+
 The lifecycle chart has one box with no Chapter 5 element behind it: **plan**. It is not a missing
 element and not a new stone — it is `scope` + `specify` **projected onto the time axis**, exactly as
 the lifecycle itself is the elements projected onto wall-clock. And once you see that, the whole of
@@ -121,7 +125,7 @@ composition routes back to `design`.
 **Plan is to predictable what the ADR is to reliable** — the intended-operand the loop must write down
 so its own later comparison has something to compare against.
 
-> ▸ **Chart — "The schedule bet"** · *L3 · inside plan.* `plan` states the bet (task stubs +
+> ▸ **Chart — "The schedule bet"** <sup>[↪ Why](#r-gate-03)</sup> · *L3 · inside plan.* `plan` states the bet (task stubs +
 > the conjecture); a critical-path stub-composition fails cheap (→ re-plan) or survives, suspending
 > Premise A (per-task, verify-like) and Premise B (whole-future, observe-like). The baseline's
 > existence is gated; the dates stay a graded forecast.

@@ -157,8 +157,10 @@
   point-property by breaking a *staffing* assumption.
 - **The loop's two silent staffing assumptions (§3, T6):** convergence assumes the checker is **independent**
   (#9) and the doer is **faithful** (#10); each breach turns `check` into a hollow `declare` (echo-chamber ·
-  self-report) and erodes `reliable`. The second-order tier has **exactly two seats** — capability folds to
-  #4, liveness to #7.
+  self-report) and erodes `reliable`. The second-order tier has **two seats** — capability folds to
+  #4, liveness to #7. **(E12, 2026-07-30: "exactly two" is retracted as a proof and restated as the
+  admission criterion's current output; the two folds are criterion-based judgments whose residue is not
+  yet recorded — see Q10. This records the judgment; T6 stays closed.)**
 - **Cost-asymmetry is a derived law, not a stone (T6):** *attack ≪ defence* = #8 + #3 (one undefended seam
   holes the envelope, §10.3); *fix-early ≪ fix-late* = the shift-left law over #3 + #5 + #7. Real and
   load-bearing, but **downstream** of existing stones — it belongs here, not in the §3 bedrock. (The contrast

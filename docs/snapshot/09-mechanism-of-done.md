@@ -1,11 +1,15 @@
 ## 9. The mechanism of Done
 
+<sup>[↪ Why](#r-done-01)</sup>
+
 This is the first deep zoom — *inside a single beat.* Chapter 4 said a "done" is a graded threshold,
 not a yes/no; Chapter 6 said every element carries its own target. This chapter shows **how that target
 is actually set, inherited, and checked** — and why the mechanism is the same regardless of what
 software you are building.
 
 ### Origination → propagation → termination
+
+<sup>[↪ Why](#r-done-02)</sup>
 
 - **Origination (the root).** The top-level "done" has no parent to inherit from. It is **elicited from
   hidden intent by `specify`** (stone #1). This is the one *contingent seed* of the whole tree — it
@@ -22,6 +26,8 @@ software you are building.
     check from ever being perfectly deterministic.
 
 ### Decomposition is a bet — the composition hypothesis
+
+<sup>[↪ Why](#r-done-01)</sup>
 
 To split *P* into parts {Lᵢ} is to *assert* a conjecture:
 
@@ -47,7 +53,7 @@ the stones. The *content* — the specific thresholds, which proxies, which deco
 contingent. Only the root is elicited; every internal target is derived. This is why "done" generalises
 across any software.
 
-> ▸ **Chart — "Done propagation"** · *L3 · inside a beat.* Intent is elicited into a root target;
+> ▸ **Chart — "Done propagation"** <sup>[↪ Why](#r-done-01)</sup> · *L3 · inside a beat.* Intent is elicited into a root target;
 > `design` decomposes it (each edge a composition hypothesis); leaves bottom out into deterministic or
 > statistical checks; a rejected qualitative composite falsifies the hypothesis and routes back to
 > `design`.
@@ -88,6 +94,8 @@ across any software.
 
 ### 9.1 Design as a bet — stub-composition
 
+<sup>[↪ Why](#r-done-01)</sup>
+
 If the composition hypothesis is design's central artifact, then **design is not "draw the structure"
 — it is "state and defend a bet"**: a decomposition into components, the **interface contracts** between
 them, and the conjecture that they compose to *P*. The valuable property of a bet is that it can be
@@ -112,7 +120,7 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
   until the real thing is built and run. That is the single reason design-time checking cannot close
   them; it can only *name* and *route* them.
 
-> ▸ **Chart — "Design as a bet — stub-composition"** · *L3 · inside design.* Design states the bet; a
+> ▸ **Chart — "Design as a bet — stub-composition"** <sup>[↪ Why](#r-done-01)</sup> · *L3 · inside design.* Design states the bet; a
 > design-time stub-composition either fails cheap (→ re-decompose) or survives — discharging the wiring
 > and suspending Premise A (→ verify) and Premise B (→ observe).
 
@@ -154,6 +162,8 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
 
 ### 9.2 The premise-B lever — the two quality bars of a good bet
 
+<sup>[↪ Why](#r-done-02)</sup>
+
 Premise B — "the contract holds across its whole range of inputs" — is **not a fixed cost.** Its *size*
 is something `design` **chooses**, by how tightly it draws each interface contract. This is the second
 quality bar.
@@ -180,7 +190,7 @@ foreseeably they cross) is `predictable`. The optimum contract is **maximum pred
 admitting the whole required set of realities.** A good design bet therefore meets two bars: (1) it
 **fails cheap** (§9.1), and (2) it carries **tightest-sufficient contracts** (§9.2).
 
-> ▸ **Chart — "The premise-B lever"** · *L3 · inside a contract.* Contract-tightness is a dial:
+> ▸ **Chart — "The premise-B lever"** <sup>[↪ Why](#r-done-02)</sup> · *L3 · inside a contract.* Contract-tightness is a dial:
 > tightening buys `predictable` and moves residue from statistical → deterministic → compile-time, but
 > the floor is the required set of realities (`reliable` + `resilient`). One step past the floor and
 > the contract rejects a valid input.
@@ -215,6 +225,8 @@ admitting the whole required set of realities.** A good design bet therefore mee
 ```
 
 ### 9.3 Security recurses at every seam — the forbidden-output wall
+
+<sup>[↪ Why](#r-gate-01)</sup>
 
 The three input-properties re-appear at every seam as a **floor** (which realities *must* cross).
 `secure` re-appears too, as the **complement on the output side**: not "admit the whole required input

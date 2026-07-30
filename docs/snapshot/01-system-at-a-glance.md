@@ -1,5 +1,7 @@
 ## 1. The system at a glance
 
+<sup>[↪ Why](#r-apex-01)</sup>
+
 **What it is.** The entire SDLC, compressed into one causal chain. Read it bottom-to-top:
 
 > **brute facts about reality** &nbsp;→&nbsp; **one control loop** &nbsp;→&nbsp; **four loop behaviours**
@@ -28,7 +30,7 @@ machine's shape is forced.
    predictable, resilient, and secure. A final **evolve** edge feeds what we learn back into the
    target, turning the loop into a spiral — the "Ouroboros."
 
-> ▸ **Chart — "The complete circuit"** · *L0 · the whole system.* The master synthesis: every later
+> ▸ **Chart — "The complete circuit"** <sup>[↪ Why](#r-apex-01)</sup> · *L0 · the whole system.* The master synthesis: every later
 > chart is a zoom into one region of this one. Start here, then zoom in.
 
 ```pipeline-graph
