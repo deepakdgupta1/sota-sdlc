@@ -29,7 +29,10 @@ source-of-truth files.
 | `sdlc-design/` (14 parts) + `sdlc-design.parts.json` | **source of truth for *understanding*** — the clean design snapshot, split into **one file per chapter** (front-matter, ch1–12, appendices): what/why/how prose, 21 inline charts, glossary, roadmap in Appendix C. Regenerated from the canvas when the model advances; at **full iteration-35 parity** (fold-in done as canvas iter 36 — ten-stone bedrock, the second-order tier, #10 in the L0/bedrock/L4 charts) |
 | `index.html` | the canvas viewer — fetches the manifest, concatenates the parts, renders live, and hoists diagram blocks into one tabbed editable panel |
 | `sdlc-design.html` | the design viewer — same manifest-and-concatenate fetch; charts inline in context, zoom-in/out chips, floating chart ladder |
-| `.claude/launch.json` | preview server configs — **`canvas`** on port 4321, **`design`** on port 4330; either serves the whole folder, so both pages are reachable from either port |
+| `ROADMAP.md` | **source of truth for *what's next*** — the phased plan (Phase 0 model repairs → 1 safety kernel → 2 calibration → 3 advanced autonomy), the new **Tier E** (model repairs) and **Tier D** (control plane) registers, traceability for every prior A/B/C/T item, and the open-questions register Q1–Q10. Supersedes the priority table in `sdlc-evolution-ideas.md` |
+| `REVIEW-ASSESSMENT-2026-07.md` | the adjudication of the July-2026 external review: 14 dispositions with justification (**1 agree · 8 partial · 4 disagree · 1 withdrawn**), 12 accepted findings, **4** errors found in our *own* docs (R1–R4; **R5 was reclassified at rev 2 as an evidence upgrade, not an error**), and a verification log for every external citation. **At rev 3.** Rev 2 verified the reviewer's round-2 response — D1/D10/D12 → PARTIAL, **D11 withdrawn**, D14 repaired, **R3's CVE mechanism retracted as our own fabrication**. Rev 3 audited the file against *itself* — **D3 → AGREE**, D2's count corrected, D9's scope sentence corrected from the primary text, the **EU AI Act status moved from forecast to in-force law**, and the **LiteLLM "cost is handled" claim falsified**. §6 and §7 carry the rev-2 and rev-3 scorecards; **read both before citing any figure from this file** |
+| `sdlc-evolution-ideas.md` | the **idea catalogue** (Tiers A/B/C, 24 entries + 5 open structural questions). Its priority table is superseded — read `ROADMAP.md` for priorities; the errata block at its foot lists its own factual corrections |
+| `.claude/launch.json` | preview server configs — **`canvas`** on port 4321, **`design`** on port 4330; either serves the whole folder, so both pages are reachable from either port. *(Created 2026-07-29. This row described the file for some time while it did not exist — the config was reconstructed from the ports documented in §3.)* |
 | `HANDOFF.md` | this file |
 
 ## 3. Run the website (localhost only)
@@ -96,7 +99,9 @@ Add a fenced block to the markdown:
 ## 6. The model in one breath (so you have the gist)
 
 **Eight bedrock stones** (brute facts: intent-hidden · finite · complex · we-err · change ·
-uncertain · **distributed & perishable** · **adversarial actors**; **+ a conditional second-order #9, `reflexivity`, for the automated autonomous multi-agent case**) **force** a single control loop
+uncertain · **distributed & perishable** · **adversarial actors**; **+ two conditional second-order stones on
+a formalized tier — #9 `reflexivity` (independence, the autonomous multi-agent case) and #10
+`incentive-divergence` (alignment, the delegated case)**) **force** a single control loop
 **`define → do → check → reflect ↺`**, where `reflect` = **analyze** (frame + root-cause) then
 **decide** (*accept* a known issue · *re-target* · *escalate*). The loop is **staffed by
 verb-named elements** (specify, scope, design, implement, verify, observe, analyze, decide) —
@@ -159,26 +164,60 @@ bedrock pressure-test (T6) is now closed.**
   canvas **iteration 36** (a documentation-parity pass): ten-stone bedrock, a "second-order tier" section
   (#9 first seat · #10 second seat), Ch 12 reworked to both seats, the L0/bedrock/L4 charts + glossary +
   stones-matrix + Appendix C all updated; all 21 charts validate. This file (`HANDOFF.md`) is current too.
-  Janitorial **T10** (diagram fixes) is closed. Track history T1–T11: **nine closed, two residues** (T2
-  general-seam · the descoped audit) — details in canvas §11/§13.
+  Janitorial **T10** (diagram fixes) is closed. **Track history T1–T11 — corrected 2026-07-29 against the
+  canvas register ([`04-frontier.md`](sdlc-canvas/04-frontier.md) §11):** **ten closed** (T1 · T3 · T4 · T5 ·
+  T6 · T7 · T8 · T9 · T10 · T11 — T11 closed with three promotion-forks parked), **one open** (**T2**, the
+  fully-general cross-domain gate-vs-graded seam rule). The **descoped concrete-setup audit is not a
+  T-numbered track** — it was removed by decision at iteration 28 and sits under *Descoped*, so it cannot be
+  counted as a T-track residue. *The previous line here said "nine closed, two residues," which undercounted
+  the closures by one and filed an open track and a descoped item together as if they were the same kind of
+  thing.*
 
-**Roadmap (canvas §11 is the authoritative register — this is the ordered headline). T6 closed at iter 35
-(→ canvas §3 stone #10 + the second-order tier); the frontier is now T11's forks:**
+**Roadmap — read [`ROADMAP.md`](ROADMAP.md) first (2026-07-29, rev 3).** It is now the authoritative forward
+plan and it *subsumes* the canvas §11 ordering below. The July-2026 external review was independently
+adjudicated in [`REVIEW-ASSESSMENT-2026-07.md`](REVIEW-ASSESSMENT-2026-07.md), then **re-adjudicated at
+rev 2** against the reviewer's round-2 response — which overturned four of our citations and one of our
+own corrections (see that file's §6) — and then **audited against itself at rev 3** (that file's §7).
 
-1. **T11's three promotion forks** — (a) tamper-evident / append-only sensor: forced, or inherited from
-   `secure`? (b) emission-character ≙ temporal-type: law or analogy? (c) is graded/gated stable if
-   "#6-absent" is unknowable a-priori?
-2. **T2's light residue** — the fully-general, cross-domain gate-vs-graded seam rule (the observability
-   instance was settled by §10.9: *gate the per-seam binary, grade the aggregate*).
-3. **Beyond the ideal** — the **concrete-setup audit** (map a real stack against the ideal: mis-typed
-   gates, undefended stones, collapsible ceremony). Descoped by design; the natural follow-on project
-   once 1–2 close.
+**Rev 3 changed one thing in the architecture and several in the evidence.** The architectural change:
+**rollback's reach is an effect envelope, not the sandbox boundary** — an isolated agent can still call an
+API, write to a database, rotate a key, send a message or trigger a deploy, none of which is undone by
+destroying the workspace. D4 is rescoped to compute containment; **D3 + D6 + D8 collectively bound rollback**,
+with D8's rollback-reach register made normative (`ROADMAP.md` §4.1). The evidence changes: the **EU AI Act
+Digital Omnibus is in force as Regulation (EU) 2026/1744** and *replaced* Article 4 (Article 50 applies from
+2 Aug 2026, not now); the **C3b conformance check was executed and found no cost ceiling** on the local
+LiteLLM proxy — the presumed control nobody had read; and **"the ontology is sound" was retracted** in favour
+of *viable and repairable*, because six documented defects fail our own Phase-0 gate. Bedrock and the
+four-phase structure are unaffected. Its surviving findings reshaped the queue into four gated phases:
 
-*(Also open, non-blocking: a **documentation-parity pass** to carry the iter-35 bedrock change into the
-design doc — the same kind of pass as iter 34.)*
+- **Phase 0 — repair the model** (Track M · new **Tier E**, 13 items). Cheap, and it unblocks everything:
+  three Phase-1 components cannot be specified over the model as it stands. Headline items — **E12** retract
+  the "*exactly* eight stones / *exactly* two seats" completeness claim (the bundling rule is a self-test
+  heuristic, not an identity criterion — the one charge of overclaiming that fully lands; every stone
+  *stays*, only the claim of proven exhaustiveness goes); **E1** split a work unit's *boundary* from its
+  *acceptance vector* (§9's "four axes" and §9.3's "four axes" are different quadruples); **E2** add
+  **Premise C** — the contract set, even if perfectly honoured, delivers *P* (without it "green stubs
+  discharge the ⟹" is circular); **E3** gate the *reachability of a forbidden output*, grade *posture*
+  ("all of `secure` is hard wholesale" is not machine-evaluable); **E4** resolve §6.4's collapse rule
+  against §11.2's convergent law — they contradict at collapsed nodes.
+- **Phase 1 — safety kernel** (Track F · new **Tier D**, 10 components, **[spec]** here / built downstream):
+  mission-contract + evidence schema · durable orchestrator · capability broker · ephemeral execution ·
+  signed evidence graph · external policy gate · audit + event-sourced replay + kill switch · progressive
+  delivery · versioned-configuration governance · the **governed exception channel** (the `escalate` spec).
+- **Phase 2 — calibrate on real repositories** (shadow → bounded T0/T1). *This is the descoped
+  concrete-setup audit, finally run — against our own stack.*
+- **Phase 3 — advanced autonomy** (multi-agent · selective formal methods · self-assembly · cost).
 
-**Resume move:** read canvas §11, then open **T11's three promotion forks** (the new frontier) with the
-user and continue Socratically. T6 is settled — do not re-litigate the fold-in.
+**The canvas frontier is resolved *by* Phase 0, not before it:** T11(a) → **forced** (append-only audit is
+load-bearing for D7 regardless of adversary); T11(b) → E7 (demotes "emission character ≙ temporal type"
+from law to analogy); T11(c) → E3(c) (unknown blast radius ⇒ non-local until bounded); T2's residue →
+E3(a)'s invariant/posture split.
+
+**Resume move:** open **Q6** and **Q7** (`ROADMAP.md` §8) with the user Socratically — they genuinely fork
+and they block D10 and D5/D7. Then run Phase 0 in dependency order (**E12 → E1 → E3 → E4 → E2 → E6 → E9 →
+E13 → E5 → E7 → E8 → E10 → E11**), deriving in the canvas and regenerating `sdlc-design/` per the
+maintenance rule. **T6 is settled — do not re-litigate the fold-in;** E12 corrects the *epistemic status*
+of the stone count, not its content.
 
 ## 9. Notes & caveats
 

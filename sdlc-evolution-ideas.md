@@ -1,5 +1,22 @@
 # SOTA SDLC Agentic AI Evolution Ideas (July 2026 — Revamped)
 
+> # ⚠ HISTORICAL CATALOGUE — NOT A CURRENT ROADMAP
+>
+> **Status as of 2026-07-29:** this file is the **idea catalogue and its audit trail**. It is *not* the plan
+> and it is *not* a statement of current positions. The authoritative forward plan is
+> **[`ROADMAP.md`](ROADMAP.md)**; the adjudication behind it is
+> **[`REVIEW-ASSESSMENT-2026-07.md`](REVIEW-ASSESSMENT-2026-07.md)**.
+>
+> **Several entries below assert things now known to be false.** They are retained deliberately — the record
+> of what we believed, and why it was wrong, is itself evidence — but **every superseded claim now carries an
+> inline `⊘ Superseded` block at the point of the claim**, not only in the errata at the foot of the file.
+> An erratum three hundred lines away does not make a false declarative sentence accurate, and a reader who
+> stops early would previously have carried away a fabricated CVE mechanism, a retracted "non-Goodhartable"
+> claim, and a superseded regulatory deadline.
+>
+> **Entries carrying corrections:** A2 · A3 · B1 · B4 · C5 · C6 · C9 · C12, and the closing
+> *"next major phase"* paragraph. Read each `⊘` block as authoritative over the prose it interrupts.
+
 This document is the **forward-looking evolution roadmap** for our first-principles SDLC design. Each idea identifies a gap between the ideal model captured in [`sdlc-design/`](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/) and the State-of-the-Art (SOTA) in agentic software engineering as of July 2026.
 
 Ideas are organized into three tiers:
@@ -21,15 +38,58 @@ Each entry explains: *what's missing*, *why it matters* (grounded in the model's
 
 ### A2. The Agentic Supply Chain — Stone #8 at the Solver's Own Boundary
 
-*   **What is missing:** The security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)) addresses adversaries targeting the *software being built*. It does not address adversaries targeting the *SDLC machinery itself* — the agent's tools, skills, MCP servers, plugins, and context injections. The first CVE for an agentic system (CVE-2026-25253, Jan 2026) exploited a malicious skill package, not a code vulnerability.
+*   **What is missing:** The security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)) addresses adversaries targeting the *software being built*. It does not address adversaries targeting the *SDLC machinery itself* — the agent's tools, skills, MCP servers, plugins, and context injections. ~~The first CVE for an agentic system (CVE-2026-25253, Jan 2026) exploited a malicious skill package, not a code vulnerability.~~
+
+    > **⊘ Superseded — the CVE sentence above is false in every particular.** Per
+    > [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-25253), CVE-2026-25253 **is** a code vulnerability
+    > (CVSS **8.8**): OpenClaw before `2026.1.29` "obtains a `gatewayUrl` value from a query string and
+    > automatically makes a WebSocket connection **without prompting**, sending a token value." No skill
+    > package, no sandbox escape. Drop "first agentic CVE" — we have no defensible definition for it.
+    > **It is also not A2 evidence.** It routes to **D6** (approval integrity — the human-in-the-loop step
+    > existed and was not invoked) and **D3** (credential scoping and default-deny egress).
+    > **A2's actual supply-chain evidence is the separate ClawHavoc campaign** — 341 malicious marketplace
+    > skills, 335 from one operator, delivering Atomic Stealer to macOS developer workstations.
+    > *A second correction is recorded here for the record: our own first attempt at this fix invented a
+    > "crafted skill package escapes the Docker sandbox, patched v2.3.1" mechanism, which had already
+    > propagated into a P1 justification before NVD was checked.* → `ROADMAP.md` **E11(c)**, A2 row.
+
+    **The rest of this entry stands.** The supply-chain thesis — that every MCP server, skill and retrieved
+    context document is an executable dependency, and that indirect prompt injection turns stone #8 on the
+    loop's own machinery — is unaffected by the CVE correction and is **P1**.
 *   **Why it matters:** Every MCP server, every dynamically loaded skill (like those in `~/.agents/skills/`), every retrieved context document is an **executable dependency** in the agent's supply chain. Indirect Prompt Injection (IPI) — hidden malicious instructions embedded in documents, emails, or retrieved context — is the defining attack vector of 2026. The agent cannot distinguish between developer-provided system instructions and externally injected content. A compromised skill or context document doesn't just write bad code; it **hijacks the solver itself**, turning stone #8's "directed optimiser" against the loop's own machinery. This is stone #8 applied reflexively: the adversary enters not through the code's input surface but through the agent's context window.
 *   **Where it threads in:** Demands a new sub-repertoire within the security repertoire: **supply-chain hygiene** — inventory, vet, and red-team every tool, skill, and context source before it enters the agent's trust boundary. Also demands **context-layer governance**: metadata tagging (spotlighting) to distinguish trusted vs. untrusted content before it reaches the context window. This is the `sanitize/validate` lever from §9.2, applied not to the code's inputs but to the agent's own inputs.
 
 ### A3. Formal Verification as a Check Modality — Beyond Statistical and Deterministic Leaves
 
 *   **What is missing:** The mechanism of Done ([§9](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/09-mechanism-of-done.md)) bottoms out in two leaf kinds: **deterministic** (unit test → pass/fail) and **statistical** (sampled proxy → threshold). There is a third modality emerging in 2026 that the model does not account for: **formal verification** — mathematical proof of correctness against a specification, using proof assistants like Lean 4 or TLA+.
-*   **Why it matters:** A formal proof is categorically different from both existing leaf kinds. A deterministic test *samples* paths (assertion-by-example); a statistical leaf *estimates* a distribution. A formal proof *exhausts* the logical space — it is not a proxy at all; it discharges the composition hypothesis `(∧Lᵢ) ⟹ P` as a mathematical fact, not a bet. This matters because in an agentic SDLC where code is generated at machine speed, the volume of code *exceeds human review capacity*. Formal verification offers a **non-Goodhartable** leaf — the one check modality that cannot be gamed by an incentive-divergent agent (stone #10), because a proof assistant is a deterministic certificate-checker that is structurally immune to the agent's utility function. It is the purest form of the "independent terminal" that §12 demands.
-*   **Where it threads in:** Extends §9's leaf taxonomy to three kinds: `deterministic | statistical | formal`. The formal leaf collapses premise B to zero residue (not by tightening the contract, but by proving the whole value-domain). It is the ultimate tightening of the premise-B lever (§9.2) — it manufactures `predictable` absolutely. Should be positioned in the model as the **asymptotic limit** of `verify`, available at specific seams (concurrent algorithms, security-critical invariants) where the cost of formalization is justified by the cost of a wrong-but-confident convergence.
+*   **Why it matters:** A formal proof is categorically different from both existing leaf kinds. A deterministic test *samples* paths (assertion-by-example); a statistical leaf *estimates* a distribution. A formal proof *exhausts* the logical space — it discharges the composition hypothesis `(∧Lᵢ) ⟹ P` **relative to its specification**. This matters because in an agentic SDLC where code is generated at machine speed, the volume of code *exceeds human review capacity*. ~~Formal verification offers a **non-Goodhartable** leaf — the one check modality that cannot be gamed by an incentive-divergent agent (stone #10), because a proof assistant is a deterministic certificate-checker that is structurally immune to the agent's utility function. It is the purest form of the "independent terminal" that §12 demands.~~
+*   ~~**Where it threads in:** Extends §9's leaf taxonomy to three kinds: `deterministic | statistical | formal`. The formal leaf collapses premise B to zero residue (not by tightening the contract, but by proving the whole value-domain). It is the ultimate tightening of the premise-B lever (§9.2) — it manufactures `predictable` absolutely.~~ Should be positioned in the model as the **asymptotic limit** of `verify`, available at specific seams (concurrent algorithms, security-critical invariants) where the cost of formalization is justified by the cost of a wrong-but-confident convergence.
+
+    > **⊘ Superseded — "non-Goodhartable" and "collapses premise B to zero residue" are both retracted.**
+    >
+    > **It contradicts our own Chapter 12:** "even a formal proof… only **relocates** the blind spot from the
+    > code into the spec" ([`12-agentic-sdlc.md:34`](sdlc-design/12-agentic-sdlc.md:34)), repeated at
+    > [`03-bedrock.md:62`](sdlc-design/03-bedrock.md:62). A proof discharges a formal statement relative to a
+    > specification, an abstraction, an environment model and a trusted computing base. Residue is relocated,
+    > never zero.
+    >
+    > **And the external evidence is stronger than the internal contradiction.**
+    > [arXiv 2605.30914](https://arxiv.org/html/2605.30914v1) reports **specification hacking** — "models
+    > exploit weak formal specifications instead of implementing the intended solutions." That is a model
+    > Goodharting a formal verifier: direct empirical refutation of "structurally immune to the agent's
+    > utility function."
+    >
+    > **Adoption is also bounded, on three verified points.** Automated results sit at ~**31.1%** verified
+    > pass rate on refined Dafny benchmarks (Lean scaffold 46.2% → 69.2% on the VeriCoding pilot);
+    > comprehensive proof stays expensive — **seL4 at 22 person-years**, **CompCert at 6 person-years /
+    > 100,000 proof lines, "eight times longer than the implementation itself"**
+    > ([arXiv 2511.17330](https://arxiv.org/html/2511.17330v3)); and specification authoring, not proof
+    > search, is *a* central bottleneck.
+    >
+    > **Current disposition:** the *leaf-taxonomy extension survives and is broadened* — `{deterministic,
+    > statistical, formal, simulated, human-experiential, runtime-assured}`, **each with its own residue and
+    > its own Goodhart surface** (`ROADMAP.md` **E13**). Selective formal verification at high-value
+    > invariants moves to **P3**. → `ROADMAP.md` **E11(a)**, **E13**, §5 · Phase 3 item 2.
 
 ### A4. Agentic Entropy — The Eleventh Stone?
 
@@ -45,7 +105,30 @@ Each entry explains: *what's missing*, *why it matters* (grounded in the model's
 
 *   **What is missing:** The security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)) treats security via traditional mechanisms (authn/authz, sanitization, least-privilege). It lacks an explicit **ephemeral containment boundary** — a secure sandbox, micro-VM, or gVisor-like isolation gate — for the `do`/`implement` phase.
 *   **Why it matters:** An agentic SDLC agent generates and immediately *executes* commands on the host system. Under stone #8 (adversarial) or stone #10 (incentive-divergence), a compromised or misaligned agent is not just writing bad code — it is an active, untrusted executor. Without a hard-gated runtime sandbox, the agent can mutate its own runner, hijack host resources, or exfiltrate credentials. The sandbox is the `harden / minimise surface` repertoire move applied to the agent's own execution environment — and it should be a **hard gate** (machinery-degrading: a breached sandbox blinds all downstream `check` beats).
-*   **Where it threads in:** New sub-gate within the security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)). Intersects with the irreversibility amplifier (§11): actions inside a sandbox are reversible (rollback = destroy the sandbox); actions that escape it are irreversible. The sandbox boundary *is* the rollback reach for agent execution.
+*   **Where it threads in:** New sub-gate within the security repertoire ([§8](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/08-repertoires.md)). Intersects with the irreversibility amplifier (§11). ~~Actions inside a sandbox are reversible (rollback = destroy the sandbox); actions that escape it are irreversible. The sandbox boundary *is* the rollback reach for agent execution.~~
+
+    > **⊘ Superseded — the sandbox boundary is *not* rollback's reach, and treating it as such is unsafe.**
+    >
+    > The equivalence holds only for effects **confined to the sandbox**. An agent that has escaped nothing
+    > can still call an allowed external API, commit a database write or migration, rotate a credential, send
+    > a message or open a PR, and trigger a deployment. Each **crosses the effect boundary without crossing
+    > the compute boundary**, and destroying the workspace reverses none of them.
+    >
+    > Why this mattered rather than being a wording quibble: B4 grants the agent discretion *inside rollback's
+    > reach*. Equating reach with containment would hand an agent free rein over a class of actions it cannot
+    > reverse — the irreversibility amplifier mis-firing by construction, and it would have been encoded
+    > straight into D6's `RecoverableOrPreAuthorized` predicate.
+    >
+    > **The design never said this either.** [`10-artifacts.md:186`](sdlc-design/10-artifacts.md:186) says an
+    > autonomous pipeline should treat "**rollback's reach as its permission boundary**" — reach first,
+    > permission derived from it. This entry inverted it into *containment defines reach*.
+    >
+    > **Current disposition:** rollback's reach is defined over the agent's **effect and capability envelope**
+    > — transactional resources, effect journals, compensators, external side effects, credential scopes and
+    > declared irreversible-action classes — enumerated in **D8's rollback-reach register** (normative).
+    > **D3 + D6 + D8 collectively bound rollback; D4 alone does not.** An effect class absent from the
+    > register is treated as irreversible. B1 as a *containment* requirement is untouched and remains **P1**.
+    > → `ROADMAP.md` **§4.1**, D4/D8 rows.
 
 ### B2. Multi-Agent Consensus & Peer Verification Protocol
 
@@ -62,7 +145,28 @@ Each entry explains: *what's missing*, *why it matters* (grounded in the model's
 ### B4. Risk-Asymmetry & Graded Human Delegation — The Delegation Calculus
 
 *   **What is missing:** Chapter 12 ([§12](file:///Users/deepg/Desktop/SOTA%20SDLC/sdlc-design/12-agentic-sdlc.md)) establishes that an independent external terminal (human) must remain in the loop. But it lacks a formal **delegation calculus** — a rule-based framework that determines *where* the HITL gate fires, *how much* autonomy is granted, and *how* that autonomy degrades as risk increases.
-*   **Why it matters:** If the human must approve every sub-loop iteration, velocity collapses to zero. If the human is too detached, irreversible actions leak. The delegation calculus must grade actions along the amplifier axis (§11): **reversible + local → auto-execute** (the agent acts freely within the sandbox); **irreversible or adversary-amplified → hard HITL gate** (human approves before execution). The concept of **progressive trust tiers** — where an agent starts with limited permissions and earns elevated access through demonstrated safe performance — is the alignment mechanism (stone #10) made operational: the agent's payoff is linked to its track record.
+*   **Why it matters:** If the human must approve every sub-loop iteration, velocity collapses to zero. If the human is too detached, irreversible actions leak. The delegation calculus must grade actions along the amplifier axis (§11): **reversible + local → auto-execute**; **irreversible or adversary-amplified → hard HITL gate** (human approves before execution). ~~The concept of **progressive trust tiers** — where an agent starts with limited permissions and earns elevated access through demonstrated safe performance — is the alignment mechanism (stone #10) made operational: the agent's payoff is linked to its track record.~~
+
+    > **⊘ Superseded — progressive trust attaches to a *versioned configuration*, never to an agent's
+    > "track record."**
+    >
+    > There is no persistent entity here to hold a record. The unit of trust is the tuple **(model, prompt,
+    > tools, permissions, harness, context sources, policy version)**. Any material change to that tuple —
+    > a model version bump, an edited system prompt, a newly registered tool, a widened permission — produces
+    > a *different* configuration, and **attained assurance resets**. Trust earned by yesterday's tuple says
+    > nothing about today's.
+    >
+    > "The agent's payoff is linked to its track record" also imports stone #10's *human* response menu into
+    > a case where it does not implement: a non-persistent inference has **no payoff to shape**. The agent
+    > branch of #10 is **capability containment · proxy-resistant evaluation · independent evidence**, not
+    > incentives. Keep the incentive branch for delegation to persistent parties — vendors, teams,
+    > contractors. → `ROADMAP.md` **E9**.
+    >
+    > *Note also that "the agent acts freely within the sandbox" was struck above: discretion is bounded by
+    > rollback's reach, which is an effect envelope, not the sandbox (see **B1**).*
+    >
+    > **Current disposition:** **D9** (versioned configuration governance — version manifest, drift detectors,
+    > assurance-reset rule) plus **D1** (mission contract · risk tier · evidence schema). Both **P1**.
 *   **Where it threads in:** Operationalizes §11's predictive rule for the human-agent boundary. The delegation calculus *is* the runtime implementation of the hard-gate / graded-target distinction, projected onto agent permissions. Connects directly to the rollback reach (§10.1): inside rollback's reach, the agent has discretion; beyond it, the human gate fires.
 
 ### B5. Durable Execution & Checkpoint-Resumable Loops — The Persistence Seam
@@ -123,13 +227,48 @@ Each entry explains: *what's missing*, *why it matters* (grounded in the model's
 ### C5. Standardized Tool & Context Protocols (MCP/A2A) — The Integration Boundary
 
 *   **What is missing:** The repertoires define tools and skills, but lack a universal, standardized protocol for how agents dynamically discover, authenticate with, and interact with external systems and with each other.
-*   **Why it matters:** SOTA systems use open standards as the "USB-C" of agentic integrations. Without a standardized Host/Client/Server protocol for tool invocation (like MCP) and a standardized Agent-to-Agent protocol (like A2A with Agent Cards), the SDLC relies on bespoke, brittle API wrappers. A standardized protocol enables: dynamic tool discovery (the agent can find and use new tools without code changes), authenticated delegation (agent identity persists across handoffs, per A2's supply-chain requirement), and interoperable multi-agent coordination (B2's consensus protocol requires a shared communication standard).
-*   **Where it threads in:** Infrastructure for the `do` beat's tool invocation and B2's multi-agent coordination. Connects to A2's supply-chain security: the protocol must enforce authentication and authorization at every tool boundary.
+*   **Why it matters:** SOTA systems use open standards as the "USB-C" of agentic integrations. Without a standardized Host/Client/Server protocol for tool invocation (like MCP) and a standardized Agent-to-Agent protocol (like A2A with Agent Cards), the SDLC relies on bespoke, brittle API wrappers. A standardized protocol enables dynamic tool discovery (the agent can find and use new tools without code changes) and interoperable multi-agent coordination (B2's consensus protocol requires a shared communication standard). ~~It also supplies authenticated delegation (agent identity persists across handoffs, per A2's supply-chain requirement).~~
+*   **Where it threads in:** Infrastructure for the `do` beat's tool invocation and B2's multi-agent coordination. ~~Connects to A2's supply-chain security: the protocol must enforce authentication and authorization at every tool boundary.~~
+
+    > **⊘ Superseded — MCP and A2A are *adapters*, not trust boundaries. They do not supply authenticated
+    > delegation; they are among the things that must be governed by an independent one.**
+    >
+    > A protocol that standardises *how* a tool is invoked does not thereby establish *whether this
+    > configuration may invoke it, with which credential, at what scope*. Treating protocol conformance as
+    > an authority model is the category error that turns every MCP server into an implicitly trusted
+    > component — which is exactly the attack surface **A2** exists to name. Backing: **NSA MCP CSI**,
+    > 20 May 2026.
+    >
+    > **Current disposition — C5 splits:**
+    > **C5a → P1**, folded into **D3 (capability broker)**: workload identity per agent *configuration*,
+    > short-lived credentials, least privilege, default-deny egress, secrets isolation. The trust boundary
+    > lives here, **outside** the protocol.
+    > **C5b → P3**: the interoperability conveniences (discovery, Agent Cards, cross-agent coordination),
+    > built *on top of* D3's boundary rather than in place of it.
+    > → `ROADMAP.md` D3 row, §6 · C5 row.
 
 ### C6. Deep Agentic Observability & Execution Tracing — The Telemetry Seam
 
 *   **What is missing:** The `check` beat treats the agent's internal reasoning as a black box. We lack a dedicated **agent observability pipeline** that traces the agent's decision pathway.
-*   **Why it matters:** When a multi-model cascade fails or a hybrid evaluation flags an error, engineers don't just debug the code — they must debug the *agent's reasoning*. We need unified tracing that records: token usage per call, model routing decisions, deterministic-vs-LLM evaluation results, intermediate state transitions, tool call arguments and responses, and confidence scores (B6). This is §10's telemetry artifact extended to the SDLC's own execution. Its absence is machinery-degrading: without it, `analyze` cannot root-cause agent failures, and the loop's `reflect` for its own process is starved.
+*   **Why it matters:** When a multi-model cascade fails or a hybrid evaluation flags an error, engineers don't just debug the code — they must debug the agent's *observable decision path*. We need unified tracing that records: token usage per call, model routing decisions, deterministic-vs-LLM evaluation results, intermediate state transitions, tool call arguments and responses, and confidence scores (B6). This is §10's telemetry artifact extended to the SDLC's own execution. Its absence is machinery-degrading: without it, `analyze` cannot root-cause agent failures, and the loop's `reflect` for its own process is starved.
+
+    > **⊘ Corrected — this entry promises access to the agent's "reasoning." It cannot deliver that, and
+    > should not try.**
+    >
+    > What is capturable is the **observable trace**: state transitions, tool calls and their arguments and
+    > responses, model/prompt/tool versions, context provenance, outputs, evidence, approvals and policy
+    > decisions. What is *not* capturable as ground truth is the model's internal reasoning. Hidden
+    > chain-of-thought **may be unfaithful** to the computation that actually produced the output, is
+    > sensitive, and is not reproducible across vendor model versions — so requiring it would build a
+    > forensic capability on an unreliable witness, and `analyze` would root-cause against a plausible story
+    > rather than what happened.
+    >
+    > Read every "the agent's reasoning" in this entry and in **C12** as "the agent's observable decision
+    > path."
+    >
+    > **Current disposition:** **raised from Lower to P1** — a prerequisite for autonomy, not an increment —
+    > and folded into **D7** (append-only tamper-evident log · event-sourced replay · kill switch),
+    > explicitly **excluding hidden chain-of-thought**. → `ROADMAP.md` D7 row, §6 · C6 row.
 *   **Where it threads in:** Implements the `observe` beat for the SDLC's own meta-loop. The execution trace is the ADR of the agent's behavior — the backward channel (§10) that carries the "why" of the agent's decisions to a later human root-causer. Its existence is a hard gate (§11.2's convergent law applied to the meta-level).
 
 ### C7. Prompt-as-Code (PaC) & Prompt Regression Testing — The Instruction Seam
@@ -146,8 +285,40 @@ Each entry explains: *what's missing*, *why it matters* (grounded in the model's
 
 ### C9. Regulatory Compliance & Immutable Audit Trails — The Accountability Seam
 
-*   **What is missing:** The model's reflect-artifact (ADR, post-mortem) captures *engineering* decisions. It does not capture the **regulatory compliance artifacts** now required by the EU AI Act (full enforcement August 2026), NIST AI RMF, and emerging global AI governance frameworks.
-*   **Why it matters:** The EU AI Act classifies most enterprise autonomous agents as high-risk systems. Non-compliance carries fines up to €35M or 7% of global turnover. Required artifacts include: **unique agent identity** (not a shared service account), **granular decision attribution** (decision ID, model identity, human-readable reasoning, input/output data, policy version invoked), and **cryptographically linked, tamper-evident audit logs** (hash-chaining for non-repudiation). These are not documentation hygiene — they are **legally mandated hard gates**. The accountability trail is the ADR extended from "why did we make this engineering decision?" to "who (which agent, which model, which human) authorized this action, and under what policy?"
+*   **What is missing:** The model's reflect-artifact (ADR, post-mortem) captures *engineering* decisions. It does not capture the **regulatory compliance artifacts** contemplated by the EU AI Act, NIST AI RMF, and emerging global AI governance frameworks. ~~(full enforcement August 2026)~~
+*   **Why it matters:** ~~The EU AI Act classifies most enterprise autonomous agents as high-risk systems. Non-compliance carries fines up to €35M or 7% of global turnover.~~ Candidate artifacts include: **unique agent identity** (not a shared service account), **granular decision attribution** (decision ID, model identity, human-readable rationale, input/output data, policy version invoked), and **cryptographically linked, tamper-evident audit logs** (hash-chaining for non-repudiation). The accountability trail is the ADR extended from "why did we make this engineering decision?" to "who (which agent, which model, which human) authorized this action, and under what policy?" ~~These are not documentation hygiene — they are **legally mandated hard gates**.~~
+
+    > **⊘ Superseded — all three legal claims above are wrong, and the entry's Critical ranking rested on
+    > them. Verified position as of 2026-07-29:**
+    >
+    > | This entry's claim | Verified |
+    > |---|---|
+    > | "classifies most enterprise autonomous agents as high-risk" | **False.** Article 6 requires Annex I (safety component of a regulated product) or Annex III (eight enumerated domains). General code generation maps to **neither**; coding agents fall to limited-risk with Article 50 transparency duties |
+    > | "full enforcement August 2026" | **Superseded.** The Digital Omnibus on AI — **Regulation (EU) 2026/1744**, OJ **24 Jul 2026**, in force **27 Jul 2026** — moves Annex III to **2 Dec 2027** and Annex I to **2 Aug 2028** |
+    > | "fines up to €35M or 7%" | **Mis-scoped.** Article 99 reserves €35M/7% for **prohibited practices**; other obligations carry €15M/3%, and supplying incorrect information €7.5M/1% |
+    >
+    > **Two obligations this entry missed**, and both are narrower than a first reading suggests:
+    > **Article 4 (AI literacy)** was **replaced** by 2026/1744 with a softened duty to *support* AI literacy
+    > — expressly not to guarantee any level of it — applicable from **27 Jul 2026**.
+    > **Article 50 (transparency)** applies from **2 Aug 2026**, with a transitional to **2 Dec 2026** for
+    > Art 50(2) machine-readable marking on generative systems already on the market; it attaches to systems
+    > interacting with natural persons and to synthetic content, **not** to internal code artifacts merely
+    > because an agent wrote them.
+    >
+    > **And the trap this entry inverted:** the regulatory exposure of a software factory is not on the
+    > code-generation surface but on the *management* surface. Using AI to **evaluate developer productivity,
+    > rank engineers, or allocate work algorithmically** *is* Annex III (employment) high-risk.
+    >
+    > **Current disposition — C9 splits, and the reasoning changes, not just the date:**
+    > **C9a → P1** (audit trail, decision attribution, tamper-evident logging) — **and not because of any
+    > regulation.** Our own model forces it: without unique agent identity and a hash-chained log, `analyze`
+    > is impossible under autonomy, which is the machinery-degrading amplifier. *A P1 justified by the bedrock
+    > survives a regulatory timeline moving again — which it since has, twice.*
+    > **C9b → P3**, activated by classification, not calendar.
+    > → `ROADMAP.md` **§7**.
+    >
+    > *Verification standing: eur-lex.europa.eu returned an empty body to direct fetch; the dates rest on
+    > three independent legal analyses in agreement. Read the OJ primary text before any C9b decision.*
 *   **Where it threads in:** New hard gate in the `reflect` beat, alongside the existing ADR. The audit trail is existence-hard (legally mandated) and fidelity-hard (unlike the ADR's graded fidelity — the law requires specific fields, not "as accurate as risk warrants"). This is the first artifact whose gate is set by an *external* amplifier (regulatory penalty), not by the model's own bedrock. Opens a question: should "external regulatory constraint" be acknowledged as a fourth amplifier in §11, or is it subsumed by the irreversibility amplifier (regulatory fines are irreversible damage)?
 
 ### C10. The Economics of Attention — The Human Bandwidth Constraint
@@ -164,8 +335,24 @@ Each entry explains: *what's missing*, *why it matters* (grounded in the model's
 
 ### C12. Reproducibility & Deterministic Replay — The Debug Seam
 
-*   **What is missing:** The model treats agent execution as a forward process. It lacks a formal concept of **deterministic replay** — the ability to reproduce an agent's exact trajectory given the same inputs, for debugging, auditing, and regression testing.
-*   **Why it matters:** Agents are non-deterministic (temperature-based sampling, tool-call timing, context window variations). When a bug is found in agent-generated code, engineers need to answer not just "what went wrong?" but "what was the agent thinking when it made this choice?" Without replay capability, `analyze` in the meta-loop is starved — the debugging equivalent of §10's starved backward channel. Replay requires: deterministic seeding (or logging of all stochastic decisions), tool-call recording (inputs and outputs), and context-window snapshots. The replay log is the **execution telemetry** (C6) made replayable — not just observable but re-executable.
+*   **What is missing:** The model treats agent execution as a forward process. It lacks a formal concept of **forensic replay** — the ability to reconstruct what an agent did, for debugging, auditing, and regression testing. ~~…deterministic replay — the ability to reproduce an agent's exact trajectory given the same inputs.~~
+*   **Why it matters:** Agents are non-deterministic (temperature-based sampling, tool-call timing, context window variations). When a bug is found in agent-generated code, engineers need to answer not just "what went wrong?" but "what did the agent do, in what order, on what evidence?" ~~"what was the agent thinking when it made this choice?"~~ Without replay capability, `analyze` in the meta-loop is starved — the debugging equivalent of §10's starved backward channel. ~~Replay requires: deterministic seeding (or logging of all stochastic decisions), tool-call recording (inputs and outputs), and context-window snapshots.~~ The replay log is the **execution telemetry** (C6) made reconstructable.
+
+    > **⊘ Superseded — the requirement is *event-sourced* replay, not exact deterministic replay.**
+    >
+    > **Bit-reproducibility is the wrong bar and an unachievable one.** It cannot survive a vendor model
+    > version change, non-deterministic kernels, or tool-call timing — so a system specified against it fails
+    > its own audit the first time a provider ships an update, and the pressure is then to weaken the
+    > requirement at exactly the moment forensics are needed. Requiring "deterministic seeding" of a
+    > third-party hosted model is not a control we can hold.
+    >
+    > **What replaces it:** replay the **observable event stream** — state transitions, model/prompt/tool
+    > versions, context provenance, tool calls and responses, outputs, evidence, approvals, policy decisions —
+    > from an append-only log, sufficient to reconstruct *what happened and under which policy*. Explicitly
+    > **not** bit-reproducibility, and explicitly **not** hidden chain-of-thought (see **C6**).
+    >
+    > **Current disposition:** **raised from Lower to P1, and narrowed** — folded into **D7**. The narrowing is
+    > what makes the promotion affordable. → `ROADMAP.md` D7 row, §6 · C12 row.
 *   **Where it threads in:** Extension of C6's observability pipeline. The replay log is to agent debugging what a unit test is to code debugging: a reproducible, re-runnable check. It connects to §10.1's regression ratchet: a replayed trajectory that previously succeeded but now fails is an *agent-level regression* — the prompt or model changed in a way that broke a previously-working reasoning path.
 
 ---
@@ -186,34 +373,81 @@ These are questions the evolution ideas raise about the bedrock itself, suitable
 
 ---
 
-### Integration Priority Map
+### Integration Priority Map — **SUPERSEDED (2026-07-29)**
 
-| Priority | Idea | Rationale |
-|----------|------|-----------|
-| **Critical** | A1 (Cascading Failure) | Addresses the #1 production failure mode in multi-agent systems |
-| **Critical** | A2 (Supply Chain) | Addresses the defining 2026 security threat; first agentic CVE already issued |
-| **Critical** | B1 (Sandbox) | Without execution containment, all other guarantees are hollow |
-| **Critical** | C9 (Compliance) | EU AI Act enforcement Aug 2026; non-compliance is existential |
-| **High** | B4 (Delegation Calculus) | Operationalizes §12; without it, human-in-the-loop is either theater or bottleneck |
-| **High** | B3 (Memory Controller) | Without it, artifacts exist but agents can't use them — stone #7 unanswered |
-| **High** | C4 (Harness) | The defining architectural pattern of 2026; all other ideas assume it |
-| **High** | B8 (Trajectory Eval) | Without it, `check` is Goodharted at the meta-level |
-| **High** | C1 (Hybrid Eval) | Concrete implementation of the harness; 30-60% of failures caught for free |
-| **Medium** | A3 (Formal Verification) | High value at specific seams; not yet cost-effective for general use |
-| **Medium** | A4 (Agentic Entropy) | Real pressure; classification as stone/law still open |
-| **Medium** | B5 (Durable Execution) | Critical for long-running tasks; less urgent for short agent loops |
-| **Medium** | B6 (Self-Calibration) | Addresses confidently-wrong failure; implementation still maturing |
-| **Medium** | B2 (Consensus Protocol) | Important for multi-agent; less critical for single-agent setups |
-| **Medium** | C7 (Prompt Regression) | Prevents silent prompt drift; importance scales with prompt complexity |
-| **Medium** | C11 (Reward-Hacking) | Prevents evaluation gaming; critical if using benchmark-based evaluation |
-| **Lower** | B7 (Tool Mutation) | Important for self-assembling agents; niche for constrained setups |
-| **Lower** | C2 (LLM Cascades) | Cost optimization; important at scale, less at small scale |
-| **Lower** | C3 (Model Governance) | Infrastructure concern; handled by existing LiteLLM proxy setup |
-| **Lower** | C5 (MCP/A2A) | Already partially addressed by current MCP setup |
-| **Lower** | C6 (Observability) | Important but incremental; builds on existing telemetry |
-| **Lower** | C8 (Epistemic Drift) | Real problem; mitigation strategies still maturing |
-| **Lower** | C10 (Attention Economics) | Human-factors concern; important but hard to formalize |
-| **Lower** | C12 (Replay) | Debugging aid; valuable but not structurally load-bearing |
+> The priority table that stood here has been **replaced by the phased plan in
+> [`ROADMAP.md`](ROADMAP.md)** following the July-2026 external review and its independent adjudication in
+> [`REVIEW-ASSESSMENT-2026-07.md`](REVIEW-ASSESSMENT-2026-07.md). Every idea below keeps its ID; its
+> current phase, priority change and the reason are in **`ROADMAP.md` §6 (traceability)**.
+>
+> Do not re-add a priority column here — two priority lists is how they drift apart. This file is the idea
+> **catalogue**; `ROADMAP.md` is the **plan**.
+
+The largest moves, for orientation:
+
+| Idea | Was | Now | Why |
+|---|---|---|---|
+| **B5** Durable execution | Medium | **P1** | the durable orchestrator is the safety kernel's spine, not a convenience for long tasks |
+| **C6** Observability · **C12** Replay | Lower | **P1** | prerequisites for autonomy, not increments (C12 narrowed to *event-sourced* replay — not bit-reproducibility, not hidden chain-of-thought) |
+| **C7** Prompt regression · **C3a** version pinning | Medium / Lower | **P1** | the unit of trust is a *versioned configuration*, not an agent persona |
+| **A4** Agentic entropy | Medium | **P1** | SWE-CI (arXiv 2603.03823) establishes the pressure empirically |
+| **C9** Compliance | Critical | **split** | audit trail → P1 (forced by our own machinery-degrading amplifier); high-risk conformity → P3 (see errata) |
+| **B2** Consensus protocol | Medium | **P3** | correlated agreement is not evidence; benefit must be measured against token cost first |
+
+### Errata — factual corrections to this document (2026-07-29)
+
+Verified against primary sources; see `REVIEW-ASSESSMENT-2026-07.md` §4 for the full log.
+
+- **A2** — CVE-2026-25253 is described here as exploiting "a malicious skill package, **not a code
+  vulnerability**." That is wrong: it **is** a code vulnerability, CVSS **8.8**.
+  ⚠ **This bullet was itself wrong in its first version (corrected 2026-07-29, rev 2)** — it claimed an RCE
+  in the skill runtime where "a crafted skill package escapes the Docker sandbox," patched in "v2.3.1."
+  That mechanism was reconstruction, not sourcing. **Per NVD:** OpenClaw (aka clawdbot / Moltbot) *before*
+  **`2026.1.29`** "obtains a `gatewayUrl` value from a query string and automatically makes a WebSocket
+  connection **without prompting**, sending a token value." No sandbox escape, no skill package, no v2.3.1.
+  Drop the phrase "first agentic CVE" absent a defensible definition and source.
+  **Correct routing:** attacker-controlled URL from a query string → input validation at a trust boundary;
+  connecting without prompting → **approval integrity (D6)**; token sent to that endpoint → **credential
+  scoping and default-deny egress (D3)**. It is *not* evidence for **B1/D4** sandboxing, contrary to the
+  first version of this bullet. A2's supply-chain evidence is the separate ClawHavoc campaign (341 malicious
+  marketplace skills, 335 from one operator, delivering Atomic Stealer to macOS developer workstations).
+- **A3** — calling a formal proof "**non-Goodhartable**" and saying the formal leaf "collapses premise B to
+  zero residue" **contradicts our own Chapter 12**: "even a formal proof… only *relocates* the blind spot
+  from the code into the spec" ([`12-agentic-sdlc.md:34`](sdlc-design/12-agentic-sdlc.md:34)), repeated at
+  [`03-bedrock.md:62`](sdlc-design/03-bedrock.md:62). A proof discharges a formal statement relative to a
+  specification, abstraction, environment model and trusted computing base. Retracted per roadmap **E11**.
+- **A3 (evidence)** — *(sources re-verified rev 2)* current automation results are modest, not asymptotic:
+  ~**31.1%** verified pass rate on refined Dafny benchmarks (**arXiv 2605.30914**, *Automating Formal
+  Verification with Reinforcement Learning and Recursive Inference*; Lean scaffold 46.2% → 69.2% on the
+  VeriCoding pilot). Specification authoring, not proof search, is **a** central bottleneck — **arXiv
+  2511.17330** (*Agentic Verification of Software Systems*) states that formal capture "requires significant
+  efforts in manually annotating specifications and crafting loop invariants," and prices comprehensive
+  proof at **seL4: 22 person-years** and **CompCert: 6 person-years / 100,000 proof lines — eight times the
+  implementation effort.** And the verifier is **itself Goodhartable**: 2605.30914 reports *specification
+  hacking* — "models exploit weak formal specifications instead of implementing the intended solutions" —
+  which is the strongest evidence for retracting A3's "non-Goodhartable" claim above.
+- **C9** — "The EU AI Act classifies most enterprise autonomous agents as high-risk" is **false**. Article 6
+  requires either Annex I (safety component of a regulated product) or Annex III (eight enumerated
+  domains); general code generation maps to neither, and coding agents fall to limited-risk. *Article 50
+  applies conditionally (rev 2), not as a blanket duty:* its obligations attach to systems interacting with
+  natural persons and to synthetic content — so they bite where agent output reaches a third party, not
+  merely because an internal code artifact was AI-generated.
+  *But note the management-surface trap:* using AI to evaluate developer productivity,
+  rank engineers or allocate work algorithmically **is** Annex III (employment) high-risk.
+- **C9 (dates)** — "full enforcement August 2026" is superseded. ⚠ **This bullet was itself wrong in its
+  first version (corrected 2026-07-29, rev 3)** — it described the Digital Omnibus as pending OJ publication
+  and said Article 4 and Article 50 were "unchanged and bite now." **All three parts of that are now false.**
+  The Omnibus was adopted as **Regulation (EU) 2026/1744**, published in the OJ on **24 July 2026** and **in
+  force since 27 July 2026** (three-day vacatio legis, taken as a matter of urgency because the date it
+  amends falls on 2 August). Annex III high-risk obligations move to **2 December 2027**, Annex I to
+  **2 August 2028**. **Article 4 was *replaced***, not left unchanged — the new text is a duty to take
+  measures *supporting* AI literacy, expressly not to guarantee any level of it, applicable from **27 July
+  2026**. **Article 50 does not bite yet**: it applies from **2 August 2026**, with a transitional to
+  **2 December 2026** for Art 50(2) machine-readable marking on generative systems already on the market.
+  Legislative history retained: political agreement 7 May 2026; Parliament 16 Jun 2026; Council 29 Jun 2026.
+  *The recurring lesson: a legal-status paragraph decays and must carry its verification date and source.*
+- **C9 (penalties)** — €35M/7% applies to **prohibited practices** only. Article 99 sets €15M/3% for other
+  specified obligations and €7.5M/1% for supplying incorrect information.
 
 ---
 
@@ -225,4 +459,21 @@ These ideas connect to the active frontier in [sdlc-canvas/04-frontier.md](file:
 -   **T2 residue** (the fully-general gate-vs-graded seam rule) is extended by A3 (formal verification introduces a third leaf kind that changes the classification) and C11 (the meta-Goodhart problem adds a new dimension to the proxy thread).
 -   **"Beyond the ideal"** (the descoped concrete-setup audit) is where most of Tier C lives: mapping the ideal onto a real stack with real LLMs, real sandboxes, real compliance requirements.
 
-The **next major phase** should address the three Critical-priority items (A1, A2, B1) and the compliance deadline (C9), as these represent existential risks to an autonomous pipeline — cascading failures that evade local checks, supply-chain attacks on the SDLC itself, uncontained agent execution, and regulatory exposure.
+~~The **next major phase** should address the three Critical-priority items (A1, A2, B1) and the compliance deadline (C9), as these represent existential risks to an autonomous pipeline — cascading failures that evade local checks, supply-chain attacks on the SDLC itself, uncontained agent execution, and regulatory exposure.~~
+
+> **⊘ Superseded — this paragraph contradicts both the supersession notice above it and `ROADMAP.md`.**
+>
+> It was left standing after the priority table was superseded, so a reader reaching the end of this file
+> was told the next phase is A1/A2/B1 plus a compliance deadline — by the same document that had already
+> said, three hundred lines earlier, that it no longer states priorities. Two of its four premises are also
+> false on their own terms: there is **no compliance deadline** driving the queue (C9's high-risk dates moved
+> to 2027/2028, and C9a is P1 on our own bedrock, not on a calendar), and "the three Critical-priority items"
+> is a ranking this file no longer holds.
+>
+> **The next phase is `ROADMAP.md` Phase 0 — repair the model** (Tier E, 13 items), which *gates* Phase 1
+> because three safety-kernel components cannot be specified over the model as it stands. Then Phase 1's
+> safety kernel (Tier D), Phase 2 calibration, Phase 3 advanced autonomy. Immediate next move: open **Q6**
+> and **Q7** with the user, then execute Phase 0 in dependency order
+> (**E12 → E1 → E3 → E4 → E2 → E6 → E9 → E13 → E5 → E7 → E8 → E10 → E11**).
+>
+> A1 and A2 remain **P1**; B1 is **P1** as **D4**, rescoped (see the ⊘ block at B1).
