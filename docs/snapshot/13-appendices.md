@@ -152,7 +152,7 @@ derived against alternatives, disputed, or retracted — not merely written down
   a row gets its own only when that row is itself a contested decision. **Explanatory prose inherits
   the nearest enclosing entry** — the ledger records decisions, not sentences.
 - **Identifiers** are stable and semantic — `R-APEX-01`, `R-BEDROCK-04`, `R-LOOP-02`, `R-GATE-03`,
-  `R-DONE-01`, `R-AGENTIC-02` — namespaced by *subject*, never by chapter number, so renumbering a
+  `R-DONE-01`, `R-AGENTIC-01` — namespaced by *subject*, never by chapter number, so renumbering a
   chapter never invalidates a reference.
 - **Historical traces** cite the annotated Git tag and a heading, never a line number:
   `docs-history-2026-07-30:<path>#<heading>`. Line numbers rot on the next edit; headings and tags do

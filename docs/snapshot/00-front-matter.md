@@ -69,8 +69,10 @@ levels.
 | **L2** | The unit loop, fully staffed | The atom — one feedback loop, and its elements | [Ch. 4](#4-the-atom-the-unit-control-loop) |
 | **L2** | The fractal — one shape, every scale | How the loop repeats up and down, and where it stops | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
 | **L2** | Feature A — rate limiting, every element opened | The fractal made concrete on a graded feature | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
-| **L3** | Feature B — password reset, opened inward | The same shape where security forbids skipping | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
-| **L3** | When the loop collapses | Which ceremony is reducible, and the two overrides | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
+| **L3** | Feature A — the reflect beat, opened inward | The fractal driven inward into one beat | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
+| **L2** | Feature B — password reset, every element opened | The same shape where security forbids skipping | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
+| **L3** | Feature B — design & verify against an adversary | The two elements a directed adversary re-shapes | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
+| **L3** | When the loop collapses — is the ceremony a must? | Which ceremony is reducible, and the two overrides | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
 | **L2** | The lifecycle (process flow) | The familiar lifecycle, as a projection of the loop | [Ch. 7](#7-the-lifecycle-the-process-flow) |
 | **L3** | The schedule bet | How `plan` bets a date — and which half of the bet is gated | [Ch. 7](#7-the-lifecycle-the-process-flow) |
 | **L2** | The two repertoires | Cross-cutting responses: resilience vs. security | [Ch. 8](#8-the-two-repertoires-resilience-and-security) |
