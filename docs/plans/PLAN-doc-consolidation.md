@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `00b` complete
-Next step: `01`
+Current step: `01` complete
+Next step: `02a`
 
 ## Objective
 
@@ -287,8 +287,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: current-state inspection, initial plan, and the accepted design revision.
-Evidence: source revision `a38623b`; `docs-history-2026-07-30` exists; the current `node scripts/verify-docs.mjs` passes with 14 chapters, 33 rationale entries, and 29 charts. The chart total includes eight canvas charts.
-Dirty files: none after the step 00b planning commit.
-Verification state: complete for step 00b after the plan diff and commit check.
-Exact next action: create and verify the annotated `docs-history-2026-09-24` tag at `a38623b`. The next user-initiated turn starts step 01.
+Completed scope: step 01 created the annotated `docs-history-2026-09-24` tag at source commit `a38623b`. The active model was not edited.
+Evidence: `git cat-file -t` reports a tag; its peeled commit equals `a38623b2ff43817e8d96d888cefb8e67886933db`. `HANDOFF.md` and `docs/agent-architecture/00_meta/architectural_hierarchy.md` are readable through `git show`; their tagged blob IDs match the source commit. The July tag still resolves to `07abc67d0d62f2fa27dbf18ae066f3472a3d7eea`.
+Dirty files: none after this handoff commit.
+Verification state: step 01 complete. The September tag exists locally; no remote push was part of this packet.
+Exact next action: inspect the E1 through E3 decisions in `ROADMAP.md` §3, identify affected snapshot passages and rationale entries, then apply and check that bounded repair set. The next user-initiated turn starts step 02a.
