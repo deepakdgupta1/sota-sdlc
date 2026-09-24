@@ -24,14 +24,14 @@ collapse when it would cost more than it saves?**
 
 > ▸ **Chart — "The fractal — one shape, every scale"** <sup>[↪ Why](#r-loop-04)</sup> · *L2 · scaling.* The scope nesting (top); any
 > scope expanding into the four beats (middle); any beat or element expanding into its own four-beat loop
-> (bottom). Escalation runs upward to a human; a dashed exit runs to *bedrock* — a leaf so certain it
+> (bottom). Escalation runs upward to independent review or accountable authority; a dashed exit runs to *bedrock* — a leaf so certain it
 > collapses to bare `do` (the base case, §6.4).
 
 ```pipeline-graph
 {
   "title": "The fractal — one shape, every scale",
   "level": "L2 · scaling",
-  "summary": "The same loop nested outward across scope (action ⊂ … ⊂ product) and inward into every element; escalation runs upward to a human, and a certain-enough leaf collapses to bare do (the base case, §6.4).",
+  "summary": "The same loop nests outward across scope and inward into every element; escalation reaches independent review or accountable authority, while a certain leaf can collapse to bare do (§6.4).",
   "zoomOut": "The unit loop, fully staffed",
   "zoomIn": ["Feature A — rate limiting, every element opened", "When the loop collapses — is the ceremony a must?", "The lifecycle (process flow)"],
   "nodes": [
@@ -44,7 +44,7 @@ collapse when it would cost more than it saves?**
     {"id":"b_do","label":"do","group":"beat","x":330,"y":140},
     {"id":"b_check","label":"check","group":"beat","x":510,"y":140},
     {"id":"b_reflect","label":"reflect","group":"beat","x":690,"y":140},
-    {"id":"human","label":"human (escape hatch)","group":"terminal","x":900,"y":140},
+    {"id":"authority","label":"independent review / authority","group":"terminal","x":900,"y":140},
     {"id":"c_define","label":"define","group":"beat","x":150,"y":290},
     {"id":"c_do","label":"do","group":"beat","x":330,"y":290},
     {"id":"c_check","label":"check","group":"beat","x":510,"y":290},
@@ -61,7 +61,7 @@ collapse when it would cost more than it saves?**
     {"source":"b_do","target":"b_check"},
     {"source":"b_check","target":"b_reflect"},
     {"source":"b_reflect","target":"b_define","dashed":true,"label":"re-target ↺"},
-    {"source":"b_reflect","target":"human","dashed":true,"label":"escalate → human"},
+    {"source":"b_reflect","target":"authority","dashed":true,"label":"escalate"},
     {"source":"b_reflect","target":"c_define","member":true,"label":"any beat/element = a loop ↓"},
     {"source":"c_define","target":"c_do"},
     {"source":"c_do","target":"c_check"},
@@ -96,11 +96,11 @@ examples below:
 
 | Element (beat) | Its inner loop | What its inner `check` asks | What its inner `escalate` means |
 |---|---|---|---|
-| `specify` (define) | elicitation | does the draft cover every reality, unambiguously? | the *need* itself is unclear — ask a human |
+| `specify` (define) | elicitation | does the draft cover every reality, unambiguously? | the *need* itself is unclear — ask the accountable principal |
 | `scope` (define) | boundary-drawing | is the slice coherent and within budget? | can't fit a coherent slice — need more budget |
 | `design` (define) | decomposition (§9.1) | do the stubs wire up — is the bet refuted cheaply? | no clean decomposition — the spec may be wrong |
 | `implement` (do) | write–run–fix (TDD) | does the unit pass its own test? | can't pass — the interface/design is wrong |
-| `verify` (check) | meta-check | does the evidence actually cover the risky paths? | can't build a trustworthy check — use a proxy / human |
+| `verify` (check) | meta-check | does the evidence actually cover the risky paths? | can't build a trustworthy check — seek independent review |
 | `observe` (check) | instrumentation | is the run-time signal faithful, not blind? | reality has a mode we can't see |
 | `analyze` (reflect) | diagnosis | does the hypothesis reproduce / explain the evidence? | can't root-cause with what I can see |
 | `decide` (reflect) | deliberation | does the chosen exit survive a pre-mortem? | beyond my budget / authority |
@@ -148,14 +148,14 @@ follows *is* the full expansion — every row is a complete `define → do → c
     {"id":"observe","label":"observe · throttle telemetry","group":"element","x":600,"y":175},
     {"id":"analyze","label":"analyze · diagnose the misfires","group":"element","x":900,"y":100},
     {"id":"decide","label":"decide · deliberate the exit","group":"element","x":900,"y":175},
-    {"id":"human","label":"human — escape hatch","group":"terminal","x":1180,"y":40}
+    {"id":"authority","label":"independent review / authority","group":"terminal","x":1180,"y":40}
   ],
   "edges": [
     {"source":"define","target":"do"},
     {"source":"do","target":"check"},
     {"source":"check","target":"reflect"},
     {"source":"reflect","target":"define","dashed":true,"label":"re-target ↺"},
-    {"source":"reflect","target":"human","dashed":true,"label":"escalate → human"},
+    {"source":"reflect","target":"authority","dashed":true,"label":"escalate"},
     {"source":"define","target":"specify","member":true},
     {"source":"define","target":"scope","member":true},
     {"source":"define","target":"design","member":true},
@@ -210,7 +210,7 @@ fully opened:
     {"id":"d_ref","label":"reflect · commit / escalate ↑","group":"beat","x":1060,"y":175},
     {"id":"accept","label":"accept · known issue","group":"terminal","x":520,"y":310},
     {"id":"op_ref","label":"↑ the outer loop's reflect","group":"beat","x":1320,"y":60},
-    {"id":"human","label":"human (escape hatch)","group":"terminal","x":1320,"y":175}
+    {"id":"authority","label":"independent review / authority","group":"terminal","x":1320,"y":175}
   ],
   "edges": [
     {"source":"analyze","target":"a_def","member":true,"label":"⟳"},
@@ -226,7 +226,7 @@ fully opened:
     {"source":"d_ref","target":"d_def","dashed":true,"label":"reconsider"},
     {"source":"d_do","target":"accept","label":"accept"},
     {"source":"d_ref","target":"op_ref","dashed":true,"label":"escalate ↑ = outer escalate"},
-    {"source":"op_ref","target":"human","dashed":true,"label":"→ escape hatch"}
+    {"source":"op_ref","target":"authority","dashed":true,"label":"escalate"}
   ]
 }
 ```
@@ -269,14 +269,14 @@ checks must ask and, decisively, removes `decide`'s freedom to skip them.
     {"id":"observe","label":"observe · reuse + deliverability","group":"element","x":600,"y":175},
     {"id":"analyze","label":"analyze · diagnose low completion","group":"element","x":900,"y":100},
     {"id":"decide","label":"decide · deliberate the exit","group":"element","x":900,"y":175},
-    {"id":"human","label":"human — escape hatch","group":"terminal","x":1180,"y":40}
+    {"id":"authority","label":"independent review / authority","group":"terminal","x":1180,"y":40}
   ],
   "edges": [
     {"source":"define","target":"do"},
     {"source":"do","target":"check"},
     {"source":"check","target":"reflect"},
     {"source":"reflect","target":"define","dashed":true,"label":"re-target ↺"},
-    {"source":"reflect","target":"human","dashed":true,"label":"escalate → human"},
+    {"source":"reflect","target":"authority","dashed":true,"label":"escalate"},
     {"source":"define","target":"specify","member":true},
     {"source":"define","target":"scope","member":true},
     {"source":"define","target":"design","member":true},
@@ -293,7 +293,7 @@ checks must ask and, decisively, removes `decide`'s freedom to skip them.
 |---|---|---|---|---|
 | `specify` | a complete, *secure* reset spec | draft "email → 30-min single-use token → set password; **must not reveal if the email exists**; invalidate other sessions on completion" | review vs realities: spam, token interception, concurrent / attacker-initiated resets; log out on request or on completion? | ambiguity → "invalidate on completion" (avoids DoS-by-reset); accept; escalate to security. Reachable enumeration is a per-seam gate (§9.3) |
 | `scope` | a coherent *secure* slice | email reset, 30-min tokens; defer SMS / 2FA-recovery / admin reset | does the selected flow preserve the non-enumeration constraint? | redraw if the forbidden output is reachable; accept a bounded slice; escalate |
-| `design` | parts + contracts composing to *secure* reset | {request · token issue+store (hashed, TTL) · ESP delivery · verify+set · session-invalidation}; **equal response *and* timing** whether the email exists | stub + **security** composition: is a forbidden output (an enumeration signal, incl. timing) reachable at any seam? (§9.3) | timing leak → re-decompose to constant-time; survive; escalate — green leaves can still falsify the *security* hypothesis |
+| `design` | parts + contracts composing to *secure* reset | {request · token issue+store (hashed, TTL) · ESP delivery · verify+set · session-invalidation}; **equal response *and* timing** whether the email exists | stub + **security** composition: is a forbidden output (an enumeration signal, incl. timing) reachable at any seam? (§9.3) | timing leak → analyze the failed assumption, then re-decompose if design omitted the path; survive; escalate — green checks do not prove a true leaf |
 | `implement` | CSPRNG token; hashing; endpoint contracts | write it | unit tests | fail → fix; pass → accept; escalate — bottoms out at code |
 | `verify` | evidence we built it *securely* — cover the abuse paths | reused-token, expired-token, enumeration-timing tests + security review | did we test the **timing side-channel** and token reuse? — *blind spot: timing untested* | add the timing test; do not accept while forbidden-output reachability is unknown (§11); escalate |
 | `observe` | run-time attack + delivery signals | reset-request / completion rate, token-reuse attempts, bounce/spam via ESP webhooks | is deliverability observable and are reuse-attempts captured? | blind → add webhooks; skipping this sensor is *machinery-degrading* → hard gate; escalate |
@@ -371,9 +371,9 @@ is pure cost. So a loop may **collapse toward bare `do`** exactly as its stones 
 | define · `design` | complexity (#3) | the work is atomic — one step, no parts | — |
 | do · `implement` | — (the base act) | *never* — it **is** the work | — |
 | check · `verify` | we err (#4) | the step is provably correct / cheap to redo | a **hard gate**: the violation is non-local (§11) |
-| check · `observe` | uncertainty (#6) | reality is fully modelled — no residue | skipping the sensor is *machinery-degrading* → gate |
+| check · `observe` | uncertainty (#6) | reality is fully modelled — no residue | a required sensor at the accountable work unit or a gated seam must remain |
 | reflect · `analyze` | we err (#4) | it converged on the first try — no gap | **non-convergence**: a hidden stone → re-expand |
-| reflect · `decide` | finite (#2) | exactly one exit is possible | dropping the written `reflect`-artifact is machinery-degrading → gate |
+| reflect · `decide` | finite (#2) | exactly one exit is possible | required decision evidence at the accountable work unit must remain |
 
 Two independent base cases bound the recursion, on the model's two axes:
 
@@ -426,19 +426,19 @@ small or improbable; this is the same shape as §9.2's *tightest-sufficient* con
 admit the required realities, no more. Feature A collapses freely — the token-bucket `implement` bottoms
 out in a single unit test, and `scope` barely loops.
 
-**But two overrides delete the `accept` exit and forbid collapse** (both from §11):
+**Two overrides limit collapse** (§11):
 
 1. **A hard gate** — a violation that is *non-local* (adversary-amplified, irreversible, or
-   machinery-degrading). This is why Feature B cannot be reduced the way A can: the adversary removes the
-   "low-stakes, cheap-to-redo" premise that justified skipping. Skipping `observe` or the written
-   `reflect`-artifact is *itself* machinery-degrading — so those beats are gates about the loop's own
-   machinery, non-waivable regardless of local cost.
+   machinery-degrading), or a gate imposed by outside authority. Feature B cannot omit its gated
+   security checks. The accountable work unit must retain its required sensor and decision evidence;
+   it need not create a separate artifact for every nested element. A shared artifact can cover several
+   inner loops if it identifies the work unit and preserves the evidence each needs. A named seam gate
+   still applies at that seam. <sup>[↪ Why](#r-gate-04)</sup>
 2. **Non-convergence.** If a step you judged trivial keeps failing, your judgement that "no stone bites
    here" was wrong — a hidden stone is present. Re-expand. Non-convergence is information (Chapter 4), now
    pointing at your own reducibility bet.
 
-So the honest answer to "is all this ceremony a must?" is: **the ceremony is proportional, not fixed —
-pay it where a stone bites and buy it down where none does — except at the gates, where a single miss is
-uncompensable and the price of the ceremony is not yours to negotiate.**
+The loop's work remains proportional to the hazards it faces. Its accountable work unit retains
+required evidence, and a gated seam retains its check, even when inner loops collapse.
 
 ---

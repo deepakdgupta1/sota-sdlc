@@ -16,14 +16,15 @@ because the statistical moves that beat randomness can be turned *against* you b
 
 | Response | What it does | Example |
 |---|---|---|
-| **escalate** | Hand up when bounded tries are exhausted; ends at a human. | Retries for one email domain keep failing → page the on-call. |
+| **escalate** | Hand up when bounded tries are exhausted; reach independent review or accountable authority. | Retries for one email domain keep failing → page the on-call. |
 | **degrade** | Fail partial, not total (graceful degradation). | Email provider down → queue the request and say "arriving shortly" instead of returning a 500. |
 | **recover** | Spares, replicas, retries so the function survives a failure (redundancy). | A second email provider takes over when the primary fails. |
 | **roll back** | Revert to the last known-good state. | A new template spikes bounce rates → redeploy the previous one. |
 
 **The repertoire's compact form.** The four responses are not four of a kind. **Escalate** is the one
-*structural up-exit* — it leaves the loop entirely, handing the problem to the parent loop and
-ultimately to a human. The other three are *in-place* trades for liveness, distinguished by what each
+*structural up-exit* — it leaves the loop entirely, handing the problem to the parent loop and then
+to independent review or accountable authority. A human decides matters requiring accountability,
+value judgment, or exceptional authority. The other three are *in-place* trades for liveness, distinguished by what each
 **trades away**: `degrade` trades *completeness*, `recover` trades *spares* (redundancy), `roll back`
 trades *newness*. They also pair off by stone: `degrade`/`recover` answer **uncertainty** (#6 — the
 *context* pair), while `roll back` answers **change** (#5 — the *time* pair), whose build-time twin is
@@ -88,8 +89,7 @@ non-local.
 > **⟐ Under autonomy.** `threat-model / red-team` does double duty. It is the response to the external
 > adversary (stone #8) *and* the response to the internal shared blind spot (stone #9): an
 > *independent, adversarial* checker who deliberately does not share the builder's assumptions is
-> exactly what breaks the doer-checker correlation. An autonomous pipeline has no free human
+> exactly what reduces the doer-checker correlation. An autonomous pipeline cannot assume an independent
 > escape-hatch to fall back on, so it must inject this independence deliberately.
 
 ---
-

@@ -40,13 +40,15 @@ proxy-construction are the *same act*: the conjunction of leaf-targets is a **co
 the parent target, and it inherits every proxy pathology — it can be gamed (Goodhart's law: "all units
 pass" is a proxy for "the feature works," and the gap between them is where the bug lives).
 
-**Failure routing.** A composite is done only if (a) its leaves pass *and* (b) the composition
-hypothesis holds. If a composite **fails acceptance while all its leaves are green**, the parts kept
-their promises but the whole did not — so the **composition hypothesis is falsified**. `analyze`
-root-causes to *that hypothesis*, and `decide` **re-targets `design`** to re-decompose — *not* the
-leaves. This is "non-convergence points at the target" (Chapter 4), now localised precisely to the
-decomposition. To trace such a failure back, the hypothesis must be *written down* — which is why the
-design artifact exists (Chapter 10).
+**Failure routing.** A composite is done only if its leaves are truly done and the composition
+hypothesis holds in the relevant environment. A green check says that a leaf's **oracle passed**;
+it does not establish that the leaf met its real target. If parent acceptance fails while all leaf
+checks are green, the conjunction of the composition hypothesis, the leaf oracles, and the environment
+model is false. `analyze` compares the failed parent outcome with those three assumptions before
+`decide` routes the repair. A bad composition or inadequate contracts return to `design`; a weak leaf
+oracle returns to `verify` and the affected leaf; an incorrect environment model returns to `observe`
+or `specify` for new evidence or a revised target. Record the hypothesis and the evidence so the
+diagnosis can distinguish these cases. <sup>[↪ Why](#r-done-03)</sup>
 
 **Shared form, work-unit content.** Elicitation, boundary and acceptance projection, decomposition,
 checking, and revision recur at different scales. The actual exclusions, authority, budget, qualities,
@@ -55,8 +57,7 @@ and refined against it.
 
 > ▸ **Chart — "Done propagation"** <sup>[↪ Why](#r-unit-01)</sup> · *L3 · inside a beat.* Intent becomes a bounded root target;
 > `design` decomposes it (each edge a composition hypothesis); leaves bottom out into deterministic or
-> statistical checks; a rejected qualitative composite falsifies the hypothesis and routes back to
-> `design`.
+> statistical checks; rejected parent acceptance routes through `analyze` to the failed assumption.
 
 ```pipeline-graph
 {
@@ -72,7 +73,10 @@ and refined against it.
     {"id":"design","label":"design · decompose","group":"element","x":260,"y":195},
     {"id":"cA","label":"sub-target A","group":"beat","x":110,"y":300},
     {"id":"cB","label":"sub-target B · qualitative","group":"beat","x":440,"y":300},
-    {"id":"accept","label":"human accept","group":"terminal","x":700,"y":300},
+    {"id":"accept","label":"parent acceptance fails","group":"terminal","x":700,"y":300},
+    {"id":"analyze","label":"analyze failed assumption","group":"element","x":940,"y":300},
+    {"id":"verify","label":"repair leaf oracle / verify","group":"element","x":1180,"y":360},
+    {"id":"environment","label":"revise environment model","group":"element","x":1180,"y":260},
     {"id":"leaf1","label":"leaf · deterministic","group":"property","x":-20,"y":410},
     {"id":"leaf2","label":"leaf · deterministic","group":"property","x":200,"y":410},
     {"id":"leaf3","label":"leaf · statistical proxy","group":"property","x":440,"y":410}
@@ -86,8 +90,11 @@ and refined against it.
     {"source":"cA","target":"leaf1"},
     {"source":"cA","target":"leaf2"},
     {"source":"cB","target":"leaf3"},
-    {"source":"cB","target":"accept","dashed":true,"label":"qualitative → human"},
-    {"source":"accept","target":"design","dashed":true,"label":"falsified → re-decompose ↺"}
+    {"source":"cB","target":"accept","dashed":true,"label":"parent check"},
+    {"source":"accept","target":"analyze","dashed":true,"label":"green leaves"},
+    {"source":"analyze","target":"design","dashed":true,"label":"composition / contracts"},
+    {"source":"analyze","target":"verify","dashed":true,"label":"weak oracle"},
+    {"source":"analyze","target":"environment","dashed":true,"label":"wrong environment"}
   ]
 }
 ```
@@ -240,11 +247,11 @@ The parent boundary and acceptance vector identify which constraints apply to ea
 
 The consequence is sharp: a design can be insecure *no matter how correctly each leaf is built.* The
 classic example: store a credential in a repository's `.env` file and add it to `.gitignore`. Every
-leaf is green — the reader works, and git really does exclude the file — yet the whole leaks the instant
+leaf check is green — the reader works, and git really does exclude the file — yet the whole leaks the instant
 an un-modelled exit opens (a full-disk backup syncing the working tree to the cloud). The forbidden
-output (a secret readable at rest, off-box) is *reachable*, so the security composition hypothesis is
-falsified **with green leaves** → root-cause to the *decomposition* → re-target `design` (move the
-secret to the keychain).
+output (a secret readable at rest, off-box) is *reachable*. Here `analyze` finds that the design omitted
+the backup path, so `decide` returns to `design` to move the secret to the keychain. Green checks alone
+would not establish that the leaves met the parent target.
 
 **Why the security check recurs.** A directed adversary can search for the least-defended relevant
 seam. At each named seam, gate the binary question: **is a forbidden output reachable under the stated

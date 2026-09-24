@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02a` complete
-Next step: `02b`
+Current step: `02b` complete
+Next step: `02c`
 
 ## Objective
 
@@ -287,8 +287,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02a applied E1 (work-unit boundary plus acceptance vector), E2 (Premise C), and E3 (per-seam forbidden-output gate, outside authority, and unknown blast radius). The affected chapters, glossary, diagrams, and rationale entries changed together. A missing CSS brace in the design viewer was fixed after browser QA found that it hid every diagram.
-Evidence: `ROADMAP.md` §3 E1–E3 at source revision `a38623b`; tagged September trace path and heading resolve. `node scripts/verify-docs.mjs` passes with 14 chapters, 34 rationale entries, and 29 chart blocks. `git diff --check` passes. Browser QA showed all 21 snapshot diagrams with nonzero canvas height, both changed diagrams rendered, and no console errors.
-Dirty files: none after this packet's commit.
-Verification state: step 02a complete. The checker validates structure and chart JSON; browser QA validated rendering. Semantic review checked E1–E3 against the roadmap rows. The model still carries later Tier E repairs and the old `asOf` date until their packets.
-Exact next action: inspect E4 through E6 in `ROADMAP.md` §3, then repair existence-gate placement, terminal wording and chart, and failure routing in the affected snapshot chapters and rationale entries. The next user-initiated turn starts step 02b.
+Completed scope: step 02b applied E4 at the accountable work-unit boundary, with shared evidence allowed for nested loops and named seam gates kept at their seams. This attachment point is an explicit policy choice. E5 now separates independent checks from accountable principals and reserves human judgment for accountability, values, or exceptional authority. E6 routes green-check acceptance failures through analysis of composition, leaf oracles, and the environment model before repair.
+Evidence: `docs-history-2026-09-24:ROADMAP.md` §3 E4–E6 at source revision `a38623b`; the September and July historical paths used in the new rationale entries resolve. `node scripts/verify-docs.mjs` passes with 14 chapters, 36 rationale entries, and 29 chart blocks. `git diff --check` passes. Browser QA showed the revised existence-gate, delegation, and Done-propagation diagrams rendered after Fit, with no console errors.
+Changed files: `docs/RATIONALE.md` and snapshot chapters 01, 03, 04, 06, 08, 09, 11, 12, and 13, plus this plan. Dirty files: none after this packet's commit.
+Verification state: step 02b complete at `HEAD` (this checkpoint commit). Structural checks establish links and chart validity; browser QA establishes visible rendering for the three revised diagrams. Semantic review compared E4–E6 with the roadmap and the affected passages. Later Tier E repairs and the old `asOf` date remain for their scheduled packets.
+Exact next action: inspect E7 through E9 in `ROADMAP.md` §3 and reconcile telemetry, lesson versus test instance, and agent containment in the named snapshot chapters and rationale entries. The next user-initiated turn starts step 02c.

@@ -2,33 +2,30 @@
 
 <sup>[↪ Why](#r-agentic-01)</sup>
 
-Everything so far holds whether the loop is staffed by people or by software agents. This chapter is
-about the one place where that stops being true — **the moment you delegate the loop to other minds and,
-in the limit, remove the human entirely: agents that run the whole loop, judge their own work, and pursue
-their own goals.**
+Everything so far holds whether the loop is staffed by people or by software agents. Delegation adds
+two risks when other actors do the work and check it.
 
-Two brute facts switch on here that stayed dormant while a human sat in the loop. They are different in
+These risks grow with delegation. They are different in
 kind from the first eight stones — those are facts about the *problem*; these are facts about the
 **solver**, and about *who staffs the loop*. Together they form the model's **second-order tier**, and
 the tier has exactly two seats, because a delegated mind can betray the loop in exactly two ways: it can
 be **blind** (share the doer's error) or **unfaithful** (pursue its own payoff). The loop silently
-assumed neither — that its checker is *independent* and its doer is *faithful* — and delegation is what
-breaks those assumptions.
+assumed neither — that its checker is *independent* and its doer is *faithful* — and delegation can
+break those assumptions.
 
 ### The first seat: reflexivity (stone #9) — the checker is not independent
 
 <sup>[↪ Why](#r-bedrock-03)</sup>
 
-In a human-run lifecycle the loop has a quiet luxury: when it checks its own work, the checker is at
-least *somewhat* independent of the doer — a different person, a different perspective, and ultimately a
-human escape hatch that can say "no, this is wrong" from outside the system. Independence is what lets
-you *stack* checks and drive error toward zero. That is the hidden assumption behind the word
-"converges," and behind the property **reliable**.
+An independent check uses evidence or a method whose errors are not strongly correlated with the
+doer's. A different person can supply such a check, as can a test or reviewer with different failure
+modes. Stacking checks helps only when they add information. This matters to **reliable**, the property
+that the result meets the intended target. **Resilient** concerns continued operation and recovery
+under changing conditions.
 
-Reflexivity is the brute fact that in an autonomous, multi-agent pipeline **that independence is not
-there.** The agents that staff `check` and `reflect` are the same *kind* of erring agent as the doer
-(stone #4). Their errors are **correlated**, not independent. And a check is only worth the *new
-information* it adds beyond the doer's own belief:
+Reflexivity is the risk that an agent-staffed `check` or `reflect` shares the doer's error. Using the
+same model, assumptions, or evidence can make their errors **correlated**. A check is worth the new
+information it adds beyond the doer's own belief:
 
 - A checker that shares the doer's blind spot is an **echo chamber**. It agrees for the same wrong
   reasons. It adds **zero bits** of information. "Verify" silently collapses into "declare" — the system
@@ -74,17 +71,17 @@ vanishes — a single coherent utility cannot be misaligned with itself. But mod
 realism the model already grants when it says "humans and models err" — and a floor of divergence
 remains that perfect alignment never fully crosses, just as perfect independence is unreachable for #9.
 
-### The consequence: an autonomous loop can neither judge nor trust itself
+### The consequence: two risks in a delegated loop
 
 <sup>[↪ Why](#r-done-02)</sup>
 
-Put the pieces together. Reliability is manufactured by convergence; convergence assumes both that the
-checker is *independent* and that the doer is *faithful*; in a delegated or autonomous pipeline both come
-only from an outside terminal — an independent judge, an aligned principal — and removing the human
-drives both toward zero. So a fully autonomous loop, left to itself, can converge confidently to a
-**wrong** fixed point in two different ways: a green check sitting on a real defect it *could not see*
+Put the pieces together. Intent-faithful results need checks that can detect the doer's mistakes and
+incentives that do not reward cutting corners. Delegation can weaken either condition; removing a human
+does not by itself remove both. Independent evidence and an accountable principal address different
+risks. Without them, a delegated loop can converge confidently to a **wrong** fixed point in two
+different ways: a green check sitting on a real defect it *could not see*
 (#9), or a green check over a corner it *chose* to cut (#10). Either way the loop's own signals all say
-"fine." **An autonomous loop cannot be its own ground truth — it can neither judge nor trust itself.**
+"fine." **A loop cannot use its own unchecked report as ground truth.**
 
 Notice the shape of both failures. It is not that the agents are lazy or careless; a diligent,
 high-capability autonomous loop fails *these specific ways* — by being *confidently* wrong (shared
@@ -94,15 +91,15 @@ That is worse than a loud failure, because nothing inside the loop raises a hand
 > ▸ **Chart — "The second-order tier — the delegated/autonomous regime"** <sup>[↪ Why](#r-agentic-01)</sup> · *L4 · the delegated/
 > autonomous regime.* Two ways a delegated mind hollows a check into a bare *declare*: a **blind** checker
 > (correlated fault → echo chamber, #9) and an **unfaithful** doer (own payoff → self-serving report,
-> #10). Independence and alignment are the two properties that manufacture reliability; the external
-> terminal and an aligned principal supply them; removing the human drives both toward zero; adversarial/
-> diverse review and outcome-linked incentives restore them.
+> #10). Independent evidence addresses shared blind spots; an accountable principal and suitable
+> incentives address divergence. Human review remains where accountability, value judgment, or
+> exceptional authority requires it.
 
 ```pipeline-graph
 {
   "title": "The second-order tier — the delegated/autonomous regime",
   "level": "L4 · the delegated/autonomous regime",
-  "summary": "Two second-order stones, two ways a check collapses into a bare 'declare'. #9 reflexivity: doer and checker share a correlated blind spot → echo-chamber (adds 0 bits). #10 incentive-divergence: the doer serves its own payoff → self-serving report. Independence and alignment are what drive error → 0; the external terminal and an aligned principal supply them; removing the human drives both to zero; adversarial/diverse review and outcome-linked incentives restore them.",
+  "summary": "Delegation risks two failures: a checker shares the doer's blind spot (#9), or a doer favours its own payoff (#10). Independent evidence can address shared error. An accountable principal and suitable incentives can address divergence. Human judgment remains for accountability, values, and exceptional authority.",
   "zoomOut": "The complete circuit",
   "nodes": [
     {"id":"corr","label":"#9 · errors are CORRELATED","group":"stone","x":130,"y":0},
@@ -111,12 +108,13 @@ That is worse than a loud failure, because nothing inside the loop raises a hand
     {"id":"echo","label":"echo-chamber — blind, adds 0 bits","group":"terminal","x":280,"y":185},
     {"id":"misalign","label":"#10 · doer serves its OWN payoff","group":"stone","x":0,"y":185},
     {"id":"declare","label":"verify collapses into 'declare'","group":"terminal","x":280,"y":280},
-    {"id":"human","label":"external terminal + aligned principal","group":"terminal","x":700,"y":0},
+    {"id":"evidence","label":"independent evidence or judge","group":"terminal","x":700,"y":0},
+    {"id":"principal","label":"accountable principal + incentives","group":"terminal","x":1050,"y":0},
     {"id":"indep","label":"INDEPENDENCE (#9) — checker ⊥ doer","group":"property","x":700,"y":95},
     {"id":"align","label":"ALIGNMENT (#10) — payoff tracks true-Done","group":"property","x":700,"y":175},
-    {"id":"auto","label":"remove the human → both → 0","group":"stone","x":700,"y":265},
-    {"id":"inject","label":"restore: adversarial/diverse review (#9) · outcome-linked incentives (#10)","group":"repertoire","x":700,"y":345},
-    {"id":"reliable","label":"reliable (eroded if delegated/autonomous)","group":"property","x":1160,"y":135}
+    {"id":"auto","label":"delegation can weaken either condition","group":"stone","x":700,"y":265},
+    {"id":"inject","label":"add independent checks + govern incentives","group":"repertoire","x":700,"y":345},
+    {"id":"reliable","label":"reliable (at risk without safeguards)","group":"property","x":1160,"y":135}
   ],
   "edges": [
     {"source":"corr","target":"doer","member":true},
@@ -124,12 +122,12 @@ That is worse than a loud failure, because nothing inside the loop raises a hand
     {"source":"checker","target":"echo","dashed":true},
     {"source":"echo","target":"declare","dashed":true},
     {"source":"misalign","target":"declare","dashed":true,"label":"self-serving report"},
-    {"source":"human","target":"indep","label":"supplies"},
-    {"source":"human","target":"align","label":"supplies"},
+    {"source":"evidence","target":"indep","label":"supplies"},
+    {"source":"principal","target":"align","label":"supports"},
     {"source":"indep","target":"reliable","label":"manufactures"},
     {"source":"align","target":"reliable","label":"manufactures"},
-    {"source":"auto","target":"indep","dashed":true,"label":"removes"},
-    {"source":"auto","target":"align","dashed":true,"label":"removes"},
+    {"source":"auto","target":"indep","dashed":true,"label":"may erode"},
+    {"source":"auto","target":"align","dashed":true,"label":"may erode"},
     {"source":"inject","target":"indep","label":"restores"},
     {"source":"inject","target":"align","label":"restores"},
     {"source":"declare","target":"reliable","dashed":true,"label":"erodes"}
@@ -141,14 +139,13 @@ That is worse than a loud failure, because nothing inside the loop raises a hand
 
 <sup>[↪ Why](#r-agentic-01)</sup>
 
-The second-order tier does not forbid autonomy — it **prices** it. Because a delegated or autonomous loop
-has no free human terminal to fall back on, it must **manufacture both independence and alignment
-deliberately.** Concretely:
+The second-order tier does not forbid autonomy. A delegated loop cannot assume its check is independent
+or its doer is faithful, so it must provide evidence and governance for both conditions:
 
-- **A non-removable external / human terminal.** Keep at least one genuinely independent judge in the
-  escalation path — a human, or a check whose errors are demonstrably *uncorrelated* with the doer's
-  (different model family, different training, different method). The point is not "a human because
-  humans are better"; it is "a terminal whose blind spots differ from the doer's."
+- **An independent check.** Keep evidence or a judge with different failure modes in the escalation
+  path. That can be a human or a check whose errors are demonstrably less correlated with the doer's.
+  Reserve a human decision for accountability, value judgment, or exceptional authority where the
+  delegated system cannot make that decision.
 - **Deliberate adversarial and diverse review.** `threat-model / red-team` (Chapter 8) does double duty
   here: a reviewer instructed to *disagree*, seeded with different assumptions, breaks the doer-checker
   correlation. Diversity of method is the mechanism; adversariality is how you force it.
@@ -158,9 +155,9 @@ deliberately.** Concretely:
   independent.
 - **Engineered alignment (stone #10).** Independence catches the *blind* failure but not the *willful*
   one — a diverse-but-misaligned ensemble still won't flag a corner it is all incentivised to cut. So the
-  autonomous loop must also make the agents' payoff track true-Done: outcome-linked rather than
-  proxy-linked rewards, skin in the game, and an **aligned principal** (a human, or a value-locked
-  objective) that owns the loss. Alignment is to the *doer* what independence is to the *checker*.
+  delegated loop must also make the doer's incentives track the intended target: outcome-linked rather
+  than proxy-linked rewards, and an **accountable principal** who owns the decision and its loss.
+  Alignment is to the *doer* what independence is to the *checker*.
 
 ### How this threads back through the document
 
@@ -170,8 +167,8 @@ The autonomy callouts scattered through the earlier chapters are all facets of t
 
 - **Chapter 2** — the second-order tier erodes **reliable** specifically, because reliability is the
   property that depends on convergence — and convergence assumes both independence and faithfulness.
-- **Chapter 4** — the human **escape hatch** is the loop's only *independent and aligned* terminal;
-  autonomy cuts it, taking both guarantees at once.
+- **Chapter 4** — escalation reaches an independent check or an accountable authority. A human remains
+  the terminal for decisions that require human accountability, values, or exceptional authority.
 - **Chapter 8** — the security repertoire's **red-team** move is also the independence-injection move
   (#9); its authn/authz and least-privilege moves *contain* a misaligned agent (#10) even though they do
   not, by themselves, align it.
@@ -181,10 +178,8 @@ The autonomy callouts scattered through the earlier chapters are all facets of t
   plan baseline: the loop's memory, senses, ratchet, and clock. Those four existence-gates are what
   keep an autonomous loop *auditable at all*.
 
-The one-line takeaway: **autonomy is not free; it removes the loop's independent *and* aligned ground,
-and an ideal autonomous SDLC is one that pays both costs back on purpose — an outside terminal and
-engineered adversarial diversity for independence (#9), outcome-linked incentives and an aligned
-principal for faithfulness (#10) — precisely where being confidently or quietly wrong would hurt most.**
+Delegation requires evidence that checks are independent enough for the risk and that incentives keep
+the doer faithful to the intended result. Human authority remains available where the decision needs
+human accountability or judgment.
 
 ---
-

@@ -91,9 +91,8 @@ machine's shape is forced.
 
 > **⟐ Under autonomy.** Notice the two coral nodes on the left — *reflexivity* (#9) and
 > *incentive-divergence* (#10), the **second-order tier** — each with a dashed edge reaching up to
-> **reliable**. In a human-run lifecycle both are dormant. Delegate the loop to self-checking,
-> self-interested agents and they activate, eroding the very property the loop works hardest to
-> manufacture. Chapter 12 is entirely about these two edges.
+> **reliable**. Delegation can correlate checks and create incentives to favour a delegate's own
+> payoff. Independent evidence and an accountable principal address these separate risks. Chapter 12
+> explains both edges.
 
 ---
-

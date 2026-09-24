@@ -114,7 +114,8 @@ a graded target.
 
 <sup>[↪ Why](#r-gate-03)</sup>
 
-Four derivations in this document were run independently, and they all landed on the **same shape**:
+Four derivations in this document were run independently, and they all landed on the **same shape**.
+These are artifact classes; an accountable work unit needs the ones its target and risks require:
 
 | Artifact | Serves | Its absence… | Its fidelity… |
 |---|---|---|---|
@@ -123,30 +124,31 @@ Four derivations in this document were run independently, and they all landed on
 | **Regression suite** (§10.1) | `resilient` — fixes stick over time | deletes the loop's memory-of-fixes → **hard gate** | coverage — graded |
 | **Plan baseline** (§7.1) | `predictable` — a slip is detectable | makes "late" undetectable → **hard gate** | the dates — a graded forecast |
 
-The law: **every forced artifact is existence-hard and fidelity-graded.** The intended-operand that
-`analyze` must later compare against has to **exist** — its absence doesn't lose one datum, it
-disables the loop's own correcting machinery, which is the machinery-degrading amplifier every time —
-but it need only be **as accurate as the residual risk warrants**, because fidelity is a Goodhartable
-proxy and hard-gating a proxy invites gaming (§11.1's coverage argument, §7.1's date argument).
+The law applies **at the accountable work unit**, not at every nested loop. For each artifact that
+the work unit needs, existence is gated and fidelity is graded. A shared artifact can satisfy the gate
+for several inner loops when it preserves their required evidence and identifies the accountable unit.
+The unit must retain an intended operand that `analyze` can compare with the result; if none exists,
+the correcting loop is blind. Fidelity follows residual risk because gating a quality proxy invites
+gaming (§11.1's coverage argument, §7.1's date argument). A named seam gate still applies at its seam,
+even if an inner loop collapses (§6.4). <sup>[↪ Why](#r-gate-04)</sup>
 
 > **plan : predictable  ::  ADR : reliable  ::  regression : resilient  ::  telemetry : observe.**
 
-This is the cleanest one-line compression of Chapters 7–11: *what the loop must write down is
-non-negotiable; how well it writes it down is priced by risk.*
+Required evidence must exist at the accountable work unit; its quality is priced by risk.
 
 > ▸ **Chart — "The convergent law"** <sup>[↪ Why](#r-gate-03)</sup> · *L3 · one law, four instances.* Four independently-derived
-> artifacts, one shape: existence feeds the hard-gate band (absence is machinery-degrading); fidelity
+> artifacts, one shape at an accountable work unit: existence feeds the hard-gate band (absence is machinery-degrading); fidelity
 > feeds the graded band (a Goodhartable proxy, priced by residual risk).
 
 ```pipeline-graph
 {
   "title": "The convergent law",
   "level": "L3 · one law, four instances",
-  "summary": "Every forced artifact is existence-hard, fidelity-graded: the ADR (reliable), telemetry (observe), the regression suite (resilient), and the plan baseline (predictable) must exist — absence is machinery-degrading — while their accuracy/coverage/content stays a graded, Goodhartable proxy.",
+  "summary": "At an accountable work unit, each required artifact must exist. The ADR (reliable), telemetry (observe), regression suite (resilient), and plan baseline (predictable) illustrate the rule. Their accuracy, coverage, and content remain graded. Inner loops may share evidence; named seam gates remain at the seam.",
   "zoomOut": "Hard gate or graded target?",
   "zoomIn": ["The second-order tier — the delegated/autonomous regime"],
   "nodes": [
-    {"id":"exist","label":"EXISTENCE — hard gate · absence blinds the loop's own machinery","group":"property","x":460,"y":0},
+    {"id":"exist","label":"REQUIRED EVIDENCE at accountable unit — hard gate","group":"property","x":460,"y":0},
     {"id":"adr","label":"ADR + post-mortem → reliable","group":"element","x":0,"y":150},
     {"id":"telemetry","label":"telemetry → observe (the senses)","group":"element","x":320,"y":150},
     {"id":"regression","label":"regression suite → resilient","group":"element","x":640,"y":150},

@@ -156,15 +156,15 @@ as having repaired them.
 ### <a id="r-loop-04"></a>R-LOOP-04 · Ceremony is proportional insurance
 
 - **Decision.** The loop is a **fractal**: every element is itself the same loop, and a beat **collapses
-  toward bare `do`** wherever its stone is absent — except at a gate, which never collapses.
+  toward bare `do`** wherever its stone is absent. A named seam gate and required evidence at the
+  accountable work unit remain in force.
 - **Why.** Ceremony is insurance against a specific hazard. Where the hazard is absent the premium buys
   nothing, and a model that demanded full ceremony everywhere would be self-refuting: it would spend the
   finite resources that stone #2 says are scarce. The collapse rule is what makes the ideal *affordable*
   without making it optional where it matters.
-- **Governs.** `docs/snapshot/06-fractal.md`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.7 — the inward base case.
-- **Open.** The granularity at which the existence-gate attaches is **not** settled here; §6.4's collapse
-  rule and §11.2's convergent law disagree at collapsed nodes. That is E4 in `ROADMAP.md` §3, gated on Q7.
+- **Applies to.** `docs/snapshot/06-fractal.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`
+  §10.7, the inward base case. [R-GATE-04](#r-gate-04) sets the gate's attachment point.
 
 ### <a id="r-loop-05"></a>R-LOOP-05 · `implement` is the base act, `release` is a seam
 
@@ -230,6 +230,20 @@ as having repaired them.
   human-experiential and runtime-assured modalities — each with its own residue and Goodhart surface —
   is E13 in `ROADMAP.md` §3, not applied here.
 
+### <a id="r-done-03"></a>R-DONE-03 · Diagnose a green-check acceptance failure before routing it
+
+- **Decision.** If parent acceptance fails while leaf checks pass, `analyze` tests the composition
+  hypothesis, the leaf oracles, and the environment model. `decide` then routes the repair to `design`,
+  the affected leaf and `verify`, or `observe` and `specify`, according to the failed assumption.
+- **Why.** A passing check establishes only that its oracle accepted the observed result. It does not
+  prove that the leaf met the intended target or that the environment matched the model. Re-decomposing
+  every such failure would leave bad oracles and missing environmental conditions untouched.
+- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E6; the earlier composition bet: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`.
+- **Superseded.** The claim that green leaf checks prove the leaves kept their promises and therefore
+  falsify only the composition hypothesis.
+
 ### <a id="r-gate-01"></a>R-GATE-01 · A gate follows non-local harm or outside authority
 
 - **Decision.** A work unit has no local accept exit when one violation is non-local or an outside
@@ -263,14 +277,32 @@ as having repaired them.
 
 ### <a id="r-gate-03"></a>R-GATE-03 · The convergent law — existence-hard, fidelity-graded
 
-- **Decision.** Every forced artifact obeys one law: **its existence is gated, its fidelity is graded.**
+- **Decision.** At an accountable work unit, each required artifact obeys one rule: **its existence is
+  gated, its fidelity is graded.**
   `plan : predictable :: ADR : reliable :: regression : resilient :: telemetry : observe`.
 - **Why.** The four instances were derived independently and landed on the same shape, which is what
   promotes a pattern to a law. It also explains why the model resists both failure modes at once:
   demanding perfect artifacts would be unaffordable ceremony, while allowing an artifact to be *absent*
   would silently delete the property it carries.
-- **Governs.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/10-artifacts.md`.
-- **Trace.** `sdlc-canvas/05-laws-and-insights.md` §12.
+- **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/10-artifacts.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/05-laws-and-insights.md`
+  §12. [R-GATE-04](#r-gate-04) states the attachment point for this rule.
+
+### <a id="r-gate-04"></a>R-GATE-04 · Required evidence attaches to the accountable work unit
+
+- **Decision.** Gate the existence of required evidence at the accountable work unit. Its nested loops
+  may share an artifact if it identifies the unit and preserves the evidence they need. A gate for a
+  named seam remains at that seam.
+- **Why.** Requiring a separate artifact from every nested element conflicts with the collapse rule
+  and consumes effort without adding evidence. Allowing the accountable unit to omit required evidence
+  would blind its later `analyze`. The accountable unit is an explicit policy choice for ownership,
+  not a granularity derived from the bedrock. Seam gates retain their own location because harm can
+  occur before the unit completes.
+- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/11-hard-gates-vs-graded.md`,
+  `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E4 and Q7. The accountable work-unit boundary is [R-UNIT-01](#r-unit-01).
+- **Superseded.** The reading of the convergent law that gated an artifact at every fractal node.
 
 ### <a id="r-artifact-01"></a>R-ARTIFACT-01 · Stone #7 forces artifacts, and distance sets their cost
 
@@ -301,20 +333,20 @@ as having repaired them.
 
 ### <a id="r-agentic-01"></a>R-AGENTIC-01 · The second-order tier prices autonomy; it does not forbid it
 
-- **Decision.** Delegating the loop to self-checking, self-interested agents activates stones #9 and
-  #10, which erode `reliable`. The response is to **price** autonomy — to require independence and
-  alignment machinery proportional to what is being risked — not to prohibit it.
-- **Why.** Both stones are *conditional*: they are dormant when one aligned mind does everything, and
-  they activate exactly as delegation increases. A prohibition would forgo the capability; an unpriced
-  permission would hollow `check` into `declare`. Pricing is the only response that tracks the
-  conditionality of the stones that force it.
-- **Governs.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/02-destination-four-properties.md`.
-- **Trace.** `sdlc-canvas/01-bedrock-atom-fractal.md` · `sdlc-canvas/05-laws-and-insights.md`.
-- **Open.** Chapter 12 currently contradicts itself on what the independent terminal must be: it states
-  the terminal need only be *uncorrelated*, but elsewhere derives both properties as coming "only from
-  an outside terminal" and calls the human hatch the loop's "only" independent and aligned terminal.
-  Repairing that, and reserving "human" for accountability and exceptional authority, is E5 in
-  `ROADMAP.md` §3 — **not** applied here. Read the chapter knowing it disagrees with itself.
+- **Decision.** Delegation raises two distinct risks to `reliable`: a checker may share the doer's
+  error, and a doer may favour its own payoff. Require independent evidence for the first and an
+  accountable principal with suitable incentives for the second. A human decides matters requiring
+  human accountability, value judgment, or exceptional authority. `Resilient` refers to continued
+  operation and recovery, not intent-faithfulness.
+- **Why.** A human is one possible independent judge, but removing a human does not make every check
+  correlated or every doer unfaithful. The two risks need different evidence and responses. Naming
+  the human's authority role prevents a staffing choice from being mistaken for a proof of either
+  independence or alignment.
+- **Applies to.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
+  `docs/snapshot/06-fractal.md`, `docs/snapshot/08-repertoires.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E5; earlier second-order argument: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
+- **Superseded.** The claim that removing the human drives independence and alignment to zero.
 
 ### <a id="r-method-01"></a>R-METHOD-01 · Four sources of truth, with declared precedence
 

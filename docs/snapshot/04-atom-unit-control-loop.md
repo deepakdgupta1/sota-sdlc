@@ -40,10 +40,10 @@ you ship. The loop is not one choice among many; it is what these facts jointly 
 - **The loop is bounded, and boundedness is where predictability comes from.** "A few tries, then
   stop" is what makes cost and timing foreseeable. `decide`'s *accept* exit is the stop.
 
-**The escape hatch.** Escalation ultimately ends at a **human** — the loop's one *independent*
-terminal, the place where a genuinely outside judgement can enter. This is normally a convenience. It
-becomes structurally load-bearing under autonomy (Chapter 12): remove the human and the loop loses its
-only independent ground.
+**The escape hatch.** Escalation moves to an independent judge or an accountable authority outside the
+current loop. A human takes the decision when it requires human accountability, value judgment, or
+exceptional authority. Under delegation, an independent check can also come from evidence or a method
+whose errors differ from the doer's (Chapter 12).
 
 > ▸ **Chart — "The unit loop, fully staffed"** <sup>[↪ Why](#r-loop-01)</sup> · *L2 · the atom.* The four beats across the top; the
 > elements that staff each beat below them; the cross-cutting repertoire along the bottom; the dashed
@@ -93,10 +93,8 @@ only independent ground.
 }
 ```
 
-> **⟐ Under autonomy.** The dashed line from `reflect` to the human escape hatch (implicit here,
-> explicit in the fractal chart) is the loop's independent terminal. An autonomous pipeline that lets
-> an executor staff `escalate`/`decide` too has *cut that line* — and with it the loop's only outside
-> check. This is the single most important structural change autonomy makes.
+> **⟐ Under autonomy.** The dashed `reflect` escalation in the fractal chart must lead beyond the
+> executor's own judgment. It may reach an independent check or accountable authority. A human remains
+> responsible where the decision needs human accountability, values, or exceptional authority.
 
 ---
-

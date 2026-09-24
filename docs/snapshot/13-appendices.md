@@ -31,7 +31,8 @@ Plain-language definitions of the recurring terms.
   latency for "feels fast"). Proxies can be gamed — the gap between proxy and intent is where defects
   hide. <sup>[↪ Why](#r-done-02)</sup>
 - **Composition hypothesis.** The bet `design` makes that "if every part is done, the whole is done"
-  — `(∧Lᵢ) ⟹ P`. Falsifiable; when a composite fails with green leaves, this hypothesis is what broke. <sup>[↪ Why](#r-done-01)</sup>
+  — `(∧Lᵢ) ⟹ P`. A failed parent acceptance check with green leaf checks calls for diagnosis of
+  the composition, leaf oracles, and environment model. <sup>[↪ Why](#r-done-03)</sup>
 - **Stub-composition.** Wiring together behaviour-less stubs of each component at design time, to cheaply
   refute a bad decomposition before building. <sup>[↪ Why](#r-done-01)</sup>
 - **Premises A, B, and C.** After stub-composition, A says the leaves behave as contracted (`verify`);
@@ -45,6 +46,8 @@ Plain-language definitions of the recurring terms.
   red-team). <sup>[↪ Why](#r-apex-02)</sup>
 - **Hard gate.** A constraint the work unit cannot locally waive, either because one violation is
   non-local or because outside authority imposes it (Chapter 11). <sup>[↪ Why](#r-gate-01)</sup>
+- **Existence gate.** Required evidence must exist for its accountable work unit. Nested loops may
+  share that evidence; a named seam gate still applies at the seam. <sup>[↪ Why](#r-gate-04)</sup>
 - **Amplifier.** One of the three things that make a violation non-local: adversarial, irreversible,
   machinery-degrading. <sup>[↪ Why](#r-gate-01)</sup>
 - **Artifact.** The persistent, explicit carrier of a loop's target / result / lesson across the *time*
@@ -66,20 +69,22 @@ Plain-language definitions of the recurring terms.
   pre-execution gates back into graded bets (§10.1). <sup>[↪ Why](#r-artifact-02)</sup>
 - **Silent failure.** A path that fails *and emits no telemetry* — the unit the observability gate rule
   classifies (§11.1). Gate the per-seam binary signal; never gate the aggregate coverage %. <sup>[↪ Why](#r-gate-02)</sup>
-- **Convergent law (existence-hard, fidelity-graded).** Every forced artifact must *exist* (hard gate —
-  absence is machinery-degrading) while its fidelity / coverage / content stays a graded, Goodhartable
-  proxy (§11.2). plan : predictable :: ADR : reliable :: regression : resilient :: telemetry : observe. <sup>[↪ Why](#r-gate-03)</sup>
+- **Convergent law (existence-hard, fidelity-graded).** At an accountable work unit, each required
+  artifact must exist; nested loops may share evidence. Fidelity, coverage, and content remain graded
+  (§11.2). plan : predictable :: ADR : reliable :: regression : resilient :: telemetry : observe. <sup>[↪ Why](#r-gate-04)</sup>
 - **Second-order tier.** The two stones that are facts about the *solver* rather than the problem, and
   bite only under delegation/autonomy. Formalized by the **arity of the stone's referent**: first-order
   stones are properties of *(solver × world)* — true of one mind (so "we err," #4, stays first-order);
   second-order stones are properties of *(solver × solver / self)* — relational. Two seats:
   independence (#9) and alignment (#10) — the count the admission criterion currently yields, not a
   proven ceiling (Chapter 12). <sup>[↪ Why](#r-bedrock-03)</sup>
-- **Reflexivity (stone #9).** The second-order, autonomous-only stone about the *checker*: an
-  agent-staffed checker shares the doer's correlated blind spot, so its checks add no information unless
-  **independence** is injected (Chapter 12). <sup>[↪ Why](#r-bedrock-03)</sup>
-- **Independence.** The property — across checkers — that lets stacked checks drive error toward zero.
-  Never total; supplied mainly by an external/human terminal. The forced response to stone #9. <sup>[↪ Why](#r-bedrock-03)</sup>
+- **Reflexivity (stone #9).** The second-order risk that a delegated checker shares the doer's
+  assumptions or evidence, so its checks add little information unless they use an independent method
+  or source (Chapter 12). <sup>[↪ Why](#r-agentic-01)</sup>
+- **Independence.** The degree to which a check adds information because its errors differ from the
+  doer's. A human, distinct method, or separate evidence source can provide it. <sup>[↪ Why](#r-agentic-01)</sup>
+- **Accountable principal.** The person or authority responsible for the delegated result and its
+  consequences. Human judgment remains for values, accountability, and exceptional authority. <sup>[↪ Why](#r-agentic-01)</sup>
 - **Incentive-divergence (stone #10).** The second-order, delegated-only stone about the *doer*: a
   self-interested agent optimises its own payoff over your target even when your intent is fully known
   (misaligned — not hostile like #8, not mistaken like #4). Its willful face forces **alignment**
@@ -132,12 +137,9 @@ One table, the whole causal skeleton.
   does **not** audit any particular real-world setup against the ideal — that is a separate exercise,
   kept out so the ideal stays uncontaminated. It is **frozen as of 2026-07-30** (`asOf` in
   `docs/snapshot.parts.json`): historical truth as of that date, not a claim of perpetual freshness.
-- **What is not yet in it.** The **Tier E model repairs** registered in `ROADMAP.md` §3 are
-  **not applied here.** They are real, accepted defects in the model as stated — among them a naming
-  collision in the Done schema (E1), a security rule that is not machine-evaluable (E3), and an
-  existence-gate whose attachment granularity is undefined (E4). Two of them wait on open questions
-  that are the user's to settle (`ROADMAP.md` §8, Q6 and Q7). Read this snapshot as the model at its
-  last coherent published state, with those repairs pending — not as a repaired model.
+- **What is not yet in it.** Tier E repairs E1 through E6 are represented in this snapshot. The
+  remaining repairs in `ROADMAP.md` §3 are pending. Read the current sections with their rationale
+  entries; the roadmap records work that has not yet changed the model.
 - **Source of the derivation.** Every claim here is derived, step by step, in the companion
   [canvas](index.html), which also holds the audit trail
   — the Socratic question-and-answer history, the iteration log, and the open-tracks register (§11

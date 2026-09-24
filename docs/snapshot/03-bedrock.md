@@ -97,9 +97,9 @@ whether they are adequately argued is an open question (`ROADMAP.md` §8, Q10).
 
 Both stones turn a real `check` into a hollow `declare` — one by *shared blindness* (the checker cannot
 see the error), the other by *divergent will* (the executor will not surface or fix it even when it
-can). Both are conditional on delegation: with one aligned mind — or a genuinely independent, faithful
-terminal — the tier is bounded; remove that terminal and **an autonomous loop can neither judge nor
-trust itself.** Both are treated in full, with their forced responses, in **Chapter 12**.
+can). Both risks grow with delegation. Independent evidence limits shared blindness, while an
+accountable principal and suitable incentives limit divergent will. Without either safeguard, a
+delegated loop cannot treat its own report as ground truth. Chapter 12 treats both responses in full.
 
 > ▸ **Chart — "The bedrock — ten forces"** <sup>[↪ Why](#r-bedrock-01)</sup> · *L1 · the forces.* Each stone on the left; the element
 > or repertoire it forces on the right. This is the "why" behind every part of the loop.
@@ -151,4 +151,3 @@ trust itself.** Both are treated in full, with their forced responses, in **Chap
 ```
 
 ---
-
