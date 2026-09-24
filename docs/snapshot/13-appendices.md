@@ -12,6 +12,14 @@ Plain-language definitions of the recurring terms.
 - **Beat.** One of the four scale-invariant phases of the loop (define, do, check, reflect). <sup>[↪ Why](#r-loop-01)</sup>
 - **Element.** The outermost loop's concrete staffing of a beat (specify, scope, design, implement,
   verify, observe, analyze, decide). <sup>[↪ Why](#r-loop-01)</sup>
+- **Work unit.** An accountable piece of work with a declared boundary and acceptance vector. Its
+  child targets inherit applicable constraints; a small inner loop is not automatically a separate
+  accountable work unit. <sup>[↪ Why](#r-unit-01)</sup>
+- **Boundary.** The work unit's scope, exclusions, delegated authority, and budget. It states what the
+  unit may change and what it must leave outside. <sup>[↪ Why](#r-unit-01)</sup>
+- **Acceptance vector.** The work unit's targets for `reliable`, `predictable`, `resilient`, and `secure`,
+  plus named qualities relevant to its outcome. Child targets project applicable criteria from the
+  parent. <sup>[↪ Why](#r-unit-01)</sup>
 - **Fractal.** The property that the loop repeats, unchanged in shape, both up across scope and down
   into each element (Chapter 6). <sup>[↪ Why](#r-loop-04)</sup>
 - **Point-property.** A property measured at a single task in a single context: *reliable*, *predictable*. <sup>[↪ Why](#r-apex-01)</sup>
@@ -26,16 +34,17 @@ Plain-language definitions of the recurring terms.
   — `(∧Lᵢ) ⟹ P`. Falsifiable; when a composite fails with green leaves, this hypothesis is what broke. <sup>[↪ Why](#r-done-01)</sup>
 - **Stub-composition.** Wiring together behaviour-less stubs of each component at design time, to cheaply
   refute a bad decomposition before building. <sup>[↪ Why](#r-done-01)</sup>
-- **Premise A / Premise B.** After stub-composition, the two remaining risks: A = "the leaves are real"
-  (checked at build by `verify`); B = "the contract holds across its whole input range" (sampled at
-  build, residue caught at run time by `observe`). <sup>[↪ Why](#r-done-02)</sup>
+- **Premises A, B, and C.** After stub-composition, A says the leaves behave as contracted (`verify`);
+  B says the contracts hold across their input range (sampled at build and monitored by `observe`);
+  C says the contract set would deliver the parent target even if perfectly honoured (design review,
+  followed by integration and acceptance evidence). <sup>[↪ Why](#r-done-01)</sup>
 - **Leaf.** A target checkable without further decomposition — *deterministic* (an assertion) or
   *statistical* (a threshold on a sampled value). <sup>[↪ Why](#r-done-02)</sup>
 - **Repertoire.** A set of cross-cutting responses invoked from `reflect`: the *resilience* repertoire
   (escalate, degrade, recover, roll back) and the *security* repertoire (authn/authz, sanitize, harden,
   red-team). <sup>[↪ Why](#r-apex-02)</sup>
-- **Hard gate.** A leaf whose *accept* exit is deleted — non-waivable — because a single violation is
-  non-local (Chapter 11). <sup>[↪ Why](#r-gate-01)</sup>
+- **Hard gate.** A constraint the work unit cannot locally waive, either because one violation is
+  non-local or because outside authority imposes it (Chapter 11). <sup>[↪ Why](#r-gate-01)</sup>
 - **Amplifier.** One of the three things that make a violation non-local: adversarial, irreversible,
   machinery-degrading. <sup>[↪ Why](#r-gate-01)</sup>
 - **Artifact.** The persistent, explicit carrier of a loop's target / result / lesson across the *time*

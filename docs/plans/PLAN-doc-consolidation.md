@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `01` complete
-Next step: `02a`
+Current step: `02a` complete
+Next step: `02b`
 
 ## Objective
 
@@ -287,8 +287,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 01 created the annotated `docs-history-2026-09-24` tag at source commit `a38623b`. The active model was not edited.
-Evidence: `git cat-file -t` reports a tag; its peeled commit equals `a38623b2ff43817e8d96d888cefb8e67886933db`. `HANDOFF.md` and `docs/agent-architecture/00_meta/architectural_hierarchy.md` are readable through `git show`; their tagged blob IDs match the source commit. The July tag still resolves to `07abc67d0d62f2fa27dbf18ae066f3472a3d7eea`.
-Dirty files: none after this handoff commit.
-Verification state: step 01 complete. The September tag exists locally; no remote push was part of this packet.
-Exact next action: inspect the E1 through E3 decisions in `ROADMAP.md` §3, identify affected snapshot passages and rationale entries, then apply and check that bounded repair set. The next user-initiated turn starts step 02a.
+Completed scope: step 02a applied E1 (work-unit boundary plus acceptance vector), E2 (Premise C), and E3 (per-seam forbidden-output gate, outside authority, and unknown blast radius). The affected chapters, glossary, diagrams, and rationale entries changed together. A missing CSS brace in the design viewer was fixed after browser QA found that it hid every diagram.
+Evidence: `ROADMAP.md` §3 E1–E3 at source revision `a38623b`; tagged September trace path and heading resolve. `node scripts/verify-docs.mjs` passes with 14 chapters, 34 rationale entries, and 29 chart blocks. `git diff --check` passes. Browser QA showed all 21 snapshot diagrams with nonzero canvas height, both changed diagrams rendered, and no console errors.
+Dirty files: none after this packet's commit.
+Verification state: step 02a complete. The checker validates structure and chart JSON; browser QA validated rendering. Semantic review checked E1–E3 against the roadmap rows. The model still carries later Tier E repairs and the old `asOf` date until their packets.
+Exact next action: inspect E4 through E6 in `ROADMAP.md` §3, then repair existence-gate placement, terminal wording and chart, and failure routing in the affected snapshot chapters and rationale entries. The next user-initiated turn starts step 02b.

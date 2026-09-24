@@ -9,15 +9,16 @@ software you are building.
 
 ### Origination → propagation → termination
 
-<sup>[↪ Why](#r-done-02)</sup>
+<sup>[↪ Why](#r-unit-01)</sup>
 
-- **Origination (the root).** The top-level "done" has no parent to inherit from. It is **elicited from
-  hidden intent by `specify`** (stone #1). This is the one *contingent seed* of the whole tree — it
-  cannot be derived, only drawn out.
-- **Propagation (internal nodes).** `design` decomposes a parent target *P* into child targets
-  {L₁ … Lₙ}, one per part, each cast on the same **four-axis schema** — *scope · reliable · resilient ·
-  predictable* — that the top-level target used. The schema is scale-invariant, so every node's target
-  has the same shape. In short: `Done(part) = Done(parent), projected onto this part's slice.`
+- **Origination (the root).** An accountable work unit has a **boundary** (scope, exclusions, delegated
+  authority, and budget) and an **acceptance vector** (targets for `reliable`, `predictable`, `resilient`,
+  and `secure`, plus named qualities relevant to the work). `specify` elicits the outcome from intent;
+  `scope` records its boundary. The root has no parent target to inherit.
+- **Propagation (internal nodes).** `design` decomposes parent target *P* into child targets
+  {L₁ … Lₙ}. Each child inherits the boundary constraints and acceptance criteria that apply to its
+  part. The projection may add a local check or omit an irrelevant quality; it may not silently relax a
+  parent constraint. In short: `Done(part)` is the applicable projection of `Done(parent)`.
 - **Termination (the leaf).** Decomposition stops where a target can be checked *without further
   decomposition* — where `check` yields a genuine yes/no. There are two kinds of leaf:
   - a **deterministic** leaf (logic → an assertion or unit test — passes or fails), and
@@ -47,13 +48,12 @@ leaves. This is "non-convergence points at the target" (Chapter 4), now localise
 decomposition. To trace such a failure back, the hypothesis must be *written down* — which is why the
 design artifact exists (Chapter 10).
 
-**Universal form, contingent content.** The *form* — the four-axis schema, elicit-root → decompose →
-bottom-out, the composition-hypothesis structure, the failure-routing rule — is universal, forced by
-the stones. The *content* — the specific thresholds, which proxies, which decomposition to bet on — is
-contingent. Only the root is elicited; every internal target is derived. This is why "done" generalises
-across any software.
+**Shared form, work-unit content.** Elicitation, boundary and acceptance projection, decomposition,
+checking, and revision recur at different scales. The actual exclusions, authority, budget, qualities,
+thresholds, and proxies depend on the work unit. The root is elicited; internal targets are projected
+and refined against it.
 
-> ▸ **Chart — "Done propagation"** <sup>[↪ Why](#r-done-01)</sup> · *L3 · inside a beat.* Intent is elicited into a root target;
+> ▸ **Chart — "Done propagation"** <sup>[↪ Why](#r-unit-01)</sup> · *L3 · inside a beat.* Intent becomes a bounded root target;
 > `design` decomposes it (each edge a composition hypothesis); leaves bottom out into deterministic or
 > statistical checks; a rejected qualitative composite falsifies the hypothesis and routes back to
 > `design`.
@@ -62,13 +62,13 @@ across any software.
 {
   "title": "Done propagation",
   "level": "L3 · inside a beat",
-  "summary": "The root target is elicited from intent; design decomposes it into sub-targets (each edge a composition hypothesis); leaves bottom out into binary checks; a green-leaves-but-rejected composite falsifies the hypothesis and re-targets design.",
+  "summary": "The root work unit has a boundary and acceptance vector elicited from intent; design projects applicable constraints into sub-targets; leaves bottom out into checks; rejected acceptance routes back through analysis.",
   "zoomOut": "The unit loop, fully staffed",
   "zoomIn": ["Design as a bet — stub-composition"],
   "nodes": [
     {"id":"intent","label":"hidden intent","group":"stone","x":0,"y":0},
     {"id":"specify","label":"specify · elicit","group":"element","x":0,"y":95},
-    {"id":"root","label":"root target P","group":"beat","x":260,"y":95},
+    {"id":"root","label":"P · boundary + acceptance vector","group":"beat","x":260,"y":95},
     {"id":"design","label":"design · decompose","group":"element","x":260,"y":195},
     {"id":"cA","label":"sub-target A","group":"beat","x":110,"y":300},
     {"id":"cB","label":"sub-target B · qualitative","group":"beat","x":440,"y":300},
@@ -105,30 +105,31 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
   behaviour deleted (right shape, computes nothing) — and check that the stubs *wire together*. This is
   the `check` beat of the design sub-loop (the fractal again), executed at design time. It is the
   earliest, cheapest place to test the bet.
-- **It discharges the arrow, suspends the premises.** A green stub-composition proves only the **⟹** —
-  that the contracts are mutually coherent (what A emits is what B accepts, across the graph). It is
-  one-sided: it can **fail cheap** (kill a bad decomposition) or **survive**, but it never *confirms*.
-- **It factors risk; it does not remove it.** After a green stub-check, provably *zero* design risk
-  lives in the wiring, and all of it has been relocated into two named, attackable premises:
+- **It checks wiring, not the implication.** A green stub-composition shows that the declared contracts
+  connect. It does not prove that the contracts are adequate for *P*. The check can refute a bad
+  decomposition cheaply, but a pass leaves the design bet conditional.
+- **It separates three remaining premises:**
   - **Premise A — the leaves are real** (each stub behaves like the real component). Discharged at
     **build time** by `verify` (a unit test on the real leaf) → the *deterministic* leaf.
   - **Premise B — the contract holds across its *whole* range of inputs.** Only *sampled* at build
     (property tests); the residue is caught at **run time** by `observe` (telemetry) → the *statistical*
     leaf.
-- **Why it reaches neither premise.** A stub is a proxy for a component that does not exist yet, and
-  both premises are claims about *behaviour* — the one thing a stub deletes. So neither becomes a fact
-  until the real thing is built and run. That is the single reason design-time checking cannot close
-  them; it can only *name* and *route* them.
+  - **Premise C — the contract set, even if perfectly honoured, delivers *P*.** Review the design
+    against the parent acceptance vector, then seek integration and acceptance evidence on the composed
+    system. Neither compatible wiring nor green leaf checks establish this premise.
+- **Why stubs leave the premises open.** Stubs omit real component behaviour, so they cannot settle A
+  or B. Contract compatibility also says nothing about whether the selected contracts express the
+  intended whole; that is C. A green stub-check narrows the question to these premises.
 
 > ▸ **Chart — "Design as a bet — stub-composition"** <sup>[↪ Why](#r-done-01)</sup> · *L3 · inside design.* Design states the bet; a
-> design-time stub-composition either fails cheap (→ re-decompose) or survives — discharging the wiring
-> and suspending Premise A (→ verify) and Premise B (→ observe).
+> design-time stub-composition either fails cheap (→ re-decompose) or survives — showing compatible wiring
+> while leaving Premise A (→ verify), Premise B (→ observe), and Premise C (→ design review and integration acceptance) open.
 
 ```pipeline-graph
 {
   "title": "Design as a bet — stub-composition",
   "level": "L3 · inside design",
-  "summary": "Design states a bet (contracts + composition hypothesis); a cheap design-time stub-composition discharges the wiring and factors the remaining risk into Premise A (leaves real → verify) and Premise B (whole input range → observe).",
+  "summary": "Design states a bet (contracts + composition hypothesis); stub-composition checks contract compatibility but leaves three premises: A (real leaves → verify), B (input range → observe), and C (contracts deliver P → design review and integration acceptance).",
   "zoomOut": "Done propagation",
   "zoomIn": ["The premise-B lever"],
   "nodes": [
@@ -138,11 +139,13 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
     {"id":"stub","label":"stub-composition (design-time check)","group":"element","x":540,"y":120},
     {"id":"fail","label":"fail → re-decompose","group":"terminal","x":540,"y":280},
     {"id":"survive","label":"survive (conditional)","group":"beat","x":830,"y":120},
-    {"id":"wiring","label":"⟹ wiring · discharged","group":"property","x":1090,"y":20},
+    {"id":"wiring","label":"compatible wiring only","group":"property","x":1090,"y":20},
     {"id":"premA","label":"Premise A · leaves real","group":"beat","x":1090,"y":120},
     {"id":"premB","label":"Premise B · whole input range","group":"beat","x":1090,"y":230},
+    {"id":"premC","label":"Premise C · contracts deliver P","group":"beat","x":1090,"y":340},
     {"id":"verify","label":"verify → deterministic leaf","group":"element","x":1400,"y":120},
-    {"id":"observe","label":"observe → statistical leaf","group":"element","x":1400,"y":230}
+    {"id":"observe","label":"observe → statistical leaf","group":"element","x":1400,"y":230},
+    {"id":"acceptance","label":"design review + integration acceptance","group":"element","x":1400,"y":340}
   ],
   "edges": [
     {"source":"design","target":"contracts","member":true},
@@ -151,18 +154,20 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
     {"source":"stub","target":"fail","dashed":true,"label":"fails cheap ↺"},
     {"source":"fail","target":"design","dashed":true,"label":"re-decompose"},
     {"source":"stub","target":"survive","label":"green"},
-    {"source":"survive","target":"wiring","label":"discharges ⟹"},
+    {"source":"survive","target":"wiring","label":"shows compatibility"},
     {"source":"survive","target":"premA","dashed":true,"label":"suspends"},
     {"source":"survive","target":"premB","dashed":true,"label":"suspends"},
+    {"source":"survive","target":"premC","dashed":true,"label":"suspends"},
     {"source":"premA","target":"verify","label":"build-time"},
-    {"source":"premB","target":"observe","label":"run-time"}
+    {"source":"premB","target":"observe","label":"run-time"},
+    {"source":"premC","target":"acceptance","label":"whole-system evidence"}
   ]
 }
 ```
 
-### 9.2 The premise-B lever — the two quality bars of a good bet
+### 9.2 The premise-B lever — contract tightness
 
-<sup>[↪ Why](#r-done-02)</sup>
+<sup>[↪ Why](#r-done-01)</sup>
 
 Premise B — "the contract holds across its whole range of inputs" — is **not a fixed cost.** Its *size*
 is something `design` **chooses**, by how tightly it draws each interface contract. This is the second
@@ -187,8 +192,9 @@ quality bar.
 **So all three point/envelope input-properties re-appear at every seam.** The contract's *floor* (which
 realities must cross) is `reliable` (expected) + `resilient` (adverse); the *downward pressure* (how
 foreseeably they cross) is `predictable`. The optimum contract is **maximum predictability, subject to
-admitting the whole required set of realities.** A good design bet therefore meets two bars: (1) it
-**fails cheap** (§9.1), and (2) it carries **tightest-sufficient contracts** (§9.2).
+admitting the whole required set of realities.** A good design bet therefore meets three bars: it
+**fails cheap** (§9.1), it carries **tightest-sufficient contracts** (§9.2), and the contract set can
+deliver the parent acceptance vector (Premise C).
 
 > ▸ **Chart — "The premise-B lever"** <sup>[↪ Why](#r-done-02)</sup> · *L3 · inside a contract.* Contract-tightness is a dial:
 > tightening buys `predictable` and moves residue from statistical → deterministic → compile-time, but
@@ -228,10 +234,9 @@ admitting the whole required set of realities.** A good design bet therefore mee
 
 <sup>[↪ Why](#r-gate-01)</sup>
 
-The three input-properties re-appear at every seam as a **floor** (which realities *must* cross).
-`secure` re-appears too, as the **complement on the output side**: not "admit the whole required input
-set" but "**forbid the whole illegal output set**" — a wall, dual to the floor. So every seam's target
-is **four**-axed.
+The relevant input requirements re-appear at each seam as a **floor** (which realities *must* cross).
+`secure` adds an output constraint: forbid outputs that the work unit's acceptance vector excludes.
+The parent boundary and acceptance vector identify which constraints apply to each seam.
 
 The consequence is sharp: a design can be insecure *no matter how correctly each leaf is built.* The
 classic example: store a credential in a repository's `.env` file and add it to `.gitignore`. Every
@@ -241,11 +246,10 @@ output (a secret readable at rest, off-box) is *reachable*, so the security comp
 falsified **with green leaves** → root-cause to the *decomposition* → re-target `design` (move the
 secret to the keychain).
 
-**Why security is forced at every seam, harder than the other three.** A directed adversary enters at
-the *least-defended* seam, so the security of the whole is the **weakest link**, not the average. One
-undefended stage is not a local weakness — it is the whole envelope's hole, because the attacker *finds*
-it and pivots. So `secure` cannot be defended "mostly": it holds at every seam or it does not hold. This
-is why `secure` is a **hard gate wholesale** (Chapter 11).
+**Why the security check recurs.** A directed adversary can search for the least-defended relevant
+seam. At each named seam, gate the binary question: **is a forbidden output reachable under the stated
+threat model?** A reachable forbidden output blocks acceptance. Defence depth, coverage, and posture
+remain graded targets. This gives `secure` a checkable gate without treating the whole property as one
+unmeasurable pass/fail assertion (Chapter 11).
 
 ---
-

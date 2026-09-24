@@ -291,30 +291,30 @@ checks must ask and, decisively, removes `decide`'s freedom to skip them.
 
 | Element | inner `define` | inner `do` | inner `check` | inner `reflect` — exits |
 |---|---|---|---|---|
-| `specify` | a complete, *secure* reset spec | draft "email → 30-min single-use token → set password; **must not reveal if the email exists**; invalidate other sessions on completion" | review vs realities: spam, token interception, concurrent / attacker-initiated resets; log out on request or on completion? | ambiguity → "invalidate on completion" (avoids DoS-by-reset); accept; escalate to security. Non-enumeration is a `secure` target → hard gate (§9.3) |
-| `scope` | a coherent *secure* slice | email reset, 30-min tokens; defer SMS / 2FA-recovery / admin reset | coherent and secure? — this flags a hard gate | redraw; accept; escalate |
+| `specify` | a complete, *secure* reset spec | draft "email → 30-min single-use token → set password; **must not reveal if the email exists**; invalidate other sessions on completion" | review vs realities: spam, token interception, concurrent / attacker-initiated resets; log out on request or on completion? | ambiguity → "invalidate on completion" (avoids DoS-by-reset); accept; escalate to security. Reachable enumeration is a per-seam gate (§9.3) |
+| `scope` | a coherent *secure* slice | email reset, 30-min tokens; defer SMS / 2FA-recovery / admin reset | does the selected flow preserve the non-enumeration constraint? | redraw if the forbidden output is reachable; accept a bounded slice; escalate |
 | `design` | parts + contracts composing to *secure* reset | {request · token issue+store (hashed, TTL) · ESP delivery · verify+set · session-invalidation}; **equal response *and* timing** whether the email exists | stub + **security** composition: is a forbidden output (an enumeration signal, incl. timing) reachable at any seam? (§9.3) | timing leak → re-decompose to constant-time; survive; escalate — green leaves can still falsify the *security* hypothesis |
 | `implement` | CSPRNG token; hashing; endpoint contracts | write it | unit tests | fail → fix; pass → accept; escalate — bottoms out at code |
-| `verify` | evidence we built it *securely* — cover the abuse paths | reused-token, expired-token, enumeration-timing tests + security review | did we test the **timing side-channel** and token reuse? — *blind spot: timing untested* | add the timing test; **`accept` is deleted** — `secure` is a hard gate (§11); escalate |
+| `verify` | evidence we built it *securely* — cover the abuse paths | reused-token, expired-token, enumeration-timing tests + security review | did we test the **timing side-channel** and token reuse? — *blind spot: timing untested* | add the timing test; do not accept while forbidden-output reachability is unknown (§11); escalate |
 | `observe` | run-time attack + delivery signals | reset-request / completion rate, token-reuse attempts, bounce/spam via ESP webhooks | is deliverability observable and are reuse-attempts captured? | blind → add webhooks; skipping this sensor is *machinery-degrading* → hard gate; escalate |
 | `analyze` | explain the low (68%) completion | hypothesis: reset emails land in spam | seed-inbox + ESP spam-score → DKIM ok, domain reputation low | cause found → `decide`; else new hypothesis; escalate |
 | `decide` | pick the exit fitting budget | weigh {accept + "check spam / resend" UI · warm a dedicated sending subdomain · escalate for budget} | pre-mortem: the UI helps now but isn't the fix; the subdomain needs a 2-week warm-up | **split**: accept-now (UI) **and** escalate-the-fix (subdomain) — one `reflect`, two exits |
 
 **Where Feature B diverges from A is inside `design` and `verify`** — so open those two. `design`'s inner
 check is no longer "do the parts wire up?" but "is a *forbidden output* reachable at any seam?"; and
-`verify`'s inner `reflect`, on finding the untested timing channel, **cannot take the `accept` exit** —
-`secure` is a hard gate wholesale (§9.3, §11).
+`verify`'s inner `reflect`, on finding the untested timing channel, **cannot take the `accept` exit** until
+the defined forbidden-output check passes (§9.3, §11).
 
 > ▸ **Chart — "Feature B — design & verify against an adversary"** <sup>[↪ Why](#r-apex-02)</sup> · *L3 · inside two elements.*
 > `design`'s inner `check` is a security composition test against the forbidden-output wall (§9.3);
-> `verify`'s inner `reflect` finds the untested timing channel, but its `accept` exit is deleted because
-> `secure` is a hard gate (§11).
+> `verify`'s inner `reflect` finds the untested timing channel; the defined forbidden-output check must
+> pass before this work unit can accept (§11).
 
 ```pipeline-graph
 {
   "title": "Feature B — design & verify against an adversary",
   "level": "L3 · inside two elements",
-  "summary": "design's inner check is a security composition test — is a forbidden output (an enumeration signal, incl. a timing difference) reachable at any seam (§9.3)? verify's inner reflect finds the untested timing channel, but its accept exit is deleted because secure is a hard gate (§11).",
+  "summary": "design checks whether an enumeration signal, including timing, is reachable at a named seam. verify finds the untested timing channel; the work unit cannot accept until the forbidden-output check passes (§11).",
   "zoomOut": "Feature B — password reset, every element opened",
   "zoomIn": ["Hard gate or graded target?"],
   "nodes": [
@@ -329,7 +329,7 @@ check is no longer "do the parts wire up?" but "is a *forbidden output* reachabl
     {"id":"ve_do","label":"do · reuse / expiry / timing tests","group":"beat","x":580,"y":180},
     {"id":"ve_chk","label":"check · did we test the timing channel?","group":"beat","x":890,"y":180},
     {"id":"ve_ref","label":"reflect · gap found — accept DELETED","group":"beat","x":1200,"y":180},
-    {"id":"gate","label":"hard gate (§11): secure = non-waivable","group":"property","x":1200,"y":320}
+    {"id":"gate","label":"gate (§11): forbidden output unreachable","group":"property","x":1200,"y":320}
   ],
   "edges": [
     {"source":"design","target":"de_def","member":true,"label":"⟳"},
@@ -442,4 +442,3 @@ pay it where a stone bites and buy it down where none does — except at the gat
 uncompensable and the price of the ceremony is not yours to negotiate.**
 
 ---
-

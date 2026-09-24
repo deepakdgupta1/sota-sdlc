@@ -3,16 +3,17 @@
 <sup>[↪ Why](#r-gate-01)</sup>
 
 **What it is.** Most targets are **graded**: `check` measures how well the work did on a quality range,
-and `decide` retains discretion — it can *accept* a known gap. A **hard gate** is a leaf where the
-*accept* exit is **deleted**: a single violation blocks, full stop, no amount of quality elsewhere buys
-it back.
+and `decide` can accept a known gap. A **hard gate** removes that local *accept* exit: the work unit
+cannot waive a violation or trade it against quality elsewhere. Only the authority that imposed an
+external gate can change that gate.
 
-**Why some checks earn a gate and most don't.** The rule is precise: a leaf becomes a hard gate **iff a
-single violation is *non-local*** — no amount of green elsewhere can compensate. Three amplifiers make a
-violation non-local:
+**Why some checks earn a gate.** There are two independent sources. The model requires a gate when one
+violation has **non-local** effects. A law, contract, or other authority outside the work unit can also
+impose a gate, even when the local effects are bounded. External authority is a source of obligation,
+not a fourth harm amplifier. Three amplifiers establish the model-derived case:
 
-1. **Adversarial (stone #8).** A directed optimiser turns *any* hole into a whole compromise. This
-   amplification is *guaranteed*, which is why **all of `secure` is hard, wholesale** (§9.3).
+1. **Adversarial (stone #8).** A directed optimiser searches for a reachable forbidden output at a
+   relevant seam. Gate that reachability result; grade defence depth and posture (§9.3).
 2. **Irreversible.** The damage escapes `recover` and `roll back` — data loss; a *leaked* secret cannot
    be un-leaked. The run-time repertoire can't undo it after the fact.
 3. **Machinery-degrading.** The violation blinds the loop's own `check`/`observe`, or couples parts so
@@ -20,41 +21,49 @@ violation non-local:
    retrofitted after the code (can't actually falsify), a mutation that couples shared state. This is
    non-local *by construction* — it disables the very thing that would have caught it.
 
-**The predictive rule.** To classify *any* candidate constraint, ask one question: **"Is a single
-violation non-local — adversary-amplified, irreversible, or does it blind the loop?"** *Yes* → hard gate
-(delete `accept`). *No* → graded target (keep `decide`'s discretion). Two corollaries fall out: a
-*graded proxy* wrongly declared a gate (say, an 80%-coverage bar — a statistical-leaf proxy) invites
-gaming; and a hard gate with *no* amplifier behind it is mis-typed. Non-compensability — not
-"importance" — is what makes a rule a gate.
+**The classification rule.** First, ask whether an outside authority imposes the constraint. Then ask
+whether one violation is non-local: adversary-amplified, irreversible, or machinery-degrading. Either
+answer can require a hard gate. If the blast radius is unknown, classify it as non-local until evidence
+bounds it. When no authority imposes a gate and the violation is demonstrably local and recoverable,
+keep a graded target. Gate a per-seam binary, such as forbidden-output reachability; grade aggregate
+coverage, defence depth, and posture. A graded proxy turned into a gate, such as an 80% coverage bar,
+invites gaming. The gate decision follows its source and the effect of one violation, not its perceived
+importance.
 
-> ▸ **Chart — "Hard gate or graded target?"** <sup>[↪ Why](#r-gate-01)</sup> · *L3 · gating overlay.* One decision node: is a single
-> violation non-local? Three amplifiers route to *hard gate*; their absence routes to *graded target*.
+> ▸ **Chart — "Hard gate or graded target?"** <sup>[↪ Why](#r-gate-01)</sup> · *L3 · gating overlay.* Outside authority
+> or a non-local violation can require a gate. Unknown blast radius is provisionally non-local.
 
 ```pipeline-graph
 {
   "title": "Hard gate or graded target?",
   "level": "L3 · gating overlay",
-  "summary": "A leaf becomes a non-waivable hard gate iff a single violation is non-local — via one of three amplifiers (adversarial, irreversible, machinery-degrading). Otherwise it stays a graded target.",
+  "summary": "A gate can come from outside authority or from a non-local violation. Three amplifiers make harm non-local; unknown blast radius is provisionally non-local. Bounded local gaps remain graded unless outside authority imposes a gate.",
   "zoomOut": "The unit loop, fully staffed",
   "zoomIn": ["The convergent law"],
   "nodes": [
-    {"id":"leaf","label":"a candidate constraint (leaf check)","group":"beat","x":320,"y":0},
-    {"id":"q","label":"is a single violation NON-LOCAL?","group":"terminal","x":320,"y":100},
+    {"id":"leaf","label":"candidate constraint","group":"beat","x":320,"y":0},
+    {"id":"q","label":"one violation NON-LOCAL?","group":"terminal","x":240,"y":100},
+    {"id":"authority","label":"outside authority imposes gate?","group":"terminal","x":700,"y":100},
     {"id":"adv","label":"adversary-amplified (#8)","group":"stone","x":0,"y":220},
-    {"id":"irr","label":"irreversible (escapes recover/rollback)","group":"stone","x":300,"y":220},
-    {"id":"mach","label":"machinery-degrading (blinds check/observe)","group":"stone","x":640,"y":220},
-    {"id":"gate","label":"HARD GATE — delete 'accept'","group":"property","x":180,"y":340},
-    {"id":"grade","label":"GRADED TARGET — keep discretion","group":"element","x":560,"y":340}
+    {"id":"irr","label":"irreversible (escapes recover/rollback)","group":"stone","x":250,"y":220},
+    {"id":"mach","label":"machinery-degrading (blinds check/observe)","group":"stone","x":500,"y":220},
+    {"id":"unknown","label":"blast radius unknown → non-local for now","group":"stone","x":800,"y":220},
+    {"id":"gate","label":"HARD GATE — no local accept","group":"property","x":300,"y":360},
+    {"id":"grade","label":"GRADED TARGET — keep discretion","group":"element","x":700,"y":360}
   ],
   "edges": [
     {"source":"leaf","target":"q"},
+    {"source":"leaf","target":"authority"},
+    {"source":"authority","target":"gate","label":"imposed"},
     {"source":"q","target":"adv","dashed":true,"label":"yes, via"},
     {"source":"q","target":"irr","dashed":true,"label":"yes, via"},
     {"source":"q","target":"mach","dashed":true,"label":"yes, via"},
+    {"source":"q","target":"unknown","dashed":true,"label":"unbounded"},
     {"source":"adv","target":"gate"},
     {"source":"irr","target":"gate"},
     {"source":"mach","target":"gate"},
-    {"source":"q","target":"grade","label":"no amplifier"}
+    {"source":"unknown","target":"gate","label":"provisional"},
+    {"source":"q","target":"grade","label":"bounded local"}
   ]
 }
 ```
@@ -77,8 +86,9 @@ non-local**, through the same three amplifiers:
 - **Machinery seams.** A path carrying the loop's *own* control signal — sensor health, gate firings,
   escalation triggers. Its silent failure blinds the loop *to its own blindness*.
 
-Everything else stays **graded**: coverage in proportion to `P(silent failure) × cost`, collapsible to
-zero on a fully-modelled, reversible, local path (§6.4's collapse rule, applied to instrumentation).
+Where neither non-local risk nor outside authority requires a gate, coverage stays **graded** in
+proportion to `P(silent failure) × cost`. It can collapse to zero on a fully-modelled, reversible,
+local path (§6.4's collapse rule, applied to instrumentation).
 
 **Why telemetry never stops emitting while the ADR is written once.** The emission character of each
 forced artifact follows the *temporal type of the fact it carries*. The ADR carries a **static
@@ -166,4 +176,3 @@ non-negotiable; how well it writes it down is priced by risk.*
 > existence-gates, and each one is machinery, not ceremony.
 
 ---
-

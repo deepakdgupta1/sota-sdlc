@@ -178,17 +178,35 @@ as having repaired them.
 - **Governs.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
 - **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.10.
 
+### <a id="r-unit-01"></a>R-UNIT-01 · A work unit has a boundary and an acceptance vector
+
+- **Decision.** Each accountable work unit declares a boundary (scope, exclusions, delegated authority,
+  and budget) and an acceptance vector (the four apex properties plus named target qualities). Child
+  targets project the constraints that apply to their part without silently relaxing the parent.
+- **Why.** The boundary says what work and authority the unit owns; the vector says how its result will
+  be accepted. Mixing scope into a quality list hides exclusions and budget while omitting `secure`.
+  Separating the two also makes propagation precise: a child inherits applicable constraints, not an
+  identical set of targets regardless of its role.
+- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E1. This records the accepted repair, not the original motivation for every target quality.
+- **Superseded.** The four-axis propagation schema that counted scope as an axis and omitted `secure`.
+
 ### <a id="r-done-01"></a>R-DONE-01 · Design is a bet, and stub-composition tests it cheaply
 
-- **Decision.** A design is a **bet** with stated premises; stub-composition is the cheap early test of
-  the bet's wiring, and the premise-B lever tunes how much an interface contract promises.
-- **Why.** A design's failure mode is not "wrong code" but "wrong decomposition", discovered late. Making
-  the premises explicit converts a late structural failure into an early, checkable one.
-- **Governs.** `docs/snapshot/09-mechanism-of-done.md`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10–§10.2.
-- **Open.** Whether the contract set, even if perfectly honoured, delivers the property is a **third**
-  premise not yet stated — E2 in `ROADMAP.md` §3. Until it lands, "green stubs discharge the
-  implication" is circular as written.
+- **Decision.** Design states a composition bet. Stub-composition can refute incompatible contract
+  wiring cheaply, but a green result leaves three premises: A, the real leaves meet their contracts; B,
+  the contracts hold across their input ranges; and C, the contract set delivers the parent target even
+  if perfectly honoured. Route A to `verify`, B to `observe`, and C to design review and integration
+  acceptance evidence.
+- **Why.** Compatible wiring cannot establish that the contracts describe the right whole. Naming C
+  prevents a green stub check from being mistaken for proof of the parent target. The three premises
+  keep distinct failure causes and evidence paths visible before implementation and integration.
+- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E2; earlier design bet: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`.
+- **Superseded.** "Green stubs discharge the implication" and a two-premise account that omitted
+  contract adequacy.
 
 ### <a id="r-done-02"></a>R-DONE-02 · A formal proof relocates the blind spot; it does not remove it
 
@@ -212,21 +230,23 @@ as having repaired them.
   human-experiential and runtime-assured modalities — each with its own residue and Goodhart surface —
   is E13 in `ROADMAP.md` §3, not applied here.
 
-### <a id="r-gate-01"></a>R-GATE-01 · A rule is a hard gate iff one violation is non-local
+### <a id="r-gate-01"></a>R-GATE-01 · A gate follows non-local harm or outside authority
 
-- **Decision.** A rule is a **hard gate** (non-waivable) iff a *single* violation is **non-local** —
-  adversary-amplified, irreversible, or machinery-degrading. Otherwise it is a **graded target**.
-  Gates are non-compensatory: strength elsewhere cannot buy a pass.
-- **Why.** Grading assumes violations average out, which holds only when each one is local and
-  recoverable. Each of the three amplifiers breaks that assumption in a different way — an adversary
-  chooses the seam, irreversibility removes the retry, and machinery damage disables the loop that
-  would have caught the next fault. Where averaging fails, a threshold is the only honest instrument.
-- **Governs.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/09-mechanism-of-done.md`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.4.
-- **Open.** Two repairs are pending and both are visible in the current text. `secure` is stated as
-  "hard, wholesale", which is not machine-evaluable and taken literally blocks every release; and
-  exogenous (legal or contractual) authority is not yet placed. Those are E3(a) and E3(b) in
-  `ROADMAP.md` §3, the latter gated on Q6 and Q9.
+- **Decision.** A work unit has no local accept exit when one violation is non-local or an outside
+  authority imposes a gate. Three harm amplifiers explain the model-derived source: adversarial search,
+  irreversibility, and damage to the correcting machinery. Outside authority is a separate gate source,
+  not a fourth amplifier. Treat unknown blast radius as non-local until evidence bounds it. For
+  security, gate forbidden-output reachability at a named seam and grade defence depth and posture.
+- **Why.** A non-local loss cannot be offset by green checks elsewhere. An outside authority can also
+  remove local discretion even when local harm is bounded. Unknown scope does not support a claim that a
+  violation is local. A per-seam reachability result is checkable; an undivided assertion that all of
+  `secure` passes is not.
+- **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/09-mechanism-of-done.md`,
+  `docs/snapshot/06-fractal.md`, and `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E3; prior harm rule: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`.
+- **Superseded.** "Hard gate iff non-local" as an exhaustive rule, and "secure is hard wholesale" as
+  one untestable gate.
 
 ### <a id="r-gate-02"></a>R-GATE-02 · Gate the per-seam binary, grade the aggregate
 
