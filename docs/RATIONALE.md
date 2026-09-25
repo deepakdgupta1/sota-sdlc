@@ -137,7 +137,10 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E9. Implementation contrasts in
   `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/command_execution.md`
-  distinguish tool permission checks from sandbox enforcement, while
+  and `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/permission_model.md`
+  distinguish tool approval from execution policy;
+  `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/sandboxing.md`
+  shows runtime containment as a separate control, while
   `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/extensibility.md`
   notes that extension-provided safety annotations can be self-declared. Model-visible tool definitions
   alone are not an enforcement boundary. This is a design assumption for the non-persistent branch,
@@ -311,6 +314,9 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E7; earlier seam argument: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.9.
+  `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/audit_and_observability.md`
+  contrasts persisted tool-use records with optional tracing and hook output; it does not establish a
+  required detection bound for any SDLC seam.
 - **Superseded.** Telemetry as a forced continuous, every-seam property; the claim that every silent
   seam is necessarily non-local. Required audit evidence cannot be replaced by sampled debug logs.
 
@@ -402,7 +408,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   correlated or every doer unfaithful. The two risks need different evidence and responses. Naming
   the human's authority role prevents a staffing choice from being mistaken for a proof of either
   independence or alignment. Model/tool loops can terminate on a final response without outcome
-  evidence; an authorization decision bounds effects rather than proving correctness.
+  evidence; approval and execution isolation govern different parts of exposure, and neither proves
+  correctness.
 - **Applies to.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
   `docs/snapshot/06-fractal.md`, `docs/snapshot/08-repertoires.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`

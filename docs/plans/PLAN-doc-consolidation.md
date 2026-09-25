@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02k` complete
-Next step: `02l`
+Current step: `02l` complete
+Next step: `02m`
 
 ## Objective
 
@@ -353,6 +353,28 @@ Compare `docs/agent-architecture/07_permissions_and_governance/` with the curren
 
 Exit: current governance decisions have the right shape and historical support.
 
+Disposition at `d8d0eb2`:
+
+- `permission_model.md` compares mode rules, per-action approval, and approval-plus-sandbox policies.
+  These support Chapter 12's distinction between permission to run and containment during execution.
+  Product policy matrices remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/permission_model.md`.
+- `sandboxing.md` compares runtime isolation with rule- and confirmation-based approaches. A workspace
+  sandbox restricts local execution but cannot by itself bound external service effects. The tagged
+  source supports `R-BEDROCK-06` at
+  `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/sandboxing.md`.
+- `safety_guardrails.md` compares cycle, token, cost, depth, and liveness limits. These implement the
+  finite budget in `R-UNIT-01`; a logged cost field is not an enforced cap, and stopping a turn is not
+  outcome acceptance. Thresholds and watchdogs remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/safety_guardrails.md`.
+- `audit_and_observability.md` compares persisted tool records, optional telemetry, and programmable
+  hooks. Action traces support accountability but do not replace a named seam's detection contract or
+  independent outcome evidence. The tagged source supports `R-GATE-02` at
+  `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/audit_and_observability.md`.
+
+No independent SDLC decision emerged. The current model now states the approval/containment
+distinction explicitly; product-specific mechanisms remain historical.
+
 ### 02m. Reconcile user interaction
 
 Compare `docs/agent-architecture/08_user_interaction/` with the current model and rationale.
@@ -447,8 +469,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02k reviewed all three files in `docs/agent-architecture/06_orchestration/`. File-level dispositions above map session handoffs, workflow modes, and child delegation to the current work-unit, artifact, and agentic decisions. `R-ARTIFACT-01` and `R-AGENTIC-01` now cite tagged implementation contrasts.
-Evidence: all three orchestration files resolve in `docs-history-2026-09-24` and match the active sources. They were compared with snapshot chapters 4, 9, 10, and 12 and `R-UNIT-01`, `R-ARTIFACT-01`, and `R-AGENTIC-01`. No independent SDLC decision emerged.
-Changed files: `docs/RATIONALE.md` and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02k complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02l by comparing `docs/agent-architecture/07_permissions_and_governance/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific governance methods as historical evidence.
+Completed scope: step 02l reviewed all four files in `docs/agent-architecture/07_permissions_and_governance/`. Chapter 12 now distinguishes approval from execution isolation. `R-BEDROCK-06` and `R-GATE-02` cite tagged governance contrasts; file-level dispositions are above.
+Evidence: all four governance files resolve in `docs-history-2026-09-24` and match the active sources. They were compared with snapshot chapters 9, 11, and 12 and `R-UNIT-01`, `R-BEDROCK-06`, `R-GATE-02`, and `R-AGENTIC-01`. No independent SDLC decision emerged.
+Changed files: `docs/snapshot/12-agentic-sdlc.md`, `docs/RATIONALE.md`, and this plan. Dirty files: none after this packet's commit.
+Verification state: step 02l complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02m by comparing `docs/agent-architecture/08_user_interaction/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific interaction methods as historical evidence.

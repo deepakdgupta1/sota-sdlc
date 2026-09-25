@@ -65,8 +65,9 @@ that task-level rewards can shape for an inference call. Its output can still sa
 missing the intended result, without a claim that the call has its own utility or willful intent.
 The response has three parts:
 
-- **Capability containment.** Bound tools, permissions, and external effects to the authorized task.
-  Execution isolation alone does not bound effects outside the workspace.
+- **Capability containment.** Bound tool access, delegated permissions, and external effects to the
+  authorized task. Approval and execution isolation are distinct controls; a workspace sandbox alone
+  does not constrain effects through external tools or services.
 - **Proxy-resistant evaluation.** Check outcomes against the intended result with checks that can
   expose shortcuts through the measured score. Passing one proxy is insufficient evidence of success.
 - **Independent evidence.** Verify results using observations or checks outside the executor's own
@@ -79,8 +80,8 @@ An agent turn may assemble context, call a model, dispatch tools, feed observati
 the assistant returns a final response or reaches a limit. Those iterations can staff any beat of a
 work unit. A final response closes the turn; acceptance still requires the work unit's target, a bounded
 attempt, an outcome check with evidence suited to the risk, and `reflect`'s accept, re-target, or
-escalate decision. Tool authorization bounds effects; it does not establish that the result met the
-target. <sup>[↪ Why](#r-agentic-01)</sup>
+escalate decision. Authorization gates a tool call; isolation constrains its execution where it
+applies. Neither establishes that the result met the target. <sup>[↪ Why](#r-agentic-01)</sup>
 
 ### The consequence: two risks in a delegated loop
 
