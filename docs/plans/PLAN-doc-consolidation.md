@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02b` complete
-Next step: `02c`
+Current step: `02c` complete
+Next step: `02d`
 
 ## Objective
 
@@ -287,8 +287,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02b applied E4 at the accountable work-unit boundary, with shared evidence allowed for nested loops and named seam gates kept at their seams. This attachment point is an explicit policy choice. E5 now separates independent checks from accountable principals and reserves human judgment for accountability, values, or exceptional authority. E6 routes green-check acceptance failures through analysis of composition, leaf oracles, and the environment model before repair.
-Evidence: `docs-history-2026-09-24:ROADMAP.md` §3 E4–E6 at source revision `a38623b`; the September and July historical paths used in the new rationale entries resolve. `node scripts/verify-docs.mjs` passes with 14 chapters, 36 rationale entries, and 29 chart blocks. `git diff --check` passes. Browser QA showed the revised existence-gate, delegation, and Done-propagation diagrams rendered after Fit, with no console errors.
-Changed files: `docs/RATIONALE.md` and snapshot chapters 01, 03, 04, 06, 08, 09, 11, 12, and 13, plus this plan. Dirty files: none after this packet's commit.
-Verification state: step 02b complete at `HEAD` (this checkpoint commit). Structural checks establish links and chart validity; browser QA establishes visible rendering for the three revised diagrams. Semantic review compared E4–E6 with the roadmap and the affected passages. Later Tier E repairs and the old `asOf` date remain for their scheduled packets.
-Exact next action: inspect E7 through E9 in `ROADMAP.md` §3 and reconcile telemetry, lesson versus test instance, and agent containment in the named snapshot chapters and rationale entries. The next user-initiated turn starts step 02c.
+Completed scope: step 02c applied E7 to telemetry: gate only a named seam's required signal, allow risk-based sampling elsewhere, and separate debug from audit records with redaction, cost, and retention policies. E8 now retains each regression lesson and rationale while allowing documented retirement or replacement of obsolete, redundant, or misleading test instances. E9 distinguishes incentives for persistent parties from capability containment, proxy-resistant evaluation, and independent evidence for non-persistent inference.
+Evidence: `docs-history-2026-09-24:ROADMAP.md` §3 E7–E9 is byte-identical to the active roadmap at source revision `a38623b`. Referenced September and July historical files resolve. `node scripts/verify-docs.mjs` passes with 14 chapters, 38 rationale entries, and 29 charts; `git diff --check` passes. Browser QA confirmed the revised bedrock, regression, and second-order diagrams rendered after Fit, with no console errors.
+Changed files: `docs/RATIONALE.md`; snapshot chapters 01, 02, 03, 10, 11, 12, and 13; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 02c complete at `HEAD` (this checkpoint commit). The structural checker verifies links and chart data; browser QA verifies the three affected diagrams. Semantic review compared E7–E9 with the roadmap and affected passages. The old `asOf` date and later Tier E repairs remain for scheduled packets.
+Exact next action: start step 02d by inspecting E10 through E13 in `ROADMAP.md` §3. Apply E10, E12, and E13; use E11 to correct factual errors while retaining the formal-proof caveat. Do not import Tier D implementation plans.

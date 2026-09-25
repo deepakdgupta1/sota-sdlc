@@ -61,14 +61,17 @@ Plain-language definitions of the recurring terms.
 - **Schedule bet.** `plan`'s conjecture that if every task lands in its slot, the whole ships by the
   date — `scope`+`specify` projected onto the time axis. An estimate is the stub of a task;
   critical-path feasibility is stub-composition on time. Baseline existence gated; dates graded (§7.1). <sup>[↪ Why](#r-gate-03)</sup>
-- **Regression ratchet.** The monotonically-accumulating suite of re-runnable checks compiled from
-  fixed failures — the executable time-face of the reflect-artifact, the forced `reflect` → `verify`
-  bridge (§10.1). Existence gated; coverage graded. <sup>[↪ Why](#r-artifact-02)</sup>
+- **Regression ratchet.** Retained lessons and rationale from fixed failures, with re-runnable checks
+  for relevant failure classes (§10.1). Obsolete, redundant, or misleading test instances can retire
+  with a recorded reason while required guards remain. Existence gated; coverage graded.
+  <sup>[↪ Why](#r-artifact-03)</sup>
 - **Reversible envelope (rollback's reach).** The region of version-space `roll back` can restore.
   Irreversibility ≡ beyond it; hard gates fall at its limit, and widening the envelope converts
   pre-execution gates back into graded bets (§10.1). <sup>[↪ Why](#r-artifact-02)</sup>
 - **Silent failure.** A path that fails *and emits no telemetry* — the unit the observability gate rule
-  classifies (§11.1). Gate the per-seam binary signal; never gate the aggregate coverage %. <sup>[↪ Why](#r-gate-02)</sup>
+  classifies (§11.1). Gate a named seam's signal when silent failure is non-local or outside authority
+  requires it; grade aggregate coverage. Debug sampling cannot replace required audit evidence.
+  <sup>[↪ Why](#r-gate-02)</sup>
 - **Convergent law (existence-hard, fidelity-graded).** At an accountable work unit, each required
   artifact must exist; nested loops may share evidence. Fidelity, coverage, and content remain graded
   (§11.2). plan : predictable :: ADR : reliable :: regression : resilient :: telemetry : observe. <sup>[↪ Why](#r-gate-04)</sup>
@@ -86,12 +89,13 @@ Plain-language definitions of the recurring terms.
 - **Accountable principal.** The person or authority responsible for the delegated result and its
   consequences. Human judgment remains for values, accountability, and exceptional authority. <sup>[↪ Why](#r-agentic-01)</sup>
 - **Incentive-divergence (stone #10).** The second-order, delegated-only stone about the *doer*: a
-  self-interested agent optimises its own payoff over your target even when your intent is fully known
+  persistent party optimises its own payoff over your target even when your intent is fully known
   (misaligned — not hostile like #8, not mistaken like #4). Its willful face forces **alignment**
   (Chapter 12). <sup>[↪ Why](#r-bedrock-04)</sup>
-- **Alignment.** The forced response to stone #10: engineering the agent's payoff to track true-Done
-  (skin in the game, outcome-linked incentives, an aligned principal that owns the loss). Alignment is to
-  the *doer* what independence is to the *checker*. <sup>[↪ Why](#r-bedrock-04)</sup>
+- **Alignment.** For persistent parties, outcome-linked incentives and accountability connect their
+  payoff to the intended result. <sup>[↪ Why](#r-bedrock-04)</sup> For non-persistent inference, use
+  capability containment, proxy-resistant evaluation, and independent evidence; the model assumes no
+  continuing payoff that task-level rewards can shape. <sup>[↪ Why](#r-bedrock-06)</sup>
 - **Bundling rule.** The self-test's third direction: two faces of a pressure are **one** stone only if
   they share a *single* forced response, else they are **sibling** stones — why "distributed + perishable"
   is one stone (#7) but "change" and "uncertain" are two (#5, #6), and why #9 and #10 are siblings, not
@@ -121,7 +125,7 @@ One table, the whole causal skeleton.
 | 7 | knowledge distributed & perishable | **artifacts** (persist + make explicit) | all four (carries every loop's output) |
 | 8 | adversarial actors | security repertoire (authn/authz, sanitize, harden, red-team) | secure |
 | 9 | reflexivity — checker not independent *(autonomous only)* | independence-seeking (external terminal, adversarial/diverse review) | protects reliable |
-| 10 | incentive-divergence — doer not faithful *(delegated only)* | alignment (reward design, skin-in-the-game, outcome-linked payoff, aligned principal) | protects reliable |
+| 10 | incentive-divergence and the non-persistent inference branch *(delegated only)* | persistent parties: incentives and accountability; inference: capability containment, proxy-resistant evaluation, independent evidence | protects reliable |
 
 > Three lifecycle boxes are deliberately **not** rows. `plan` is `scope`+`specify` projected onto the
 > time axis (§7.1) and `release` is the build→operate seam whose governance *is* the stone-#5 machinery

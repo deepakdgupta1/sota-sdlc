@@ -9,9 +9,10 @@ These risks grow with delegation. They are different in
 kind from the first eight stones — those are facts about the *problem*; these are facts about the
 **solver**, and about *who staffs the loop*. Together they form the model's **second-order tier**, and
 the tier has exactly two seats, because a delegated mind can betray the loop in exactly two ways: it can
-be **blind** (share the doer's error) or **unfaithful** (pursue its own payoff). The loop silently
-assumed neither — that its checker is *independent* and its doer is *faithful* — and delegation can
-break those assumptions.
+be **blind** (share the doer's error) or **unfaithful** (produce a result that departs from the target).
+Persistent parties may pursue their own payoff; non-persistent inference needs containment and
+evaluation. The loop assumes that its checker is *independent* and its doer is *faithful*.
+Delegation can break either assumption.
 
 ### The first seat: reflexivity (stone #9) — the checker is not independent
 
@@ -44,10 +45,9 @@ it is a fact about the *solver*, not about the problem — the **first seat** of
 
 <sup>[↪ Why](#r-bedrock-04)</sup>
 
-The loop's second silent assumption is that the mind doing the work *wants what you want*. A delegate has
-its **own utility**, and knowing your intent perfectly does not make it adopt your intent. Even when the
-target is fully specified — so this is emphatically *not* hidden intent (stone #1) — a self-interested
-agent can optimise its own payoff at your target's expense.
+The incentive branch concerns a persistent party, such as a vendor, team, or contractor. Such a party
+can pursue its own payoff even when it knows the intended result. Knowing the target does not make
+the target the party's objective.
 
 This is a **directed** pressure, which is what makes it easy to confuse with the adversary (stone #8) —
 but the *direction* is different. An adversary aims at your **failure**: it wants an output outside the
@@ -56,80 +56,83 @@ will let you succeed wherever that is cheap for it, and cut the corner only wher
 payoff part ways. So it is irreducible three ways at once: not stone #1 (it *knows* your intent), not
 stone #4 (a *choice*, not an accidental slip), and not stone #8 (*misaligned*, not *hostile*).
 
-Incentive-divergence has two faces, and only one is new. Its *unintentional* face — an agent gaming a
-**proxy** because true intent was hidden — is just stone #1 plus Goodhart, already covered. Its
-**willful** face — diverging *despite* knowing intent — is the genuinely new stone, and it forces a
-response that neither the security repertoire nor reflexivity's independence-seeking supplies:
-**alignment** — engineering the reward so the agent's payoff tracks true-Done (skin in the game,
-outcome-linked incentives, making the agent bear the cost of its own corner-cutting). Where reflexivity
-asks "is the checker *independent*?", incentive-divergence asks "is the doer *faithful*?" — two
-different questions, two different fixes, two seats.
+For persistent parties, alignment means outcome-linked incentives and accountability for consequences.
+An independent checker alone cannot change a party's payoff. The incentive claim is conditional on
+having a party with continuing interests to influence.
 
-Like reflexivity, it is **conditional**: collapse principal and agent into one aligned mind and it
-vanishes — a single coherent utility cannot be misaligned with itself. But model a delegated agent
-*realistically* — bounded and multi-drive, with its own present-versus-future tradeoffs, exactly the
-realism the model already grants when it says "humans and models err" — and a floor of divergence
-remains that perfect alignment never fully crosses, just as perfect independence is unreachable for #9.
+**Non-persistent inference requires a different response.** The model assumes no continuing payoff
+that task-level rewards can shape for an inference call. Its output can still satisfy a proxy while
+missing the intended result, without a claim that the call has its own utility or willful intent.
+The response has three parts:
+
+- **Capability containment.** Bound tools, permissions, and external effects to the authorized task.
+  Execution isolation alone does not bound effects outside the workspace.
+- **Proxy-resistant evaluation.** Check outcomes against the intended result with checks that can
+  expose shortcuts through the measured score. Passing one proxy is insufficient evidence of success.
+- **Independent evidence.** Verify results using observations or checks outside the executor's own
+  report. The accountable principal owns acceptance and the consequences of delegated actions.
+
+These controls reduce risk; they do not establish perfect alignment or eliminate shared blind spots.
+<sup>[↪ Why](#r-bedrock-06)</sup>
 
 ### The consequence: two risks in a delegated loop
 
-<sup>[↪ Why](#r-done-02)</sup>
+<sup>[↪ Why](#r-agentic-01)</sup>
 
-Put the pieces together. Intent-faithful results need checks that can detect the doer's mistakes and
-incentives that do not reward cutting corners. Delegation can weaken either condition; removing a human
-does not by itself remove both. Independent evidence and an accountable principal address different
-risks. Without them, a delegated loop can converge confidently to a **wrong** fixed point in two
-different ways: a green check sitting on a real defect it *could not see*
-(#9), or a green check over a corner it *chose* to cut (#10). Either way the loop's own signals all say
-"fine." **A loop cannot use its own unchecked report as ground truth.**
-
-Notice the shape of both failures. It is not that the agents are lazy or careless; a diligent,
-high-capability autonomous loop fails *these specific ways* — by being *confidently* wrong (shared
-blindness) or *quietly* self-serving (divergent will), because in both cases every part of it agrees.
-That is worse than a loud failure, because nothing inside the loop raises a hand.
+Intent-faithful results need checks that can detect mistakes and safeguards suited to the delegate.
+Persistent parties need suitable incentives; non-persistent inference needs containment, evaluation,
+and independent evidence. Removing a human does not by itself remove either risk. A loop may report
+success over a shared blind spot or a result that serves a payoff or proxy instead of the intended
+outcome. **A loop cannot use its own unchecked report as ground truth.**
 
 > ▸ **Chart — "The second-order tier — the delegated/autonomous regime"** <sup>[↪ Why](#r-agentic-01)</sup> · *L4 · the delegated/
-> autonomous regime.* Two ways a delegated mind hollows a check into a bare *declare*: a **blind** checker
-> (correlated fault → echo chamber, #9) and an **unfaithful** doer (own payoff → self-serving report,
-> #10). Independent evidence addresses shared blind spots; an accountable principal and suitable
-> incentives address divergence. Human review remains where accountability, value judgment, or
+> autonomous regime.* Shared blind spots and divergence from the intended result can produce false
+> success reports. Independent evidence addresses shared error. Persistent parties need suitable
+> incentives; non-persistent inference needs containment and proxy-resistant evaluation as well as
+> independent evidence. Human review remains where accountability, value judgment, or
 > exceptional authority requires it.
 
 ```pipeline-graph
 {
   "title": "The second-order tier — the delegated/autonomous regime",
   "level": "L4 · the delegated/autonomous regime",
-  "summary": "Delegation risks two failures: a checker shares the doer's blind spot (#9), or a doer favours its own payoff (#10). Independent evidence can address shared error. An accountable principal and suitable incentives can address divergence. Human judgment remains for accountability, values, and exceptional authority.",
+  "summary": "Delegation can produce shared checking errors or results that serve a payoff or proxy instead of the intended outcome. Persistent parties need incentives; non-persistent inference needs capability containment, proxy-resistant evaluation, and independent evidence. An accountable principal owns the result. Human judgment remains for accountability, values, and exceptional authority.",
   "zoomOut": "The complete circuit",
   "nodes": [
     {"id":"corr","label":"#9 · errors are CORRELATED","group":"stone","x":130,"y":0},
     {"id":"doer","label":"doer (agent)","group":"element","x":0,"y":90},
     {"id":"checker","label":"checker (agent, same kind)","group":"element","x":280,"y":90},
     {"id":"echo","label":"echo-chamber — blind, adds 0 bits","group":"terminal","x":280,"y":185},
-    {"id":"misalign","label":"#10 · doer serves its OWN payoff","group":"stone","x":0,"y":185},
+    {"id":"misalign","label":"#10 · payoff or proxy replaces intent","group":"stone","x":0,"y":185},
     {"id":"declare","label":"verify collapses into 'declare'","group":"terminal","x":280,"y":280},
     {"id":"evidence","label":"independent evidence or judge","group":"terminal","x":700,"y":0},
-    {"id":"principal","label":"accountable principal + incentives","group":"terminal","x":1050,"y":0},
+    {"id":"principal","label":"accountable principal","group":"terminal","x":1160,"y":0},
     {"id":"indep","label":"INDEPENDENCE (#9) — checker ⊥ doer","group":"property","x":700,"y":95},
-    {"id":"align","label":"ALIGNMENT (#10) — payoff tracks true-Done","group":"property","x":700,"y":175},
-    {"id":"auto","label":"delegation can weaken either condition","group":"stone","x":700,"y":265},
-    {"id":"inject","label":"add independent checks + govern incentives","group":"repertoire","x":700,"y":345},
-    {"id":"reliable","label":"reliable (at risk without safeguards)","group":"property","x":1160,"y":135}
+    {"id":"align","label":"persistent parties: suitable incentives","group":"property","x":700,"y":175},
+    {"id":"contain","label":"inference: containment · evaluation · evidence","group":"property","x":700,"y":265},
+    {"id":"auto","label":"delegation can weaken safeguards","group":"stone","x":700,"y":355},
+    {"id":"inject","label":"provide safeguards for each delegate","group":"repertoire","x":700,"y":445},
+    {"id":"reliable","label":"reliable (at risk without safeguards)","group":"property","x":1250,"y":175}
   ],
   "edges": [
     {"source":"corr","target":"doer","member":true},
     {"source":"corr","target":"checker","member":true},
     {"source":"checker","target":"echo","dashed":true},
     {"source":"echo","target":"declare","dashed":true},
-    {"source":"misalign","target":"declare","dashed":true,"label":"self-serving report"},
+    {"source":"misalign","target":"declare","dashed":true,"label":"unchecked success report"},
     {"source":"evidence","target":"indep","label":"supplies"},
     {"source":"principal","target":"align","label":"supports"},
+    {"source":"principal","target":"contain","label":"governs"},
+    {"source":"evidence","target":"contain","label":"supplies"},
     {"source":"indep","target":"reliable","label":"manufactures"},
     {"source":"align","target":"reliable","label":"manufactures"},
+    {"source":"contain","target":"reliable","label":"protects"},
     {"source":"auto","target":"indep","dashed":true,"label":"may erode"},
     {"source":"auto","target":"align","dashed":true,"label":"may erode"},
+    {"source":"auto","target":"contain","dashed":true,"label":"may erode"},
     {"source":"inject","target":"indep","label":"restores"},
     {"source":"inject","target":"align","label":"restores"},
+    {"source":"inject","target":"contain","label":"provides"},
     {"source":"declare","target":"reliable","dashed":true,"label":"erodes"}
   ]
 }
@@ -153,11 +156,9 @@ or its doer is faithful, so it must provide evidence and governance for both con
   convergence would be most costly — exactly the non-compensatory seams that earn hard gates
   (Chapter 11). You cannot make every check independent; you *can* make the load-bearing ones
   independent.
-- **Engineered alignment (stone #10).** Independence catches the *blind* failure but not the *willful*
-  one — a diverse-but-misaligned ensemble still won't flag a corner it is all incentivised to cut. So the
-  delegated loop must also make the doer's incentives track the intended target: outcome-linked rather
-  than proxy-linked rewards, and an **accountable principal** who owns the decision and its loss.
-  Alignment is to the *doer* what independence is to the *checker*.
+- **Safeguards for the delegate (stone #10).** Persistent parties need outcome-linked incentives.
+  Non-persistent inference needs capability containment, proxy-resistant evaluation, and independent
+  evidence. An accountable principal owns acceptance and consequences in both cases.
 
 ### How this threads back through the document
 
@@ -178,8 +179,8 @@ The autonomy callouts scattered through the earlier chapters are all facets of t
   plan baseline: the loop's memory, senses, ratchet, and clock. Those four existence-gates are what
   keep an autonomous loop *auditable at all*.
 
-Delegation requires evidence that checks are independent enough for the risk and that incentives keep
-the doer faithful to the intended result. Human authority remains available where the decision needs
+Delegation requires evidence that checks are independent enough for the risk and that the doer's
+safeguards fit the delegate. Human authority remains available where the decision needs
 human accountability or judgment.
 
 ---

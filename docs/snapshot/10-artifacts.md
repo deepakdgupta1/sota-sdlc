@@ -97,14 +97,17 @@ Chapter 8).
 **Face 1 — change re-opens closed holes → the regression ratchet.** Every later change can silently
 re-introduce a failure the loop already paid to fix. Run the boundary-distance law on that fact: the
 fix's lesson must reach *every future iteration*, and a prose post-mortem is a **passive** memory —
-under continuous change it degrades to "re-derive, not remember." To fire automatically on every
-future pass, the lesson must be persisted **as a re-runnable check**: the post-mortem's *why* compiled
-into `verify`. That is what a **regression test** is — the *executable time-face of the
-reflect-artifact*, the forced bridge from `reflect` into `verify` — not a new element. And it
-**accumulates monotonically**: each fixed failure-class adds a guard, none is dropped. That ratchet is
-what makes fixes *stick* — the thing that turns the Ouroboros from a circle into a spiral. Its
-**existence is a hard gate** (deleting the loop's memory-of-fixes is machinery-degrading, Chapter 11);
-its **coverage is graded** (a Goodhartable proxy, like all coverage).
+under continuous change it degrades to "re-derive, not remember." While a failure class remains
+relevant, a re-runnable check carries its lesson into `verify`. That is the role of a regression test,
+the executable bridge from `reflect` into `verify`.
+
+**Preserve the lesson and its rationale; govern the test instance.** The durable record retains the
+failure, why it mattered, and the reason for its guard. A test may be replaced or retired when it is
+obsolete, redundant, or misleading. Record the retirement reason and link the replacement guard, or
+explain why the failure class no longer applies. Retiring a test does not erase the lesson or authorize
+loss of a still-required guard. The retained knowledge grows; the number of tests need not. Required
+regression evidence has an existence gate at the accountable work unit; coverage remains graded
+(Chapter 11). <sup>[↪ Why](#r-artifact-03)</sup>
 
 **Face 2 — change lands on a live system → the rollback net.** A bad deploy or migration degrades a
 *currently-working* system, and the fault is in the new artifact itself — so the in-place #6 responses
@@ -145,15 +148,15 @@ buy the *context* clause, while without the ratchet the envelope is only momenta
 time change re-opens an old hole.
 
 > ▸ **Chart — "The change axis — regression & rollback"** <sup>[↪ Why](#r-artifact-02)</sup> · *L3 · the time axis.* Stone #5's two
-> faces force two dual organs: the post-mortem compiled into an auto-firing, monotonically-accumulating
-> `verify` check (existence gated, coverage graded), and the backward move in version-space whose
+> faces force two dual organs: retained lessons with governed regression checks
+> (existence gated, coverage graded), and the backward move in version-space whose
 > reach defines the graded region (the gate falls at its limit).
 
 ```pipeline-graph
 {
   "title": "The change axis — regression & rollback",
   "level": "L3 · the time axis",
-  "summary": "Stone #5 bites twice: change re-opens closed holes (→ the regression ratchet — the executable reflect-artifact; existence hard, coverage graded) and change lands on a live system (→ the rollback net — graded, with the hard gate at its irreversible limit).",
+  "summary": "Change can reintroduce fixed failures or damage a live system. Regression preserves lessons and their rationale while test instances can be replaced or retired with reasons. Required evidence is gated and coverage graded. Rollback reverses changes within its reach; irreversible effects require a gate before execution.",
   "zoomOut": "The artifacts",
   "zoomIn": ["Hard gate or graded target?", "The convergent law"],
   "nodes": [
@@ -162,7 +165,7 @@ time change re-opens an old hole.
     {"id":"face2","label":"face 2 · change lands on a live system","group":"beat","x":760,"y":110},
     {"id":"postmortem","label":"post-mortem (passive prose lesson)","group":"property","x":-60,"y":220},
     {"id":"regression","label":"REGRESSION — the lesson compiled into verify","group":"element","x":250,"y":220},
-    {"id":"ratchet","label":"monotonic ratchet — fixes stick (circle → spiral)","group":"property","x":110,"y":330},
+    {"id":"ratchet","label":"retain lessons · govern test instances","group":"property","x":110,"y":330},
     {"id":"gate1","label":"existence = hard gate · coverage = graded","group":"terminal","x":390,"y":330},
     {"id":"rollback","label":"ROLLBACK — backward in version-space","group":"element","x":760,"y":220},
     {"id":"limit","label":"its limit = the irreversible region (amplifier #2)","group":"stone","x":1090,"y":220},
@@ -174,7 +177,7 @@ time change re-opens an old hole.
     {"source":"change","target":"face2","member":true},
     {"source":"face1","target":"regression"},
     {"source":"postmortem","target":"regression","label":"compiled — the reflect → verify bridge"},
-    {"source":"regression","target":"ratchet","label":"accumulates"},
+    {"source":"regression","target":"ratchet","label":"preserves learning"},
     {"source":"regression","target":"gate1","dashed":true},
     {"source":"face2","target":"rollback"},
     {"source":"rollback","target":"limit","member":true,"label":"reach ends"},
@@ -193,4 +196,3 @@ time change re-opens an old hole.
 > the machinery that keeps a wrong-but-confident action recoverable.
 
 ---
-

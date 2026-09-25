@@ -114,9 +114,8 @@ purpose.
 > Reliability is manufactured by a loop that *converges* — but convergence quietly assumes two things about
 > who staffs it: that the checker is **independent** of the doer, and that the doer is **faithful** to the
 > target. Delegation can break either — a checker that shares the doer's blind spot (stone #9), or an
-> executor that serves its own payoff (stone #10) — and both let the loop *declare* success instead of
+> executor that satisfies a payoff or proxy instead of intent (stone #10's two branches). Both let the loop *declare* success instead of
 > establishing it: a green check over a real defect. These are the two **second-order** stones; see
 > Chapter 12.
 
 ---
-

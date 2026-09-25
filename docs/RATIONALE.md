@@ -98,18 +98,33 @@ as having repaired them.
   verify-and-analyze, and liveness's (budgets, timeouts, checkpointing, durable execution) are not #7's
   artifact. Whether the folds are adequately argued is **Q10** in `ROADMAP.md` §8 — open.
 
-### <a id="r-bedrock-04"></a>R-BEDROCK-04 · Stone #10, incentive-divergence, is admitted
+### <a id="r-bedrock-04"></a>R-BEDROCK-04 · Incentives apply to persistent delegated parties
 
-- **Decision.** A tenth stone — **incentive-divergence**, the *willful* face of a delegated doer serving
-  its own payoff — is admitted as conditional and second-order, taking the alignment seat beside #9.
-- **Why.** It is irreducible to what was already there: not #1 (a known-but-unwanted objective is not a
-  hidden intent), not #4 (a *choice* is not a mistake), and not #9 (an echo-chamber checker is
-  epistemically blind, whereas a self-serving doer is conatively misaligned — they force different
-  responses, so by the bundling rule they are siblings). It closed the bedrock pressure-test, canvas
-  track T6, at iteration 35.
-- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/12-agentic-sdlc.md`,
-  `docs/snapshot/01-system-at-a-glance.md`.
-- **Trace.** `sdlc-canvas/01-bedrock-atom-fractal.md` · `sdlc-canvas/06-iteration-log.md` iteration 35.
+- **Decision.** Stone #10's incentive branch applies to persistent parties such as vendors, teams,
+  and contractors. Outcome-linked incentives and an accountable principal address divergence between
+  their payoff and the intended result. Non-persistent inference follows [R-BEDROCK-06](#r-bedrock-06).
+- **Why.** A party can know the target and still benefit from a different outcome. Better specification
+  or an independent checker alone cannot change that payoff. This rationale depends on continuing
+  interests that incentives can influence; it cannot be assumed for every software-agent invocation.
+- **Applies to.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/12-agentic-sdlc.md`,
+  `docs/snapshot/01-system-at-a-glance.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E9; earlier admission argument: `docs-history-2026-07-30:sdlc-canvas/06-iteration-log.md`, iteration 35.
+- **Superseded.** The assumption that every delegated doer has its own continuing payoff to align.
+
+### <a id="r-bedrock-06"></a>R-BEDROCK-06 · Contain and evaluate non-persistent inference
+
+- **Decision.** For non-persistent inference, require capability containment, proxy-resistant
+  evaluation, and independent evidence. An accountable principal owns acceptance and consequences.
+- **Why.** This branch assumes no continuing payoff that a task-level reward can shape. An inference
+  call can still produce an output that passes a proxy while missing intent. Limiting tools,
+  permissions, and effects bounds exposure; checking actual outcomes and independent evidence reduces
+  reliance on the proxy and on the executor's own report. These controls do not prove perfect alignment.
+- **Applies to.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/12-agentic-sdlc.md`,
+  `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E9. This is a design assumption for the non-persistent branch, not a claim about every agent system.
+- **Superseded.** Treating task-level incentives as the response to non-persistent inference.
 
 ### <a id="r-bedrock-05"></a>R-BEDROCK-05 · Cost-asymmetry is a derived law, not a stone
 
@@ -264,16 +279,20 @@ as having repaired them.
 
 ### <a id="r-gate-02"></a>R-GATE-02 · Gate the per-seam binary, grade the aggregate
 
-- **Decision.** For observability, the **per-seam binary** — can this seam fail silently? — is gated,
-  while **aggregate coverage and fidelity** are graded.
-- **Why.** A silent failure defeats the sensor's whole purpose, and one silent seam is not compensated
-  by richer telemetry elsewhere, so it is non-local. Coverage depth, by contrast, does average out.
-  Splitting the two settles the apparent conflict between "observability is graded" and "silent failure
-  is unacceptable" without weakening either.
-- **Governs.** `docs/snapshot/11-hard-gates-vs-graded.md`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.9 (canvas track T11).
-- **Open.** The fully general, cross-domain gate-versus-graded classification rule is canvas track
-  **T2**, still open — the observability case is settled, the general case is not.
+- **Decision.** Gate a named seam's signal and detection bound when silent failure is non-local or
+  outside authority requires evidence. Other coverage remains proportional to risk and may collapse
+  to zero on a fully modeled, reversible, local path. Separate debug records from audit records.
+  Specify sampling, redaction, cost limits, and retention without dropping required evidence.
+- **Why.** Richer logs elsewhere cannot replace a required signal at the seam where harm occurs.
+  That does not make every silent local failure non-local. Continuous emission on every path would
+  contradict the collapse rule and consume resources without a demonstrated detection need. Debug
+  sampling can serve diagnosis; audit evidence must preserve the required accountable events. Neither
+  an aggregate coverage score nor the presence of a log proves the detection contract is met.
+- **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E7; earlier seam argument: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.9.
+- **Superseded.** Telemetry as a forced continuous, every-seam property; the claim that every silent
+  seam is necessarily non-local. Required audit evidence cannot be replaced by sampled debug logs.
 
 ### <a id="r-gate-03"></a>R-GATE-03 · The convergent law — existence-hard, fidelity-graded
 
@@ -325,17 +344,30 @@ as having repaired them.
 - **Why.** A lesson that is not compiled into a check decays to folklore, and a change that cannot be
   undone converts an ordinary mistake into a non-local one. The two answer opposite halves of the same
   stone: the ratchet makes fixes stick, rollback keeps changes reversible.
-- **Governs.** `docs/snapshot/10-artifacts.md`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.8 (canvas track T3).
-- **Open.** "No regression test is ever dropped" overstates it. The **lesson** and its rationale are
-  preserved irreversibly; the **test instance** must be governed, so obsolete, redundant and misleading
-  tests can retire. That correction is E8 in `ROADMAP.md` §3, not yet applied here.
+- **Applies to.** `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.8.
+  [R-ARTIFACT-03](#r-artifact-03) distinguishes the retained lesson from a governed test instance.
+
+### <a id="r-artifact-03"></a>R-ARTIFACT-03 · Preserve lessons and govern test instances
+
+- **Decision.** Retain each regression lesson and its rationale. A test instance may be replaced or
+  retired when obsolete, redundant, or misleading. Record why, with a replacement guard or an
+  explanation that the failure class no longer applies. Preserve any still-required guard.
+- **Why.** Tests encode assumptions about a system that changes. Keeping an obsolete assertion can
+  reward the wrong behavior, while redundant checks consume effort without retaining more knowledge.
+  Preserving the failure, its significance, and the retirement reason keeps the learning available
+  without requiring the suite's test count to grow forever.
+- **Applies to.** `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E8. The earlier regression argument is in [R-ARTIFACT-02](#r-artifact-02).
+- **Superseded.** Every fixed failure must add a permanent test instance and none may be dropped.
 
 ### <a id="r-agentic-01"></a>R-AGENTIC-01 · The second-order tier prices autonomy; it does not forbid it
 
-- **Decision.** Delegation raises two distinct risks to `reliable`: a checker may share the doer's
-  error, and a doer may favour its own payoff. Require independent evidence for the first and an
-  accountable principal with suitable incentives for the second. A human decides matters requiring
+- **Decision.** Delegation raises two risks to `reliable`: shared checking errors and departure from
+  the intended result. Require independent evidence, an accountable principal, and safeguards suited
+  to the delegate. Persistent parties need suitable incentives; non-persistent inference needs
+  containment and proxy-resistant evaluation as well as independent evidence. A human decides matters requiring
   human accountability, value judgment, or exceptional authority. `Resilient` refers to continued
   operation and recovery, not intent-faithfulness.
 - **Why.** A human is one possible independent judge, but removing a human does not make every check
@@ -345,7 +377,7 @@ as having repaired them.
 - **Applies to.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
   `docs/snapshot/06-fractal.md`, `docs/snapshot/08-repertoires.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
-  E5; earlier second-order argument: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
+  E5 and E9; earlier second-order argument: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** The claim that removing the human drives independence and alignment to zero.
 
 ### <a id="r-method-01"></a>R-METHOD-01 · Four sources of truth, with declared precedence

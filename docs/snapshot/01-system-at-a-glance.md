@@ -20,7 +20,8 @@ machine's shape is forced.
    intent is hidden, resources are finite, systems exceed one mind, we make mistakes, reality
    changes, reality is uncertain, knowledge is scattered and perishable, adversaries hunt weakness,
    and the two second-order stones — reflexivity (#9, where a checker shares the doer's blind spot) and
-   incentive-divergence (#10, where a delegated doer pursues its own utility).
+   incentive-divergence (#10, where a persistent party pursues its own payoff; non-persistent inference
+   instead requires containment and evaluation).
 2. **The loop** (Chapter 4) — those facts force exactly one atom: `define → do → check → reflect`,
    repeated until good enough, then stopped.
 3. **The behaviours** (Chapter 2) — the way the loop runs produces four behaviours: it **converges**,
@@ -91,8 +92,9 @@ machine's shape is forced.
 
 > **⟐ Under autonomy.** Notice the two coral nodes on the left — *reflexivity* (#9) and
 > *incentive-divergence* (#10), the **second-order tier** — each with a dashed edge reaching up to
-> **reliable**. Delegation can correlate checks and create incentives to favour a delegate's own
-> payoff. Independent evidence and an accountable principal address these separate risks. Chapter 12
+> **reliable**. Delegation can correlate checks and produce results that miss intent. Persistent parties
+> need suitable incentives; non-persistent inference needs containment, proxy-resistant evaluation,
+> and independent evidence. An accountable principal owns the result. Chapter 12
 > explains both edges.
 
 ---

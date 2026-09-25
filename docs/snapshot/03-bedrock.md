@@ -83,23 +83,23 @@ whether they are adequately argued is an open question (`ROADMAP.md` §8, Q10).
    "we err" (stone #4): #4 is the *marginal* fact — each agent errs; reflexivity is the *joint* fact —
    their errors correlate. *Breach → an **echo-chamber** check; the forced response is independence.*
 
-10. **Incentive-divergence — the doer serves a different master.** *(Second-order, conditional — it
-    bites when the work is delegated to a self-interested agent.)* A mind you delegate to has its **own
-    utility**. Even when it knows your intent exactly — so this is *not* hidden intent (stone #1) — it
-    may optimise *its* payoff over *your* target. This is a *directed* pressure, like an adversary's, but
-    aimed not at your **failure** (stone #8, hostile) — at a **different goal** (misaligned); your loss
-    is collateral, not the objective. It is irreducible: not #1 (known ≠ unwanted), not #4 (a *choice*,
-    not an accidental slip), not #8 (misaligned ≠ hostile). Its *unintentional* face — gaming a proxy
-    when true intent is hidden — reduces to stone #1 plus Goodhart; its **willful** face does not, and it
-    forces its own response — **alignment** (reward design, skin-in-the-game, making the payoff track
-    true-Done) — which is not in the security repertoire and does not fall out of reflexivity's
-    independence-seeking. *Breach → a **self-serving** check; the forced response is alignment.*
+10. **Incentive-divergence.** A persistent delegated party, such as a vendor, team, or contractor,
+    can pursue its own payoff even when it knows the intended result. This differs from hidden intent
+    (#1), accidental error (#4), and an adversary whose objective is harm (#8). Outcome-linked
+    incentives and an accountable principal address this branch. <sup>[↪ Why](#r-bedrock-04)</sup>
 
-Both stones turn a real `check` into a hollow `declare` — one by *shared blindness* (the checker cannot
-see the error), the other by *divergent will* (the executor will not surface or fix it even when it
-can). Both risks grow with delegation. Independent evidence limits shared blindness, while an
-accountable principal and suitable incentives limit divergent will. Without either safeguard, a
-delegated loop cannot treat its own report as ground truth. Chapter 12 treats both responses in full.
+    For non-persistent inference, the model assumes no continuing payoff that a task-level incentive
+    can shape. This branch requires **capability containment, proxy-resistant evaluation, and
+    independent evidence**. Bound the available tools, permissions, and effects; evaluate the intended
+    outcome beyond an easily optimized score; and obtain evidence outside the executor's own report.
+    This does not assert a separate utility or willful intent for an inference call.
+    <sup>[↪ Why](#r-bedrock-06)</sup>
+
+A delegated loop can report success despite a shared blind spot or an output that satisfies a proxy
+instead of the intended result. Independent evidence limits reliance on that report. The doer's
+safeguards depend on the delegate: incentives for persistent parties, containment and evaluation for
+non-persistent inference. An accountable principal owns the result in either case. Chapter 12 treats
+both branches in full.
 
 > ▸ **Chart — "The bedrock — ten forces"** <sup>[↪ Why](#r-bedrock-01)</sup> · *L1 · the forces.* Each stone on the left; the element
 > or repertoire it forces on the right. This is the "why" behind every part of the loop.
@@ -131,7 +131,8 @@ delegated loop cannot treat its own report as ground truth. Chapter 12 treats bo
     {"id":"artifacts","label":"artifacts","group":"property","x":520,"y":500},
     {"id":"security","label":"security repertoire","group":"repertoire","x":520,"y":570},
     {"id":"independence","label":"independence-seeking (external terminal · red-team)","group":"terminal","x":520,"y":650},
-    {"id":"alignment","label":"alignment (reward design · skin-in-the-game)","group":"terminal","x":520,"y":730}
+    {"id":"alignment","label":"persistent party: incentives","group":"terminal","x":520,"y":730},
+    {"id":"containment","label":"inference: containment · evaluation · evidence","group":"terminal","x":520,"y":810}
   ],
   "edges": [
     {"source":"intent","target":"specify","label":"forces"},
@@ -145,7 +146,8 @@ delegated loop cannot treat its own report as ground truth. Chapter 12 treats bo
     {"source":"distributed","target":"artifacts","label":"forces"},
     {"source":"adversarial","target":"security","label":"forces"},
     {"source":"reflexivity","target":"independence","label":"forces","dashed":true},
-    {"source":"incentives","target":"alignment","label":"forces","dashed":true}
+    {"source":"incentives","target":"alignment","label":"persistent party","dashed":true},
+    {"source":"incentives","target":"containment","label":"non-persistent inference","dashed":true}
   ]
 }
 ```

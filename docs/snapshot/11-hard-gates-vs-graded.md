@@ -75,8 +75,8 @@ importance.
 Chapter 5 forced `observe` to **own a sensor at all** (the loop may not outsource detection to
 whoever gets hurt). But *how much* to instrument is a separate question, and it has a precise answer:
 **run the predictive rule above with one substitution — classify not "this path fails" but "this path
-fails *and emits nothing*."** A seam's instrumentation is a hard gate **iff its *silent* failure is
-non-local**, through the same three amplifiers:
+fails *and emits nothing*."** A seam's instrumentation is a hard gate when its silent failure is
+non-local or outside authority requires evidence. Non-local harm follows the same three amplifiers:
 
 - **Irreversible seams.** An unseen loss *compounds while unseen* — detection latency is the only
   thing bounding it, so the sensor is the sole lever between the first unit of loss and an unbounded
@@ -90,16 +90,19 @@ Where neither non-local risk nor outside authority requires a gate, coverage sta
 proportion to `P(silent failure) × cost`. It can collapse to zero on a fully-modelled, reversible,
 local path (§6.4's collapse rule, applied to instrumentation).
 
-**Why telemetry never stops emitting while the ADR is written once.** The emission character of each
-forced artifact follows the *temporal type of the fact it carries*. The ADR carries a **static
-point-fact** — the design bet, true or false at one moment; capture it once and it holds forever. What
-telemetry carries is a **dynamic envelope-fact** — "does reality *still* match the model?" — which
-change and uncertainty (#5/#6) regenerate on every execution, at locations unknowable in advance
-(that is what *a-posteriori* means). So telemetry is forced to be **continuous and every-seam**: each
-un-instrumented path is a *standing* blind spot, re-exposed on every run. It wears `secure`'s
-every-seam *form* for a different *reason* — no hunter, just residue landing wherever you didn't
-model — which is why it stays graded across most seams and collapses to `secure`'s wholesale wall only
-at the adversarial ones.
+**Telemetry follows the detection requirement.** An ADR records a design decision; telemetry tests
+whether current behavior still matches the model. That requires observation over time, but does not
+force continuous emission on every path. Each named seam gate defines the signal and detection latency
+it needs. Sampling and aggregation are acceptable only when they preserve that requirement. Other
+paths use coverage proportional to risk, including zero where the collapse rule applies.
+
+Debug records support diagnosis. Their policy specifies sampling, redaction, collection and storage
+cost limits, and retention. Audit records preserve the evidence needed to reconstruct accountable
+actions and decisions. Their policy specifies required events, provenance, integrity protection,
+access, redaction, and retention. A sampled debug log does not substitute for a required audit event.
+Redaction must preserve the evidence the gate needs. If a cost limit or retention policy would remove
+required evidence, the gate is unmet until the conflict is resolved; dropping records cannot silently
+waive it.
 
 **Gate the per-seam binary; never gate the aggregate.** A coverage percentage is a Goodhartable proxy
 for the true target — "can we actually *detect the residue* when it surfaces?" — and the two come
@@ -107,8 +110,9 @@ apart three ways: the signal can be *wrong* (a log that says "entered function,"
 for intent"), *unmonitored* (emitted, but nothing alerts — a log nobody reads is stone #7 again), or
 *drowned* (alert fatigue). Worse, gating "≥ 90% coverage" diverts effort to the *cheap* paths and
 starves exactly the residue-bearing seams the rule says to gate. So gates attach to **named seams** —
-"does seam *S* emit detector-grade signal σ?", a binary, deterministic fact — while the roll-up stays
-a graded target.
+"does seam *S* provide its required signal within its detection bound?" The check tests that contract,
+including monitoring and loss detection; it does not promise detection of every unknown failure.
+The roll-up stays a graded target.
 
 ### 11.2 The convergent law — existence is gated, fidelity is graded
 
