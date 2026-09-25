@@ -2,10 +2,9 @@
 
 <sup>[↪ Why](#r-done-01)</sup>
 
-This is the first deep zoom — *inside a single beat.* Chapter 4 said a "done" is a graded threshold,
-not a yes/no; Chapter 6 said every element carries its own target. This chapter shows **how that target
-is actually set, inherited, and checked** — and why the mechanism is the same regardless of what
-software you are building.
+This is the first deep zoom — *inside a single beat.* Chapter 4 described graded acceptance; Chapter
+6 gave each element a target. This chapter shows **how a work unit's target is set, inherited, and
+checked** within the current model.
 
 ### Origination → propagation → termination
 
@@ -129,8 +128,9 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
   connect. It does not prove that the contracts are adequate for *P*. The check can refute a bad
   decomposition cheaply, but a pass leaves the design bet conditional.
 - **It separates three remaining premises:**
-  - **Premise A — the leaves are real** (each stub behaves like the real component). Discharged at
-    **build time** by `verify` (a unit test on the real leaf) → the *deterministic* leaf.
+  - **Premise A — the leaves are real** (each stub behaves like the real component). Gather evidence
+    at **build time** with `verify` on the real leaf; a unit test can check specified cases, but does
+    not prove the full behavior.
   - **Premise B — the contract holds across its *whole* range of inputs.** Property tests sample it
     at build time; `observe` can catch remaining failures at run time. This is one use of a
     *statistical* or *runtime-assured* leaf, not an exhaustive way to check B.
@@ -143,13 +143,14 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
 
 > ▸ **Chart — "Design as a bet — stub-composition"** <sup>[↪ Why](#r-done-01)</sup> · *L3 · inside design.* Design states the bet; a
 > design-time stub-composition either fails cheap (→ re-decompose) or survives — showing compatible wiring
-> while leaving Premise A (→ verify), Premise B (→ observe), and Premise C (→ design review and integration acceptance) open.
+> while leaving Premise A (→ verify), Premise B (→ input-range evidence at verify and observe), and
+> Premise C (→ design review and integration acceptance) open.
 
 ```pipeline-graph
 {
   "title": "Design as a bet — stub-composition",
   "level": "L3 · inside design",
-  "summary": "Design states a bet (contracts + composition hypothesis); stub-composition checks contract compatibility but leaves three premises: A (real leaves → verify), B (input range → observe), and C (contracts deliver P → design review and integration acceptance).",
+  "summary": "Design states a bet (contracts + composition hypothesis); stub-composition checks contract compatibility but leaves three premises: A (real leaves → verify), B (input range → verify and observe), and C (contracts deliver P → design review and integration acceptance).",
   "zoomOut": "Done propagation",
   "zoomIn": ["The premise-B lever"],
   "nodes": [
@@ -163,8 +164,8 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
     {"id":"premA","label":"Premise A · leaves real","group":"beat","x":1090,"y":120},
     {"id":"premB","label":"Premise B · whole input range","group":"beat","x":1090,"y":230},
     {"id":"premC","label":"Premise C · contracts deliver P","group":"beat","x":1090,"y":340},
-    {"id":"verify","label":"verify → deterministic leaf","group":"element","x":1400,"y":120},
-    {"id":"observe","label":"observe → statistical leaf","group":"element","x":1400,"y":230},
+    {"id":"verify","label":"verify → leaf evidence","group":"element","x":1400,"y":120},
+    {"id":"observe","label":"verify / observe → range evidence","group":"element","x":1400,"y":230},
     {"id":"acceptance","label":"design review + integration acceptance","group":"element","x":1400,"y":340}
   ],
   "edges": [
@@ -179,7 +180,7 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
     {"source":"survive","target":"premB","dashed":true,"label":"suspends"},
     {"source":"survive","target":"premC","dashed":true,"label":"suspends"},
     {"source":"premA","target":"verify","label":"build-time"},
-    {"source":"premB","target":"observe","label":"run-time"},
+    {"source":"premB","target":"observe","label":"build / run-time"},
     {"source":"premC","target":"acceptance","label":"whole-system evidence"}
   ]
 }
@@ -187,19 +188,18 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
 
 ### 9.2 The premise-B lever — contract tightness
 
-<sup>[↪ Why](#r-done-01)</sup>
+<sup>[↪ Why](#r-done-04)</sup>
 
 Premise B — "the contract holds across its whole range of inputs" — is **not a fixed cost.** Its *size*
 is something `design` **chooses**, by how tightly it draws each interface contract. This is the second
 quality bar.
 
-- **A tight contract manufactures `predictable` at the seam.** Premise B's residue *is* the
-  unpredictability at an interface (the unforeseen input combinations). For input-range checks,
-  tightening can reduce that residue along this path: **loose** → a range too big to exhaust (a
-  *statistical* leaf, sampled at
-  `observe`, residue > 0); **tight** → a range small enough to exhaust (a *deterministic* leaf at
-  `verify`, residue → 0); **type-encoded** → illegal values can't even be *constructed* (discharged at
-  compile time, never reaching run time).
+- **A tight contract improves `predictable` at the seam.** A broad input domain leaves more
+  combinations to sample and monitor. For a specified input-range check, tightening can move from
+  **loose** → too broad to exhaust (sample at `verify` or monitor at `observe`) to **tight** → small
+  enough to exhaust at `verify`. Within a typed internal domain, **type encoding** can make invalid
+  values unrepresentable; external inputs still need parsing and validation. Exhaustion removes the
+  input-range residue only for the specified domain, not the possibility of a wrong contract.
 - **The contract governs the *what*, not the *how*.** It constrains a part's observable inputs and
   outputs while leaving its interior free — which is exactly why a stub can stand in for it, and why
   Premises A and B were separable in the first place. This is encapsulation, derived from first
@@ -208,7 +208,7 @@ quality bar.
   realities the part must actually serve** and the contract rejects a *valid* input the real need
   sends → the part returns the wrong thing (or nothing) on a legitimate case → **`reliable` breaks**
   (and on the adverse-but-valid cases, `resilient` breaks). The contract's range must equal the
-  required set of realities — no wider (needless residue), no narrower (excluded reality).
+  required set of realities as closely as practicable — no needless breadth, no excluded required case.
 
 **So all three point/envelope input-properties re-appear at every seam.** The contract's *floor* (which
 realities must cross) is `reliable` (expected) + `resilient` (adverse); the *downward pressure* (how
@@ -217,23 +217,23 @@ admitting the whole required set of realities.** A good design bet therefore mee
 **fails cheap** (§9.1), it carries **tightest-sufficient contracts** (§9.2), and the contract set can
 deliver the parent acceptance vector (Premise C).
 
-> ▸ **Chart — "The premise-B lever"** <sup>[↪ Why](#r-done-02)</sup> · *L3 · inside a contract.* Contract-tightness is a dial:
-> tightening buys `predictable` and moves residue from statistical → deterministic → compile-time, but
-> the floor is the required set of realities (`reliable` + `resilient`). One step past the floor and
-> the contract rejects a valid input.
+> ▸ **Chart — "The premise-B lever"** <sup>[↪ Why](#r-done-04)</sup> · *L3 · inside a contract.* Tightening
+> can move an input-range check from sampled to exhaustive, or exclude invalid internal values by
+> type. The floor is the required set of realities (`reliable` + `resilient`); checks still depend on
+> the contract being right.
 
 ```pipeline-graph
 {
   "title": "The premise-B lever",
   "level": "L3 · inside a contract",
-  "summary": "Contract-tightness is a dial that shrinks Premise B (buying predictability, moving residue statistical → deterministic → compile-time), but the floor is the required set of realities. The bar is tightest-sufficient, not tightest.",
+  "summary": "Tightening a specified input domain can move checks from sampled to exhaustive; internal types can exclude invalid values. Admit every required reality, validate external inputs, and retain checks for specification and composition error.",
   "zoomOut": "Design as a bet — stub-composition",
   "nodes": [
     {"id":"loose","label":"loose contract","group":"property","x":0,"y":0},
     {"id":"tsuff","label":"tightest-sufficient · THE BAR","group":"beat","x":330,"y":0},
     {"id":"over","label":"over-tight","group":"terminal","x":660,"y":0},
-    {"id":"stat","label":"statistical leaf → observe (residue > 0)","group":"element","x":0,"y":140},
-    {"id":"det","label":"deterministic / compile-time leaf → verify (residue → 0)","group":"element","x":330,"y":140},
+    {"id":"stat","label":"sample / monitor broad input domain","group":"element","x":0,"y":140},
+    {"id":"det","label":"exhaust specified domain / encode internal type","group":"element","x":330,"y":140},
     {"id":"unrel","label":"rejects a required reality → UNRELIABLE","group":"stone","x":660,"y":140},
     {"id":"floor","label":"FLOOR = required set of realities (reliable + resilient)","group":"stone","x":330,"y":260},
     {"id":"pred","label":"tightening buys predictable · premise B ↓","group":"property","x":330,"y":-120}

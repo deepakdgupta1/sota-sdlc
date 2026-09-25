@@ -2,19 +2,18 @@
 
 <sup>[↪ Why](#r-artifact-01)</sup>
 
-**What it is.** An **artifact** is the persistent, explicit carrier of a loop's target, result, or
-lesson. Specs, code, tests, telemetry, decision records, post-mortems, version history, runbooks — each
-is the durable residue of a beat.
+**What it is.** An **artifact** is an explicit carrier of a work unit's target, result, or lesson that
+must reach a later or different consumer. Specs, code, tests, telemetry, decision records,
+post-mortems, version history, and runbooks are common carriers. Nested loops can share one artifact
+when it preserves the evidence they need. <sup>[↪ Why](#r-gate-04)</sup>
 
-**Why they exist.** Stone #7 (knowledge is distributed and perishable) forces every loop to hand its
-information across **two boundaries**: *time* (the knowledge perishes — defeated by **persistence**) and
-*agent* (the knowledge is trapped in one head — defeated by an **explicit, external form**). An artifact
-is exactly the thing that crosses both. Shared understanding is the *output*; distribution is the
-*fact*; the artifact manufactures the shared, durable copy that a head cannot. Artifacts are not process
-hygiene — they are *logically forced* the moment a loop's information must cross a boundary it cannot
-cross in a head.
+**Why they exist.** Stone #7 (knowledge is distributed and perishable) creates two possible handoffs:
+*time* requires persistence, and *agent* requires an explicit form another person or agent can use.
+An artifact is required when a target, result, or lesson must cross either boundary. The needed part
+must also be findable and surfaced to its consumer; storing it alone does not complete the handoff.
 
-**One artifact per beat**, plus two for the cross-cutting machinery:
+The main carrier categories follow the beats and two cross-cutting needs. These are roles, not a
+requirement to create a separate file for each beat or nested loop:
 
 | Beat / cross-cut | Artifact | Crosses *time* (persist) | Crosses *agent* (make explicit) |
 |---|---|---|---|
@@ -32,26 +31,24 @@ cross in a head.
 How *durable* an artifact is *forced* to be scales with the **distance between its producer and its
 consumer**:
 
-- **Forward beats hand off *live*.** A spec is consumed by the code in the same iteration; the code by
-  the test right after. Producer and consumer are adjacent, so the written artifact merely **insures**
-  the output against boundaries it *might* cross later. Skip it and a future re-reader is inconvenienced.
-- **`reflect` feeds *backward*, so its artifact is the *sole channel*.** Its only consumers are a
-  *later* agent doing root-cause (the **ADR** — the agent boundary) and a *future* iteration's `define`
-  (the **post-mortem** — the time boundary). Both are across a stone-#7 boundary *by construction*. Skip
-  it and the output reaches **no one**: the composite failure becomes untraceable (`analyze` is starved,
-  so `reflect` collapses into "we know it broke, not why"), and the same failure class recurs forever
-  (the Ouroboros evolve edge is unfed, so the loop cannot raise its own floor). This is why the
-  reflect-artifact is a **hard gate** (Chapter 11), not documentation hygiene: it is the only *backward*
-  channel the loop has, and it is what makes `reflect` the loop's one *learning* beat.
+- **Forward beats can hand off *live*.** Producer and consumer may be adjacent in one iteration. Keep
+  the target or result explicit when the accountable unit needs it for acceptance or a later consumer
+  must use it. The same artifact may carry evidence for several inner loops.
+- **`reflect` feeds *backward*.** A later root-causer needs the reason for a decision; a future
+  iteration needs the failure and its lesson. Without a carrier, those consumers must rediscover the
+  reasoning, and the loop cannot reliably learn from the failure. Required reflect evidence has an
+  existence gate at the accountable work unit, while a named seam can gate earlier (Chapter 11).
+  <sup>[↪ Why](#r-loop-02) · [↪ Why](#r-gate-04)</sup>
 
-> ▸ **Chart — "The artifacts"** <sup>[↪ Why](#r-artifact-01)</sup> · *L2 · persistence overlay.* Each beat produces its carrier (left →
-> middle); each carrier crosses the *time* and/or *agent* boundary (middle → right).
+> ▸ **Chart — "The artifacts"** <sup>[↪ Why](#r-artifact-01) · [↪ Why](#r-gate-04)</sup> · *L2 · persistence
+> overlay.* The diagram maps carrier roles to beats. An accountable work unit may share a carrier across
+> nested loops; the needed information crosses whichever time or agent boundary the work requires.
 
 ```pipeline-graph
 {
   "title": "The artifacts",
   "level": "L2 · persistence overlay",
-  "summary": "Stone #7's per-beat carriers. Every loop's information must cross the time boundary (perishable → persist) and the agent boundary (distributed → make explicit); an artifact is the thing that crosses both.",
+  "summary": "Stone #7 requires explicit, retrievable carriers when information must cross time or agent boundaries. These are carrier roles; nested loops in an accountable work unit may share an artifact.",
   "zoomOut": "The unit loop, fully staffed",
   "zoomIn": ["The change axis — regression & rollback"],
   "nodes": [
@@ -71,17 +68,17 @@ consumer**:
     {"id":"b_agent","label":"AGENT → make explicit","group":"stone","x":620,"y":315}
   ],
   "edges": [
-    {"source":"define","target":"a_spec","label":"produces"},
-    {"source":"do","target":"a_code","label":"produces"},
-    {"source":"check","target":"a_tests","label":"produces"},
-    {"source":"reflect","target":"a_post","label":"produces"},
-    {"source":"overtime","target":"a_version","label":"produces"},
-    {"source":"repertoire","target":"a_runbook","label":"produces"},
+    {"source":"define","target":"a_spec","label":"carrier role"},
+    {"source":"do","target":"a_code","label":"carrier role"},
+    {"source":"check","target":"a_tests","label":"carrier role"},
+    {"source":"reflect","target":"a_post","label":"carrier role"},
+    {"source":"overtime","target":"a_version","label":"carrier role"},
+    {"source":"repertoire","target":"a_runbook","label":"carrier role"},
     {"source":"a_version","target":"b_time","dashed":true,"label":"crosses"},
     {"source":"a_spec","target":"b_agent","dashed":true,"label":"crosses"},
     {"source":"a_runbook","target":"b_time","dashed":true},
-    {"source":"a_post","target":"b_agent","dashed":true,"label":"ADR · sole channel (backward)"},
-    {"source":"a_post","target":"b_time","dashed":true,"label":"post-mortem · sole channel (backward)"}
+    {"source":"a_post","target":"b_agent","dashed":true,"label":"decision rationale for later agent"},
+    {"source":"a_post","target":"b_time","dashed":true,"label":"lesson for later iteration"}
   ]
 }
 ```
@@ -112,33 +109,31 @@ regression evidence has an existence gate at the accountable work unit; coverage
 **Face 2 — change lands on a live system → the rollback net.** A bad deploy or migration degrades a
 *currently-working* system, and the fault is in the new artifact itself — so the in-place #6 responses
 miss: redundancy just runs more copies of the bad version; degrading just serves less of the broken
-thing. The only restoring move is *backward in version-space*: **roll back** to the last known-good.
-It is forced jointly by change (#5 — the harm lands live), the a-posteriori residue (#6/#4 — build-time
-checks provably missed it), and perishability (#7 — a live system bleeds value every minute it is
-broken; the forward-fix is too slow to stop the bleed).
+thing. When a forward fix cannot arrive in time, a restoring move is *backward in version-space*:
+**roll back** to the last known-good. This response matters when change lands live (#5), build-time
+checks missed the fault, and the cost of waiting for a forward fix exceeds the cost of reverting.
 
-**Rollback and the irreversibility amplifier are duals.** Chapter 11 *defines* the irreversible
-amplifier as damage that "escapes recover / roll back" — so **irreversibility is exactly the region
-beyond rollback's reach.** That duality closes cleanly:
+**Rollback limits one harm amplifier.** Chapter 11 includes damage that escapes recovery or rollback
+in the irreversibility amplifier. Rollback can reduce that risk for effects it actually reverses:
 
-- Where rollback **reaches**, a bad outcome is recoverable, so `decide` keeps its discretion — the
-  change is a **graded** bet, because rollback has made `cost(error)` small (§6.4's insurance premium,
-  made cheap).
+- Where rollback **reaches**, the reversible effect can be a **graded** bet if no other gate applies.
+  A directed adversary, non-local harm, or outside authority can still require a hard gate before
+  execution. <sup>[↪ Why](#r-gate-01)</sup>
 - Where rollback's reach **ends** — a destructive migration, a leaked secret, a sent message, an
-  irreversible payment — the insurance has lapsed, `accept` is deleted, and the check becomes a
-  **hard gate discharged *before* execution**: a backup, a reversible-migration check, a staged
-  rollout, a confirmation.
+  irreversible payment — assess the loss. If it is non-local or outside authority requires a control,
+  use a **pre-execution gate**: for example, a backup, reversible-migration check, staged rollout, or
+  confirmation suited to the effect.
 
-So rollback itself is a graded response, and **the hard gate falls at its limit**.
+Rollback is a graded response within its reach. Its limit is one reason for a hard gate, not the
+complete permission boundary.
 
 **The inversion worth memorising.** The two organs point opposite ways along the same axis:
 **rollback keeps *changes* reversible; regression keeps *lessons* irreversible.** You want bad changes
-not to stick and good fixes not to un-stick. They also gate through *different* amplifiers — rollback's
-gate sits at its **limit** (irreversibility); regression's gate sits on its **existence** (machinery).
-A practical corollary: since rollback's reach *is* the graded region, the ideal loop **invests in
-widening the reversible envelope** — expand-contract migrations, feature flags, immutable deploys —
-because every seam brought inside the envelope converts a pre-execution gate back into a cheap,
-graded bet.
+not to stick and good fixes not to un-stick. Their gates answer different failures: an effect beyond
+rollback's reach raises irreversibility risk; missing required regression evidence disables the
+learning machinery. Widen the reversible envelope with measures such as expand-contract migrations,
+feature flags, and immutable deploys. This can remove the irreversibility gate for a given effect, but
+it does not remove other applicable gates. <sup>[↪ Why](#r-gate-01)</sup>
 
 **Where they fire.** Regression fires at **build time** — the verify/integrate gate just before
 `release`; rollback fires at **run time** — in OPERATE, just after it. The pair straddles the release
@@ -150,13 +145,13 @@ time change re-opens an old hole.
 > ▸ **Chart — "The change axis — regression & rollback"** <sup>[↪ Why](#r-artifact-02)</sup> · *L3 · the time axis.* Stone #5's two
 > faces force two dual organs: retained lessons with governed regression checks
 > (existence gated, coverage graded), and the backward move in version-space whose
-> reach defines the graded region (the gate falls at its limit).
+> reach reduces irreversibility risk without removing other gates.
 
 ```pipeline-graph
 {
   "title": "The change axis — regression & rollback",
   "level": "L3 · the time axis",
-  "summary": "Change can reintroduce fixed failures or damage a live system. Regression preserves lessons and their rationale while test instances can be replaced or retired with reasons. Required evidence is gated and coverage graded. Rollback reverses changes within its reach; irreversible effects require a gate before execution.",
+  "summary": "Change can reintroduce fixed failures or damage a live system. Regression preserves lessons while test instances are governed; required evidence is gated and coverage graded. Rollback reverses effects within its reach; non-local irreversible effects need a pre-execution gate, and other gates may still apply inside that reach.",
   "zoomOut": "The artifacts",
   "zoomIn": ["Hard gate or graded target?", "The convergent law"],
   "nodes": [
@@ -168,8 +163,8 @@ time change re-opens an old hole.
     {"id":"ratchet","label":"retain lessons · govern test instances","group":"property","x":110,"y":330},
     {"id":"gate1","label":"existence = hard gate · coverage = graded","group":"terminal","x":390,"y":330},
     {"id":"rollback","label":"ROLLBACK — backward in version-space","group":"element","x":760,"y":220},
-    {"id":"limit","label":"its limit = the irreversible region (amplifier #2)","group":"stone","x":1090,"y":220},
-    {"id":"gate2","label":"inside reach: graded bet · at the limit: pre-execution hard gate","group":"terminal","x":900,"y":330},
+    {"id":"limit","label":"beyond reach: irreversibility risk","group":"stone","x":1090,"y":220},
+    {"id":"gate2","label":"inside: check other gates · beyond: assess harm","group":"terminal","x":900,"y":330},
     {"id":"resilient","label":"resilient — the over-time clause","group":"property","x":560,"y":430}
   ],
   "edges": [
@@ -190,9 +185,9 @@ time change re-opens an old hole.
 
 > **⟐ Under autonomy.** Both organs are exactly what a cost-optimising executor is tempted to skip: a
 > "fix" landed without a regression guard un-sticks the lesson the moment the next change arrives, and
-> an action taken beyond rollback's reach without a pre-execution gate is a bet no one priced. An
-> autonomous pipeline should treat **rollback's reach as its permission boundary** — inside it, act and
-> iterate; beyond it, the gate (backup · staged rollout · confirmation) is not optional ceremony, it is
-> the machinery that keeps a wrong-but-confident action recoverable.
+> an action taken beyond rollback's reach without assessing its harm risks an irreversible loss. An
+> autonomous pipeline should check **rollback's reach and the other gate sources** before acting.
+> Inside that reach, act and iterate only when no non-local or outside-authority gate applies. Beyond
+> it, gate non-local harm and honor outside authority before execution. <sup>[↪ Why](#r-gate-01)</sup>
 
 ---

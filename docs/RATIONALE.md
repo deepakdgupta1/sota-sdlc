@@ -381,6 +381,21 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Superseded.** The claim that green leaf checks prove the leaves kept their promises and therefore
   falsify only the composition hypothesis.
 
+### <a id="r-done-04"></a>R-DONE-04 · Tighten contracts only as far as the required realities allow
+
+- **Decision.** Choose the narrowest interface domain that admits every required expected and adverse
+  input. A smaller, specified domain can make more of Premise B exhaustively checkable; internal types
+  can make invalid values unrepresentable within that domain. Validate external inputs at the boundary.
+- **Why.** A loose contract leaves more combinations to sample or monitor. An over-tight contract
+  excludes legitimate cases and breaks the parent target. Exhausting a specified domain removes its
+  input-range residue, not specification error, environmental uncertainty, or Premise C.
+- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`
+  §10.2. [R-DONE-01](#r-done-01) states the three premises; [R-DONE-02](#r-done-02) states the remaining
+  check and specification blind spots.
+- **Superseded.** Unqualified claims that type encoding rules out invalid external inputs or that
+  exhaustive checking makes the whole contract or parent target residue-free.
+
 ### <a id="r-gate-01"></a>R-GATE-01 · A gate follows non-local harm or outside authority
 
 - **Decision.** A work unit has no local accept exit when one violation is non-local or an outside
@@ -393,7 +408,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   violation is local. A per-seam reachability result is checkable; an undivided assertion that all of
   `secure` passes is not.
 - **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/09-mechanism-of-done.md`,
-  `docs/snapshot/06-fractal.md`, and `docs/snapshot/13-appendices.md`.
+  `docs/snapshot/10-artifacts.md`, `docs/snapshot/06-fractal.md`, and
+  `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E3; prior harm rule: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`.
 - **Superseded.** "Hard gate iff non-local" as an exhaustive rule, and "secure is hard wholesale" as
@@ -444,7 +460,7 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   would blind its later `analyze`. The accountable unit is an explicit policy choice for ownership,
   not a granularity derived from the bedrock. Seam gates retain their own location because harm can
   occur before the unit completes.
-- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/11-hard-gates-vs-graded.md`,
+- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/10-artifacts.md`, `docs/snapshot/11-hard-gates-vs-graded.md`,
   `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E4 and Q7. The accountable work-unit boundary is [R-UNIT-01](#r-unit-01).
@@ -452,31 +468,35 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 
 ### <a id="r-artifact-01"></a>R-ARTIFACT-01 · Stone #7 forces artifacts, and distance sets their cost
 
-- **Decision.** Artifacts are the forced, persistent carriers of a loop's target, result and lesson
-  across the **time** and **agent** boundaries. The **boundary-distance law** says the further a fact
-  must travel, the more explicit it must be made.
-- **Why.** Knowledge is scattered and perishable (#7). A fact that stays in one head at one moment is
-  unavailable to the next loop, so the response cannot be a practice — it must be a *thing* that
-  outlives the beat that produced it.
+- **Decision.** At an accountable work unit, retain the targets, results, and lessons that must cross
+  **time** or **agent** boundaries in explicit artifacts; nested loops may share a carrier. Make the
+  needed portion findable and available to its consumer. The **boundary-distance law** says the
+  further a fact must travel, the more explicit and retrievable it must be made.
+- **Why.** Knowledge is scattered and perishable (#7). A fact kept only in one head at one moment is
+  unavailable to another consumer. Persistence alone also fails if the later consumer cannot find or
+  attend to the needed part; retrieval and presentation complete the existing handoff rather than
+  establish a third bedrock boundary.
 - **Governs.** `docs/snapshot/10-artifacts.md`.
-- **Trace.** `sdlc-canvas/02-elements-flow-circuit-artifacts.md` §9.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §9.
 - **Evidence.** Historical implementation contrast: `docs-history-2026-09-24:docs/agent-architecture/04_memory/episodic_memory.md`
   records durable action history alongside strategy reflections lost on restart;
   `docs-history-2026-09-24:docs/agent-architecture/04_memory/persistent_memory.md` records filesystem
   instructions that survive sessions but may be truncated when loaded.
   `docs-history-2026-09-24:docs/agent-architecture/06_orchestration/task_lifecycle.md` shows a plan,
   todos, and handover carried into a new implementation session. Storage and recall are separate
-  concerns; these examples do not settle the attention-boundary question below.
-- **Open.** Whether the agent context window is a *third* boundary — an **attention** boundary, where a
-  fact is explicit and even in memory but cannot be attended to — is Q4 in `ROADMAP.md` §8.
+  obligations of the same handoff. [R-GATE-04](#r-gate-04) sets its accountable-unit attachment point.
+- **Disposition of historical Q4.** A finite context window can prevent a stored fact from reaching a
+  consumer. Treat this as a retrieval and presentation failure at an existing time or agent crossing;
+  the cited examples do not establish an independent third boundary.
 
 ### <a id="r-artifact-02"></a>R-ARTIFACT-02 · Stone #5's two organs: the regression ratchet and rollback
 
 - **Decision.** Change (#5) forces two distinct organs: a **regression ratchet** (lessons compiled into
-  auto-firing checks, existence-gated) and **rollback** (graded, with a hard gate at its irreversible
-  limit).
+  auto-firing checks, existence-gated) and **rollback** (graded within its reach, with a pre-execution
+  gate for irreversible non-local effects). Other non-local harm or outside authority can still impose gates
+  inside rollback's reach under [R-GATE-01](#r-gate-01).
 - **Why.** A lesson that is not compiled into a check decays to folklore, and a change that cannot be
-  undone converts an ordinary mistake into a non-local one. The two answer opposite halves of the same
+  undone can amplify an ordinary mistake into non-local loss. The two answer opposite halves of the same
   stone: the ratchet makes fixes stick, rollback keeps changes reversible.
 - **Applies to.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/08-repertoires.md`,
   `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.

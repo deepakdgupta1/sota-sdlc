@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `03c-a` complete
-Next step: `03c-b`
+Current step: `03c-b` complete
+Next step: `03d`
 
 ## Objective
 
@@ -287,8 +287,8 @@ Disposition at `22a5bba`:
   `docs-history-2026-09-24:docs/agent-architecture/04_memory/semantic_memory.md`.
 
 No independent SDLC decision emerged. The sources illustrate the current artifact requirement and
-its implementation limits. They do not resolve `R-ARTIFACT-01`'s open Q4 on an attention boundary;
-step 03c will assess that claim before step 04b removes open-question prose from the model.
+its implementation limits. At this checkpoint they did not resolve Q4; step 03c-b below records its
+disposition before step 04b removes open-question prose from the model.
 
 ### 02j. Reconcile actions and tools
 
@@ -511,6 +511,26 @@ retrieval fits `R-ARTIFACT-01`'s existing time/agent crossings, or keep Q4 outsi
 Exit: every independent claim in chapters 09 and 10 has a current reason and historical support;
 Q4 has a recorded disposition.
 
+Completed in this packet:
+
+- Chapter 09 now gives the tightest-sufficient contract its own reason, `R-DONE-04`, with tagged July
+  §10.2 support. Input-range exhaustion and internal type encoding are bounded by the specified
+  domain; external parsing, specification error, and parent acceptance remain open. The stub chart
+  labels Premises A and B as evidence obligations, not proofs.
+- Chapter 10 treats its table and chart as carrier roles at an accountable work unit, under
+  `R-ARTIFACT-01` and `R-GATE-04`. Nested loops may share evidence. Required reflect evidence gates at
+  the unit; named seam gates can occur earlier. Rollback reduces the irreversibility amplifier only
+  for effects within its reach. `R-GATE-01` still governs non-local harm and outside authority there.
+- Q4 disposition: a stored fact that cannot be retrieved or surfaced fails the existing time/agent
+  handoff. Historical memory examples show that failure mode but do not establish a third bedrock
+  boundary. `R-ARTIFACT-01` now states the retrieval obligation and records this disposition. The
+  active roadmap's Q4 text remains for step 04b's historical-prose cleanup.
+
+Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §§10.2, 10.8;
+`docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §9; and
+`docs-history-2026-09-24:ROADMAP.md` E3, E4, Q7, Q4, plus the tagged memory examples cited in
+`R-ARTIFACT-01`.
+
 ### 03d. Audit rationale coverage in chapters 11 through 13
 
 Apply the same decision-level review to chapters 11 through 13. Check that every ledger entry governs at least one current location.
@@ -572,8 +592,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 03c-a audited prose and charts in snapshot chapters 07 and 08. `R-SCHEDULE-01` records the conditional schedule bet and its three premises; `R-REPERTOIRE-02` records the directed-adversary response classes. Existing reasons now distinguish the lifecycle projection, release seam, baseline gate, resilience moves, and named security gates. The schedule and security charts agree with those reasons.
-Evidence: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10 supports the schedule bet; the third premise applies `docs-history-2026-09-24:ROADMAP.md` E2's accepted composition repair. `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §6 supports the security roster. The narrower gate rule is `R-GATE-01`.
-Changed files: snapshot chapters 07 and 08; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 03c-a complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain assigned to later packets.
-Exact next action: start step 03c-b. Audit chapters 09 and 10 using the targeted findings above; decide Q4's place in or outside the current model, verify links and tagged support, then checkpoint. Do not start 03d in the same turn.
+Completed scope: step 03c-b audited snapshot chapters 09 and 10. `R-DONE-04` explains tightest-sufficient contracts without claiming whole-system proof. Chapter 10 assigns artifact evidence to the accountable work unit and keeps other gate sources in view when rollback is possible. Q4 is resolved as a retrieval and presentation obligation within existing time/agent handoffs, not an independent third boundary.
+Evidence: tagged July §10.2 supports the contract rule; tagged July artifact §9 and mechanism §10.8 support the carrier and rollback roles. Tagged September E3/E4/Q7 support the narrower gate and attachment rules. Tagged memory examples illustrate persistence without guaranteed retrieval.
+Changed files: snapshot chapters 09 and 10; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 03c-b complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical roadmap prose remain assigned to later packets.
+Exact next action: start step 03d. Audit chapters 11 through 13 for independent reasons and tagged historical support; check each ledger entry governs a current location, duplicate IDs, and orphans. Verify and checkpoint. Do not start 04a in the same turn.
