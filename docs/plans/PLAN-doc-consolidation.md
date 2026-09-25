@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02g` complete
-Next step: `02h`
+Current step: `02h` complete
+Next step: `02i`
 
 ## Objective
 
@@ -237,6 +237,29 @@ Compare `docs/agent-architecture/03_context_engine/` with the current model and 
 
 Exit: current context decisions have the right shape and historical support.
 
+Disposition at `247658a`:
+
+- `context_assembly.md` compares prompt composition, task state, file roles, history, and memory
+  selection. Its editable/read-only split is an agent authority boundary; the current work-unit boundary
+  and delegated capability controls cover the model-level requirement. Prompt ordering remains historical
+  implementation support at
+  `docs-history-2026-09-24:docs/agent-architecture/03_context_engine/context_assembly.md`.
+- `repo_map_and_indexing.md` compares source graphs, ranked snippets, and vector indexing. These are
+  ways to locate context for work; a ranked snippet can omit details needed for an outcome check. The
+  tagged source resolves at
+  `docs-history-2026-09-24:docs/agent-architecture/03_context_engine/repo_map_and_indexing.md`.
+- `retrieval_strategies.md` compares explicit file scope, graph ranking, semantic recall, and context
+  providers. Its source selection and file-role labels do not themselves establish the result's truth.
+  Chapter 12 already requires evidence outside the executor's unchecked report. The tagged source
+  resolves at `docs-history-2026-09-24:docs/agent-architecture/03_context_engine/retrieval_strategies.md`.
+- `token_economics.md` compares token estimates, repo-map budgets, summaries, and output caps. Finite
+  budget is already part of the accountable work-unit boundary (`R-UNIT-01`); compression can lose
+  details, so acceptance still rests on the work unit's checks. The tagged source resolves at
+  `docs-history-2026-09-24:docs/agent-architecture/03_context_engine/token_economics.md`.
+
+No independent SDLC decision emerged. Context machinery remains a choice of implementation under the
+existing boundary, check, and delegation requirements.
+
 ### 02i. Reconcile memory
 
 Compare `docs/agent-architecture/04_memory/` with the current model and rationale.
@@ -352,8 +375,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02g reviewed all four files in `docs/agent-architecture/02_cognition/`. Planning, decomposition, self-critique, and routing map to existing elements and design needs; no independent SDLC decision emerged. File-level dispositions are recorded above.
-Evidence: all four cognition files resolve in `docs-history-2026-09-24`. Their general claims were compared with snapshot chapters 05, 07, 09, and 12 and with `R-LOOP-01`, `R-LOOP-02`, `R-UNIT-01`, `R-BEDROCK-03`, and `R-AGENTIC-01`. Product-specific strategies, parsers, and provider routes remain historical implementation evidence.
+Completed scope: step 02h reviewed all four files in `docs/agent-architecture/03_context_engine/`. Context selection, indexing, retrieval, and token budgeting map to existing work-unit boundary and delegated-check requirements. No independent SDLC decision emerged. File-level dispositions are recorded above.
+Evidence: all four context files resolve in `docs-history-2026-09-24`. Their general claims were compared with snapshot chapters 09 and 12 and with `R-UNIT-01` and `R-AGENTIC-01`. Product-specific prompt, index, retrieval, and compaction methods remain historical implementation evidence.
 Changed files: this plan only. Dirty files: none after this packet's commit.
-Verification state: step 02g complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02h by comparing `docs/agent-architecture/03_context_engine/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific context methods as historical evidence.
+Verification state: step 02h complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02i by comparing `docs/agent-architecture/04_memory/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific memory methods as historical evidence.
