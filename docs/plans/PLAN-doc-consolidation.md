@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `03c-b` complete
-Next step: `03d`
+Current step: `03d` complete
+Next step: `04a`
 
 ## Objective
 
@@ -537,6 +537,27 @@ Apply the same decision-level review to chapters 11 through 13. Check that every
 
 Exit: the full model has decision-level coverage, no duplicate IDs, and no orphaned ledger entries.
 
+Completed in this packet:
+
+- Chapter 11 now distinguishes non-local irreversible loss from mere inability to undo, permits an
+  outside authority to impose an aggregate threshold without replacing a required seam signal, and
+  labels the convergent-law chart's four carriers as conditional on the accountable work unit's need.
+  The autonomy callout uses the same attachment rule. `R-GATE-01` through `R-GATE-04` govern these
+  decisions, with tagged September E3/E4/E7/Q7 and July §12 support.
+- Chapter 12 presents the two second-order seats as the current pressure-tested count, not a proven
+  ceiling. Adversarial review needs different evidence or failure modes before it can claim lower
+  doer-checker correlation. The chart and prose no longer promise that a named safeguard manufactures
+  reliability. `R-BEDROCK-01/03/04/06` and `R-AGENTIC-01` carry tagged support.
+- Appendix A/B now match the current contract, schedule, artifact, rollback, and delegation decisions.
+  Their links reach the corresponding reasons. Appendix C/D contain historical maintenance prose and
+  remain assigned to 04b, except the current concrete-audit boundary links `R-METHOD-02`.
+
+Ledger census: 46 unique IDs; all have a link from a current chapter, roadmap, or README. Nine IDs
+(`R-METHOD-03` and `R-EVIDENCE-01` through `08`) are referenced only by the active roadmap, not by the
+normative snapshot. They explain roadmap/control-plane or dated evidence decisions, not missing model
+requirements. Step 05 must migrate any surviving reason and retire or revise these entries when the
+roadmap is deleted; step 06's unused-ID check must then pass. No new model ID was needed in 03d.
+
 ### 04a. State the model's scope and assumptions
 
 Rename the model to "Current SDLC reference model" in its title and introduction. State its scope, assumptions, and admission criteria. Remove universal claims such as "any lifecycle" and "logically forced" unless a specific argument supports them. Use the accepted pressure-tested taxonomy claim.
@@ -560,6 +581,12 @@ Delete these active sources after their accepted reasoning is represented in the
 - `docs/agent-architecture/`
 - `docs/ai_agent_evaluation_metrics_kpis_2026.md`
 - `sdlc-design.html`
+
+When removing `ROADMAP.md` and Appendix C/D's repository instructions, reconcile method and
+evidence entries that lose their only current location. In particular, `R-METHOD-03` and
+`R-EVIDENCE-01` through `08` are roadmap-only at the 03d checkpoint; retain a decision only if it
+governs a surviving model or repository rule, otherwise leave its full record in tagged Git history.
+Recheck `R-METHOD-01/02/05` against the new source roles and remove stale four-source precedence.
 
 Promote the design viewer to `index.html`. Remove `docs/RATIONALE.md` from the manifest's `parts` list, retain it as the `rationale` field, and load a requested rationale entry in an on-demand panel. Direct links to rationale IDs must open the same entry. Rewrite `README.md` as a short how-to for reading, serving, changing, checking, and retrieving history. State that a design change updates the model and its rationale in the same commit; completed plans stay in Git history.
 
@@ -592,8 +619,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 03c-b audited snapshot chapters 09 and 10. `R-DONE-04` explains tightest-sufficient contracts without claiming whole-system proof. Chapter 10 assigns artifact evidence to the accountable work unit and keeps other gate sources in view when rollback is possible. Q4 is resolved as a retrieval and presentation obligation within existing time/agent handoffs, not an independent third boundary.
-Evidence: tagged July §10.2 supports the contract rule; tagged July artifact §9 and mechanism §10.8 support the carrier and rollback roles. Tagged September E3/E4/Q7 support the narrower gate and attachment rules. Tagged memory examples illustrate persistence without guaranteed retrieval.
-Changed files: snapshot chapters 09 and 10; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 03c-b complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical roadmap prose remain assigned to later packets.
-Exact next action: start step 03d. Audit chapters 11 through 13 for independent reasons and tagged historical support; check each ledger entry governs a current location, duplicate IDs, and orphans. Verify and checkpoint. Do not start 04a in the same turn.
+Completed scope: step 03d audited chapters 11 and 12 plus Appendix A/B's normative definitions and matrix. Gate examples, autonomous review, and glossary claims now match their reasons. Appendix C/D's historical maintenance prose is classified for 04b, not treated as current model content.
+Evidence: `R-GATE-01/02/03/04`, `R-BEDROCK-01/03/04/06`, `R-AGENTIC-01`, and the contract, schedule, artifact, and repertoire entries cite tagged July and September sources. The 46-ID census found no duplicates or unreferenced IDs; nine entries have only roadmap locations and are assigned to step 05 reconciliation.
+Changed files: snapshot chapters 11 through 13; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 03d complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical maintenance prose remain assigned to 04a/04b.
+Exact next action: start step 04a. State the model's scope, assumptions, and admission criteria in the title and opening chapters; remove unsupported universal claims there, verify, and checkpoint. Do not start 04b in the same turn.

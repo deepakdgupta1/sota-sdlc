@@ -261,7 +261,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   the failure and scope, so hard-wiring a response as a sequential beat would misstate the loop.
   Escalation changes who decides; the other moves preserve service within the current scope.
 - **Applies to.** `docs/snapshot/04-atom-unit-control-loop.md`,
-  `docs/snapshot/07-lifecycle.md`, `docs/snapshot/08-repertoires.md`.
+  `docs/snapshot/07-lifecycle.md`, `docs/snapshot/08-repertoires.md`,
+  `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`
   §4 and `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §6.
   [R-ARTIFACT-02](#r-artifact-02) explains the change-axis role of rollback.
@@ -274,7 +275,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** A directed adversary can impersonate, inject input, probe exposed weaknesses, and adapt to
   the defenses it observes. Random-failure recovery alone does not address these choices. A roster
   of controls makes the different attack paths visible without claiming every instance is a hard gate.
-- **Applies to.** `docs/snapshot/08-repertoires.md`.
+- **Applies to.** `docs/snapshot/08-repertoires.md`, `docs/snapshot/12-agentic-sdlc.md`,
+  `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md`
   §6. [R-GATE-01](#r-gate-01) sets the narrower current rule for named seam gates.
 
@@ -288,7 +290,7 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** A feasible arrangement of estimated tasks establishes only internal consistency. Tasks
   may take longer, dependencies and capacity may change, or the planned task set may omit work
   needed for the release. The last failure is the schedule analogue of design's Premise C.
-- **Applies to.** `docs/snapshot/07-lifecycle.md`.
+- **Applies to.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical schedule bet and two-premise account:
   `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10. The third premise applies
   the accepted composition repair in `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
@@ -389,7 +391,7 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** A loose contract leaves more combinations to sample or monitor. An over-tight contract
   excludes legitimate cases and breaks the parent target. Exhausting a specified domain removes its
   input-range residue, not specification error, environmental uncertainty, or Premise C.
-- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`.
+- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`
   §10.2. [R-DONE-01](#r-done-01) states the three premises; [R-DONE-02](#r-done-02) states the remaining
   check and specification blind spots.
@@ -419,7 +421,9 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 
 - **Decision.** Gate a named seam's signal and detection bound when silent failure is non-local or
   outside authority requires evidence. Other coverage remains proportional to risk and may collapse
-  to zero on a fully modeled, reversible, local path. Separate debug records from audit records.
+  to zero on a fully modeled, reversible, local path unless outside authority imposes an aggregate
+  threshold. Such a threshold cannot replace a required seam signal. Separate debug records from
+  audit records.
   Specify sampling, redaction, cost limits, and retention without dropping required evidence.
 - **Why.** Richer logs elsewhere cannot replace a required signal at the seam where harm occurs.
   That does not make every silent local failure non-local. Continuous emission on every path would
@@ -446,7 +450,7 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   demanding perfect artifacts would be unaffordable ceremony, while allowing an artifact to be *absent*
   would silently delete the property it carries.
 - **Applies to.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/11-hard-gates-vs-graded.md`,
-  `docs/snapshot/10-artifacts.md`.
+  `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/05-laws-and-insights.md`
   §12. [R-GATE-04](#r-gate-04) states the attachment point for this rule.
 
@@ -476,7 +480,7 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   unavailable to another consumer. Persistence alone also fails if the later consumer cannot find or
   attend to the needed part; retrieval and presentation complete the existing handoff rather than
   establish a third bedrock boundary.
-- **Governs.** `docs/snapshot/10-artifacts.md`.
+- **Governs.** `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §9.
 - **Evidence.** Historical implementation contrast: `docs-history-2026-09-24:docs/agent-architecture/04_memory/episodic_memory.md`
   records durable action history alongside strategy reflections lost on restart;

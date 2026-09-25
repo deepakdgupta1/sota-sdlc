@@ -2,14 +2,15 @@
 
 <sup>[↪ Why](#r-agentic-01)</sup>
 
-Everything so far holds whether the loop is staffed by people or by software agents. Delegation adds
-two risks when other actors do the work and check it.
+The same work-unit loop can be staffed by people or software agents. Delegation adds two risks when
+other actors do the work and check it.
 
 These risks grow with delegation. They are different in
 kind from the first eight stones — those are facts about the *problem*; these are facts about the
 **solver**, and about *who staffs the loop*. Together they form the model's **second-order tier**, and
-the tier has exactly two seats, because a delegated mind can betray the loop in exactly two ways: it can
-be **blind** (share the doer's error) or **unfaithful** (produce a result that departs from the target).
+the current tier has two seats: a checker can share the doer's error, and a doer's result can depart
+from the intended target. This is the count admitted by the current pressure test, not a proven
+ceiling. <sup>[↪ Why](#r-bedrock-01)</sup>
 Persistent parties may pursue their own payoff; non-persistent inference needs containment and
 evaluation. The loop assumes that its checker is *independent* and its doer is *faithful*.
 Delegation can break either assumption.
@@ -29,13 +30,13 @@ same model, assumptions, or evidence can make their errors **correlated**. A che
 information it adds beyond the doer's own belief:
 
 - A checker that shares the doer's blind spot is an **echo chamber**. It agrees for the same wrong
-  reasons. It adds **zero bits** of information. "Verify" silently collapses into "declare" — the system
-  announces it is correct instead of establishing that it is.
+  reasons. It adds little independent information. "Verify" can collapse into "declare" — the system
+  announces it is correct without establishing that it is.
 - Stacking more such checkers does not help: correlated checks don't multiply into confidence. There is
   a **common-mode floor** of shared error that no amount of iteration crosses. Even a formal proof
   doesn't escape it — it only *relocates* the blind spot from the code into the spec.
 
-This is why reflexivity is a genuinely *new* stone and not just a restatement of "we err" (stone #4).
+This is why the current taxonomy keeps reflexivity separate from "we err" (stone #4).
 Stone #4 is the *marginal* fact — each agent errs. Reflexivity is the *joint* fact — their errors are
 correlated. You can grant that every agent is individually excellent and reflexivity still bites,
 because it is a statement about the *relationship between* the checkers, not about any one of them. And
@@ -110,7 +111,7 @@ outcome. **A loop cannot use its own unchecked report as ground truth.**
     {"id":"corr","label":"#9 · errors are CORRELATED","group":"stone","x":130,"y":0},
     {"id":"doer","label":"doer (agent)","group":"element","x":0,"y":90},
     {"id":"checker","label":"checker (agent, same kind)","group":"element","x":280,"y":90},
-    {"id":"echo","label":"echo-chamber — blind, adds 0 bits","group":"terminal","x":280,"y":185},
+    {"id":"echo","label":"echo chamber — little independent information","group":"terminal","x":280,"y":185},
     {"id":"misalign","label":"#10 · payoff or proxy replaces intent","group":"stone","x":0,"y":185},
     {"id":"declare","label":"verify collapses into 'declare'","group":"terminal","x":280,"y":280},
     {"id":"evidence","label":"independent evidence or judge","group":"terminal","x":700,"y":0},
@@ -132,14 +133,14 @@ outcome. **A loop cannot use its own unchecked report as ground truth.**
     {"source":"principal","target":"align","label":"supports"},
     {"source":"principal","target":"contain","label":"governs"},
     {"source":"evidence","target":"contain","label":"supplies"},
-    {"source":"indep","target":"reliable","label":"manufactures"},
-    {"source":"align","target":"reliable","label":"manufactures"},
+    {"source":"indep","target":"reliable","label":"supports"},
+    {"source":"align","target":"reliable","label":"supports"},
     {"source":"contain","target":"reliable","label":"protects"},
     {"source":"auto","target":"indep","dashed":true,"label":"may erode"},
     {"source":"auto","target":"align","dashed":true,"label":"may erode"},
     {"source":"auto","target":"contain","dashed":true,"label":"may erode"},
-    {"source":"inject","target":"indep","label":"restores"},
-    {"source":"inject","target":"align","label":"restores"},
+    {"source":"inject","target":"indep","label":"can improve"},
+    {"source":"inject","target":"align","label":"can improve"},
     {"source":"inject","target":"contain","label":"provides"},
     {"source":"declare","target":"reliable","dashed":true,"label":"erodes"}
   ]
@@ -157,13 +158,14 @@ or its doer is faithful, so it must provide evidence and governance for both con
   path. That can be a human or a check whose errors are demonstrably less correlated with the doer's.
   Reserve a human decision for accountability, value judgment, or exceptional authority where the
   delegated system cannot make that decision.
-- **Deliberate adversarial and diverse review.** `threat-model / red-team` (Chapter 8) does double duty
-  here: a reviewer instructed to *disagree*, seeded with different assumptions, breaks the doer-checker
-  correlation. Diversity of method is the mechanism; adversariality is how you force it.
+- **Deliberate adversarial and diverse review.** `threat-model / red-team` (Chapter 8) can expose
+  assumptions that the doer missed. A prompt to disagree does not establish independence; use a
+  different method, evidence source, or reviewer with demonstrably different failure modes before
+  claiming reduced doer-checker correlation. <sup>[↪ Why](#r-agentic-01)</sup>
 - **Independence budgeting.** Treat independence as a resource to be spent where a wrong-but-confident
   convergence would be most costly — exactly the non-compensatory seams that earn hard gates
-  (Chapter 11). You cannot make every check independent; you *can* make the load-bearing ones
-  independent.
+  (Chapter 11). Prioritize independent-enough evidence at the load-bearing checks, then state the
+  correlation risk that remains.
 - **Safeguards for the delegate (stone #10).** Persistent parties need outcome-linked incentives.
   Non-persistent inference needs capability containment, proxy-resistant evaluation, and independent
   evidence. An accountable principal owns acceptance and consequences in both cases.
@@ -181,11 +183,11 @@ The autonomy callouts scattered through the earlier chapters are all facets of t
 - **Chapter 8** — the security repertoire's **red-team** move is also the independence-injection move
   (#9); its authn/authz and least-privilege moves *contain* a misaligned agent (#10) even though they do
   not, by themselves, align it.
-- **Chapter 11** — the **reflect-artifact** and **observe-sensor** gates matter more under autonomy,
-  because a self-checking loop that also skips its memory and senses has nothing left to catch it. The
-  convergent law (§11.2) widens this to all four intended-operands — ADR, telemetry, regression suite,
-  plan baseline: the loop's memory, senses, ratchet, and clock. Those four existence-gates are what
-  keep an autonomous loop *auditable at all*.
+- **Chapter 11** — required reflect evidence and an `observe` sensor matter under autonomy because
+  an unchecked completion report cannot supply memory or sensing. The convergent law (§11.2) covers
+  each required intended operand — decision rationale, telemetry, regression evidence, and plan
+  baseline — at the accountable work unit. Named seam gates still apply where harm demands them.
+  <sup>[↪ Why](#r-gate-04)</sup>
 
 Delegation requires evidence that checks are independent enough for the risk and that the doer's
 safeguards fit the delegate. Human authority remains available where the decision needs

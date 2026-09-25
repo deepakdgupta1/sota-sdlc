@@ -4,9 +4,10 @@
 
 Plain-language definitions of the recurring terms.
 
-- **Stone.** A brute, unavoidable fact about reality that makes software hard and *forces* a specific
-  response. There are ten — eight **first-order** (about the problem) plus a two-seat **second-order
-  tier** (about who staffs the loop) (Chapter 3). <sup>[↪ Why](#r-bedrock-01)</sup>
+- **Stone.** An admitted pressure in the current hazard taxonomy, with a response not already forced
+  by its other members. The current set has eight **first-order** stones (about the problem) and two
+  **second-order** stones (about staffing). The count is pressure-tested, not proven exhaustive
+  (Chapter 3). <sup>[↪ Why](#r-bedrock-01)</sup>
 - **The loop / the atom.** The single feedback cycle `define → do → check → reflect ↺` that everything
   reduces to (Chapter 4). <sup>[↪ Why](#r-loop-01)</sup>
 - **Beat.** One of the four scale-invariant phases of the loop (define, do, check, reflect). <sup>[↪ Why](#r-loop-01)</sup>
@@ -40,37 +41,42 @@ Plain-language definitions of the recurring terms.
   monitored by `observe` where needed);
   C says the contract set would deliver the parent target even if perfectly honoured (design review,
   followed by integration and acceptance evidence). <sup>[↪ Why](#r-done-01)</sup>
+- **Tightest-sufficient contract.** The narrowest practical input domain that admits every required
+  expected and adverse case. Exhaustive checks or internal types can reduce input-range uncertainty
+  without proving the specification or parent target (§9.2). <sup>[↪ Why](#r-done-04)</sup>
 - **Leaf.** A target checkable without further decomposition. Its evidence can be deterministic,
   statistical, formal, simulated, human-experiential, runtime-assured, or a combination. Each modality
   leaves a stated residue and can be optimized as a proxy for the wrong outcome (§9).
   <sup>[↪ Why](#r-done-02)</sup>
 - **Repertoire.** A set of cross-cutting responses invoked from `reflect`: the *resilience* repertoire
   (escalate, degrade, recover, roll back) and the *security* repertoire (authn/authz, sanitize, harden,
-  red-team). <sup>[↪ Why](#r-apex-02)</sup>
+  red-team). <sup>[↪ Why](#r-repertoire-01) · [↪ Why](#r-repertoire-02)</sup>
 - **Hard gate.** A constraint the work unit cannot locally waive, either because one violation is
   non-local or because outside authority imposes it (Chapter 11). <sup>[↪ Why](#r-gate-01)</sup>
 - **Existence gate.** Required evidence must exist for its accountable work unit. Nested loops may
   share that evidence; a named seam gate still applies at the seam. <sup>[↪ Why](#r-gate-04)</sup>
 - **Amplifier.** One of the three things that make a violation non-local: adversarial, irreversible,
   machinery-degrading. <sup>[↪ Why](#r-gate-01)</sup>
-- **Artifact.** The persistent, explicit carrier of a loop's target / result / lesson across the *time*
-  and *agent* boundaries (Chapter 10). <sup>[↪ Why](#r-artifact-01)</sup>
-- **Boundary-distance law.** The forced durability of an artifact scales with the distance between its
-  producer and its consumer; `reflect`'s backward-feeding artifact is the extreme case (the sole
-  channel). <sup>[↪ Why](#r-artifact-01)</sup>
+- **Artifact.** An explicit carrier of a work unit's target, result, or lesson for a later or different
+  consumer. It must be retrievable when the handoff crosses time or agent boundaries; nested loops may
+  share it (Chapter 10). <sup>[↪ Why](#r-artifact-01) · [↪ Why](#r-gate-04)</sup>
+- **Boundary-distance law.** The further a fact must travel from producer to consumer, the more
+  explicit and retrievable its carrier must be. `reflect`'s lesson commonly serves a later iteration
+  (Chapter 10). <sup>[↪ Why](#r-artifact-01)</sup>
 - **Base act.** `implement` (with `release` as its seam-analogue): the operand the loop controls — the
   plant, not the controller. It defends no stone by design; the one *licensed exception* to the
   Chapter 3 self-test (§7). <sup>[↪ Why](#r-loop-05)</sup>
-- **Schedule bet.** `plan`'s conjecture that if every task lands in its slot, the whole ships by the
-  date — `scope`+`specify` projected onto the time axis. An estimate is the stub of a task;
-  critical-path feasibility is stub-composition on time. Baseline existence gated; dates graded (§7.1). <sup>[↪ Why](#r-gate-03)</sup>
+- **Schedule bet.** `plan`'s conditional conjecture that task estimates hold, execution conditions
+  remain within the forecast, and the selected tasks deliver the intended release by the date.
+  Critical-path feasibility checks the arrangement, not those premises. Baseline existence is gated;
+  dates are graded (§7.1). <sup>[↪ Why](#r-schedule-01) · [↪ Why](#r-gate-03)</sup>
 - **Regression ratchet.** Retained lessons and rationale from fixed failures, with re-runnable checks
   for relevant failure classes (§10.1). Obsolete, redundant, or misleading test instances can retire
   with a recorded reason while required guards remain. Existence gated; coverage graded.
   <sup>[↪ Why](#r-artifact-03)</sup>
-- **Reversible envelope (rollback's reach).** The region of version-space `roll back` can restore.
-  Irreversibility ≡ beyond it; hard gates fall at its limit, and widening the envelope converts
-  pre-execution gates back into graded bets (§10.1). <sup>[↪ Why](#r-artifact-02)</sup>
+- **Reversible envelope (rollback's reach).** The effects `roll back` can actually restore. Beyond
+  that reach, assess non-local irreversible harm before execution. Inside it, other non-local or
+  outside-authority gates may still apply (§10.1). <sup>[↪ Why](#r-artifact-02) · [↪ Why](#r-gate-01)</sup>
 - **Silent failure.** A path that fails *and emits no telemetry* — the unit the observability gate rule
   classifies (§11.1). Gate a named seam's signal when silent failure is non-local or outside authority
   requires it; grade aggregate coverage. Debug sampling cannot replace required audit evidence.
@@ -92,8 +98,8 @@ Plain-language definitions of the recurring terms.
 - **Accountable principal.** The person or authority responsible for the delegated result and its
   consequences. Human judgment remains for values, accountability, and exceptional authority. <sup>[↪ Why](#r-agentic-01)</sup>
 - **Incentive-divergence (stone #10).** The second-order, delegated-only stone about the *doer*: a
-  persistent party optimises its own payoff over your target even when your intent is fully known
-  (misaligned — not hostile like #8, not mistaken like #4). Its willful face forces **alignment**
+  persistent party can optimise its own payoff over the target even when intent is known
+  (misaligned — not hostile like #8, not mistaken like #4). Its incentive branch calls for **alignment**
   (Chapter 12). <sup>[↪ Why](#r-bedrock-04)</sup>
 - **Alignment.** For persistent parties, outcome-linked incentives and accountability connect their
   payoff to the intended result. <sup>[↪ Why](#r-bedrock-04)</sup> For non-persistent inference, use
@@ -114,7 +120,7 @@ Plain-language definitions of the recurring terms.
 
 <sup>[↪ Why](#r-bedrock-01)</sup>
 
-One table, the whole causal skeleton.
+The current stone-to-response mapping.
 
 | Stone | Fact | Forced response(s) | Property served |
 |---|---|---|---|
@@ -122,11 +128,11 @@ One table, the whole causal skeleton.
 | 2 | unbounded vs. finite | `scope`, `decide` | predictable |
 | 3 | complexity > one step | `design` (decompose + composition hypothesis) | all four, at every seam |
 | 4 | humans & models err | `verify`, `analyze` | reliable |
-| 5 | reality keeps changing | the **regression ratchet** (the `reflect`→`verify` bridge; existence gated) + **`roll back`** (graded, gate at its limit) — §10.1; version / integrate | resilient — the *over-time* clause |
+| 5 | reality keeps changing | the **regression ratchet** (the `reflect`→`verify` bridge; required evidence gated) + **`roll back`** (reduces irreversibility risk within its reach) — §10.1; version / integrate | resilient — the *over-time* clause |
 | 6 | reality is uncertain | `observe` (telemetry); `degrade`, `recover` | resilient |
-| 7 | knowledge distributed & perishable | **artifacts** (persist + make explicit) | all four (carries every loop's output) |
+| 7 | knowledge distributed & perishable | **artifacts** (persist, make explicit, and surface the needed part across a handoff) | carries required targets, results, and lessons |
 | 8 | adversarial actors | security repertoire (authn/authz, sanitize, harden, red-team) | secure |
-| 9 | reflexivity — checker not independent *(autonomous only)* | independence-seeking (external terminal, adversarial/diverse review) | protects reliable |
+| 9 | reflexivity — checker may share the doer's error *(delegated only)* | independent-enough evidence and review with different failure modes | protects reliable |
 | 10 | incentive-divergence and the non-persistent inference branch *(delegated only)* | persistent parties: incentives and accountability; inference: capability containment, proxy-resistant evaluation, independent evidence | protects reliable |
 
 > Three lifecycle boxes are deliberately **not** rows. `plan` is `scope`+`specify` projected onto the
@@ -141,7 +147,7 @@ One table, the whole causal skeleton.
 - **What this is, and as of when.** This document presents the **ideal MUST-HAVE** design: what *any*
   reliable, predictable, resilient, and secure SDLC is logically forced to contain. It deliberately
   does **not** audit any particular real-world setup against the ideal — that is a separate exercise,
-  kept out so the ideal stays uncontaminated. It is **frozen as of 2026-07-30** (`asOf` in
+  kept out so the ideal stays uncontaminated. <sup>[↪ Why](#r-method-02)</sup> It is **frozen as of 2026-07-30** (`asOf` in
   `docs/snapshot.parts.json`): historical truth as of that date, not a claim of perpetual freshness.
 - **Accepted model repairs.** Tier E repairs E1 through E13 are represented in this snapshot and its
   rationale entries.

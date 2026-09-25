@@ -14,15 +14,15 @@ not a fourth harm amplifier. Three amplifiers establish the model-derived case:
 
 1. **Adversarial (stone #8).** A directed optimiser searches for a reachable forbidden output at a
    relevant seam. Gate that reachability result; grade defence depth and posture (§9.3).
-2. **Irreversible.** The damage escapes `recover` and `roll back` — data loss; a *leaked* secret cannot
-   be un-leaked. The run-time repertoire can't undo it after the fact.
+2. **Irreversible.** Non-local damage escapes `recover` and `roll back` — data loss; a *leaked* secret
+   cannot be un-leaked. The run-time repertoire can't undo it after the fact.
 3. **Machinery-degrading.** The violation blinds the loop's own `check`/`observe`, or couples parts so
    one corrupts another: a swallowed error (no signal), an un-instrumented call (no telemetry), a test
    retrofitted after the code (can't actually falsify), a mutation that couples shared state. This is
    non-local *by construction* — it disables the very thing that would have caught it.
 
 **The classification rule.** First, ask whether an outside authority imposes the constraint. Then ask
-whether one violation is non-local: adversary-amplified, irreversible, or machinery-degrading. Either
+whether one violation is non-local: adversary-amplified, irreversibly harmful, or machinery-degrading. Either
 answer can require a hard gate. If the blast radius is unknown, classify it as non-local until evidence
 bounds it. When no authority imposes a gate and the violation is demonstrably local and recoverable,
 keep a graded target. Gate a per-seam binary, such as forbidden-output reachability; grade aggregate
@@ -45,7 +45,7 @@ importance.
     {"id":"q","label":"one violation NON-LOCAL?","group":"terminal","x":240,"y":100},
     {"id":"authority","label":"outside authority imposes gate?","group":"terminal","x":700,"y":100},
     {"id":"adv","label":"adversary-amplified (#8)","group":"stone","x":0,"y":220},
-    {"id":"irr","label":"irreversible (escapes recover/rollback)","group":"stone","x":250,"y":220},
+    {"id":"irr","label":"non-local irreversible loss","group":"stone","x":250,"y":220},
     {"id":"mach","label":"machinery-degrading (blinds check/observe)","group":"stone","x":500,"y":220},
     {"id":"unknown","label":"blast radius unknown → non-local for now","group":"stone","x":800,"y":220},
     {"id":"gate","label":"HARD GATE — no local accept","group":"property","x":300,"y":360},
@@ -63,7 +63,7 @@ importance.
     {"source":"irr","target":"gate"},
     {"source":"mach","target":"gate"},
     {"source":"unknown","target":"gate","label":"provisional"},
-    {"source":"q","target":"grade","label":"bounded local"}
+    {"source":"q","target":"grade","label":"bounded local; no imposed gate"}
   ]
 }
 ```
@@ -104,15 +104,18 @@ Redaction must preserve the evidence the gate needs. If a cost limit or retentio
 required evidence, the gate is unmet until the conflict is resolved; dropping records cannot silently
 waive it.
 
-**Gate the per-seam binary; never gate the aggregate.** A coverage percentage is a Goodhartable proxy
-for the true target — "can we actually *detect the residue* when it surfaces?" — and the two come
-apart three ways: the signal can be *wrong* (a log that says "entered function," not "output correct
+**Gate the required per-seam binary; grade aggregate coverage by default.** An outside authority may
+impose an aggregate threshold, but it cannot replace a required named-seam signal.
+<sup>[↪ Why](#r-gate-01)</sup> A coverage percentage is a Goodhartable proxy for the true target —
+"can we actually *detect the residue* when it surfaces?" — and the two come apart three ways: the
+signal can be *wrong* (a log that says "entered function," not "output correct
 for intent"), *unmonitored* (emitted, but nothing alerts — a log nobody reads is stone #7 again), or
 *drowned* (alert fatigue). Worse, gating "≥ 90% coverage" diverts effort to the *cheap* paths and
-starves exactly the residue-bearing seams the rule says to gate. So gates attach to **named seams** —
-"does seam *S* provide its required signal within its detection bound?" The check tests that contract,
-including monitoring and loss detection; it does not promise detection of every unknown failure.
-The roll-up stays a graded target.
+starves exactly the residue-bearing seams the rule says to gate. Model-derived gates attach to
+**named seams**: "does seam *S* provide its required signal within its detection bound?" The check
+tests that contract, including monitoring and loss detection; it does not promise detection of every
+unknown failure.
+The roll-up otherwise stays a graded target.
 
 ### 11.2 The convergent law — existence is gated, fidelity is graded
 
@@ -160,10 +163,10 @@ Required evidence must exist at the accountable work unit; its quality is priced
     {"id":"fidelity","label":"FIDELITY / COVERAGE / CONTENT — graded, Goodhartable proxy","group":"stone","x":460,"y":300}
   ],
   "edges": [
-    {"source":"adr","target":"exist","label":"must exist"},
-    {"source":"telemetry","target":"exist","label":"must exist"},
-    {"source":"regression","target":"exist","label":"must exist"},
-    {"source":"plan","target":"exist","label":"must exist"},
+    {"source":"adr","target":"exist","label":"if required"},
+    {"source":"telemetry","target":"exist","label":"if required"},
+    {"source":"regression","target":"exist","label":"if required"},
+    {"source":"plan","target":"exist","label":"if required"},
     {"source":"adr","target":"fidelity","dashed":true,"label":"accuracy"},
     {"source":"telemetry","target":"fidelity","dashed":true,"label":"coverage (per-seam gates, §11.1)"},
     {"source":"regression","target":"fidelity","dashed":true,"label":"coverage"},
@@ -172,13 +175,10 @@ Required evidence must exist at the accountable work unit; its quality is priced
 }
 ```
 
-> **⟐ Under autonomy.** Two of the hard gates the ideal SDLC insists on — a *written* reflect-artifact
-> (Chapter 10) and a real `observe` sensor of the loop's own (Chapter 5) — are gates precisely because
-> skipping them is *machinery-degrading*. An autonomous pipeline that skips them doesn't just lose a
-> document or a dashboard; it silently demotes `define → do → check → reflect` to `define → do → check`
-> — a loop that can *detect* failure but neither *explain* it nor *prevent its recurrence.* The
-> convergent law (§11.2) widens this to all four intended-operands — ADR, telemetry, regression suite,
-> plan baseline: a cost-optimising executor will be tempted to collapse exactly these four
-> existence-gates, and each one is machinery, not ceremony.
+> **⟐ Under autonomy.** Required reflect evidence and an `observe` sensor preserve a loop's ability
+> to explain and detect failures. When an accountable work unit needs these or the regression and plan
+> baselines, their absence can disable its correcting machinery. Gate the required evidence at that
+> unit; a named seam gate still acts earlier where harm demands it. A cost-optimising executor may
+> omit these carriers, so its completion report cannot substitute for their evidence.
 
 ---
