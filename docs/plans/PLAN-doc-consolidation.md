@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `04b` complete
-Next step: `05`
+Current step: `05` complete
+Next step: `06`
 
 ## Objective
 
@@ -619,6 +619,21 @@ Promote the design viewer to `index.html`. Remove `docs/RATIONALE.md` from the m
 
 Exit: the final active structure matches this plan and both tags restore every retired source set.
 
+Completed in this packet:
+
+- Removed the parallel handoff, roadmap, canvas, agent-architecture corpus, evaluation report, and
+  canvas manifest. Promoted the design viewer to `index.html`, removed the ledger from manifest
+  `parts`, and retained its `rationale` path for on-demand entry loading. A **↪ Why** link and a direct
+  `#r-*` URL open the same dialog.
+- Rewrote `README.md` as the reading, serving, changing, checking, and history guide. It requires a
+  model change and its rationale update in the same commit and points to the two annotated tags.
+- Retired roadmap-only `R-METHOD-03`, historical `R-METHOD-05`, and `R-EVIDENCE-01` through `08` from
+  the active ledger. Their full text remains at the September tag and their current model arguments
+  remain in the corresponding decision entries. The ledger preamble now treats tagged Git history,
+  rather than the canvas, as historical support.
+- Adjusted the existing verifier only enough to run against the single-model tree. Its fixed counts,
+  incomplete local-link checking, and name remain assigned to step 06.
+
 ### 06. Narrow and rename the automated check
 
 Rename `scripts/verify-docs.mjs` to `scripts/check-doc-structure.mjs`. Make it fail on:
@@ -646,21 +661,22 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 04b removed the four-source table from chapter 00 and historical/repository
-Appendices C/D from chapter 13. Chapters 05 and 11 now state current relationships without iteration
-history. `README.md` carries the serving and diagram-editing procedure. The manifest and checker no
-longer require or display `asOf`; `R-METHOD-01/02/04/05` were adjusted for surviving model links.
-Evidence: a targeted search of `docs/snapshot/` and its manifest found no roadmap, canvas, freeze-date,
-priority, iteration-log, or retired-appendix references. Working `pipeline-graph` blocks and the
-checker retain the diagram format. The structural checker reports 14 chapters, 46 rationale entries,
-and 29 valid charts; `git diff --check` passes. Browser QA remains scheduled for step 07.
-Changed files: chapters 00, 05, 11, and 13; `README.md`; `docs/RATIONALE.md`;
-`docs/snapshot.parts.json`; `scripts/verify-docs.mjs`; and this plan. Dirty files: none after this
-packet's commit. Current revision: `HEAD` (this checkpoint commit).
-Remaining work: `README.md` still describes four roles and the old viewer paths; the ledger preamble
-still treats the canvas as live. `R-METHOD-05` is temporarily linked from README to avoid an orphan
-while those files exist. Step 05 must rewrite these roles, reconcile `R-METHOD-01/02/05` and all
-roadmap-only IDs, retire parallel sources, and promote the design viewer.
-Exact next action: start step 05 by confirming both history tags restore the sources to be retired;
-then remove the parallel active files, update the viewer/manifest/README/ledger together, and verify
-the resulting tree. Do not start step 06 in that turn.
+Completed scope: step 05 retired the parallel active sources, promoted `index.html`, loaded rationale
+entries on demand, rewrote README, and removed history-only ledger entries. The only active Markdown
+outside the temporary plan is README, the snapshot chapters, and the rationale ledger.
+Evidence: `docs-history-2026-07-30` restores the July canvas and roadmap; `docs-history-2026-09-24`
+contains every retired active file. Before removal, a name-status comparison against the September
+tag differed only on the viewer title changed in 04a. The adjusted verifier passes: 14 chapters,
+36 rationale entries, 21 charts. `git diff --check` and script syntax checks pass. A focused browser
+smoke test loaded all 21 charts, opened `R-METHOD-02` from **↪ Why**, and opened `R-GATE-01` from a
+direct `#r-*` URL. Full TOC/chart/console browser QA remains scheduled for step 07.
+Changed files: `README.md`, `docs/RATIONALE.md`, `docs/snapshot.parts.json`, `index.html`,
+`scripts/verify-docs.mjs`, the retired paths listed in step 05, and this plan. Dirty files: none
+after this packet's commit. Current revision: `HEAD` (this checkpoint commit).
+Remaining work: the verifier still has fixed chapter/chart totals and July-only automated trace
+checks. It does not yet enforce every structural condition in step 06; the September tag was checked
+manually for this packet. The temporary plan remains until step 07.
+Exact next action: start step 06. Rename and narrow the checker, derive chapter/chart counts from
+the manifest and content, enforce the listed structural failures, update README and ledger references
+to its new path, run two focused negative cases, and restore a passing tree. Do not start step 07 in
+the same turn.

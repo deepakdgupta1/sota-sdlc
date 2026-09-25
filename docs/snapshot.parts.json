@@ -1,7 +1,7 @@
 {
   "title": "Current SDLC reference model",
   "rationale": "docs/RATIONALE.md",
-  "note": "The viewer loads the model chapters in parts order. The rationale ledger is the final part so that #R-* anchors resolve in-page.",
+  "note": "The viewer loads the model chapters in parts order and opens rationale entries on demand.",
   "parts": [
     "docs/snapshot/00-front-matter.md",
     "docs/snapshot/01-system-at-a-glance.md",
@@ -16,7 +16,6 @@
     "docs/snapshot/10-artifacts.md",
     "docs/snapshot/11-hard-gates-vs-graded.md",
     "docs/snapshot/12-agentic-sdlc.md",
-    "docs/snapshot/13-appendices.md",
-    "docs/RATIONALE.md"
+    "docs/snapshot/13-appendices.md"
   ]
 }

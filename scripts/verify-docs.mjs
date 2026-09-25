@@ -14,30 +14,23 @@ import {execFileSync} from 'node:child_process';
 const MANIFEST = 'docs/snapshot.parts.json';
 const LEDGER = 'docs/RATIONALE.md';
 const SNAPSHOT_DIR = 'docs/snapshot';
-const CANVAS_MANIFEST = 'sdlc-canvas.parts.json';
 const TAG = 'docs-history-2026-07-30';
 const EXPECTED_SNAPSHOT_CHARTS = 21;
-const EXPECTED_CANVAS_CHARTS = 8;
 
-/** Documents retired on 2026-07-30. Citing one as an active source is a defect. */
+/** Documents retained only in tagged history. */
 const RETIRED = [
   'HANDOFF.md',
+  'ROADMAP.md',
   'sdlc-evolution-ideas.md',
   'REVIEW-ASSESSMENT-2026-07.md',
   'sdlc-design/',
   'sdlc-design.parts.json',
+  'sdlc-design.html',
+  'sdlc-canvas/',
+  'sdlc-canvas.parts.json',
+  'docs/agent-architecture/',
+  'docs/ai_agent_evaluation_metrics_kpis_2026.md',
 ];
-/**
- * Historical log entries legitimately name retired files — rewriting them would
- * falsify the audit trail. This is the only exemption; do not add others.
- */
-const RETIRED_EXEMPT = ['sdlc-canvas/06-iteration-log.md'];
-/**
- * These two documents exist partly to explain what was retired, so naming a retired
- * file in their prose is legitimate. A markdown *link* to a retired path still fails
- * everywhere — the defect is a live pointer, not a mention of a name.
- */
-const RETIRED_PROSE_OK = ['docs/RATIONALE.md', 'README.md'];
 
 const errors = [];
 const warnings = [];
@@ -66,15 +59,11 @@ try {
 } catch (e) {
   fail(MANIFEST, `manifest is not valid JSON — ${e.message}`);
 }
-if (!manifest.rationale) fail(MANIFEST, 'manifest has no `rationale` — the ledger path must be declared');
+if (manifest.rationale !== LEDGER) fail(MANIFEST, `rationale must point to ${LEDGER}`);
 
 const parts = manifest.parts || [];
 for (const p of parts) if (!existsSync(p)) fail(MANIFEST, `manifest part does not exist on disk: ${p}`);
-if (!parts.includes(LEDGER)) {
-  fail(MANIFEST, `${LEDGER} must be the final manifest part, so #R-* anchors resolve in-page`);
-} else if (parts[parts.length - 1] !== LEDGER) {
-  fail(MANIFEST, `${LEDGER} must be LAST in parts (found at index ${parts.indexOf(LEDGER)})`);
-}
+if (parts.includes(LEDGER)) fail(MANIFEST, `${LEDGER} must load on demand, not as a chapter`);
 
 const chapterFiles = existsSync(SNAPSHOT_DIR)
   ? readdirSync(SNAPSHOT_DIR).filter(f => f.endsWith('.md')).sort()
@@ -98,28 +87,21 @@ if (!entryIds.size) fail(LEDGER, 'no rationale entries found (expected `<a id="r
  * Link hygiene, applied to every live document.
  *  - a `file://` *link* (or any absolute `file:///` URL) is always a defect; the bare
  *    scheme in prose — "never open this via `file://`" — is not.
- *  - a pseudo-line link rots on the first insertion. ROADMAP is exempt: its remaining
- *    line anchors are working notes on unapplied repairs, and say so in §3.
- *  - a markdown *link* to a retired path always fails. Merely naming a retired file is
- *    a defect too, except in the documents whose job is to explain the retirement.
+ *  - a pseudo-line link rots on the first insertion.
+ *  - retired paths may appear only in tagged historical references.
  */
 function checkHygiene(file, body) {
   if (/\]\(\s*file:\/\//.test(body) || /file:\/\/\//.test(body)) {
     fail(file, 'contains a file:// link — machine-specific and dead for every other reader');
   }
-  if (file !== 'ROADMAP.md') {
-    for (const m of body.matchAll(/\(([A-Za-z0-9_./-]*\.md):(\d+)\)/g)) {
-      fail(file, `pseudo-line link \`${m[1]}:${m[2]}\` — cite a section or row identifier instead`);
-    }
+  for (const m of body.matchAll(/\(([A-Za-z0-9_./-]*\.md):(\d+)\)/g)) {
+    fail(file, `pseudo-line link \`${m[1]}:${m[2]}\` — cite a section or row identifier instead`);
   }
+  const activeBody = body.replace(/docs-history-2026-(?:07-30|09-24):[A-Za-z0-9_./-]+(?:#[a-z0-9-]+)?/g, '');
   for (const r of RETIRED) {
     const lit = r.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    if (new RegExp(`\\]\\(\\s*\\.?/?${lit}`).test(body)) {
-      fail(file, `links to retired document \`${r}\` — use \`${TAG}:${r}\` instead`);
-    }
-    if (RETIRED_EXEMPT.includes(file) || RETIRED_PROSE_OK.includes(file)) continue;
-    if (new RegExp(`(?<!${TAG}:)${lit}`).test(body)) {
-      fail(file, `cites retired document \`${r}\` as an active source (use ${TAG}:<path>)`);
+    if (new RegExp(lit).test(activeBody)) {
+      fail(file, `cites retired document \`${r}\` outside tagged history`);
     }
   }
 }
@@ -129,7 +111,7 @@ function checkHygiene(file, body) {
 const referenced = new Set();
 const docFiles = [
   ...parts.filter(p => existsSync(p)),
-  ...['ROADMAP.md', 'README.md'].filter(existsSync),
+  ...[LEDGER, 'README.md'].filter(existsSync),
 ];
 
 for (const file of docFiles) {
@@ -146,10 +128,6 @@ for (const file of docFiles) {
   }
 
   checkHygiene(file, body);
-}
-
-for (const file of readdirSync('sdlc-canvas').filter(f => f.endsWith('.md')).map(f => `sdlc-canvas/${f}`)) {
-  checkHygiene(file, stripTildeFences(readFileSync(file, 'utf8')));
 }
 
 for (const id of entryIds) {
@@ -214,21 +192,6 @@ function countCharts(dir, label, expected) {
   if (n !== expected) fail(label, `expected ${expected} pipeline-graph blocks, found ${n}`);
 }
 if (existsSync(SNAPSHOT_DIR)) countCharts(SNAPSHOT_DIR, SNAPSHOT_DIR, EXPECTED_SNAPSHOT_CHARTS);
-if (existsSync('sdlc-canvas')) countCharts('sdlc-canvas', 'sdlc-canvas', EXPECTED_CANVAS_CHARTS);
-
-/* ---------- 6 · the canvas manifest still resolves ---------- */
-
-if (existsSync(CANVAS_MANIFEST)) {
-  try {
-    for (const p of (JSON.parse(readFileSync(CANVAS_MANIFEST, 'utf8')).parts || [])) {
-      if (!existsSync(p)) fail(CANVAS_MANIFEST, `canvas part does not exist on disk: ${p}`);
-    }
-  } catch (e) {
-    fail(CANVAS_MANIFEST, `not valid JSON — ${e.message}`);
-  }
-} else {
-  fail(CANVAS_MANIFEST, 'canvas manifest is missing');
-}
 
 /* ---------- 7 · historical traces resolve inside the tag ---------- */
 
@@ -255,7 +218,7 @@ if (tagPresent) {
   };
 
   const traceRe = new RegExp(`${TAG}:([A-Za-z0-9_./-]+\\.md)(?:#([a-z0-9-]+))?`, 'g');
-  for (const file of [...docFiles, 'sdlc-canvas/00-framing.md'].filter(existsSync)) {
+  for (const file of docFiles) {
     const body = stripTildeFences(readFileSync(file, 'utf8'));
     for (const m of body.matchAll(traceRe)) {
       const [, path, frag] = m;
@@ -278,5 +241,5 @@ if (errors.length) {
 }
 console.log(
   `✓ verify-docs: ${chapterFiles.length} chapters · ${entryIds.size} rationale entries · ` +
-  `${EXPECTED_SNAPSHOT_CHARTS + EXPECTED_CANVAS_CHARTS} charts valid`
+  `${EXPECTED_SNAPSHOT_CHARTS} charts valid`
 );

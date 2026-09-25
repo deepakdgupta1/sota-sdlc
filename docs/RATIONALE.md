@@ -1,20 +1,16 @@
 ## Rationale ledger
 
-*Why each contested decision in this snapshot has its current shape.* A decision is **contested** if it
-was derived against alternatives, disputed, or retracted — not merely written down. Explanatory prose
-inherits the nearest enclosing entry; the ledger records decisions, not sentences.
+The current model is in `docs/snapshot/`; this ledger explains its independent decisions. Supporting
+prose, tables, and charts inherit the nearest governing decision. The model links to entries by stable
+ID, and each entry names the content it governs.
 
-**Reading an entry.** *Decision* — what the snapshot now says. *Why* — the argument that forces it.
-*Governs* — where it applies. *Trace* — where its history lives. *Evidence* — external facts it rests
-on, with access dates. *Superseded* — the alternative it replaced, when that is what makes the current
-shape intelligible.
+**Reading an entry.** *Decision* states the present rule; *Why* gives its justification; *Applies to*
+locates it in the model. *Evidence* cites tagged Git history or an external source when the decision
+depends on it. *Superseded* appears only when a replaced choice explains the present one.
 
-**Two kinds of trace.** Where the reasoning is still live, entries cite the **canvas** by path — it is a
-current document, not a historical one. Where the reasoning lived in a document absorbed on 2026-07-30,
-entries cite the annotated tag: `docs-history-2026-07-30:<path>#<heading>`. Retrieve either with
-`git show docs-history-2026-07-30:<path>`. Never a line number — see [R-METHOD-04](#r-method-04).
-
-Rejected ideas appear only where they explain why a surviving decision has its current shape.
+Historical sources are available under `docs-history-2026-07-30` and
+`docs-history-2026-09-24`. Cite a tag, path, and heading, not a line number; see
+[R-METHOD-04](#r-method-04). Rejected ideas remain only when they explain a current decision.
 
 ---
 
@@ -578,197 +574,15 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/00-framing.md#resume-instructions-read-first-on-a-fresh-context` ·
   `docs-history-2026-07-30:HANDOFF.md#8-where-we-are-what-s-next`.
 
-### <a id="r-method-03"></a>R-METHOD-03 · Specs are produced here; the factory is built elsewhere
+### <a id="r-method-04"></a>R-METHOD-04 · Cite tagged history by path and heading
 
-- **Decision.** The Tier D control plane is **specified** in this repository and **implemented in a
-  separate build repository**. Tier D does not enter the canvas as bedrock derivation.
-- **Why.** The canvas derives what is logically forced; a control plane is a contingent engineering
-  choice about a concrete stack. Letting implementation work into the canvas would contaminate the ideal
-  with the accidents of one toolchain — the same failure [R-METHOD-02](#r-method-02) guards against. A
-  spec is done when a competent engineer could build it without asking a question, not when it reads
-  well.
-- **Governs.** `ROADMAP.md` §1, §4.
-- **Trace.** `sdlc-canvas/06-iteration-log.md` iteration 28 ·
-  `docs-history-2026-07-30:HANDOFF.md#8-where-we-are-what-s-next`.
-
-### <a id="r-method-04"></a>R-METHOD-04 · Cite a tag and a heading, never a line number
-
-- **Decision.** Historical references cite `docs-history-2026-07-30:<path>#<heading>`. Cross-references
-  within live documents cite a section or row identifier. Line-number anchors are not used, and
-  `file://` links are forbidden outright.
-- **Why.** Line anchors into a living file rot on the first insertion — and this repository has already
-  been bitten twice: `ROADMAP.md:259`, cited for item C8, had drifted onto the A3 row, and
-  `ROADMAP.md:244`, cited as the B1 row, had drifted into the middle of a C3b bullet. A `HANDOFF.md:127`
-  citation of the method section likewise pointed two lines above the heading it meant. `file://` links
-  additionally encode one machine's directory layout, so they are dead for every other reader.
-- **Governs.** `docs/RATIONALE.md`, `scripts/verify-docs.mjs`.
+- **Decision.** Historical references cite an annotated tag, path, and heading. Cross-references
+  within current documents use stable section or decision IDs. Do not use line-number anchors or
+  `file://` links.
+- **Why.** Line offsets in the earlier roadmap and handoff drifted onto unrelated text after edits.
+  A tagged path and heading identifies the intended passage without depending on that offset.
+  Machine-specific `file://` links also fail for other readers.
+- **Governs.** `docs/RATIONALE.md`, `README.md`, `scripts/verify-docs.mjs`.
 - **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#reviewed-artifact-provenance-a-gap-not-a-record-rev-3`.
 - **Enforced.** `scripts/verify-docs.mjs` fails on any `file://` link or pseudo-line reference in the
-  snapshot or the ledger, and warns when a trace does not resolve inside the tag.
-
-### <a id="r-method-05"></a>R-METHOD-05 · What was absorbed on 2026-07-30, and what was verified first
-
-- **Decision.** Three documents were absorbed into the four survivors and removed from the active tree:
-  `HANDOFF.md`, `sdlc-evolution-ideas.md`, and `REVIEW-ASSESSMENT-2026-07.md`. All three remain complete
-  inside the tag.
-- **Why.** Each had become a second answer to a question another document already answered — the
-  handoff duplicated the method and the plan, the idea catalogue duplicated the roadmap's traceability,
-  and the review assessment was a rationale record with no home for rationale. What was *not*
-  duplicated was moved rather than dropped, and each drop was verified before it was made:
-  - The **`pipeline-graph` format** existed only in the handoff. Working blocks now sit beside the
-    snapshot prose; `README.md` explains how to edit them, and the checker validates their JSON and
-    edge references.
-  - The handoff's method section is now the canvas's `▶ RESUME INSTRUCTIONS`, which it already named as
-    authoritative.
-  - All **24** idea identifiers (A1–A4, B1–B8, C1–C12) were confirmed present in `ROADMAP.md` §6 before
-    the catalogue was retired — the set difference was empty, so no item lost its disposition.
-  - All **five** open structural questions were confirmed carried into `ROADMAP.md` §8 as Q1–Q5.
-  - The handoff's Phase-0 dependency order was byte-identical to `ROADMAP.md` §10; its track history was
-    a derived summary of the canvas register, which it named as authoritative; its model summary was
-    covered by Chapter 1 and the chapters it pointed into. Those were dropped as duplicates.
-- **Governs.** the whole repository.
-- **Trace.** `docs-history-2026-07-30:HANDOFF.md#1-read-these-first-in-order` ·
-  `docs-history-2026-07-30:sdlc-evolution-ideas.md#open-structural-questions` ·
-  `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#5-bottom-line`.
-
-### <a id="r-evidence-01"></a>R-EVIDENCE-01 · Dated EU AI Act status
-
-- **Decision.** No legal-status prose appears in the snapshot. The regulatory position is recorded here,
-  with a verification date, rather than as an enduring part of the model. An outside legal obligation
-  may still create a gate under [R-GATE-01](#r-gate-01).
-- **Why.** Legal status decays faster than anything else in this repository, and it decayed twice inside
-  a single month of editing. A model whose text asserts what a statute currently requires becomes wrong
-  without anyone touching it. The durable claims — that exogenous authority can create a
-  non-compensatory gate — belong to the gate calculus; the dates belong in a dated ledger entry.
-- **Evidence.** [Regulation (EU) 2026/1744](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32026R1744),
-  *Official Journal* 24 July 2026, entered into force 27 July 2026 and replaced Article 4 with a duty
-  to support AI literacy. Article 50 obligations apply from 2 August 2026 where their conditions are
-  met. Providers whose systems were on the market before that date have until 2 December 2026 for the
-  Article 50(2) marking requirement. The amended Article 113 moves specified Annex III high-risk
-  obligations to 2 December 2027 and specified Annex I obligations to 2 August 2028. Classification
-  depends on the system's intended use; a coding assistant is not automatically high-risk. Verified
-  against the primary text 2026-09-25. A specific conformance decision still requires checking the
-  applicable provisions and facts of the use case.
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` rows 1–4 ·
-  `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#3-errors-in-our-own-documents-that-the-review-did-not-catch` R1–R2.
-- **Superseded.** The Act does not classify all autonomous coding agents as high-risk. The Omnibus is
-  in force, replaces Article 4, and changes the applicable dates. Earlier claims that it was pending or
-  left Articles 4 and 50 untouched were wrong. Employment-related uses, such as evaluating workers,
-  require their own Annex III assessment.
-
-### <a id="r-evidence-02"></a>R-EVIDENCE-02 · CVE-2026-25253 and its token-exfiltration mechanism
-
-- **Decision.** CVE-2026-25253 is a code vulnerability in the Control UI's handling of `gatewayUrl`.
-  It does not show a sandbox escape or a malicious skill package.
-- **Why.** The mechanism matters for routing: a client-side URL-handling flaw argues for input
-  validation and egress control at the client boundary. It cannot support a claim about workload
-  isolation failure.
-- **Evidence.** The [NVD record](https://nvd.nist.gov/vuln/detail/CVE-2026-25253) describes OpenClaw
-  before `2026.1.29` reading `gatewayUrl` from a query string and automatically opening a WebSocket
-  connection that sends a token. The [vendor advisory](https://github.com/openclaw/openclaw/security/advisories/GHSA-g8p2-7wf7-98mq)
-  confirms token exfiltration through the Control UI and a fix in `2026.1.29`. Verified 2026-09-25.
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` row 13 ·
-  `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#3-errors-in-our-own-documents-that-the-review-did-not-catch` R3.
-- **Superseded.** Two claims, in sequence, and the second was worse than the first: originally "a
-  malicious skill package, not a code vulnerability"; then, correcting it, "a Docker sandbox escape via a
-  crafted skill package, patched in v2.3.1". The second mechanism was **invented**, unsourced, and had
-  already propagated into a P1 justification before it was caught. The record and vendor advisory
-  support the actual mechanism; a plausible reconstruction is not a source. "First agentic CVE" is
-  also dropped, absent a defensible definition.
-
-### <a id="r-evidence-03"></a>R-EVIDENCE-03 · NIST SP 800-218A does not cover deployment or operation
-
-- **Decision.** SP 800-218A is not citable as converged guidance for the *operation* of an agentic
-  lifecycle.
-- **Why.** Its own scope statement excludes the phase where an agentic control plane does most of its
-  work, so citing it there would misrepresent the state of published guidance — in a document arguing
-  for evidentiary discipline.
-- **Evidence.** NIST SP 800-218A §1.2, p. 2 (primary text read): scope is "AI model development… as
-  well as incorporating and integrating AI models into other software", and "practices for the
-  **deployment and operation** of AI systems with AI models **are out of scope**". Accessed 2026-07-29.
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` row 9 ·
-  `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#1-disagreements` D9.
-
-### <a id="r-evidence-04"></a>R-EVIDENCE-04 · Specification construction is *a* bottleneck, and proof is expensive
-
-- **Decision.** Formal methods are positioned as a **selective** modality for the highest-tier work, not
-  a general answer. Specification construction is *a* central bottleneck — not *the* central one.
-- **Why.** The cost is empirical and large, and it falls on exactly the artifact that
-  [R-DONE-02](#r-done-02) says still carries the blind spot. That combination makes proof a targeted
-  instrument rather than a strategy.
-- **Evidence.** arXiv 2511.17330, *Agentic Verification of Software Systems* — full text, not abstract:
-  formal capture "requires significant efforts in manually annotating specifications and crafting loop
-  invariants", and reports **seL4 ≈ 22 person-years** and **CompCert ≈ 6 person-years and
-  100,000 proof lines**. Verified in the [paper's introduction](https://arxiv.org/html/2511.17330v3)
-  2026-09-25.
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` row 11 ·
-  `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#1-disagreements` D10.
-- **Superseded.** An earlier round judged this paper *unsupportive* by reading only its **abstract**;
-  the supporting figures are in the introduction. Recorded because the failure is mechanical and
-  therefore preventable: read the introduction or the full text, never the abstract alone.
-
-### <a id="r-evidence-05"></a>R-EVIDENCE-05 · Benchmark-passing work is not merge-ready work
-
-- **Decision.** Test-passing is treated as a *proxy* that must be checked against acceptance, never as
-  acceptance itself — the empirical basis for [R-DONE-01](#r-done-01) and for the failure-routing rule
-  that a green check is not a true leaf.
-- **Why.** Two independent measurements show a large gap between "tests pass" and "a maintainer would
-  merge this", which is precisely the Goodhart surface the mechanism of Done is built to survive.
-- **Evidence.** (a) METR, *Many SWE-Bench-passing PRs would not be merged into main* (10 Mar 2026) — 296
-  PRs, 4 recruited maintainers, 3 repositories, 95 tasks; roughly half of test-passing PRs judged not
-  mergeable, a 24.2 pp gap; and ~68% of *human* golden patches were re-accepted. Because the
-  re-reviewers were recruited rather than the original mergers, the figure measures review-pipeline
-  noise, **not** a 32% defect rate. (b) OpenAI, *Separating signal from noise in coding evaluations* —
-  of 731 SWE-Bench Pro tasks, the pipeline flagged **200 (27.4%)** and a human campaign **249 (34.1%)**
-  as broken; pass rates moved 23.3% → 80.3% in eight months. Both accessed 2026-07-29 (openai.com 403s
-  to direct fetch; confirmed via verbatim quotation and multiple independent write-ups).
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` rows 6–7 ·
-  `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#1-disagreements` D11.
-- **Superseded.** "OpenAI retracted SWE-Bench Pro." It did not: it withdrew its *recommendation* that
-  the community use the benchmark. OpenAI does not own SWE-Bench Pro — Scale AI does — and could not
-  withdraw it.
-
-### <a id="r-evidence-06"></a>R-EVIDENCE-06 · Agentic entropy is evidenced as a pressure, not as a stone
-
-- **Decision.** Quality decay across long agentic edit histories is accepted as a **real pressure** and
-  routed to priority work. It is **not** admitted as an eleventh stone.
-- **Why.** Evidence of a pressure is not evidence of irreducibility. Under the admission criterion the
-  question is whether it forces a response that #4, #7 and #9 do not already force, and that has not
-  been shown — it is Q1 in `ROADMAP.md` §8, still open.
-- **Evidence.** arXiv 2603.03823 (SWE-CI) — 100 tasks over 233-day / 71-commit histories, 20 models;
-  quality decay over repository evolution confirmed. Accessed 2026-07-29. Note it is a benchmark
-  **preprint**. Also OWASP GenAI Security Project, Agentic Top 10 (announced 9 Dec 2025) — **ASI08 =
-  Cascading Failures**, the citation behind the cascading-failure item. Accessed 2026-07-29.
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` rows 5, 14 ·
-  `docs-history-2026-07-30:sdlc-evolution-ideas.md#a4-agentic-entropy-the-eleventh-stone`.
-
-### <a id="r-evidence-07"></a>R-EVIDENCE-07 · A control counts as handled only when its config has been read
-
-- **Decision.** No claim that an existing tool already handles a hazard survives here without a config
-  read *in the round the claim is made*. Specifically: the local LiteLLM proxy does **not** enforce a
-  cost ceiling, so cost containment remains unbuilt work.
-- **Why.** The presumption that the environment supplies a control is how a gap becomes invisible: the
-  claim reads as coverage, nobody re-checks it, and the roadmap deprioritises the item. This one was
-  falsified only when the config was actually opened.
-- **Evidence.** `~/.litellm-proxy/config.yaml` — the file the launchd job loads (local, unversioned):
-  allow-list present; RPM limit present; concurrency limit present; routing partial (no fallbacks, no
-  complexity-based routing); **cost ceiling absent and unenforceable as configured** —
-  `store_model_in_db: False` and no `database_url`, so spend tracking cannot run. Read 2026-07-29.
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` row 15 ·
-  `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#1-disagreements` D14.
-
-### <a id="r-evidence-08"></a>R-EVIDENCE-08 · The reviewed artifact was never retained — a live defect
-
-- **Decision.** The July-2026 external review that this ledger's evidence entries adjudicate **is not
-  stored anywhere in this repository** — no copy, no URL, no content hash, no author, no receipt date.
-  Every characterisation of what that review "treats as missing" or "proposes" is therefore an
-  assertion no future reader can verify. Entries above are worded to rest on *our* verified sources
-  rather than on the review's claims about itself.
-- **Why.** This is recorded rather than quietly dropped because it is the exact failure the roadmap
-  exists to prevent, committed in the document arguing for it: an evidence graph whose principal input
-  is unretained. It already caused two disagreements to be manufactured against positions that may
-  never have been held, and there is no way to know whether it happened elsewhere.
-- **Rule adopted.** A claim about an artifact you cannot produce is not a finding. Preserve or hash the
-  artifact, or narrow the claim to what you actually quoted.
-- **Governs.** every `R-EVIDENCE-*` entry above.
-- **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#reviewed-artifact-provenance-a-gap-not-a-record-rev-3`.
+  snapshot or the ledger, and warns when a trace does not resolve inside a tag.
