@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02h` complete
-Next step: `02i`
+Current step: `02i` complete
+Next step: `02j`
 
 ## Objective
 
@@ -266,6 +266,30 @@ Compare `docs/agent-architecture/04_memory/` with the current model and rational
 
 Exit: current memory decisions have the right shape and historical support.
 
+Disposition at `22a5bba`:
+
+- `working_memory.md` compares active chat/file state with an in-memory task queue. These volatile
+  stores can staff a turn but cannot carry a lesson across the time and agent boundaries in Chapter 10.
+  Product state shapes remain historical support at
+  `docs-history-2026-09-24:docs/agent-architecture/04_memory/working_memory.md`.
+- `persistent_memory.md` compares filesystem instruction files and reusable procedures. Persistence
+  crosses sessions, while prompt loading can truncate content; a durable file alone does not prove
+  that a later agent used its lesson. The tagged source supports `R-ARTIFACT-01` at
+  `docs-history-2026-09-24:docs/agent-architecture/04_memory/persistent_memory.md`.
+- `episodic_memory.md` distinguishes serialized action history from strategy-local reflections lost on
+  restart, and records compression that can drop early details. These are concrete failure modes for
+  the existing reflect-artifact and boundary-distance decisions, not a new memory beat. The tagged
+  source supports `R-ARTIFACT-01` at
+  `docs-history-2026-09-24:docs/agent-architecture/04_memory/episodic_memory.md`.
+- `semantic_memory.md` compares similarity-based recall with structural repository indexing. An index
+  helps find stored information but does not replace the durable target, result, or lesson itself.
+  Vector-store and retrieval choices remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/04_memory/semantic_memory.md`.
+
+No independent SDLC decision emerged. The sources illustrate the current artifact requirement and
+its implementation limits. They do not resolve `R-ARTIFACT-01`'s open Q4 on an attention boundary;
+step 03c will assess that claim before step 04b removes open-question prose from the model.
+
 ### 02j. Reconcile actions and tools
 
 Compare `docs/agent-architecture/05_action_and_tools/` with the current model and rationale.
@@ -311,6 +335,9 @@ Exit: every independent claim in these chapters has a current reason and histori
 ### 03c. Audit rationale coverage in chapters 07 through 10
 
 Apply the same decision-level review to chapters 07 through 10.
+Assess `R-ARTIFACT-01`'s open Q4 on an attention boundary: establish a distinct current requirement
+with evidence, place the concern under an existing requirement, or retain it as an unanswered research
+question outside the current model before step 04b removes open-question prose.
 
 Exit: every independent claim in these chapters has a current reason and historical support.
 
@@ -375,8 +402,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02h reviewed all four files in `docs/agent-architecture/03_context_engine/`. Context selection, indexing, retrieval, and token budgeting map to existing work-unit boundary and delegated-check requirements. No independent SDLC decision emerged. File-level dispositions are recorded above.
-Evidence: all four context files resolve in `docs-history-2026-09-24`. Their general claims were compared with snapshot chapters 09 and 12 and with `R-UNIT-01` and `R-AGENTIC-01`. Product-specific prompt, index, retrieval, and compaction methods remain historical implementation evidence.
-Changed files: this plan only. Dirty files: none after this packet's commit.
-Verification state: step 02h complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02i by comparing `docs/agent-architecture/04_memory/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific memory methods as historical evidence.
+Completed scope: step 02i reviewed all four files in `docs/agent-architecture/04_memory/`. Their memory mechanisms map to the current artifact and reflect requirements. `R-ARTIFACT-01` now cites the tagged persistence-versus-recall contrast; file-level dispositions are recorded above.
+Evidence: all four memory files resolve in `docs-history-2026-09-24`. The source distinctions were compared with snapshot chapter 10 and `R-ARTIFACT-01`, `R-LOOP-02`, and `R-ARTIFACT-03`. Q4's possible attention boundary remains open and is assigned to step 03c, not silently admitted as a new model decision.
+Changed files: `docs/RATIONALE.md` and this plan. Dirty files: none after this packet's commit.
+Verification state: step 02i complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02j by comparing `docs/agent-architecture/05_action_and_tools/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific tool methods as historical evidence.

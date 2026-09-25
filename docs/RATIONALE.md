@@ -347,6 +347,11 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   outlives the beat that produced it.
 - **Governs.** `docs/snapshot/10-artifacts.md`.
 - **Trace.** `sdlc-canvas/02-elements-flow-circuit-artifacts.md` §9.
+- **Evidence.** Historical implementation contrast: `docs-history-2026-09-24:docs/agent-architecture/04_memory/episodic_memory.md`
+  records durable action history alongside strategy reflections lost on restart;
+  `docs-history-2026-09-24:docs/agent-architecture/04_memory/persistent_memory.md` records filesystem
+  instructions that survive sessions but may be truncated when loaded. Storage and recall are separate
+  concerns; these examples do not settle the attention-boundary question below.
 - **Open.** Whether the agent context window is a *third* boundary — an **attention** boundary, where a
   fact is explicit and even in memory but cannot be attended to — is Q4 in `ROADMAP.md` §8.
 
