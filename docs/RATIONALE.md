@@ -68,7 +68,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   the dependencies and duration assumptions needed for a delivery forecast. Each mechanism answers a
   different uncertainty.
 - **Applies to.** `docs/snapshot/01-system-at-a-glance.md`,
-  `docs/snapshot/02-destination-four-properties.md`, `docs/snapshot/07-lifecycle.md`.
+  `docs/snapshot/02-destination-four-properties.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
+  `docs/snapshot/07-lifecycle.md`.
 - **Evidence.** Historical support:
   `docs-history-2026-07-30:sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`,
   schedule caveat; `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.10.
@@ -192,13 +193,14 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 ### <a id="r-loop-02"></a>R-LOOP-02 · `reflect` is the loop's only backward channel
 
 - **Decision.** `reflect` is a forced MUST-HAVE beat and the loop's **only** backward channel; its
-  artifact is existence-gated.
+  required evidence is existence-gated at the accountable work unit.
 - **Why.** Every other beat moves the work forward. Without `reflect`, a failed `check` can only repeat
   the same attempt, so the loop cannot converge — it oscillates. Convergence is what `reliable`
   *is*, so removing `reflect` removes the property.
 - **Governs.** `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`,
   `docs/snapshot/10-artifacts.md`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.5.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.5.
+  [R-GATE-04](#r-gate-04) supplies the current accountable-unit attachment point.
 
 ### <a id="r-loop-03"></a>R-LOOP-03 · `observe` must own a real sensor
 
@@ -207,14 +209,14 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** `check` covers what was anticipated at `define` time. Stones #5 and #6 guarantee that reality
   supplies conditions nobody anticipated, so a loop with no sensor cannot discover them, and `analyze`
   has nothing to reason over. The sensor is what makes the envelope-properties observable at all.
-- **Governs.** `docs/snapshot/05-elements.md`, `docs/snapshot/11-hard-gates-vs-graded.md`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.6.
+- **Governs.** `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`,
+  `docs/snapshot/11-hard-gates-vs-graded.md`.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.6.
 
 ### <a id="r-loop-04"></a>R-LOOP-04 · Ceremony is proportional insurance
 
-- **Decision.** The loop is a **fractal**: every element is itself the same loop, and a beat **collapses
-  toward bare `do`** wherever its stone is absent. A named seam gate and required evidence at the
-  accountable work unit remain in force.
+- **Decision.** A beat **collapses toward bare `do`** wherever its forcing stone is absent. A named
+  seam gate and required evidence at the accountable work unit remain in force.
 - **Why.** Ceremony is insurance against a specific hazard. Where the hazard is absent the premium buys
   nothing, and a model that demanded full ceremony everywhere would be self-refuting: it would spend the
   finite resources that stone #2 says are scarce. The collapse rule is what makes the ideal *affordable*
@@ -222,6 +224,44 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Applies to.** `docs/snapshot/06-fractal.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`
   §10.7, the inward base case. [R-GATE-04](#r-gate-04) sets the gate's attachment point.
+
+### <a id="r-loop-06"></a>R-LOOP-06 · The same loop nests across scope and within elements
+
+- **Decision.** The four beats recur outward in each part that `design` carves and inward when an
+  element's own work needs a target, check, and reflection. An inner loop escalates to its parent.
+  Beats are scale-invariant; the named elements staff the outermost SDLC loop.
+- **Why.** Decomposing work does not remove hidden intent, error, uncertainty, or finite resources
+  from its parts. A second control shape at each scale would duplicate the response to those stones.
+  Applying the same shape to an element's output makes its own failure and escalation checkable.
+- **Applies to.** `docs/snapshot/05-elements.md`, `docs/snapshot/06-fractal.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`
+  §5. [R-LOOP-04](#r-loop-04) governs when the inward loop may collapse.
+
+### <a id="r-element-01"></a>R-ELEMENT-01 · Elements staff beats without duplicating their work
+
+- **Decision.** The outermost loop uses `specify`, `scope`, and `design` to define; `implement` to do;
+  `verify` and `observe` to check; and `analyze` and `decide` to reflect. `design` owns decomposition;
+  a separate `decompose` element adds no output. `implement` is the licensed base-act exception to
+  the stone-response self-test.
+- **Why.** Each control element has a distinct job forced by a stone. `decompose` would repeat
+  `design`'s output and own no separate artifact. The build itself is the operand being controlled,
+  so demanding that it defend a stone would misapply the self-test.
+- **Applies to.** `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md`
+  §6 and `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10.
+
+### <a id="r-repertoire-01"></a>R-REPERTOIRE-01 · Escalation and in-place responses are cross-cutting
+
+- **Decision.** `escalate`, `degrade`, `recover`, and `roll back` are responses available from
+  `reflect` at different scopes; none is a fifth beat. Escalation hands the problem upward, while
+  the other responses trade completeness, spare capacity, or newness to keep operation viable.
+- **Why.** A failed check may need a response besides another build attempt. That choice depends on
+  the failure and scope, so hard-wiring a response as a sequential beat would misstate the loop.
+  Escalation changes who decides; the other moves preserve service within the current scope.
+- **Applies to.** `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/08-repertoires.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`
+  §4 and `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §6.
+  [R-ARTIFACT-02](#r-artifact-02) explains the change-axis role of rollback.
 
 ### <a id="r-loop-05"></a>R-LOOP-05 · `implement` is the base act, `release` is a seam
 
@@ -232,7 +272,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** The self-test asks which stone forces each element. Applied to `implement` it has no answer,
   because `implement` is not a *response* to a hazard — it is the thing the responses are about. Marking
   it as the licensed exception keeps the self-test sharp everywhere else.
-- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/07-lifecycle.md`,
+- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
+  `docs/snapshot/05-elements.md`, `docs/snapshot/06-fractal.md`, `docs/snapshot/07-lifecycle.md`,
   `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10.
 
@@ -263,7 +304,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** Compatible wiring cannot establish that the contracts describe the right whole. Naming C
   prevents a green stub check from being mistaken for proof of the parent target. The three premises
   keep distinct failure causes and evidence paths visible before implementation and integration.
-- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
+- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/09-mechanism-of-done.md`,
+  `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E2; earlier design bet: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`.
 - **Superseded.** "Green stubs discharge the implication" and a two-premise account that omitted
@@ -336,7 +378,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   contradict the collapse rule and consume resources without a demonstrated detection need. Debug
   sampling can serve diagnosis; audit evidence must preserve the required accountable events. Neither
   an aggregate coverage score nor the presence of a log proves the detection contract is met.
-- **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/13-appendices.md`.
+- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/11-hard-gates-vs-graded.md`,
+  `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E7; earlier seam argument: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.9.
   `docs-history-2026-09-24:docs/agent-architecture/07_permissions_and_governance/audit_and_observability.md`

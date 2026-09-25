@@ -1,6 +1,6 @@
 ## 6. The fractal: one shape at every scale
 
-<sup>[↪ Why](#r-loop-04)</sup>
+<sup>[↪ Why](#r-loop-06)</sup>
 
 **What it is.** The loop is not a top-level ceremony with different machinery underneath. It is a
 **fractal**: the same `define → do → check → reflect` shape repeats **in both directions** —
@@ -22,7 +22,7 @@ relabelling four blank boxes `define/do/check/reflect` *asserts* the inward clai
 answers the sharp question their concreteness invites: **is all of this mandatory, or does the ceremony
 collapse when it would cost more than it saves?**
 
-> ▸ **Chart — "The fractal — one shape, every scale"** <sup>[↪ Why](#r-loop-04)</sup> · *L2 · scaling.* The scope nesting (top); any
+> ▸ **Chart — "The fractal — one shape, every scale"** <sup>[↪ Why](#r-loop-06)</sup> · *L2 · scaling.* The scope nesting (top); any
 > scope expanding into the four beats (middle); any beat or element expanding into its own four-beat loop
 > (bottom). Escalation runs upward to independent review or accountable authority; a dashed exit runs to *bedrock* — a leaf so certain it
 > collapses to bare `do` (the base case, §6.4).
@@ -77,7 +77,7 @@ collapse when it would cost more than it saves?**
 
 ### 6.1 The move, stated once — and where it stops
 
-<sup>[↪ Why](#r-loop-04)</sup>
+<sup>[↪ Why](#r-loop-06)</sup>
 
 Addressing any element is a loop because the element has its own hidden target, its own way to be wrong,
 and its own finite budget — the same stones, one scale down. Two facts make the inner loop more than a
@@ -113,18 +113,18 @@ a loop). That base case — and when a loop may collapse *early* — is §6.4.
 
 ### 6.2 Example 1 — Feature A: rate limiting (a graded feature)
 
-<sup>[↪ Why](#r-loop-04)</sup>
+<sup>[↪ Why](#r-loop-06)</sup>
 
-**The feature.** Protect a public API so no client can exhaust it, while legitimate bursts still
+**The feature.** Protect a public API's hot write routes from exhaustion, while legitimate bursts still
 succeed. The outer loop, concretely: `define` = "≤600 req/min per key, bursts still pass, over-limit →
-`429` + `Retry-After`"; `do` = a token-bucket over Redis counters; `check` = a load test plus production
-telemetry (0.2% of *legitimate* traffic is being throttled); `reflect` = the loop won't converge — the
-false-positive rate is too high.
+`429` + `Retry-After`"; `do` = a fixed-window counter in Redis; `check` = a load test plus production
+telemetry (some clients exceed the intended limit across window boundaries); `reflect` = the loop won't
+converge — the boundary lets over-budget traffic through.
 
 Now open every element. The chart shows the skeleton and names each element's inner loop; the table that
 follows *is* the full expansion — every row is a complete `define → do → check → reflect`.
 
-> ▸ **Chart — "Feature A — rate limiting, every element opened"** <sup>[↪ Why](#r-loop-04)</sup> · *L2 · concrete.* The four beats,
+> ▸ **Chart — "Feature A — rate limiting, every element opened"** <sup>[↪ Why](#r-loop-06)</sup> · *L2 · concrete.* The four beats,
 > staffed by the eight elements with their real jobs. Each element is itself a loop (detailed in the
 > table); `reflect`'s two elements are opened fully in the next chart.
 
@@ -139,14 +139,14 @@ follows *is* the full expansion — every row is a complete `define → do → c
     {"id":"define","label":"define — the limit target","group":"beat","x":0,"y":0},
     {"id":"do","label":"do — build the limiter","group":"beat","x":300,"y":0},
     {"id":"check","label":"check — measure it","group":"beat","x":600,"y":0},
-    {"id":"reflect","label":"reflect — it won't converge","group":"beat","x":900,"y":0},
+    {"id":"reflect","label":"reflect — boundary bypass","group":"beat","x":900,"y":0},
     {"id":"specify","label":"specify · elicit 429 + burst rule","group":"element","x":-20,"y":100},
     {"id":"scope","label":"scope · 3 hot write routes","group":"element","x":-20,"y":175},
-    {"id":"design","label":"design · 4 parts + fail-open","group":"element","x":-20,"y":250},
-    {"id":"implement","label":"implement · token-bucket (TDD)","group":"element","x":300,"y":100},
-    {"id":"verify","label":"verify · load + window-edge test","group":"element","x":600,"y":100},
+    {"id":"design","label":"design · 4 parts + outage rule","group":"element","x":-20,"y":250},
+    {"id":"implement","label":"implement · fixed-window (TDD)","group":"element","x":300,"y":100},
+    {"id":"verify","label":"verify · load; edge missed","group":"element","x":600,"y":100},
     {"id":"observe","label":"observe · throttle telemetry","group":"element","x":600,"y":175},
-    {"id":"analyze","label":"analyze · diagnose the misfires","group":"element","x":900,"y":100},
+    {"id":"analyze","label":"analyze · diagnose excess traffic","group":"element","x":900,"y":100},
     {"id":"decide","label":"decide · deliberate the exit","group":"element","x":900,"y":175},
     {"id":"authority","label":"independent review / authority","group":"terminal","x":1180,"y":40}
   ],
@@ -172,16 +172,16 @@ follows *is* the full expansion — every row is a complete `define → do → c
 |---|---|---|---|---|
 | `specify` | a complete, testable limit rule | draft "≤600/min per key; bursts ≤20/2s pass; over → `429` + `Retry-After`" | review vs realities: shared NAT, auth vs anon, retries — is "client" an IP or a key? | ambiguity → re-target to "per API key"; else accept; escalate to the PO |
 | `scope` | the coherent slice that fits budget | limit the 3 hottest write routes; defer per-IP anon + distributed quota | is the slice coherent and the abuse surface covered? | too thin → redraw; accept; escalate for budget |
-| `design` | parts + contracts that compose to the target | {policy store · Redis counters · middleware · `429` responder}; fail-open on Redis-down | stub-composition (§9.1): do the stubs wire? is Redis-down covered? | seam gap → re-decompose; survive → suspend Premise A/B; escalate |
-| `implement` | the unit contract: "21st in window → `429`" | write the token-bucket | run the unit test | fail → fix; pass → accept; escalate if it can't pass — *this is where recursion bottoms out* |
+| `design` | parts + contracts that compose to the target | {policy store · Redis counters · middleware · `429` responder}; fail-closed on Redis-down | stub-composition (§9.1): do the stubs wire? is Redis-down covered? | seam gap → re-decompose; survive → keep Premises A/B/C open; escalate <sup>[↪ Why](#r-done-01)</sup> |
+| `implement` | the unit contract: "601st in minute → `429`" | write the fixed-window counter | run the unit test | fail → fix; pass → accept; escalate if it can't pass — *this is where recursion bottoms out* |
 | `verify` | evidence that we built the spec | unit + integration + load test | does the evidence cover the **window edge**? — *initially no* | blind spot → add an edge test; accept; escalate |
-| `observe` | a run-time signal reality matched the model | emit `throttled_total{key,outcome}`, false-positive rate on legit traffic | is the "legit vs abuse" label trustworthy? | signal lies → re-instrument; accept; escalate |
-| `analyze` | an explanation for *every* false throttle | hypothesis: fixed-window edge bursts | 429s vs time-in-window → 2× at the edges | cause found → hand to `decide`; else new hypothesis; escalate |
+| `observe` | a run-time signal reality matched the model | emit allowed/throttled counts per key and window-boundary traffic | can the signal identify excess requests across adjacent windows? | signal lies → re-instrument; accept; escalate |
+| `analyze` | an explanation for over-budget traffic | hypothesis: fixed-window edge bursts | adjacent windows admit nearly 2× the intended minute budget | cause found → hand to `decide`; else new hypothesis; escalate |
 | `decide` | pick the exit fitting ≤2 tries, min cost | weigh {accept + document · switch → sliding-window · escalate for per-user infra} | pre-mortem sliding-window: +8% memory — acceptable | commit re-target(`design`); reconsider; **escalate ↑ = the outer loop's escalate** |
 
 **Two rows repay a second look.** `verify`'s inner `check` is a *check on the check*: the first load
 test passed, but never exercised the **window edge** — so "verified" was a proxy that missed the real
-risk (Goodhart, §9). That untested edge is exactly what `observe` later catches in production and what
+risk (Goodhart, §9). That untested edge is exactly where `observe` later catches excess traffic and what
 `analyze` then root-causes. And because `reflect` is where the loop's thinking lives, it is worth seeing
 fully opened:
 
@@ -199,7 +199,7 @@ fully opened:
   "zoomIn": ["When the loop collapses — is the ceremony a must?"],
   "nodes": [
     {"id":"analyze","label":"analyze (a diagnosis loop)","group":"element","x":0,"y":0},
-    {"id":"a_def","label":"define · explain all misfires","group":"beat","x":250,"y":0},
+    {"id":"a_def","label":"define · explain excess traffic","group":"beat","x":250,"y":0},
     {"id":"a_do","label":"do · hyp: window-edge bursts","group":"beat","x":520,"y":0},
     {"id":"a_chk","label":"check · 2× at the edge","group":"beat","x":790,"y":0},
     {"id":"a_ref","label":"reflect · cause found / new hyp","group":"beat","x":1060,"y":0},
@@ -296,7 +296,7 @@ checks must ask and, decisively, removes `decide`'s freedom to skip them.
 | `design` | parts + contracts composing to *secure* reset | {request · token issue+store (hashed, TTL) · ESP delivery · verify+set · session-invalidation}; **equal response *and* timing** whether the email exists | stub + **security** composition: is a forbidden output (an enumeration signal, incl. timing) reachable at any seam? (§9.3) | timing leak → analyze the failed assumption, then re-decompose if design omitted the path; survive; escalate — green checks do not prove a true leaf |
 | `implement` | CSPRNG token; hashing; endpoint contracts | write it | unit tests | fail → fix; pass → accept; escalate — bottoms out at code |
 | `verify` | evidence we built it *securely* — cover the abuse paths | reused-token, expired-token, enumeration-timing tests + security review | did we test the **timing side-channel** and token reuse? — *blind spot: timing untested* | add the timing test; do not accept while forbidden-output reachability is unknown (§11); escalate |
-| `observe` | run-time attack + delivery signals | reset-request / completion rate, token-reuse attempts, bounce/spam via ESP webhooks | is deliverability observable and are reuse-attempts captured? | blind → add webhooks; skipping this sensor is *machinery-degrading* → hard gate; escalate |
+| `observe` | run-time attack + delivery signals | reset-request / completion rate, token-reuse attempts, bounce/spam via ESP webhooks | is deliverability observable and are reuse-attempts captured? | blind → add webhooks; retain the named token-reuse signal where silent abuse is non-local; escalate <sup>[↪ Why](#r-gate-02)</sup> |
 | `analyze` | explain the low (68%) completion | hypothesis: reset emails land in spam | seed-inbox + ESP spam-score → DKIM ok, domain reputation low | cause found → `decide`; else new hypothesis; escalate |
 | `decide` | pick the exit fitting budget | weigh {accept + "check spam / resend" UI · warm a dedicated sending subdomain · escalate for budget} | pre-mortem: the UI helps now but isn't the fix; the subdomain needs a 2-week warm-up | **split**: accept-now (UI) **and** escalate-the-fix (subdomain) — one `reflect`, two exits |
 
@@ -305,7 +305,7 @@ check is no longer "do the parts wire up?" but "is a *forbidden output* reachabl
 `verify`'s inner `reflect`, on finding the untested timing channel, **cannot take the `accept` exit** until
 the defined forbidden-output check passes (§9.3, §11).
 
-> ▸ **Chart — "Feature B — design & verify against an adversary"** <sup>[↪ Why](#r-apex-02)</sup> · *L3 · inside two elements.*
+> ▸ **Chart — "Feature B — design & verify against an adversary"** <sup>[↪ Why](#r-gate-01)</sup> · *L3 · inside two elements.*
 > `design`'s inner `check` is a security composition test against the forbidden-output wall (§9.3);
 > `verify`'s inner `reflect` finds the untested timing channel; the defined forbidden-output check must
 > pass before this work unit can accept (§11).
@@ -351,8 +351,9 @@ the defined forbidden-output check passes (§9.3, §11).
 > **⟐ Under autonomy.** Feature A and Feature B run the identical machine; the only difference is which
 > inner `accept` exits still exist. An autonomous executor optimising for cost will try to *collapse* the
 > expensive inner loops — the timing test, the reuse sensor — precisely the ones with no immediate
-> payoff. Those are exactly the ones §11 marks non-waivable. Reducibility (next) is safe for a graded
-> feature and lethal at a gate.
+> payoff. Those are exactly the defined checks and signals §11 marks non-waivable for this work unit.
+> Reducibility (next) is safe for a graded target and cannot waive a gate.
+> <sup>[↪ Why](#r-agentic-01)</sup> <sup>[↪ Why](#r-gate-01)</sup>
 
 ---
 
@@ -370,7 +371,7 @@ is pure cost. So a loop may **collapse toward bare `do`** exactly as its stones 
 | define · `scope` | finite (#2) | the whole fits the budget uncut | — |
 | define · `design` | complexity (#3) | the work is atomic — one step, no parts | — |
 | do · `implement` | — (the base act) | *never* — it **is** the work | — |
-| check · `verify` | we err (#4) | the step is provably correct / cheap to redo | a **hard gate**: the violation is non-local (§11) |
+| check · `verify` | we err (#4) | the step is provably correct / cheap to redo | a **hard gate**: the violation is non-local or outside authority requires a check (§11) |
 | check · `observe` | uncertainty (#6) | reality is fully modelled — no residue | a required sensor at the accountable work unit or a gated seam must remain |
 | reflect · `analyze` | we err (#4) | it converged on the first try — no gap | **non-convergence**: a hidden stone → re-expand |
 | reflect · `decide` | finite (#2) | exactly one exit is possible | required decision evidence at the accountable work unit must remain |
@@ -383,24 +384,24 @@ Two independent base cases bound the recursion, on the model's two axes:
   certain, atomic, cheap-to-redo step is the inward leaf — bare `do`, no `check`, no `reflect`.
 
 > ▸ **Chart — "When the loop collapses — is the ceremony a must?"** <sup>[↪ Why](#r-loop-04)</sup> · *L3 · reducibility.* Per node: if
-> the forcing stone is absent, collapse to bare `do` — *unless* a violation would be non-local (a hard
-> gate, §11), or a "trivial" step keeps failing (a hidden stone — re-expand). Outward depth stops
-> separately, at a checkable leaf (§9).
+> the forcing stone is absent, collapse to bare `do` — unless harm is non-local, outside authority
+> requires a gate, or a "trivial" step keeps failing (a hidden stone — re-expand). Outward depth stops
+> separately, at a checkable leaf (§9). <sup>[↪ Why](#r-gate-01)</sup>
 
 ```pipeline-graph
 {
   "title": "When the loop collapses — is the ceremony a must?",
   "level": "L3 · reducibility",
-  "summary": "Per node: if the forcing stone is absent, collapse toward bare do — unless a single violation would be non-local (a hard gate, §11), or a trivial-looking step keeps failing (a hidden stone — re-expand). Outward depth stops separately at a checkable leaf (§9).",
+  "summary": "Per node: if the forcing stone is absent, collapse toward bare do — unless harm is non-local, outside authority requires a gate (§11), or a trivial-looking step keeps failing (a hidden stone — re-expand). Outward depth stops separately at a checkable leaf (§9).",
   "zoomOut": "The fractal — one shape, every scale",
   "zoomIn": ["Hard gate or graded target?", "Done propagation"],
   "nodes": [
     {"id":"term","label":"outward: depth stops at a checkable leaf (§9)","group":"property","x":360,"y":-120},
     {"id":"node0","label":"then, per node: its target","group":"beat","x":360,"y":0},
     {"id":"q1","label":"is the forcing stone ABSENT here?","group":"terminal","x":360,"y":110},
-    {"id":"collapse","label":"collapse → bare `do`","group":"element","x":110,"y":235},
+    {"id":"collapse","label":"candidate: collapse → bare `do`","group":"element","x":110,"y":235},
     {"id":"keep","label":"keep the full loop","group":"beat","x":680,"y":235},
-    {"id":"but","label":"before skipping: is a violation NON-LOCAL? (§11)","group":"terminal","x":110,"y":350},
+    {"id":"but","label":"before skipping: non-local harm or outside gate? (§11)","group":"terminal","x":110,"y":350},
     {"id":"gate","label":"HARD GATE — accept deleted, can't skip","group":"property","x":-80,"y":470},
     {"id":"ok","label":"safe: proportional skip","group":"element","x":300,"y":470},
     {"id":"nonconv","label":"a 'trivial' step keeps failing","group":"stone","x":680,"y":350},
@@ -423,8 +424,8 @@ Two independent base cases bound the recursion, on the model's two axes:
 **The decision to collapse is itself a `decide`.** You are weighing the cost of the ceremony against
 `P(undetected error) × cost(error)` — insurance against a risk. Skip the premium when the covered loss is
 small or improbable; this is the same shape as §9.2's *tightest-sufficient* contract: pay just enough to
-admit the required realities, no more. Feature A collapses freely — the token-bucket `implement` bottoms
-out in a single unit test, and `scope` barely loops.
+admit the required realities, no more. Feature A can collapse its local implementation loop: the
+fixed-window counter bottoms out in a unit test, and `scope` barely loops.
 
 **Two overrides limit collapse** (§11):
 

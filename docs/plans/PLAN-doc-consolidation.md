@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `03a` complete
-Next step: `03b`
+Current step: `03b` complete
+Next step: `03c`
 
 ## Objective
 
@@ -451,6 +451,23 @@ Apply the same decision-level review to chapters 04 through 06.
 
 Exit: every independent claim in these chapters has a current reason and historical support.
 
+Completed in this packet:
+
+- Chapter 04's loop anatomy reuses `R-LOOP-01` and assigns the cross-cutting responses to
+  `R-REPERTOIRE-01`, with precise links for the base act, the runtime
+  sensor, non-convergence, and the delegated escape hatch. Its boundedness claim now assigns only
+  cost control to the attempt cap; `R-APEX-04` covers output contracts and schedule bets separately.
+- Chapter 05's outer element roster and the `decompose` fold have their own decision,
+  `R-ELEMENT-01`. The prose states the `implement` exception; the time bridge points to
+  `R-ARTIFACT-02`, and `decide` includes escalation.
+- Chapter 06 separates the fractal's reuse of one control shape (`R-LOOP-06`) from proportional
+  collapse (`R-LOOP-04`). The rate-limit example now has a consistent fixed-window failure and
+  keeps design premises A/B/C open after a green stub check. The password-reset sensor is gated
+  only at a named non-local seam, under `R-GATE-02`.
+
+All three new reasons resolve to `docs-history-2026-07-30` sources. The checker resolves every added
+link; current historical support for `R-LOOP-02` and `R-LOOP-03` now cites the tag explicitly.
+
 ### 03c. Audit rationale coverage in chapters 07 through 10
 
 Apply the same decision-level review to chapters 07 through 10.
@@ -521,8 +538,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 03a audited prose, tables, and charts in snapshot chapters 00 through 03 against the rationale ledger. One distinct decision, predictability's three mechanisms, gained `R-APEX-04`; existing IDs were linked more precisely. The bedrock prose now respects `implement`'s base-act exception.
-Evidence: the added predictability reason is supported by `docs-history-2026-07-30:sdlc-canvas/00-framing.md` §2 and `03-mechanism-of-done.md` §10.10. Tagged histories also support the clarified apex, loop, and base-act entries. Chapter 00's transitional authority and freeze claims remain assigned to steps 04a–04b.
-Changed files: snapshot chapters 01, 02, and 03; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 03a complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 03b by auditing independent decisions in snapshot chapters 04 through 06 against the rationale ledger. Reuse existing IDs, add only missing reasons, and verify links and tagged support.
+Completed scope: step 03b audited prose, tables, and charts in snapshot chapters 04 through 06 against the rationale ledger. Three distinct decisions gained `R-LOOP-06` (fractal reuse), `R-ELEMENT-01` (outer element staffing and no separate decomposition), and `R-REPERTOIRE-01` (cross-cutting responses). Existing IDs now point to the precise predictability, sensor, base-act, hard-gate, and delegation reasons. The rate-limit example's algorithm and failure now agree.
+Evidence: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` §5 supports the fractal; `02-elements-flow-circuit-artifacts.md` §6 and `03-mechanism-of-done.md` §10.10 support the element roster and base-act exception. `03-mechanism-of-done.md` §§10.5–10.7 support the reflect, sensor, and collapse entries.
+Changed files: snapshot chapters 04, 05, and 06; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 03b complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain assigned to later packets.
+Exact next action: start step 03c by auditing independent decisions in snapshot chapters 07 through 10 against the ledger. Assess `R-ARTIFACT-01`'s open attention-boundary Q4 as the step requires, then verify links and tagged support.

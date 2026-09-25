@@ -19,12 +19,13 @@ you ship. The loop is not one choice among many; it is what these facts jointly 
   sets the boundary (how much / which items), and `specify` sets correctness (what's right), across the
   whole set of realities the work must serve.
 - **Do (build).** Execute — produce the artifact the target described. This beat is pure construction;
-  all the judgement lives in the beats around it.
+  all the judgement lives in the beats around it. <sup>[↪ Why](#r-loop-05)</sup>
 - **Check (measure).** Compare the result against the target. `check` is **graded, not binary**: it
   measures *how well* on a quality range — using a real metric where one exists, or a **proxy** (a
   stand-in measurement, like test coverage for "well-tested") where the true quality can't be measured
   directly — and asks whether the measurement clears the threshold. It happens at **build time**
   (`verify`) and at **run time** (`observe`), and those two are not interchangeable (Chapter 5).
+  <sup>[↪ Why](#r-loop-03)</sup>
 - **Reflect (close the loop).** The thinking beat. It **analyzes** — frames the problem ("the loop
   can't converge") and root-causes it — and then **decides** among three exits:
   - **accept** the gap as a known issue (stop here — the bounded, predictable exit);
@@ -36,16 +37,19 @@ you ship. The loop is not one choice among many; it is what these facts jointly 
 - **Non-convergence is information, not just failure.** If honest tries keep missing, suspect the
   *target* (the spec), not only the build. A loop that won't converge is often pointing at a wrong
   definition of done — so `reflect` escalates *up*, toward re-defining, rather than grinding *down* on
-  the build.
-- **The loop is bounded, and boundedness is where predictability comes from.** "A few tries, then
-  stop" is what makes cost and timing foreseeable. `decide`'s *accept* exit is the stop.
+  the build. <sup>[↪ Why](#r-loop-02)</sup>
+- **The loop is bounded, which constrains cost.** A cap on attempts and a budget keep this work unit's
+  expenditure finite. `decide`'s *accept* exit is one way to stop; an exhausted budget can instead
+  escalate. Output contracts and an aggregate schedule bet address outcome and delivery timing
+  separately. <sup>[↪ Why](#r-apex-04)</sup>
 
 **The escape hatch.** Escalation moves to an independent judge or an accountable authority outside the
 current loop. A human takes the decision when it requires human accountability, value judgment, or
 exceptional authority. Under delegation, an independent check can also come from evidence or a method
 whose errors differ from the doer's (Chapter 12).
+<sup>[↪ Why](#r-agentic-01)</sup>
 
-> ▸ **Chart — "The unit loop, fully staffed"** <sup>[↪ Why](#r-loop-01)</sup> · *L2 · the atom.* The four beats across the top; the
+> ▸ **Chart — "The unit loop, fully staffed"** <sup>[↪ Why](#r-loop-01)</sup> <sup>[↪ Why](#r-element-01)</sup> <sup>[↪ Why](#r-repertoire-01)</sup> · *L2 · the atom.* The four beats across the top; the
 > elements that staff each beat below them; the cross-cutting repertoire along the bottom; the dashed
 > `re-target` edge closing the loop. Chapter 5 walks the elements one by one.
 
@@ -96,5 +100,6 @@ whose errors differ from the doer's (Chapter 12).
 > **⟐ Under autonomy.** The dashed `reflect` escalation in the fractal chart must lead beyond the
 > executor's own judgment. It may reach an independent check or accountable authority. A human remains
 > responsible where the decision needs human accountability, values, or exceptional authority.
+> <sup>[↪ Why](#r-agentic-01)</sup>
 
 ---
