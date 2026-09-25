@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `03d` complete
-Next step: `04a`
+Current step: `04a` complete
+Next step: `04b`
 
 ## Objective
 
@@ -564,6 +564,21 @@ Rename the model to "Current SDLC reference model" in its title and introduction
 
 Exit: the title and opening chapters describe the current model without promising universal completeness.
 
+Completed in this packet:
+
+- The title in chapter 00, the snapshot manifest, and the design viewer is **Current SDLC reference
+  model**. Chapter 00 now states the work-unit scope, accountable decision and evidence assumptions,
+  and the bedrock admission test. It separates a concrete-stack audit from the reference model under
+  `R-METHOD-02`, whose current decision and tagged trace now match this scope.
+- Chapters 01–03 now describe the four properties, feedback loop, and hazard taxonomy as this
+  model's current, pressure-tested choices. They no longer infer universal necessity or a closed
+  count from the model's self-test. The opening charts and glossary-facing descriptions use the same
+  bounded language, and the reflexivity example no longer assumes that a similar checker must make
+  the same error. `R-BEDROCK-01`, `R-UNIT-01`, and the existing apex/loop entries support the claims.
+- Chapter 00's introductory freeze claim was removed because it directly contradicted the current
+  title. The manifest's old `asOf` field, the four-source precedence table, and Appendix C/D's
+  historical maintenance prose remain explicitly assigned to 04b; they are not model assumptions.
+
 ### 04b. Remove historical and maintenance prose from the model
 
 Remove roadmap language, review state, open questions, priorities, iteration notes, freeze dates, duplicated chapter and chart totals, and claims that depend on a parallel document. Move the short serving and editing procedure from Appendix D to `README.md`. Keep the diagram data format discoverable through working examples and the structural checker.
@@ -619,8 +634,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 03d audited chapters 11 and 12 plus Appendix A/B's normative definitions and matrix. Gate examples, autonomous review, and glossary claims now match their reasons. Appendix C/D's historical maintenance prose is classified for 04b, not treated as current model content.
-Evidence: `R-GATE-01/02/03/04`, `R-BEDROCK-01/03/04/06`, `R-AGENTIC-01`, and the contract, schedule, artifact, and repertoire entries cite tagged July and September sources. The 46-ID census found no duplicates or unreferenced IDs; nine entries have only roadmap locations and are assigned to step 05 reconciliation.
-Changed files: snapshot chapters 11 through 13; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 03d complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical maintenance prose remain assigned to 04a/04b.
-Exact next action: start step 04a. State the model's scope, assumptions, and admission criteria in the title and opening chapters; remove unsupported universal claims there, verify, and checkpoint. Do not start 04b in the same turn.
+Completed scope: step 04a renamed the model in chapter 00, the manifest, and viewer; stated its work-unit scope, assumptions, and hazard admission criterion; and narrowed universal language in opening chapters 01–03. `R-METHOD-02` now records the reference-model versus concrete-audit boundary.
+Evidence: `R-BEDROCK-01` and tagged September E12 support the pressure-tested taxonomy; `R-UNIT-01` and tagged September E1 support the boundary and acceptance vector. The concrete-audit separation is preserved in tagged July framing and handoff sources.
+Changed files: snapshot chapters 00–03; `docs/snapshot.parts.json`; `sdlc-design.html`; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 04a complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The manifest's stale `asOf` value and historical prose are assigned to 04b.
+Exact next action: start step 04b. Remove historical/maintenance prose from the model, migrate the short serving and editing procedure to `README.md`, remove stale `asOf` and duplicated counts, and verify that the model reads without a parallel document. Do not start 05 in the same turn.

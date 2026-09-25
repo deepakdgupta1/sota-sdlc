@@ -85,7 +85,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   bundling rule cannot function as an identity criterion; it is a **self-test heuristic**. A count
   derived from a heuristic is a tested judgment, not a theorem. The criterion allows a candidate
   eleventh stone to be assessed on its facts and required response instead of excluding it by count.
-- **Governs.** `docs/snapshot/01-system-at-a-glance.md`, `docs/snapshot/03-bedrock.md`,
+- **Governs.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/01-system-at-a-glance.md`,
+  `docs/snapshot/03-bedrock.md`,
   `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
 - **Trace.** `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0` E12 ·
   `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
@@ -319,7 +320,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   be accepted. Mixing scope into a quality list hides exclusions and budget while omitting `secure`.
   Separating the two also makes propagation precise: a child inherits applicable constraints, not an
   identical set of targets regardless of its role.
-- **Applies to.** `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
+- **Applies to.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/02-destination-four-properties.md`,
+  `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E1. This records the accepted repair, not the original motivation for every target quality.
   `docs-history-2026-09-24:docs/ai_agent_evaluation_metrics_kpis_2026.md#segment-everything`
@@ -567,16 +569,15 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Governs.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/13-appendices.md#appendix-d-working-with-this-repository`.
 - **Trace.** `docs-history-2026-07-30:HANDOFF.md#2-file-map` — the seven-document map this replaces.
 
-### <a id="r-method-02"></a>R-METHOD-02 · The ideal stays uncontaminated: the concrete audit is descoped
+### <a id="r-method-02"></a>R-METHOD-02 · Keep the reference model separate from concrete audits
 
-- **Decision.** This derivation produces the **ideal MUST-HAVE** lifecycle — what any such lifecycle is
-  logically forced to contain. Auditing a *concrete* stack against the ideal was descoped at iteration
-  28 and is a separate exercise.
-- **Why.** Deriving the ideal while looking at an existing setup biases the derivation toward what that
-  setup already has: present practices get rationalised as forced, and absent ones get quietly omitted.
-  Keeping the audit out is what lets the ideal be used later as an actual measuring instrument.
+- **Decision.** This repository states a current SDLC reference model. Auditing a particular stack
+  against it is a separate exercise; the model does not claim a universally necessary lifecycle.
+- **Why.** Starting from one existing setup can bias the model toward its present practices and hide
+  missing controls. A separate audit can compare the setup with the model's stated assumptions,
+  pressure tests, and work-unit acceptance criteria without treating the model as a proof.
 - **Governs.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/13-appendices.md#appendix-c-the-snapshot-boundary-and-the-rationale-conventions`.
-- **Trace.** `sdlc-canvas/00-framing.md#-resume-instructions-read-first-on-a-fresh-context` ·
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/00-framing.md#resume-instructions-read-first-on-a-fresh-context` ·
   `docs-history-2026-07-30:HANDOFF.md#8-where-we-are-what-s-next`.
 - **Note.** The descoped audit is **not** a numbered canvas track. It was removed by decision, so it
   cannot be counted as track residue; it now sits in `ROADMAP.md` as Phase 2, run against our own

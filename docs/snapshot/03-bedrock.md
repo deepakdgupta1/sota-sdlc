@@ -2,13 +2,12 @@
 
 <sup>[↪ Why](#r-bedrock-01)</sup>
 
-**What it is.** First principles, literally: the unavoidable truths about reality that make software
-engineering hard. We call them **stones**. The model's control elements and repertoires answer these
-pressures; `implement` is the base act they govern, and concrete tools are implementation choices.
-<sup>[↪ Why](#r-loop-05)</sup> There are **eight** first-order stones (facts about the
-*problem*), plus **two** second-order stones (facts about the *solver* — about who staffs the loop) that
-activate only when the work is delegated or fully autonomous. The eight first-order stones are
-**pairwise-irreducible**: none is a special case of another.
+**What it is.** The model's current, pressure-tested hazard taxonomy. We call its admitted pressures
+**stones**. Its control elements and repertoires answer them; `implement` is the base act they govern,
+and concrete tools are implementation choices. <sup>[↪ Why](#r-loop-05)</sup> The current set has
+**eight** first-order stones (about the *problem*) and **two** conditional second-order stones (about
+the *solver* and staffing). The self-test treats them as distinct; it does not prove a closed or
+uniquely partitioned list.
 
 > **What kind of claim this is.** The bedrock is a **derived, pressure-tested hazard taxonomy with an
 > explicit admission criterion** — not a proof of exhaustiveness. A pressure earns a seat when it is a
@@ -79,16 +78,14 @@ and #7. It leaves a distinct need for timeouts, checkpoints, and resumption. The
 obligations, not evidence that either candidate is an irreducible brute fact. A case that meets the
 admission criterion would change this judgment. <sup>[↪ Why](#r-bedrock-03)</sup>
 
-9. **Reflexivity — the checker shares the doer's fault.** *(Second-order, conditional — it bites in an
-   automated, autonomous, multi-agent pipeline.)* The agents that staff `check` and `reflect` are the
-   same *kind* of erring agent as the doer (stone #4), so their errors are not independent — they are
-   **correlated**. A check is only worth the *new information* it adds beyond the doer's own belief; a
-   checker that shares the doer's blind spot is an **echo chamber** that adds zero information, and
-   "verify" quietly collapses into "declare." The property at stake is **independence** — the thing that
-   lets stacked checks drive error toward zero — and reflexivity is the brute fact that independence is
-   *never total* (even a formal proof only relocates the blind spot into the spec). It is irreducible to
-   "we err" (stone #4): #4 is the *marginal* fact — each agent errs; reflexivity is the *joint* fact —
-   their errors correlate. *Breach → an **echo-chamber** check; the forced response is independence.*
+9. **Reflexivity — the checker may share the doer's fault.** *(Second-order, conditional — relevant
+   when checking or reflection is delegated.)* A checker can use the same assumptions, method, or
+   evidence as the doer, so their errors can be **correlated**. A check is useful to the extent that
+   it adds information beyond the doer's report. A checker that repeats the same blind spot is an
+   **echo chamber**; more such checks do not establish the intended result. Even a formal proof still
+   depends on the specification. This differs from "we err" (stone #4): #4 concerns each actor's
+   errors, while reflexivity concerns the relationship between their errors. Seek evidence with
+   different failure modes. <sup>[↪ Why](#r-bedrock-03)</sup>
 
 10. **Incentive-divergence.** A persistent delegated party, such as a vendor, team, or contractor,
     can pursue its own payoff even when it knows the intended result. This differs from hidden intent
@@ -108,8 +105,8 @@ safeguards depend on the delegate: incentives for persistent parties, containmen
 non-persistent inference. An accountable principal owns the result in either case. Chapter 12 treats
 both branches in full.
 
-> ▸ **Chart — "The bedrock — ten forces"** <sup>[↪ Why](#r-bedrock-01)</sup> · *L1 · the forces.* Each stone on the left; the element
-> or repertoire it forces on the right. This is the "why" behind every part of the loop.
+> ▸ **Chart — "The bedrock — ten forces"** <sup>[↪ Why](#r-bedrock-01)</sup> · *L1 · the current
+> taxonomy.* Each admitted pressure is paired with the model response it motivates.
 
 ```pipeline-graph
 {
@@ -127,7 +124,7 @@ both branches in full.
     {"id":"uncertain","label":"6 · reality is uncertain","group":"stone","x":0,"y":400},
     {"id":"distributed","label":"7 · knowledge distributed & perishable","group":"stone","x":0,"y":480},
     {"id":"adversarial","label":"8 · adversarial actors","group":"stone","x":0,"y":560},
-    {"id":"reflexivity","label":"9 · reflexivity (2nd-order · autonomous)","group":"stone","x":0,"y":650},
+    {"id":"reflexivity","label":"9 · reflexivity (2nd-order · delegated)","group":"stone","x":0,"y":650},
     {"id":"incentives","label":"10 · incentive-divergence (2nd-order · delegated)","group":"stone","x":0,"y":730},
     {"id":"specify","label":"specify","group":"element","x":520,"y":0},
     {"id":"scope","label":"scope & decide","group":"element","x":520,"y":80},

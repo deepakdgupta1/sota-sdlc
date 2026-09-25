@@ -2,9 +2,10 @@
 
 <sup>[↪ Why](#r-apex-01)</sup>
 
-Before building anything, name what "good" means — because you cannot check work against nothing.
-A good SDLC produces **four distinct properties**, in **two families**. They are distinct because
-each guards against a *different* way the work can fail, and you can have any one without the others.
+Before building, name what "good" means for the accountable work unit. This model groups **four
+top-level properties** in **two families**. They describe distinct failure modes; the work unit sets
+the contexts and thresholds that make each property checkable. Named outcome qualities remain in its
+acceptance vector (§9). <sup>[↪ Why](#r-unit-01) · [↪ Why](#r-apex-03)</sup>
 
 ### The two families
 
@@ -25,7 +26,7 @@ each guards against a *different* way the work can fail, and you can have any on
 > <sup>[↪ Why](#r-apex-04)</sup>
 
 **Envelope-properties** are measured along a third axis — **how hard the context is × time.** They
-are the envelope that keeps the point-properties alive across the *whole range* of contexts, not just
+are the envelope that keeps the point-properties alive across the *specified range* of contexts, not just
 the easy one. The range has two very different sources of hardness, and each forces its own envelope:
 
 - **Resilient** — *withstands and recovers from **random** hardship.* Reality changes and reality is
@@ -68,8 +69,8 @@ Each property is independent of its family sibling — you can hold one and fail
   sitting behind an open authentication bypass. *Secure-but-fragile*: hardened and authorised on every
   request, but with no redundancy, so a single random outage kills it.
 
-Because each combination exists, none of the four reduces to another. All four must be produced on
-purpose.
+Because each combination exists, none of the four reduces to another. Keep all four visible when
+setting the work unit's acceptance vector; specify which contexts, thresholds, and qualities apply.
 
 ### Where other qualities belong
 

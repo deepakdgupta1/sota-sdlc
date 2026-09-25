@@ -2,17 +2,16 @@
 
 <sup>[↪ Why](#r-apex-01)</sup>
 
-**What it is.** The entire SDLC, compressed into one causal chain. Read it bottom-to-top:
+**What it is.** The current reference model, compressed into one causal chain. Read it bottom-to-top:
 
-> **brute facts about reality** &nbsp;→&nbsp; **one control loop** &nbsp;→&nbsp; **four loop behaviours**
+> **admitted pressures** &nbsp;→&nbsp; **a control loop** &nbsp;→&nbsp; **four loop behaviours**
 > &nbsp;→&nbsp; **four emergent properties** &nbsp;→&nbsp; **an evolve feedback that re-aims the whole thing.**
 
-**Why it exists — the key insight.** The four things we actually want from software — that it is
-**reliable, predictable, resilient, and secure** — cannot be *installed*. There is no "reliability
-module." They are **emergent**: they appear only as the *behaviour* of a system of feedback loops
-that is itself built from parts, each of which is a forced response to a brute fact. Change the
-brute facts and the whole machine would be different; because the brute facts are unavoidable, the
-machine's shape is forced.
+**Why it exists.** The model treats **reliable, predictable, resilient, and secure** as outcomes of
+feedback, not features a team can install separately. The loop sets a target, compares results with
+evidence, responds to failure, and carries learning forward. Its controls answer the current hazard
+taxonomy and the work unit's acceptance needs. Another admitted pressure could change the model's
+shape. <sup>[↪ Why](#r-bedrock-01)</sup>
 
 **How it works.** The chain has four links, each detailed in a later chapter:
 
@@ -23,8 +22,8 @@ machine's shape is forced.
    and the two second-order stones — reflexivity (#9, where a checker shares the doer's blind spot) and
    incentive-divergence (#10, where a persistent party pursues its own payoff; non-persistent inference
    instead requires containment and evaluation). <sup>[↪ Why](#r-bedrock-01)</sup>
-2. **The loop** (Chapter 4) — those facts force exactly one atom: `define → do → check → reflect`,
-   repeated until good enough, then stopped. <sup>[↪ Why](#r-loop-01)</sup>
+2. **The loop** (Chapter 4) — this model uses a recurring atom: `define → do → check → reflect`,
+   repeated within the work unit's bounds until accepted or escalated. <sup>[↪ Why](#r-loop-01)</sup>
 3. **The behaviours** (Chapter 2) — the way the loop runs produces four behaviours: it **converges**,
    it stays **bounded**, it **nests and escalates**, and it **preempts** (searches its own inputs for
    trouble before trouble finds them). Bounded attempts and a budget constrain cost; outcome and
@@ -33,14 +32,14 @@ machine's shape is forced.
    predictable, resilient, and secure. A final **evolve** edge feeds what we learn back into the
    target, turning the loop into a spiral — the "Ouroboros." <sup>[↪ Why](#r-loop-01)</sup>
 
-> ▸ **Chart — "The complete circuit"** <sup>[↪ Why](#r-apex-01)</sup> · *L0 · the whole system.* The master synthesis: every later
-> chart is a zoom into one region of this one. Start here, then zoom in.
+> ▸ **Chart — "The complete circuit"** <sup>[↪ Why](#r-apex-01)</sup> · *L0 · the current model.* The
+> chart summarizes its pressures, loop, behaviors, and properties. Later charts zoom into these parts.
 
 ```pipeline-graph
 {
   "title": "The complete circuit",
   "level": "L0 · the whole system",
-  "summary": "The entire machine in one frame: brute facts force one loop, whose behaviours manufacture four emergent properties, which feed an evolve edge.",
+  "summary": "The current model in one frame: admitted pressures motivate a feedback loop whose behaviors support four top-level properties and an evolve edge.",
   "zoomIn": ["The four properties", "The bedrock — ten forces", "The unit loop, fully staffed"],
   "nodes": [
     {"id":"evolve","label":"evolve (Ouroboros)","group":"terminal","x":360,"y":0},
@@ -61,7 +60,7 @@ machine's shape is forced.
     {"id":"uncertain","label":"uncertain","group":"stone","x":710,"y":440},
     {"id":"distributed","label":"distributed & perishable","group":"stone","x":880,"y":440},
     {"id":"adversarial","label":"adversarial actors","group":"stone","x":1060,"y":440},
-    {"id":"reflexivity","label":"reflexivity (#9 · autonomous only)","group":"stone","x":-200,"y":40},
+    {"id":"reflexivity","label":"reflexivity (#9 · delegated only)","group":"stone","x":-200,"y":40},
     {"id":"incentives","label":"incentive-divergence (#10 · delegated only)","group":"stone","x":-200,"y":560}
   ],
   "edges": [
@@ -86,8 +85,8 @@ machine's shape is forced.
     {"source":"resilient","target":"evolve"},
     {"source":"secure","target":"evolve"},
     {"source":"evolve","target":"loop","dashed":true,"label":"re-target"},
-    {"source":"reflexivity","target":"reliable","dashed":true,"label":"erodes if autonomous (#9)"},
-    {"source":"incentives","target":"reliable","dashed":true,"label":"erodes if delegated (#10)"}
+    {"source":"reflexivity","target":"reliable","dashed":true,"label":"may erode if delegated (#9)"},
+    {"source":"incentives","target":"reliable","dashed":true,"label":"may erode if delegated (#10)"}
   ]
 }
 ```

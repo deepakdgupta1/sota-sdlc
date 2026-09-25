@@ -1,19 +1,26 @@
-# The Ideal SDLC — A First-Principles Design
+# Current SDLC reference model
 
-> **What this document is.** A clean, human-readable snapshot of the software-development
-> lifecycle (SDLC) we have derived from first principles — *what an ideal SDLC must contain, and
-> why every piece is logically forced into existence rather than adopted by convention.* It covers
-> both the **human-run** lifecycle and the **autonomous / agentic** one (Chapter 12).
->
-> This is the **design**, presented for comprehension. Its companion, the
-> [canvas](index.html), is the **working derivation**
-> — the terse, evolving state file with the full audit trail of *how* we arrived here (the Socratic
-> Q&A, the iteration log, the open research tracks). When the two disagree, the canvas is the source
-> of truth for *reasoning*; this document is the source of truth for *understanding*.
->
-> **This snapshot is frozen as of 2026-07-30** (`asOf` in `docs/snapshot.parts.json`). It is
-> historical truth as of that date, not a promise of perpetual factual freshness. A substantive
-> change advances the date and updates the affected rationale entries in the same commit.
+> **What this document is.** A reference model for accountable software-development work. It relates
+> the current hazard taxonomy to a bounded feedback loop, its responses and evidence, and four
+> top-level acceptance properties. People or software agents may staff the loop. The model supports
+> design and review; it does not prove that this taxonomy is exhaustive or prescribe one toolchain or
+> ceremony for every work unit.
+
+### Scope, assumptions, and admission
+
+<sup>[↪ Why](#r-method-02) · [↪ Why](#r-unit-01) · [↪ Why](#r-bedrock-01)</sup>
+
+- **Scope.** The model covers software work from target definition through operation and learning,
+  including delegated execution. It describes what to decide, check, retain, and escalate. Auditing a
+  particular organization or stack against the model is a separate exercise.
+- **Assumptions.** An accountable work unit can declare its boundary, acceptance vector, and decision
+  authority. The unit chooses evidence and controls for its context and risk; an outside authority may
+  impose additional gates. Inner loops can share evidence and collapse when their separate ceremony
+  adds no required information.
+- **Admission.** A candidate hazard enters the bedrock only if it is a brute fact rather than a
+  contingent design choice, requires a response the admitted hazards do not already explain, and
+  survives the three-direction self-test in Chapter 3. The present counts are pressure-tested
+  judgments, not a closed inventory.
 
 ### The four sources of truth
 
@@ -44,8 +51,8 @@ picture — and then descends, chapter by chapter, into finer and finer detail. 
 three questions in order:
 
 1. **What is it?** — a plain description of the piece.
-2. **Why does it exist?** — the brute fact about reality (a "stone") that *forces* it. Nothing here
-   is a matter of taste; each element is a forced response to something reality makes unavoidable.
+2. **Why does it exist?** — the pressure or acceptance need it addresses, and the reason this model
+   assigns it a distinct role.
 3. **How does it work?** — the mechanics, in ordinary language.
 
 Wherever autonomy changes the picture, a callout marked **⟐ Under autonomy** flags it, and
@@ -63,9 +70,9 @@ levels.
 
 | Level | Chart | Shows | Chapter |
 |---|---|---|---|
-| **L0** | The complete circuit | The whole machine: forces → loop → behaviours → properties | [Ch. 1](#1-the-system-at-a-glance) |
-| **L1** | The four properties | The destination — what a good SDLC produces | [Ch. 2](#2-the-destination-four-properties) |
-| **L1** | The bedrock — ten forces | The brute facts that make the work hard | [Ch. 3](#3-the-bedrock-why-the-work-is-hard) |
+| **L0** | The complete circuit | Current pressures → loop → behaviours → properties | [Ch. 1](#1-the-system-at-a-glance) |
+| **L1** | The four properties | The model's top-level acceptance properties | [Ch. 2](#2-the-destination-four-properties) |
+| **L1** | The bedrock — ten forces | The current hazard taxonomy | [Ch. 3](#3-the-bedrock-why-the-work-is-hard) |
 | **L2** | The unit loop, fully staffed | The atom — one feedback loop, and its elements | [Ch. 4](#4-the-atom-the-unit-control-loop) |
 | **L2** | The fractal — one shape, every scale | How the loop repeats up and down, and where it stops | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
 | **L2** | Feature A — rate limiting, every element opened | The fractal made concrete on a graded feature | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
@@ -74,20 +81,20 @@ levels.
 | **L3** | Feature B — design & verify against an adversary | The two elements a directed adversary re-shapes | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
 | **L3** | When the loop collapses — is the ceremony a must? | Which ceremony is reducible, and the two overrides | [Ch. 6](#6-the-fractal-one-shape-at-every-scale) |
 | **L2** | The lifecycle (process flow) | The familiar lifecycle, as a projection of the loop | [Ch. 7](#7-the-lifecycle-the-process-flow) |
-| **L3** | The schedule bet | How `plan` bets a date — and which half of the bet is gated | [Ch. 7](#7-the-lifecycle-the-process-flow) |
+| **L3** | The schedule bet | Why the baseline is gated and the dates are graded | [Ch. 7](#7-the-lifecycle-the-process-flow) |
 | **L2** | The two repertoires | Cross-cutting responses: resilience vs. security | [Ch. 8](#8-the-two-repertoires-resilience-and-security) |
 | **L3** | Done propagation | How a target is set, inherited, and checked | [Ch. 9](#9-the-mechanism-of-done) |
 | **L3** | Design as a bet — stub-composition | How design states and cheaply tests its bet | [Ch. 9](#9-the-mechanism-of-done) |
 | **L3** | The premise-B lever | How one interface contract is tuned | [Ch. 9](#9-the-mechanism-of-done) |
-| **L2** | The artifacts | What each loop leaves behind, and why | [Ch. 10](#10-what-each-loop-leaves-behind-the-artifacts) |
-| **L3** | The change axis — regression & rollback | Stone #5's two organs: fixes stick, changes stay reversible | [Ch. 10](#10-what-each-loop-leaves-behind-the-artifacts) |
+| **L2** | The artifacts | Carrier roles and time/agent handoffs | [Ch. 10](#10-what-each-loop-leaves-behind-the-artifacts) |
+| **L3** | The change axis — regression & rollback | Retain lessons and limit live-change harm | [Ch. 10](#10-what-each-loop-leaves-behind-the-artifacts) |
 | **L3** | Hard gate or graded target? | Which checks are non-negotiable | [Ch. 11](#11-hard-gates-versus-graded-targets) |
-| **L3** | The convergent law | One law, four instances: existence gated, fidelity graded | [Ch. 11](#11-hard-gates-versus-graded-targets) |
-| **L4** | The second-order tier — the delegated/autonomous regime | Why an autonomous loop can neither judge nor trust itself | [Ch. 12](#12-the-autonomous-agentic-sdlc) |
+| **L3** | The convergent law | Required evidence gated, fidelity graded | [Ch. 11](#11-hard-gates-versus-graded-targets) |
+| **L4** | The second-order tier — the delegated/autonomous regime | Delegation risks and their safeguards | [Ch. 12](#12-the-autonomous-agentic-sdlc) |
 
-> **The one-sentence thesis.** A reliable, predictable, resilient, and secure SDLC is not a
-> checklist of practices — it is the **emergent behaviour of a single bounded feedback loop**, forced
-> into a specific shape by a handful of unavoidable facts about reality, and repeated at every scale.
+> **The model's thesis.** Reliable, predictable, resilient, and secure outcomes depend on feedback
+> that checks a bounded target against evidence, responds to failure, and carries learning forward.
+> The loop can recur at several scales; the needed controls depend on the work unit's risks.
+> <sup>[↪ Why](#r-loop-01) · [↪ Why](#r-apex-01)</sup>
 
 ---
-

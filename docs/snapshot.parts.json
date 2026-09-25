@@ -1,5 +1,5 @@
 {
-  "title": "The Ideal SDLC — A First-Principles Design",
+  "title": "Current SDLC reference model",
   "asOf": "2026-07-30",
   "rationale": "docs/RATIONALE.md",
   "note": "Normative snapshot, frozen as of asOf. Source of truth is the parts below; the viewer fetches this manifest, then every part in order, and concatenates them. Paths are relative to the page that loads this manifest (sdlc-design.html, at the repository root). The rationale ledger is the final part so that every #R-* anchor resolves in-page.",
