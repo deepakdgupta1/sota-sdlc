@@ -66,7 +66,6 @@ try {
 } catch (e) {
   fail(MANIFEST, `manifest is not valid JSON — ${e.message}`);
 }
-if (!manifest.asOf) fail(MANIFEST, 'manifest has no `asOf` — the snapshot must declare its freeze date');
 if (!manifest.rationale) fail(MANIFEST, 'manifest has no `rationale` — the ledger path must be declared');
 
 const parts = manifest.parts || [];
@@ -279,5 +278,5 @@ if (errors.length) {
 }
 console.log(
   `✓ verify-docs: ${chapterFiles.length} chapters · ${entryIds.size} rationale entries · ` +
-  `${EXPECTED_SNAPSHOT_CHARTS + EXPECTED_CANVAS_CHARTS} charts valid · asOf ${manifest.asOf}`
+  `${EXPECTED_SNAPSHOT_CHARTS + EXPECTED_CANVAS_CHARTS} charts valid`
 );

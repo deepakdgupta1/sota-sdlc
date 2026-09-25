@@ -38,13 +38,10 @@ looks like a contradiction.
 
 <sup>[↪ Why](#r-element-01)</sup>
 
-An earlier version of the model had a distinct `decompose` element. It was removed because it did no
-work `design` wasn't already doing: `design`'s output *is* the decomposition, the loop re-applies
-itself to each part that design carves, and the feedback edge (`reflect → re-target(design)`) already
-carries any "this decomposition was wrong" signal back. A `decompose` element defended the same stone
-as `design` (#3) and owned no artifact of its own — so it was vestigial, and folding it away left `do`
-as pure execution. This is the self-test doing maintenance: *two elements on one stone, one of them
-derivable, is a smell.*
+`Decompose` is part of `design`, not a separate element. `Design` produces the decomposition; the
+loop applies to each resulting part; and `reflect → re-target(design)` carries evidence that the
+decomposition failed. A separate element would defend the same stone as `design` (#3) and own no
+distinct artifact. `Do` remains execution of the chosen design.
 
 *(This chapter reuses the **"The unit loop, fully staffed"** chart from Chapter 4 — the middle band is
 the element roster.)*

@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `04a` complete
-Next step: `04b`
+Current step: `04b` complete
+Next step: `05`
 
 ## Objective
 
@@ -585,6 +585,18 @@ Remove roadmap language, review state, open questions, priorities, iteration not
 
 Exit: the model describes only the current design and can be read without a retired file or repository procedure.
 
+Completed in this packet:
+
+- Removed the four-source precedence table and canvas method from chapter 00, and Appendix C/D's
+  history, maintenance rules, repository instructions, and diagram-schema copy from chapter 13.
+  Chapters 05 and 11 now state the present design without recounting earlier revisions or derivations.
+- Moved concise serving, editing, and chart-export instructions to `README.md`. Existing
+  `pipeline-graph` blocks remain the working examples; `scripts/verify-docs.mjs` checks their JSON and
+  edge references. Removed the manifest's `asOf` and the checker's freeze-date requirement/output.
+- Recast `R-METHOD-01` around the model's reading order, updated `R-METHOD-02/04` governing locations,
+  and corrected `R-METHOD-05`'s obsolete Appendix D claim. The active model no longer names the
+  roadmap, canvas, a freeze date, or a retired appendix.
+
 ### 05. Retire parallel documentation
 
 Delete these active sources after their accepted reasoning is represented in the snapshot and ledger:
@@ -634,8 +646,21 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 04a renamed the model in chapter 00, the manifest, and viewer; stated its work-unit scope, assumptions, and hazard admission criterion; and narrowed universal language in opening chapters 01–03. `R-METHOD-02` now records the reference-model versus concrete-audit boundary.
-Evidence: `R-BEDROCK-01` and tagged September E12 support the pressure-tested taxonomy; `R-UNIT-01` and tagged September E1 support the boundary and acceptance vector. The concrete-audit separation is preserved in tagged July framing and handoff sources.
-Changed files: snapshot chapters 00–03; `docs/snapshot.parts.json`; `sdlc-design.html`; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 04a complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The manifest's stale `asOf` value and historical prose are assigned to 04b.
-Exact next action: start step 04b. Remove historical/maintenance prose from the model, migrate the short serving and editing procedure to `README.md`, remove stale `asOf` and duplicated counts, and verify that the model reads without a parallel document. Do not start 05 in the same turn.
+Completed scope: step 04b removed the four-source table from chapter 00 and historical/repository
+Appendices C/D from chapter 13. Chapters 05 and 11 now state current relationships without iteration
+history. `README.md` carries the serving and diagram-editing procedure. The manifest and checker no
+longer require or display `asOf`; `R-METHOD-01/02/04/05` were adjusted for surviving model links.
+Evidence: a targeted search of `docs/snapshot/` and its manifest found no roadmap, canvas, freeze-date,
+priority, iteration-log, or retired-appendix references. Working `pipeline-graph` blocks and the
+checker retain the diagram format. The structural checker reports 14 chapters, 46 rationale entries,
+and 29 valid charts; `git diff --check` passes. Browser QA remains scheduled for step 07.
+Changed files: chapters 00, 05, 11, and 13; `README.md`; `docs/RATIONALE.md`;
+`docs/snapshot.parts.json`; `scripts/verify-docs.mjs`; and this plan. Dirty files: none after this
+packet's commit. Current revision: `HEAD` (this checkpoint commit).
+Remaining work: `README.md` still describes four roles and the old viewer paths; the ledger preamble
+still treats the canvas as live. `R-METHOD-05` is temporarily linked from README to avoid an orphan
+while those files exist. Step 05 must rewrite these roles, reconcile `R-METHOD-01/02/05` and all
+roadmap-only IDs, retire parallel sources, and promote the design viewer.
+Exact next action: start step 05 by confirming both history tags restore the sources to be retired;
+then remove the parallel active files, update the viewer/manifest/README/ledger together, and verify
+the resulting tree. Do not start step 06 in that turn.

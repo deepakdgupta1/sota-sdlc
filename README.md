@@ -14,14 +14,20 @@ adopted by convention.
 | [`docs/RATIONALE.md`](docs/RATIONALE.md) | why each contested decision has its shape, with dated evidence | justification |
 | [`ROADMAP.md`](ROADMAP.md) | phases, gates, Tier D/E registers, traceability, open questions | forward work |
 
-**Read the snapshot** in a browser — it renders 21 interactive charts inline:
+**Read the model** in a browser. From the repository root, start a local server:
 
 ```bash
 python3 -m http.server 4321
 ```
 
-Then open `http://localhost:4321/sdlc-design.html` for the snapshot, or `http://localhost:4321/` for the
-canvas. `file://` will not work — both viewers fetch their markdown over http.
+Open `http://localhost:4321/sdlc-design.html`. The viewer fetches the Markdown, so opening the HTML
+file directly will not load the model.
+
+**Edit the model** in `docs/snapshot/`. The chapter order is in `docs/snapshot.parts.json`; the
+explanation for each linked decision is in `docs/RATIONALE.md`. Charts are fenced `pipeline-graph`
+JSON blocks beside the prose they illustrate. Copy a working block from a chapter when adding a
+chart. The viewer lets you move and edit nodes; use **Export** and replace the source block to keep
+the edit. Browser edits alone are temporary.
 
 **Before committing** documentation changes:
 
@@ -29,11 +35,11 @@ canvas. `file://` will not work — both viewers fetch their markdown over http.
 node scripts/verify-docs.mjs
 ```
 
-Editing, the diagram data model, and known caveats are documented in **Appendix D** of the snapshot.
-Precedence between the four documents is declared in the snapshot's front matter and nowhere else.
+The checker validates chart JSON and edge references as well as document links and rationale IDs.
 
 Three earlier documents — the handoff, the idea catalogue, and the July-2026 review assessment — were
-absorbed into the four above on 2026-07-30 and remain complete in Git history:
+absorbed into the four above on 2026-07-30 and remain complete in Git history
+([R-METHOD-05](docs/RATIONALE.md#r-method-05)):
 
 ```bash
 git show docs-history-2026-07-30:HANDOFF.md

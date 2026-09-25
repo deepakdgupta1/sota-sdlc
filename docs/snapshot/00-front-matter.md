@@ -22,26 +22,6 @@
   survives the three-direction self-test in Chapter 3. The present counts are pressure-tested
   judgments, not a closed inventory.
 
-### The four sources of truth
-
-<sup>[↪ Why](#r-method-01)</sup>
-
-This repository has exactly four. Nothing else is normative — and precedence is declared here and
-nowhere else, so that a disagreement between any two of them has one settled answer.
-
-| Document | Role | Wins on |
-|---|---|---|
-| [canvas](index.html) — `sdlc-canvas/` | the Socratic derivation, the audit trail, and the open-tracks register | **reasoning** |
-| this snapshot — `docs/snapshot/` | the normative statement of the model | **presentation** |
-| [rationale ledger](#rationale-ledger) — `docs/RATIONALE.md` | why each contested decision has its current shape, with dated external evidence | **justification** |
-| roadmap — `ROADMAP.md` | phases and gates, the Tier D and Tier E registers, traceability, open questions | **forward work** |
-
-**Method.** Model changes are derived in the canvas first, then this snapshot is regenerated from
-it. The canvas's `▶ RESUME INSTRUCTIONS` section states the method and is authoritative on it.
-Appendix D covers how to run and edit these documents.
-
----
-
 ## How to read this document
 
 <sup>[↪ Why](#r-method-01)</sup>
@@ -62,11 +42,8 @@ Wherever autonomy changes the picture, a callout marked **⟐ Under autonomy** f
 
 <sup>[↪ Why](#r-method-01)</sup>
 
-Every chapter carries at least one **interactive chart**. The charts are a single cohesive set,
-ordered from the coarsest view to the finest, and cross-linked so you can *zoom out* to the parent
-view or *zoom in* to the detail. In the accompanying viewer they render **inline**, exactly where
-the prose discusses them, and a floating ladder on the right lets you jump between granularity
-levels.
+The charts move from the coarsest view to finer detail and link to related views. The viewer renders
+them inline with the prose and provides a ladder for moving between levels.
 
 | Level | Chart | Shows | Chapter |
 |---|---|---|---|

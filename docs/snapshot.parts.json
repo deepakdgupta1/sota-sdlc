@@ -1,8 +1,7 @@
 {
   "title": "Current SDLC reference model",
-  "asOf": "2026-07-30",
   "rationale": "docs/RATIONALE.md",
-  "note": "Normative snapshot, frozen as of asOf. Source of truth is the parts below; the viewer fetches this manifest, then every part in order, and concatenates them. Paths are relative to the page that loads this manifest (sdlc-design.html, at the repository root). The rationale ledger is the final part so that every #R-* anchor resolves in-page.",
+  "note": "The viewer loads the model chapters in parts order. The rationale ledger is the final part so that #R-* anchors resolve in-page.",
   "parts": [
     "docs/snapshot/00-front-matter.md",
     "docs/snapshot/01-system-at-a-glance.md",

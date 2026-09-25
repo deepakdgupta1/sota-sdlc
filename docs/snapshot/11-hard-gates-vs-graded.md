@@ -121,8 +121,8 @@ The roll-up otherwise stays a graded target.
 
 <sup>[↪ Why](#r-gate-03)</sup>
 
-Four derivations in this document were run independently, and they all landed on the **same shape**.
-These are artifact classes; an accountable work unit needs the ones its target and risks require:
+The following artifact classes follow the same rule. An accountable work unit needs the ones its
+target and risks require:
 
 | Artifact | Serves | Its absence… | Its fidelity… |
 |---|---|---|---|
@@ -143,8 +143,8 @@ even if an inner loop collapses (§6.4). <sup>[↪ Why](#r-gate-04)</sup>
 
 Required evidence must exist at the accountable work unit; its quality is priced by risk.
 
-> ▸ **Chart — "The convergent law"** <sup>[↪ Why](#r-gate-03)</sup> · *L3 · one law, four instances.* Four independently-derived
-> artifacts, one shape at an accountable work unit: existence feeds the hard-gate band (absence is machinery-degrading); fidelity
+> ▸ **Chart — "The convergent law"** <sup>[↪ Why](#r-gate-03)</sup> · *L3 · one law, four instances.* Four
+> artifact classes share one rule at an accountable work unit: existence feeds the hard-gate band (absence is machinery-degrading); fidelity
 > feeds the graded band (a Goodhartable proxy, priced by residual risk).
 
 ```pipeline-graph

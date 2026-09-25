@@ -557,17 +557,15 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** The claim that removing the human drives independence and alignment to zero.
 
-### <a id="r-method-01"></a>R-METHOD-01 · Four sources of truth, with declared precedence
+### <a id="r-method-01"></a>R-METHOD-01 · Present the model as a zoom lens
 
-- **Decision.** The repository has exactly four normative documents — canvas (reasoning), snapshot
-  (presentation), ledger (justification), roadmap (forward work) — and precedence is declared in the
-  snapshot's front matter and nowhere else.
-- **Why.** Before 2026-07-30 there were seven documents and no stated precedence, so a disagreement
-  between any two had no settled answer and each new document had to re-assert its own authority. Four
-  roles that do not overlap, plus one declaration of precedence, removes the ambiguity without
-  collapsing genuinely different kinds of content into one file.
-- **Governs.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/13-appendices.md#appendix-d-working-with-this-repository`.
-- **Trace.** `docs-history-2026-07-30:HANDOFF.md#2-file-map` — the seven-document map this replaces.
+- **Decision.** The model starts with the whole system, then moves through its properties, pressures,
+  loop, mechanisms, and applications. Inline charts and a glossary support that reading order.
+- **Why.** A reader needs the relationships before the details: the overview establishes the terms,
+  and each closer view explains how one part serves the whole. Keeping charts beside their explanations
+  lets readers check the visual claim against the prose.
+- **Governs.** `docs/snapshot/00-front-matter.md#how-to-read-this-document`,
+  `docs/snapshot/13-appendices.md#appendix-a-glossary`.
 
 ### <a id="r-method-02"></a>R-METHOD-02 · Keep the reference model separate from concrete audits
 
@@ -576,12 +574,9 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** Starting from one existing setup can bias the model toward its present practices and hide
   missing controls. A separate audit can compare the setup with the model's stated assumptions,
   pressure tests, and work-unit acceptance criteria without treating the model as a proof.
-- **Governs.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/13-appendices.md#appendix-c-the-snapshot-boundary-and-the-rationale-conventions`.
+- **Governs.** `docs/snapshot/00-front-matter.md#scope-assumptions-and-admission`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/00-framing.md#resume-instructions-read-first-on-a-fresh-context` ·
   `docs-history-2026-07-30:HANDOFF.md#8-where-we-are-what-s-next`.
-- **Note.** The descoped audit is **not** a numbered canvas track. It was removed by decision, so it
-  cannot be counted as track residue; it now sits in `ROADMAP.md` as Phase 2, run against our own
-  repositories.
 
 ### <a id="r-method-03"></a>R-METHOD-03 · Specs are produced here; the factory is built elsewhere
 
@@ -606,8 +601,7 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   `ROADMAP.md:244`, cited as the B1 row, had drifted into the middle of a C3b bullet. A `HANDOFF.md:127`
   citation of the method section likewise pointed two lines above the heading it meant. `file://` links
   additionally encode one machine's directory layout, so they are dead for every other reader.
-- **Governs.** `docs/RATIONALE.md`, `docs/snapshot/13-appendices.md#appendix-c-the-snapshot-boundary-and-the-rationale-conventions`,
-  `scripts/verify-docs.mjs`.
+- **Governs.** `docs/RATIONALE.md`, `scripts/verify-docs.mjs`.
 - **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#reviewed-artifact-provenance-a-gap-not-a-record-rev-3`.
 - **Enforced.** `scripts/verify-docs.mjs` fails on any `file://` link or pseudo-line reference in the
   snapshot or the ledger, and warns when a trace does not resolve inside the tag.
@@ -621,8 +615,9 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   handoff duplicated the method and the plan, the idea catalogue duplicated the roadmap's traceability,
   and the review assessment was a rationale record with no home for rationale. What was *not*
   duplicated was moved rather than dropped, and each drop was verified before it was made:
-  - The **`pipeline-graph` schema** existed only in the handoff. It is now Appendix D, verbatim —
-    without it all 29 charts in the repository become unmaintainable.
+  - The **`pipeline-graph` format** existed only in the handoff. Working blocks now sit beside the
+    snapshot prose; `README.md` explains how to edit them, and the checker validates their JSON and
+    edge references.
   - The handoff's method section is now the canvas's `▶ RESUME INSTRUCTIONS`, which it already named as
     authoritative.
   - All **24** idea identifiers (A1–A4, B1–B8, C1–C12) were confirmed present in `ROADMAP.md` §6 before
