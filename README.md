@@ -30,8 +30,11 @@ add a chart. Viewer edits are temporary: use **Export** and replace the source b
 Before committing, run:
 
 ```bash
-node scripts/verify-docs.mjs
+node scripts/check-doc-structure.mjs
 ```
+
+The checker verifies structure and link targets. Review whether the model's claims and their
+rationale are sound separately.
 
 ## Retrieve history
 

@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `05` complete
-Next step: `06`
+Current step: `06` complete
+Next step: `07`
 
 ## Objective
 
@@ -651,6 +651,18 @@ Derive chapter and chart counts from the manifest and loaded content. Do not ass
 
 Exit: inject one representative failure at a time for at most two checks, confirm that the checker rejects each failure, revert the temporary changes, and confirm that the clean model passes.
 
+Completed in this packet:
+
+- Replaced `scripts/verify-docs.mjs` with `scripts/check-doc-structure.mjs`. It derives chapter and
+  chart counts from the manifest and chapter content, and checks chapter numbering, manifest order,
+  local links and anchors, rationale markers and IDs, chart shape and references, retired paths,
+  root Markdown files, and both tagged-history references. It makes no semantic-completeness claim.
+- Updated `README.md` and `R-METHOD-04` to name the checker and distinguish its structural checks
+  from human review of claims and reasons.
+- Injected a broken README anchor and an edge to an unknown chart node in separate runs. Each run
+  failed on its intended defect. Restored both files; the clean checker passes with 14 chapters,
+  36 rationale IDs, and 21 charts.
+
 ### 07. Verify and retire the plan
 
 Run the structural checker. Serve the repository and inspect every manifest part, the table of contents, every chart, and rationale links that open the on-demand panel. Check the browser console. Confirm that both history tags restore their representative files.
@@ -661,22 +673,20 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 05 retired the parallel active sources, promoted `index.html`, loaded rationale
-entries on demand, rewrote README, and removed history-only ledger entries. The only active Markdown
-outside the temporary plan is README, the snapshot chapters, and the rationale ledger.
-Evidence: `docs-history-2026-07-30` restores the July canvas and roadmap; `docs-history-2026-09-24`
-contains every retired active file. Before removal, a name-status comparison against the September
-tag differed only on the viewer title changed in 04a. The adjusted verifier passes: 14 chapters,
-36 rationale entries, 21 charts. `git diff --check` and script syntax checks pass. A focused browser
-smoke test loaded all 21 charts, opened `R-METHOD-02` from **↪ Why**, and opened `R-GATE-01` from a
-direct `#r-*` URL. Full TOC/chart/console browser QA remains scheduled for step 07.
-Changed files: `README.md`, `docs/RATIONALE.md`, `docs/snapshot.parts.json`, `index.html`,
-`scripts/verify-docs.mjs`, the retired paths listed in step 05, and this plan. Dirty files: none
-after this packet's commit. Current revision: `HEAD` (this checkpoint commit).
-Remaining work: the verifier still has fixed chapter/chart totals and July-only automated trace
-checks. It does not yet enforce every structural condition in step 06; the September tag was checked
-manually for this packet. The temporary plan remains until step 07.
-Exact next action: start step 06. Rename and narrow the checker, derive chapter/chart counts from
-the manifest and content, enforce the listed structural failures, update README and ledger references
-to its new path, run two focused negative cases, and restore a passing tree. Do not start step 07 in
-the same turn.
+Completed scope: step 06 replaced the old verifier with a structural checker, updated its README
+and ledger references, and removed the fixed chapter/chart totals. It checks the manifest, numbered
+chapter sequence, local links and anchors, canonical rationale markers and unused IDs, chart JSON
+and references, retired active paths, root Markdown inventory, and both annotated history tags.
+It does not judge the model's meaning or the strength of its reasons.
+Evidence: the clean checker reports 14 chapters, 36 rationale IDs, and 21 charts. One broken README
+anchor produced `broken local anchor`; one chart edge to a nonexistent node produced `edge to an
+unknown node`. Both injected edits were reverted. Node syntax and `git diff --check` pass.
+Changed files: `scripts/check-doc-structure.mjs` (replacing `scripts/verify-docs.mjs`),
+`README.md`, `docs/RATIONALE.md`, and this plan. Dirty files: none after this packet's commit.
+Current revision: `HEAD` (this checkpoint commit).
+Remaining work: step 07 must run the checker, serve the viewer, inspect every manifest chapter,
+TOC entry, chart, on-demand rationale link, and browser console, then confirm representative files
+restore from both tags. Remove this plan in the final consolidation commit only after those checks.
+Exact next action: start step 07 with the structural check and local server. Record browser evidence
+for chapter/chart/link coverage, confirm tagged restoration, then delete this plan and commit a clean
+final tree. Do not broaden scope beyond final verification and necessary fixes.

@@ -582,7 +582,7 @@ Historical sources are available under `docs-history-2026-07-30` and
 - **Why.** Line offsets in the earlier roadmap and handoff drifted onto unrelated text after edits.
   A tagged path and heading identifies the intended passage without depending on that offset.
   Machine-specific `file://` links also fail for other readers.
-- **Governs.** `docs/RATIONALE.md`, `README.md`, `scripts/verify-docs.mjs`.
+- **Governs.** `docs/RATIONALE.md`, `README.md`, `scripts/check-doc-structure.mjs`.
 - **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#reviewed-artifact-provenance-a-gap-not-a-record-rev-3`.
-- **Enforced.** `scripts/verify-docs.mjs` fails on any `file://` link or pseudo-line reference in the
-  snapshot or the ledger, and warns when a trace does not resolve inside a tag.
+- **Enforced.** `scripts/check-doc-structure.mjs` rejects `file://` links, pseudo-line links, and
+  tagged references that do not resolve to a file or heading.
