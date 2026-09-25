@@ -10,13 +10,15 @@ single release: the beats laid out in order, with the feedback edges drawn back 
 lifecycle as usually drawn. The dashed arrows are the *loops and feedback*, present at every scale:
 
 - The **build** step is itself a loop: `do ⇄ check against a graded 'done' → reflect → re-target`.
-- **verify** feeds back to **design** — the *shift-left* edge: catching a defect late is exponentially
-  more expensive than catching it early, so verification is a cross-cutting layer, not a step bolted on
-  after build.
+  <sup>[↪ Why](#r-loop-01)</sup>
+- **verify** feeds back to **design** — the *shift-left* edge: a defect found after build can require
+  reworking the design and its dependent parts. Check the composition bet early and keep verification
+  active through the build. <sup>[↪ Why](#r-done-01)</sup>
 - **operate** is a run-time loop: `observe ⇄ recover / degrade / roll back / escalate`.
+  <sup>[↪ Why](#r-repertoire-01)</sup>
 - The whole thing closes: **operate → learn → evolve the target → back to discover.** This is the
   **Ouroboros** — the product loop that turns a one-shot lifecycle into a spiral that improves its own
-  target over time.
+  target over time. <sup>[↪ Why](#r-loop-01)</sup>
 
 **How to read it.** The lifecycle is the most *concrete* and recognisable view, which is why it comes
 after the abstract ones: by now you can see that each box is a beat, each dashed line is the loop
@@ -34,13 +36,13 @@ The projection is made of **four node-kinds**, and only the first is a stone-def
 - **A seam** — `release`, the hand-off from build-time to run-time. Not a new element: it is the
   *transition* that the change-axis machinery governs (§10.1). **Regression** fires just before it
   (at the verify/integrate gate); **rollback** stands just after it (the operate-side net). "Release
-  governance" is that pair, not a fresh primitive.
+  governance" is that pair, not a fresh primitive. <sup>[↪ Why](#r-artifact-02)</sup>
 - **A phase-loop and the Ouroboros** — OPERATE (observe plus the two repertoires, including
   `roll back`) and evolve (`reflect` at product scale).
 
 One box is still unaccounted for by that list — **plan** — and it earns its seat a different way.
 
-> ▸ **Chart — "The lifecycle (process flow)"** <sup>[↪ Why](#r-loop-05)</sup> · *L2 · lifecycle.* The forward flow in solid arrows;
+> ▸ **Chart — "The lifecycle (process flow)"** <sup>[↪ Why](#r-loop-05)</sup> <sup>[↪ Why](#r-loop-01)</sup> · *L2 · lifecycle.* The forward flow in solid arrows;
 > the build loop, the operate loop, the shift-left edge, and the Ouroboros in dashed arrows.
 
 ```pipeline-graph
@@ -86,7 +88,7 @@ One box is still unaccounted for by that list — **plan** — and it earns its 
 
 ### 7.1 A plan is a schedule bet
 
-<sup>[↪ Why](#r-gate-03)</sup>
+<sup>[↪ Why](#r-schedule-01)</sup>
 
 The lifecycle chart has one box with no Chapter 5 element behind it: **plan**. It is not a missing
 element and not a new stone — it is `scope` + `specify` **projected onto the time axis**, exactly as
@@ -108,13 +110,15 @@ tasks, milestone contracts — and asserts:
   one-sided check. It can prove a schedule *infeasible* (fails cheap → re-plan) or internally
   consistent; it can never confirm delivery.
 
-The two suspended premises follow the same routes as design's: **Premise A** — *each estimate is
-real* — is discharged per-task at completion (verify-like, stone #4); **Premise B** — *the schedule
-holds across the whole space of futures* — leaves a residue only run-time velocity/slip tracking can
-catch (observe-like, stones #5/#6). A falsified schedule routes to **re-plan**, exactly as a falsified
-composition routes back to `design`.
+Three premises remain after a feasible critical-path check. **Premise A** — each task can land in its
+estimated slot — is checked against per-task progress and completion. **Premise B** — dependencies and
+capacity hold under actual conditions — leaves a residue that observed velocity and slip can expose.
+**Premise C** — the selected tasks and milestones, even if completed on time, deliver the intended
+release — needs release acceptance against the parent target. A failure in any premise routes to
+**re-plan** or a revised release target. <sup>[↪ Why](#r-schedule-01)</sup>
 
 **Which half of the plan is gated.** The split anticipates the convergent law (§11.2):
+<sup>[↪ Why](#r-gate-03)</sup>
 
 - The **written baseline's existence is a hard gate.** If "on time" was never recorded, a slip is
   *undetectable* — the loop's own schedule-check is blind, which is the machinery-degrading amplifier
@@ -125,16 +129,16 @@ composition routes back to `design`.
 **Plan is to predictable what the ADR is to reliable** — the intended-operand the loop must write down
 so its own later comparison has something to compare against.
 
-> ▸ **Chart — "The schedule bet"** <sup>[↪ Why](#r-gate-03)</sup> · *L3 · inside plan.* `plan` states the bet (task stubs +
+> ▸ **Chart — "The schedule bet"** <sup>[↪ Why](#r-schedule-01)</sup> <sup>[↪ Why](#r-gate-03)</sup> · *L3 · inside plan.* `plan` states the bet (task stubs +
 > the conjecture); a critical-path stub-composition fails cheap (→ re-plan) or survives, suspending
-> Premise A (per-task, verify-like) and Premise B (whole-future, observe-like). The baseline's
+> Premise A (per-task), Premise B (conditions and slip), and Premise C (release acceptance). The baseline's
 > existence is gated; the dates stay a graded forecast.
 
 ```pipeline-graph
 {
   "title": "The schedule bet",
   "level": "L3 · inside plan",
-  "summary": "plan = scope+specify projected onto the time axis: estimates are task stubs, critical-path feasibility is stub-composition on time, and the bet factors into Premise A (per-task) and Premise B (whole-future). Baseline existence is a hard gate; the dates are a graded forecast.",
+  "summary": "plan = scope+specify projected onto the time axis: estimates are task stubs, critical-path feasibility is a one-sided check, and the bet leaves Premise A (task estimates), B (execution conditions), and C (planned work delivers the release). Baseline existence is a hard gate; dates are a graded forecast.",
   "zoomOut": "The lifecycle (process flow)",
   "zoomIn": ["The convergent law"],
   "nodes": [
@@ -143,8 +147,9 @@ so its own later comparison has something to compare against.
     {"id":"hyp","label":"bet: (∧ taskᵢ in slot tᵢ) ⟹ ship by D","group":"beat","x":310,"y":200},
     {"id":"cpath","label":"critical-path check = stub-composition on time","group":"element","x":660,"y":120},
     {"id":"replan","label":"infeasible → re-plan","group":"terminal","x":660,"y":280},
-    {"id":"premA","label":"Premise A · each estimate real → checked per task (verify-like)","group":"beat","x":1020,"y":50},
-    {"id":"premB","label":"Premise B · holds across futures → velocity/slip at OPERATE (observe-like)","group":"beat","x":1020,"y":200},
+    {"id":"premA","label":"Premise A · task estimate → progress + completion","group":"beat","x":1020,"y":50},
+    {"id":"premB","label":"Premise B · conditions hold → velocity / slip","group":"beat","x":1020,"y":190},
+    {"id":"premC","label":"Premise C · task set delivers release → acceptance","group":"beat","x":1020,"y":330},
     {"id":"baseline","label":"written baseline · existence = HARD GATE","group":"property","x":310,"y":330},
     {"id":"dates","label":"the dates · a graded, Goodhartable forecast","group":"stone","x":660,"y":400}
   ],
@@ -156,6 +161,7 @@ so its own later comparison has something to compare against.
     {"source":"replan","target":"plan","dashed":true,"label":"re-plan"},
     {"source":"cpath","target":"premA","dashed":true,"label":"suspends"},
     {"source":"cpath","target":"premB","dashed":true,"label":"suspends"},
+    {"source":"cpath","target":"premC","dashed":true,"label":"suspends"},
     {"source":"plan","target":"baseline","member":true,"label":"its #7 artifact"},
     {"source":"baseline","target":"dates","member":true,"label":"content"}
   ]
@@ -163,4 +169,3 @@ so its own later comparison has something to compare against.
 ```
 
 ---
-

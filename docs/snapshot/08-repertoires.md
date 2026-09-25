@@ -1,18 +1,20 @@
 ## 8. The two repertoires: resilience and security
 
-<sup>[↪ Why](#r-apex-02)</sup>
+<sup>[↪ Why](#r-apex-02)</sup> <sup>[↪ Why](#r-repertoire-01)</sup>
 
 **What it is.** Some responses are not beats in the forward flow — they are a **repertoire** of moves
-the loop can invoke from `reflect`, at *any* element and *any* scale, mostly at run time. There are two
-repertoires, one per source of hardness, and together they manufacture the two envelope-properties.
+the loop can invoke from `reflect`, at different elements and scales, from design through operation.
+There are two repertoires, one per source of hardness; together they serve the two envelope properties.
 
 **Why two, not one.** Chapter 2 showed that context-hardness has two sources: *random* (a blind
 sampler — stones #5, #6) and *directed* (a worst-case searcher — stone #8). Each needs its own kit,
 because the statistical moves that beat randomness can be turned *against* you by a searcher.
+The searcher's advantage also grows with the number of seams in a complex system; that cost asymmetry
+is a consequence of stones #8 and #3, not an additional stone. <sup>[↪ Why](#r-bedrock-05)</sup>
 
 ### The resilience repertoire — against random hardship (→ resilient)
 
-<sup>[↪ Why](#r-apex-02)</sup>
+<sup>[↪ Why](#r-repertoire-01)</sup>
 
 | Response | What it does | Example |
 |---|---|---|
@@ -29,11 +31,11 @@ value judgment, or exceptional authority. The other three are *in-place* trades 
 trades *newness*. They also pair off by stone: `degrade`/`recover` answer **uncertainty** (#6 — the
 *context* pair), while `roll back` answers **change** (#5 — the *time* pair), whose build-time twin is
 the **regression test** (§10.1): rollback un-sticks a bad change at run time; regression keeps a good
-fix stuck at build time.
+fix stuck at build time. <sup>[↪ Why](#r-artifact-02)</sup>
 
 ### The security repertoire — against a directed adversary (→ secure)
 
-<sup>[↪ Why](#r-bedrock-05)</sup>
+<sup>[↪ Why](#r-repertoire-02)</sup>
 
 | Response | What it does | Example |
 |---|---|---|
@@ -42,12 +44,13 @@ fix stuck at build time.
 | **minimise surface / harden** | Least exposure; secrets in a vault; no information leaked in errors. | Secrets from the keychain; generic error messages. |
 | **threat-model / red-team** | Search for your *own* worst case before the adversary does. | Penetration test; abuse-case review at design time. |
 
-**A seam worth noticing.** `sanitize / validate` is exactly the "narrow the contract" lever from
-Chapter 9 — but here its floor is set by an *attacker*, not by natural variance. That is precisely why
-"never trust external data" is a **hard gate** (Chapter 11) and not merely good advice: the downside is
-non-local.
+**A seam worth noticing.** `sanitize / validate` applies Chapter 9's contract-narrowing lever to
+untrusted input. An attacker can search for an input the contract failed to exclude. At a named seam,
+the forbidden-output check is a **hard gate** when a reachable violation has non-local harm or outside
+authority requires it; other validation coverage stays proportional to its risk (Chapter 11).
+<sup>[↪ Why](#r-gate-01)</sup>
 
-> ▸ **Chart — "The two repertoires"** <sup>[↪ Why](#r-apex-02)</sup> · *L2 · cross-cutting.* Left: random hardness → resilient →
+> ▸ **Chart — "The two repertoires"** <sup>[↪ Why](#r-apex-02)</sup> <sup>[↪ Why](#r-repertoire-02)</sup> · *L2 · cross-cutting.* Left: random hardness → resilient →
 > four resilience moves. Right: a directed adversary → secure → four security moves. Same shape,
 > different opponent.
 
@@ -88,8 +91,8 @@ non-local.
 
 > **⟐ Under autonomy.** `threat-model / red-team` does double duty. It is the response to the external
 > adversary (stone #8) *and* the response to the internal shared blind spot (stone #9): an
-> *independent, adversarial* checker who deliberately does not share the builder's assumptions is
-> exactly what reduces the doer-checker correlation. An autonomous pipeline cannot assume an independent
-> escape-hatch to fall back on, so it must inject this independence deliberately.
+> adversarial check backed by evidence or a reviewer whose errors differ from the builder's can
+> reduce doer-checker correlation. An autonomous pipeline has to establish that independence rather
+> than infer it from the label "red team." <sup>[↪ Why](#r-agentic-01)</sup>
 
 ---

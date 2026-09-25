@@ -173,7 +173,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   mind, so there are many seams and one undefended seam suffices). A pressure that fully decomposes into
   existing stones fails the admission criterion.
 - **Governs.** `docs/snapshot/08-repertoires.md`, `docs/snapshot/03-bedrock.md`.
-- **Trace.** `sdlc-canvas/01-bedrock-atom-fractal.md` (T6, iteration 35) · `sdlc-canvas/05-laws-and-insights.md`.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` (T6, iteration 35) ·
+  `docs-history-2026-07-30:sdlc-canvas/05-laws-and-insights.md`.
 
 ### <a id="r-loop-01"></a>R-LOOP-01 · One atom: `define → do → check → reflect`
 
@@ -185,7 +186,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   the target (`check`); and a failed check is uninformative unless something frames *why* before the
   loop turns again (`reflect`). Runtime learning feeds the same re-target step at product scale.
 - **Governs.** `docs/snapshot/01-system-at-a-glance.md`,
-  `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`.
+  `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`,
+  `docs/snapshot/07-lifecycle.md`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` §4;
   product-scale projection: `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md`
   §7–8.
@@ -258,10 +260,39 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** A failed check may need a response besides another build attempt. That choice depends on
   the failure and scope, so hard-wiring a response as a sequential beat would misstate the loop.
   Escalation changes who decides; the other moves preserve service within the current scope.
-- **Applies to.** `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/08-repertoires.md`.
+- **Applies to.** `docs/snapshot/04-atom-unit-control-loop.md`,
+  `docs/snapshot/07-lifecycle.md`, `docs/snapshot/08-repertoires.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`
   §4 and `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §6.
   [R-ARTIFACT-02](#r-artifact-02) explains the change-axis role of rollback.
+
+### <a id="r-repertoire-02"></a>R-REPERTOIRE-02 · A directed adversary needs distinct responses
+
+- **Decision.** The security repertoire covers identity and authority checks, boundary validation,
+  surface reduction, and adversarial review. These responses can be applied at the relevant seams
+  and scales; they are not additional beats of the lifecycle.
+- **Why.** A directed adversary can impersonate, inject input, probe exposed weaknesses, and adapt to
+  the defenses it observes. Random-failure recovery alone does not address these choices. A roster
+  of controls makes the different attack paths visible without claiming every instance is a hard gate.
+- **Applies to.** `docs/snapshot/08-repertoires.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md`
+  §6. [R-GATE-01](#r-gate-01) sets the narrower current rule for named seam gates.
+
+### <a id="r-schedule-01"></a>R-SCHEDULE-01 · A plan is a conditional schedule bet
+
+- **Decision.** `plan` projects `scope` and `specify` onto time. Task estimates and milestone
+  contracts form a schedule bet; critical-path and capacity checks can refute infeasible plans but
+  cannot confirm delivery. A surviving plan leaves three premises: tasks meet their estimates,
+  execution conditions stay within the forecast, and the selected tasks actually deliver the
+  intended release. Check these with per-task progress, observed slip, and release acceptance.
+- **Why.** A feasible arrangement of estimated tasks establishes only internal consistency. Tasks
+  may take longer, dependencies and capacity may change, or the planned task set may omit work
+  needed for the release. The last failure is the schedule analogue of design's Premise C.
+- **Applies to.** `docs/snapshot/07-lifecycle.md`.
+- **Evidence.** Historical schedule bet and two-premise account:
+  `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10. The third premise applies
+  the accepted composition repair in `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E2 to that schedule bet. [R-DONE-01](#r-done-01) gives the design analogue.
 
 ### <a id="r-loop-05"></a>R-LOOP-05 · `implement` is the base act, `release` is a seam
 
@@ -304,7 +335,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** Compatible wiring cannot establish that the contracts describe the right whole. Naming C
   prevents a green stub check from being mistaken for proof of the parent target. The three premises
   keep distinct failure causes and evidence paths visible before implementation and integration.
-- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/09-mechanism-of-done.md`,
+- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/07-lifecycle.md`,
+  `docs/snapshot/09-mechanism-of-done.md`,
   `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E2; earlier design bet: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`.
@@ -397,7 +429,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   promotes a pattern to a law. It also explains why the model resists both failure modes at once:
   demanding perfect artifacts would be unaffordable ceremony, while allowing an artifact to be *absent*
   would silently delete the property it carries.
-- **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/10-artifacts.md`.
+- **Applies to.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/11-hard-gates-vs-graded.md`,
+  `docs/snapshot/10-artifacts.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/05-laws-and-insights.md`
   §12. [R-GATE-04](#r-gate-04) states the attachment point for this rule.
 
@@ -445,7 +478,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** A lesson that is not compiled into a check decays to folklore, and a change that cannot be
   undone converts an ordinary mistake into a non-local one. The two answer opposite halves of the same
   stone: the ratchet makes fixes stick, rollback keeps changes reversible.
-- **Applies to.** `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.
+- **Applies to.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/08-repertoires.md`,
+  `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.8.
   [R-ARTIFACT-03](#r-artifact-03) distinguishes the retained lesson from a governed test instance.
 

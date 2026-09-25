@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `03b` complete
-Next step: `03c`
+Current step: `03c-a` complete
+Next step: `03c-b`
 
 ## Objective
 
@@ -468,14 +468,48 @@ Completed in this packet:
 All three new reasons resolve to `docs-history-2026-07-30` sources. The checker resolves every added
 link; current historical support for `R-LOOP-02` and `R-LOOP-03` now cites the tag explicitly.
 
-### 03c. Audit rationale coverage in chapters 07 through 10
+### 03c-a. Audit rationale coverage in chapters 07 and 08
 
-Apply the same decision-level review to chapters 07 through 10.
-Assess `R-ARTIFACT-01`'s open Q4 on an attention boundary: establish a distinct current requirement
-with evidence, place the concern under an existing requirement, or retain it as an unanswered research
-question outside the current model before step 04b removes open-question prose.
+Split from 03c after targeted review showed four chapters and Q4 would exceed a clean checkpoint.
+Audit chapters 07 and 08 against the ledger.
 
-Exit: every independent claim in these chapters has a current reason and historical support.
+Exit: every independent claim in chapters 07 and 08 has a current reason and historical support.
+
+Completed in this packet:
+
+- Chapter 07's lifecycle projection reuses `R-LOOP-05`, with specific reasons for its build and
+  product loops, shift-left feedback, operating responses, and release seam. `R-SCHEDULE-01`
+  separates the schedule bet from the existence gate and carries a third premise: the task set
+  must deliver the intended release, even if tasks meet their slots. The unsupported exponential
+  late-defect-cost claim was replaced with the narrower rework argument.
+- Chapter 08 now links the resilience repertoire to `R-REPERTOIRE-01`, and the four directed-adversary
+  response classes to `R-REPERTOIRE-02`. A hard gate applies to a named forbidden-output seam under
+  `R-GATE-01`, rather than to all external-data handling. Independent red-team evidence is required
+  to claim a reduction in doer-checker correlation. `R-BEDROCK-05` retains its distinct cost-asymmetry
+  point and a tagged trace.
+
+The new schedule and security reasons have tagged historical support. The documentation checker
+resolves their links and reports no orphaned entries.
+
+### 03c-b. Audit rationale coverage in chapters 09 and 10; assess Q4
+
+Audit chapters 09 and 10. Assess `R-ARTIFACT-01`'s open Q4 on an attention boundary: establish a
+distinct current requirement with evidence, place the concern under an existing requirement, or
+retain it as an unanswered research question outside the current model before step 04b removes
+open-question prose.
+
+Targeted findings for this packet: Chapter 09 §9.2's contract-tightness chart points to
+`R-DONE-02` (formal-proof blind spots), though the tightest-sufficient contract has a distinct
+reason in `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.2. Qualify its
+type-encoded and zero-residue claims to the specified internal domain. Chapter 10's "one artifact
+per beat" and "every loop" wording needs the accountable-unit rule in `R-GATE-04`; its rollback
+reach removes the irreversibility amplifier, not other non-local or outside-authority gates.
+Historical memory examples in `docs-history-2026-09-24:docs/agent-architecture/04_memory/` show
+persistence and prompt truncation but do not by themselves establish a third boundary. Check whether
+retrieval fits `R-ARTIFACT-01`'s existing time/agent crossings, or keep Q4 outside the current model.
+
+Exit: every independent claim in chapters 09 and 10 has a current reason and historical support;
+Q4 has a recorded disposition.
 
 ### 03d. Audit rationale coverage in chapters 11 through 13
 
@@ -538,8 +572,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 03b audited prose, tables, and charts in snapshot chapters 04 through 06 against the rationale ledger. Three distinct decisions gained `R-LOOP-06` (fractal reuse), `R-ELEMENT-01` (outer element staffing and no separate decomposition), and `R-REPERTOIRE-01` (cross-cutting responses). Existing IDs now point to the precise predictability, sensor, base-act, hard-gate, and delegation reasons. The rate-limit example's algorithm and failure now agree.
-Evidence: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` §5 supports the fractal; `02-elements-flow-circuit-artifacts.md` §6 and `03-mechanism-of-done.md` §10.10 support the element roster and base-act exception. `03-mechanism-of-done.md` §§10.5–10.7 support the reflect, sensor, and collapse entries.
-Changed files: snapshot chapters 04, 05, and 06; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 03b complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain assigned to later packets.
-Exact next action: start step 03c by auditing independent decisions in snapshot chapters 07 through 10 against the ledger. Assess `R-ARTIFACT-01`'s open attention-boundary Q4 as the step requires, then verify links and tagged support.
+Completed scope: step 03c-a audited prose and charts in snapshot chapters 07 and 08. `R-SCHEDULE-01` records the conditional schedule bet and its three premises; `R-REPERTOIRE-02` records the directed-adversary response classes. Existing reasons now distinguish the lifecycle projection, release seam, baseline gate, resilience moves, and named security gates. The schedule and security charts agree with those reasons.
+Evidence: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10 supports the schedule bet; the third premise applies `docs-history-2026-09-24:ROADMAP.md` E2's accepted composition repair. `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md` §6 supports the security roster. The narrower gate rule is `R-GATE-01`.
+Changed files: snapshot chapters 07 and 08; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 03c-a complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain assigned to later packets.
+Exact next action: start step 03c-b. Audit chapters 09 and 10 using the targeted findings above; decide Q4's place in or outside the current model, verify links and tagged support, then checkpoint. Do not start 03d in the same turn.
