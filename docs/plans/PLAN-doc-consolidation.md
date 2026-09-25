@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02n` complete
-Next step: `03a`
+Current step: `03a` complete
+Next step: `03b`
 
 ## Objective
 
@@ -428,6 +428,23 @@ Identify each independent decision or claim. Reuse an existing rationale ID when
 
 Exit: every independent claim in chapters 00 through 03 has a current reason and historical support, and the ledger links resolve.
 
+Disposition at `dc935ae`:
+
+- Chapter 00's authority and reading instructions map to `R-METHOD-01` and `R-METHOD-02`; the chart
+  ladder is navigation. Its four-authority, ideal-model, and freeze-date prose is transitional and
+  remains scheduled for steps 04a–04b, not a new current design decision.
+- Chapter 01's synthesis now points from bedrock, loop, predictability, and delegation claims to
+  their distinct reasons. Product-scale `evolve` is the same loop's re-target edge, not another beat.
+- Chapter 02 needed one new decision, `R-APEX-04`, for predictability's cost, outcome, and schedule
+  mechanisms. The point-property prose and two chart edges now state boundedness's limited role.
+  The existing `R-APEX-01` through `03` and `R-AGENTIC-01` cover the other independent claims.
+- Chapter 03's taxonomy, bundling, and two delegate risks remain under `R-BEDROCK-01` through `04`,
+  `R-BEDROCK-06`, and `R-AGENTIC-01`. `R-LOOP-05` now covers the base-act exception in prose and chart.
+  Concrete tools are choices, not forced stones. No further independent ID was needed.
+
+Historical support for the added or clarified reasons resolves in `docs-history-2026-07-30` and
+`docs-history-2026-09-24`. The documentation checker resolves the current rationale links.
+
 ### 03b. Audit rationale coverage in chapters 04 through 06
 
 Apply the same decision-level review to chapters 04 through 06.
@@ -504,8 +521,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02n reviewed `docs/ai_agent_evaluation_metrics_kpis_2026.md`. The plan records accepted contrasts and historical proposals above. `R-UNIT-01` and `R-AGENTIC-01` cite the tagged report; the snapshot did not change because no independent SDLC decision emerged.
-Evidence: the report resolves in `docs-history-2026-09-24` and matches the active source. Its outcome, trajectory, cost, and safety taxonomy was compared with Chapters 4, 9, 11, and 12 and `R-UNIT-01`, `R-AGENTIC-01`, `R-GATE-01`, and `R-GATE-02`. Fixed KPI weights and blanket production gates were not adopted.
-Changed files: `docs/RATIONALE.md` and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02n complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 03a by auditing independent decisions in snapshot chapters 00 through 03 against the rationale ledger. Reuse existing IDs where sufficient; add only missing reasons and check links.
+Completed scope: step 03a audited prose, tables, and charts in snapshot chapters 00 through 03 against the rationale ledger. One distinct decision, predictability's three mechanisms, gained `R-APEX-04`; existing IDs were linked more precisely. The bedrock prose now respects `implement`'s base-act exception.
+Evidence: the added predictability reason is supported by `docs-history-2026-07-30:sdlc-canvas/00-framing.md` §2 and `03-mechanism-of-done.md` §10.10. Tagged histories also support the clarified apex, loop, and base-act entries. Chapter 00's transitional authority and freeze claims remain assigned to steps 04a–04b.
+Changed files: snapshot chapters 01, 02, and 03; `docs/RATIONALE.md`; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 03a complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 03b by auditing independent decisions in snapshot chapters 04 through 06 against the rationale ledger. Reuse existing IDs, add only missing reasons, and verify links and tagged support.

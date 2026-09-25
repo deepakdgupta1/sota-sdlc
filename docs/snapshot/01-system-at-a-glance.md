@@ -16,20 +16,22 @@ machine's shape is forced.
 
 **How it works.** The chain has four links, each detailed in a later chapter:
 
-1. **The bedrock** (Chapter 3) — ten brute facts ("stones") about reality that make software hard:
+1. **The bedrock** (Chapter 3) — eight pressures in the problem and two conditional pressures in
+   the solver that make software work hard:
    intent is hidden, resources are finite, systems exceed one mind, we make mistakes, reality
    changes, reality is uncertain, knowledge is scattered and perishable, adversaries hunt weakness,
    and the two second-order stones — reflexivity (#9, where a checker shares the doer's blind spot) and
    incentive-divergence (#10, where a persistent party pursues its own payoff; non-persistent inference
-   instead requires containment and evaluation).
+   instead requires containment and evaluation). <sup>[↪ Why](#r-bedrock-01)</sup>
 2. **The loop** (Chapter 4) — those facts force exactly one atom: `define → do → check → reflect`,
-   repeated until good enough, then stopped.
+   repeated until good enough, then stopped. <sup>[↪ Why](#r-loop-01)</sup>
 3. **The behaviours** (Chapter 2) — the way the loop runs produces four behaviours: it **converges**,
    it stays **bounded**, it **nests and escalates**, and it **preempts** (searches its own inputs for
-   trouble before trouble finds them).
+   trouble before trouble finds them). Bounded attempts and a budget constrain cost; outcome and
+   schedule need additional mechanisms (Chapter 2). <sup>[↪ Why](#r-apex-04)</sup>
 4. **The properties** (Chapter 2) — those four behaviours *are* what we experience as reliable,
    predictable, resilient, and secure. A final **evolve** edge feeds what we learn back into the
-   target, turning the loop into a spiral — the "Ouroboros."
+   target, turning the loop into a spiral — the "Ouroboros." <sup>[↪ Why](#r-loop-01)</sup>
 
 > ▸ **Chart — "The complete circuit"** <sup>[↪ Why](#r-apex-01)</sup> · *L0 · the whole system.* The master synthesis: every later
 > chart is a zoom into one region of this one. Start here, then zoom in.
@@ -76,7 +78,7 @@ machine's shape is forced.
     {"source":"loop","target":"nests"},
     {"source":"loop","target":"preempts"},
     {"source":"converges","target":"reliable"},
-    {"source":"bounded","target":"predictable"},
+    {"source":"bounded","target":"predictable","label":"cost face"},
     {"source":"nests","target":"resilient"},
     {"source":"preempts","target":"secure"},
     {"source":"reliable","target":"evolve"},
@@ -95,6 +97,6 @@ machine's shape is forced.
 > **reliable**. Delegation can correlate checks and produce results that miss intent. Persistent parties
 > need suitable incentives; non-persistent inference needs containment, proxy-resistant evaluation,
 > and independent evidence. An accountable principal owns the result. Chapter 12
-> explains both edges.
+> explains both edges. <sup>[↪ Why](#r-agentic-01)</sup>
 
 ---

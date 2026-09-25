@@ -15,15 +15,14 @@ each guards against a *different* way the work can fail, and you can have any on
 - **Reliable** — *faithful to intent.* The output is correct: nothing missing, nothing invented. It
   guards against "it gave me the wrong thing." Produced by a loop that **converges** — iterates until
   the result actually matches the need.
-- **Predictable** — *foreseeable.* Low variance; you can call the output and the timing in advance
-  and plan around them. It guards against "I couldn't foresee it / couldn't plan around it." Produced
-  by a loop that is **bounded** — it takes a knowable number of tries and then stops.
+- **Predictable** — *foreseeable, with low variance.* At one task in one context, output and
+  resource use stay within stated bounds. It guards against "I couldn't foresee it / couldn't plan
+  around it." Bounded attempts and a budget constrain cost; interface contracts constrain output.
 
-> **"Predictable" has three faces, bought by three different mechanisms.** Boundedness buys only the
-> **cost** face — this piece of work stops within a known number of tries. The **outcome** face — you
-> can call *what* comes out of a seam — is bought by tight interface contracts (§9.2). And the
-> **schedule** face — you can call *when* the whole thing ships — is not a point-property at all but
-> an aggregate over the time axis, bought by its own mechanism: the **schedule bet** (§7.1).
+> **Predictability has three faces.** Bounded attempts and a budget constrain **cost**. Tight
+> interface contracts constrain **outcome** at a seam (§9.2). A **schedule bet** forecasts when the
+> whole ships (§7.1); that timing is an aggregate across work units, not a point-property.
+> <sup>[↪ Why](#r-apex-04)</sup>
 
 **Envelope-properties** are measured along a third axis — **how hard the context is × time.** They
 are the envelope that keeps the point-properties alive across the *whole range* of contexts, not just
@@ -115,7 +114,7 @@ new apex properties. Chapter 9 shows how the criteria pass to child targets.
     {"source":"envelope","target":"resilient","member":true},
     {"source":"envelope","target":"secure","member":true},
     {"source":"converges","target":"reliable","label":"produces"},
-    {"source":"bounded","target":"predictable","label":"produces"},
+    {"source":"bounded","target":"predictable","label":"cost face"},
     {"source":"nests","target":"resilient","label":"produces"},
     {"source":"preempts","target":"secure","label":"produces"},
     {"source":"reliable","target":"predictable","dashed":true,"label":"⟂ independent"},
@@ -130,6 +129,6 @@ new apex properties. Chapter 9 shows how the criteria pass to child targets.
 > target. Delegation can break either — a checker that shares the doer's blind spot (stone #9), or an
 > executor that satisfies a payoff or proxy instead of intent (stone #10's two branches). Both let the loop *declare* success instead of
 > establishing it: a green check over a real defect. These are the two **second-order** stones; see
-> Chapter 12.
+> Chapter 12. <sup>[↪ Why](#r-agentic-01)</sup>
 
 ---

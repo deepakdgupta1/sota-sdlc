@@ -25,9 +25,11 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   time (`resilient`, `secure`).
 - **Why.** `reliable` and `predictable` are independent axes, proven by two thought experiments — a
   correct-but-unforeseeable setup is reliable and not predictable; a foreseeable-but-wrong setup is the
-  reverse. Neither can absorb the other, so both get a seat.
+  reverse. Neither can absorb the other, so both get a seat. Random hardship and directed search also
+  demand distinct envelopes; [R-APEX-02](#r-apex-02) gives that argument.
 - **Governs.** `docs/snapshot/02-destination-four-properties.md`, `docs/snapshot/01-system-at-a-glance.md`.
-- **Trace.** `sdlc-canvas/00-framing.md` §2 — the destination.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`
+  — historical support for the destination.
 
 ### <a id="r-apex-02"></a>R-APEX-02 · `secure` sits beside `resilient`, not under it
 
@@ -39,7 +41,7 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   shape, different opponent, and a distinct security repertoire is therefore forced.
 - **Governs.** `docs/snapshot/02-destination-four-properties.md`,
   `docs/snapshot/08-repertoires.md`.
-- **Trace.** `sdlc-canvas/00-framing.md` §2.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`.
 - **Superseded.** A single `resilient` envelope with security as its hardest case. Rejected: it predicts
   that more redundancy buys more security, which is false at the seam an adversary chooses.
 
@@ -56,6 +58,21 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E10.
 
+### <a id="r-apex-04"></a>R-APEX-04 · Predictability has distinct cost, outcome, and schedule mechanisms
+
+- **Decision.** Bounded attempts and a budget constrain a work unit's cost, tight interface contracts
+  constrain its output, and a schedule bet addresses delivery timing across work units. The
+  schedule is an aggregate over time, not a property established by one bounded unit.
+- **Why.** A cap on retries and a resource budget bound expenditure, but do not say what an attempt
+  returns or when many dependent attempts finish. Contracts constrain output at a seam; a plan states
+  the dependencies and duration assumptions needed for a delivery forecast. Each mechanism answers a
+  different uncertainty.
+- **Applies to.** `docs/snapshot/01-system-at-a-glance.md`,
+  `docs/snapshot/02-destination-four-properties.md`, `docs/snapshot/07-lifecycle.md`.
+- **Evidence.** Historical support:
+  `docs-history-2026-07-30:sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`,
+  schedule caveat; `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.10.
+
 ### <a id="r-bedrock-01"></a>R-BEDROCK-01 · The bedrock is a pressure-tested taxonomy, not a proof
 
 - **Decision.** The bedrock is a **derived, pressure-tested hazard taxonomy with an explicit admission
@@ -67,7 +84,8 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   bundling rule cannot function as an identity criterion; it is a **self-test heuristic**. A count
   derived from a heuristic is a tested judgment, not a theorem. The criterion allows a candidate
   eleventh stone to be assessed on its facts and required response instead of excluding it by count.
-- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
+- **Governs.** `docs/snapshot/01-system-at-a-glance.md`, `docs/snapshot/03-bedrock.md`,
+  `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
 - **Trace.** `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0` E12 ·
   `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** "The bundling rule establishes exactly eight first-order stones." Retracted 2026-07-30.
@@ -160,13 +178,16 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 
 - **Decision.** The stones force exactly one atom — `define → do → check → reflect ↺` — where `reflect`
   decomposes into **analyze** (frame and root-cause) then **decide** (*accept* a known issue ·
-  *re-target* · *escalate*).
+  *re-target* · *escalate*). At product scale, the same feedback re-aims the target after operation.
 - **Why.** Each beat is the forced response to a stone that cannot be answered elsewhere: intent is
   hidden, so the target must be made explicit (`define`); we err, so the result must be tested against
   the target (`check`); and a failed check is uninformative unless something frames *why* before the
-  loop turns again (`reflect`).
-- **Governs.** `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`.
-- **Trace.** `sdlc-canvas/01-bedrock-atom-fractal.md` §4.
+  loop turns again (`reflect`). Runtime learning feeds the same re-target step at product scale.
+- **Governs.** `docs/snapshot/01-system-at-a-glance.md`,
+  `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` §4;
+  product-scale projection: `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md`
+  §7–8.
 
 ### <a id="r-loop-02"></a>R-LOOP-02 · `reflect` is the loop's only backward channel
 
@@ -211,8 +232,9 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Why.** The self-test asks which stone forces each element. Applied to `implement` it has no answer,
   because `implement` is not a *response* to a hazard — it is the thing the responses are about. Marking
   it as the licensed exception keeps the self-test sharp everywhere else.
-- **Governs.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
-- **Trace.** `sdlc-canvas/03-mechanism-of-done.md` §10.10.
+- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/07-lifecycle.md`,
+  `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10.
 
 ### <a id="r-unit-01"></a>R-UNIT-01 · A work unit has a boundary and an acceptance vector
 
@@ -413,8 +435,10 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   independence or alignment. Model/tool loops can terminate on a final response without outcome
   evidence; approval and execution isolation govern different parts of exposure, and neither proves
   correctness.
-- **Applies to.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
-  `docs/snapshot/06-fractal.md`, `docs/snapshot/08-repertoires.md`, `docs/snapshot/13-appendices.md`.
+- **Applies to.** `docs/snapshot/01-system-at-a-glance.md`,
+  `docs/snapshot/02-destination-four-properties.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
+  `docs/snapshot/06-fractal.md`, `docs/snapshot/08-repertoires.md`,
+  `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E5 and E9; agent-turn mechanics: `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/agentic_loop.md`
   and `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/turn_lifecycle.md`;

@@ -3,8 +3,9 @@
 <sup>[↪ Why](#r-bedrock-01)</sup>
 
 **What it is.** First principles, literally: the unavoidable truths about reality that make software
-engineering hard. We call them **stones**. Every stage, tool, and artifact in the SDLC is a *response*
-to one or more stones — never a convention. There are **eight** first-order stones (facts about the
+engineering hard. We call them **stones**. The model's control elements and repertoires answer these
+pressures; `implement` is the base act they govern, and concrete tools are implementation choices.
+<sup>[↪ Why](#r-loop-05)</sup> There are **eight** first-order stones (facts about the
 *problem*), plus **two** second-order stones (facts about the *solver* — about who staffs the loop) that
 activate only when the work is delegated or fully autonomous. The eight first-order stones are
 **pairwise-irreducible**: none is a special case of another.
@@ -30,6 +31,7 @@ checks for double-counting: a shared forced response is evidence for bundling tw
 distinct responses are evidence for separate stones. This **bundling rule** is a heuristic because one
 stone can force several responses and several stones can share one. On that basis, "distributed" and
 "perishable" sit under #7, while "change" and "uncertain" remain #5 and #6.
+<sup>[↪ Why](#r-bedrock-02)</sup>
 
 ### The eight first-order stones
 
@@ -113,7 +115,7 @@ both branches in full.
 {
   "title": "The bedrock — ten forces",
   "level": "L1 · the forces",
-  "summary": "The ten brute facts, each wired to the specific response it forces into existence. Eight are first-order (about the problem); the last two are the second-order tier (about who staffs the loop — independence and faithfulness). Nothing in the loop is a convention; every part defends a stone.",
+  "summary": "Ten pressures and their responses: eight concern the problem; two concern who staffs the loop. Control elements and repertoires answer these pressures; implementation is the base act they govern.",
   "zoomOut": "The complete circuit",
   "zoomIn": ["The unit loop, fully staffed"],
   "nodes": [
