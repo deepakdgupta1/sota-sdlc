@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02j` complete
-Next step: `02k`
+Current step: `02k` complete
+Next step: `02l`
 
 ## Objective
 
@@ -327,6 +327,26 @@ Compare `docs/agent-architecture/06_orchestration/` with the current model and r
 
 Exit: current orchestration decisions have the right shape and historical support.
 
+Disposition at `2ffdb9c`:
+
+- `task_lifecycle.md` compares session status, plan-to-code handover, checkpoints, review routing,
+  and todos. Its explicit cross-session plan and handover support the artifact boundary in
+  `R-ARTIFACT-01`. A session completion signal or checklist state is not work-unit acceptance.
+  Lifecycle mechanics remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/06_orchestration/task_lifecycle.md`.
+- `workflow_modes.md` compares personas, tool and file restrictions, model routing, and mode switches.
+  These are ways to select and constrain a delegate under `R-UNIT-01` and `R-BEDROCK-06`; a prompt role
+  alone does not enforce authority or prove a checked result. Mode schemas remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/06_orchestration/workflow_modes.md`.
+- `multi_agent_patterns.md` distinguishes spawned child runtimes, bookkeeping-only tasks, persistent
+  parent-child delegation, and unlinked task handoffs. Its result summaries support
+  `R-AGENTIC-01`'s separation of delegation from accountable acceptance. Parent and child mechanics
+  remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/06_orchestration/multi_agent_patterns.md`.
+
+No independent SDLC decision emerged. Chapters 9, 10, and 12 already require projected child
+constraints, durable handoff artifacts, and a separate outcome check by the accountable work unit.
+
 ### 02l. Reconcile governance
 
 Compare `docs/agent-architecture/07_permissions_and_governance/` with the current model and rationale.
@@ -427,8 +447,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02j reviewed all five files in `docs/agent-architecture/05_action_and_tools/`. Their action mechanisms map to Chapter 12's capability containment and outcome evidence, with file-level dispositions above. `R-BEDROCK-06` now cites the tagged permission-versus-execution and self-declared-annotation contrasts.
-Evidence: all five action-and-tools files resolve in `docs-history-2026-09-24`. They were compared with snapshot chapter 12 and `R-BEDROCK-06` and `R-AGENTIC-01`. No independent SDLC decision emerged; product-specific registries, edit formats, browser methods, and extension transports remain historical.
+Completed scope: step 02k reviewed all three files in `docs/agent-architecture/06_orchestration/`. File-level dispositions above map session handoffs, workflow modes, and child delegation to the current work-unit, artifact, and agentic decisions. `R-ARTIFACT-01` and `R-AGENTIC-01` now cite tagged implementation contrasts.
+Evidence: all three orchestration files resolve in `docs-history-2026-09-24` and match the active sources. They were compared with snapshot chapters 4, 9, 10, and 12 and `R-UNIT-01`, `R-ARTIFACT-01`, and `R-AGENTIC-01`. No independent SDLC decision emerged.
 Changed files: `docs/RATIONALE.md` and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02j complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02k by comparing `docs/agent-architecture/06_orchestration/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific orchestration methods as historical evidence.
+Verification state: step 02k complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02l by comparing `docs/agent-architecture/07_permissions_and_governance/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific governance methods as historical evidence.

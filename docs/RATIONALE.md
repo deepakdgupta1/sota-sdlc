@@ -356,7 +356,9 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Evidence.** Historical implementation contrast: `docs-history-2026-09-24:docs/agent-architecture/04_memory/episodic_memory.md`
   records durable action history alongside strategy reflections lost on restart;
   `docs-history-2026-09-24:docs/agent-architecture/04_memory/persistent_memory.md` records filesystem
-  instructions that survive sessions but may be truncated when loaded. Storage and recall are separate
+  instructions that survive sessions but may be truncated when loaded.
+  `docs-history-2026-09-24:docs/agent-architecture/06_orchestration/task_lifecycle.md` shows a plan,
+  todos, and handover carried into a new implementation session. Storage and recall are separate
   concerns; these examples do not settle the attention-boundary question below.
 - **Open.** Whether the agent context window is a *third* boundary — an **attention** boundary, where a
   fact is explicit and even in memory but cannot be attended to — is Q4 in `ROADMAP.md` §8.
@@ -405,8 +407,11 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   `docs/snapshot/06-fractal.md`, `docs/snapshot/08-repertoires.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E5 and E9; agent-turn mechanics: `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/agentic_loop.md`
-  and `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/turn_lifecycle.md`; earlier
-  second-order argument: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
+  and `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/turn_lifecycle.md`;
+  `docs-history-2026-09-24:docs/agent-architecture/06_orchestration/multi_agent_patterns.md`
+  contrasts child-result handoffs with task bookkeeping that spawns no runtime. Neither is the
+  parent's outcome check. Earlier second-order argument:
+  `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** The claim that removing the human drives independence and alignment to zero.
 
 ### <a id="r-method-01"></a>R-METHOD-01 · Four sources of truth, with declared precedence
