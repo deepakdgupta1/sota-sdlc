@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02f` complete
-Next step: `02g`
+Current step: `02g` complete
+Next step: `02h`
 
 ## Objective
 
@@ -208,6 +208,29 @@ Compare `docs/agent-architecture/02_cognition/` with the current model and ratio
 
 Exit: current cognition decisions have the right shape and historical support.
 
+Disposition at `2636a7d`:
+
+- `planning_strategies.md` compares embedded plans, task queues, and skill-driven procedures. The
+  model already places decomposition in `design` (Chapter 5) and the schedule bet in `plan` (Chapter 7).
+  These product planning methods do not require another SDLC element. The tagged source resolves at
+  `docs-history-2026-09-24:docs/agent-architecture/02_cognition/planning_strategies.md`.
+- `task_decomposition.md` compares file scope, result-driven task creation, plan/execute strategies,
+  and search through candidate steps. Chapter 9 already requires child work units to inherit applicable
+  boundaries and acceptance criteria; Chapter 5 identifies decomposition as `design`'s output. Queue
+  formats, parsers, and sub-agent search remain historical implementations at
+  `docs-history-2026-09-24:docs/agent-architecture/02_cognition/task_decomposition.md`.
+- `reasoning_patterns.md` distinguishes displayed self-criticism from staged feedback that updates
+  strategy state. The current `reflect` beat already analyzes results and decides among exits
+  (`R-LOOP-01`, `R-LOOP-02`). Chapter 12 requires independent-enough evidence for delegated checks
+  (`R-AGENTIC-01`). A critique field alone guarantees neither. Its tagged source resolves at
+  `docs-history-2026-09-24:docs/agent-architecture/02_cognition/reasoning_patterns.md`.
+- `model_routing.md` compares model, provider, prompt, and parser routes. `R-BEDROCK-03` already treats
+  capability selection and routing as contingent design needs rather than a new stone. Provider
+  registries, gateway headers, and API choices remain historical implementation details at
+  `docs-history-2026-09-24:docs/agent-architecture/02_cognition/model_routing.md`.
+
+No independent SDLC decision emerged. The current model and rationale keep their existing shape.
+
 ### 02h. Reconcile context handling
 
 Compare `docs/agent-architecture/03_context_engine/` with the current model and rationale.
@@ -329,8 +352,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02f reviewed all four files in `docs/agent-architecture/01_core_loop/`. Chapter 12 now distinguishes an agent's model/tool turn from work-unit acceptance, and `R-AGENTIC-01` explains the distinction with tagged historical support. The four-beat SDLC loop remains intact. File-level dispositions are recorded above.
-Evidence: all four core-loop files resolve in `docs-history-2026-09-24`. The general loop and turn mechanics were compared with snapshot chapters 04, 06, and 12 and `R-LOOP-01` through `R-LOOP-04`. Product protocols, prompt composition choices, and the modular-agent blueprint remain historical implementation or design support.
-Changed files: `docs/snapshot/12-agentic-sdlc.md`, `docs/RATIONALE.md`, and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02f complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02g by comparing `docs/agent-architecture/02_cognition/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific cognition methods as historical evidence.
+Completed scope: step 02g reviewed all four files in `docs/agent-architecture/02_cognition/`. Planning, decomposition, self-critique, and routing map to existing elements and design needs; no independent SDLC decision emerged. File-level dispositions are recorded above.
+Evidence: all four cognition files resolve in `docs-history-2026-09-24`. Their general claims were compared with snapshot chapters 05, 07, 09, and 12 and with `R-LOOP-01`, `R-LOOP-02`, `R-UNIT-01`, `R-BEDROCK-03`, and `R-AGENTIC-01`. Product-specific strategies, parsers, and provider routes remain historical implementation evidence.
+Changed files: this plan only. Dirty files: none after this packet's commit.
+Verification state: step 02g complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02h by comparing `docs/agent-architecture/03_context_engine/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific context methods as historical evidence.
