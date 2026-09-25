@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02l` complete
-Next step: `02m`
+Current step: `02m` complete
+Next step: `02n`
 
 ## Objective
 
@@ -381,6 +381,25 @@ Compare `docs/agent-architecture/08_user_interaction/` with the current model an
 
 Exit: current interaction decisions have the right shape and historical support.
 
+Disposition at `f992fe6`:
+
+- `input_processing.md` compares command-first routing, explicit file-scope changes, and channel
+  adapters. These are ways to present and control an agent session, not a replacement for the
+  accountable boundary and acceptance vector in `R-UNIT-01`. Product input grammars remain historical
+  at `docs-history-2026-09-24:docs/agent-architecture/08_user_interaction/input_processing.md`.
+- `feedback_loops.md` compares bounded edit repair, user-gated validation repair, per-action
+  approval, completion feedback, and asynchronous CI checks. These staff parts of the Chapter 4
+  loop, but neither an approval nor a completion prompt proves the work unit met its target. The
+  tagged contrast supports `R-AGENTIC-01` at
+  `docs-history-2026-09-24:docs/agent-architecture/08_user_interaction/feedback_loops.md`.
+- `output_formatting.md` compares terminal, webview, native-editor, and channel-specific renderers.
+  Rendering progress and tool results makes a session legible but supplies no independent outcome
+  check. UI protocols and component choices remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/08_user_interaction/output_formatting.md`.
+
+No independent SDLC decision emerged. The current loop and delegation model already distinguish
+session interaction from the accountable work unit and its outcome check.
+
 ### 02n. Reconcile the agent evaluation report
 
 Compare `docs/ai_agent_evaluation_metrics_kpis_2026.md` with the current model and rationale. Keep only accepted current criteria and cite the September history tag.
@@ -469,8 +488,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02l reviewed all four files in `docs/agent-architecture/07_permissions_and_governance/`. Chapter 12 now distinguishes approval from execution isolation. `R-BEDROCK-06` and `R-GATE-02` cite tagged governance contrasts; file-level dispositions are above.
-Evidence: all four governance files resolve in `docs-history-2026-09-24` and match the active sources. They were compared with snapshot chapters 9, 11, and 12 and `R-UNIT-01`, `R-BEDROCK-06`, `R-GATE-02`, and `R-AGENTIC-01`. No independent SDLC decision emerged.
-Changed files: `docs/snapshot/12-agentic-sdlc.md`, `docs/RATIONALE.md`, and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02l complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02m by comparing `docs/agent-architecture/08_user_interaction/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific interaction methods as historical evidence.
+Completed scope: step 02m reviewed all three files in `docs/agent-architecture/08_user_interaction/`. The plan records a disposition for each. `R-AGENTIC-01` now cites the tagged feedback-loop contrast. No independent SDLC decision emerged, so the snapshot did not change.
+Evidence: all three interaction files resolve in `docs-history-2026-09-24` and match the active sources. Input routing was compared with `R-UNIT-01`; repair and approval feedback with Chapter 4 and `R-AGENTIC-01`; rendering with Chapter 12's distinction between a reported result and independent outcome evidence.
+Changed files: `docs/RATIONALE.md` and this plan. Dirty files: none after this packet's commit.
+Verification state: step 02m complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02n by comparing `docs/ai_agent_evaluation_metrics_kpis_2026.md` with the current snapshot and rationale. Keep only accepted current criteria, support them with the September history tag, and classify the remaining report claims as historical.

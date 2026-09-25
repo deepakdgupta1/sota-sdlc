@@ -417,7 +417,10 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   and `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/turn_lifecycle.md`;
   `docs-history-2026-09-24:docs/agent-architecture/06_orchestration/multi_agent_patterns.md`
   contrasts child-result handoffs with task bookkeeping that spawns no runtime. Neither is the
-  parent's outcome check. Earlier second-order argument:
+  parent's outcome check.
+  `docs-history-2026-09-24:docs/agent-architecture/08_user_interaction/feedback_loops.md`
+  describes per-action approval and a user-facing completion prompt; neither interaction alone
+  establishes the independent work-unit check required here. Earlier second-order argument:
   `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** The claim that removing the human drives independence and alignment to zero.
 
