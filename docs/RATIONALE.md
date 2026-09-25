@@ -226,6 +226,9 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Applies to.** `docs/snapshot/09-mechanism-of-done.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E1. This records the accepted repair, not the original motivation for every target quality.
+  `docs-history-2026-09-24:docs/ai_agent_evaluation_metrics_kpis_2026.md#segment-everything`
+  illustrates why outcome, cost, latency, and safety measures need task- and risk-specific contexts
+  instead of one universal agent score.
 - **Superseded.** The four-axis propagation schema that counted scope as an axis and omitted `secure`.
 
 ### <a id="r-done-01"></a>R-DONE-01 · Design is a bet, and stub-composition tests it cheaply
@@ -420,7 +423,10 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   parent's outcome check.
   `docs-history-2026-09-24:docs/agent-architecture/08_user_interaction/feedback_loops.md`
   describes per-action approval and a user-facing completion prompt; neither interaction alone
-  establishes the independent work-unit check required here. Earlier second-order argument:
+  establishes the independent work-unit check required here. The historical evaluation report at
+  `docs-history-2026-09-24:docs/ai_agent_evaluation_metrics_kpis_2026.md#kpi-taxonomy`
+  separates a run's terminal state from verified task success and tracks unsafe actions in the
+  trajectory. Earlier second-order argument:
   `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** The claim that removing the human drives independence and alignment to zero.
 

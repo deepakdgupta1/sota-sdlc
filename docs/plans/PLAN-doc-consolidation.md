@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02m` complete
-Next step: `02n`
+Current step: `02n` complete
+Next step: `03a`
 
 ## Objective
 
@@ -406,6 +406,22 @@ Compare `docs/ai_agent_evaluation_metrics_kpis_2026.md` with the current model a
 
 Exit: the standalone report contributes no unexplained current decision.
 
+Disposition at `67d0507`:
+
+- `docs/ai_agent_evaluation_metrics_kpis_2026.md` distinguishes terminal completion from verified
+  task success, separates outcome from tool/trajectory and safety measures, and calls for task- and
+  risk-specific segmentation. These support the accountable acceptance and delegated-evidence
+  decisions in `R-UNIT-01` and `R-AGENTIC-01`, which now cite the September history tag.
+- The report's example dashboard weights, standing north-star KPI, blanket audit-coverage gate,
+  pre-production zero-critical-incident gate, benchmark catalogue, and telemetry schema are
+  historical proposals, not current SDLC criteria. The current model sets an acceptance vector per
+  work unit and gates a named seam when non-local harm or outside authority requires it
+  (`R-GATE-01`, `R-GATE-02`). A metric, completed run, or favorable trajectory score cannot replace
+  an outcome check.
+
+No independent SDLC decision emerged. The snapshot already has the accepted criteria and needs no
+change for this report.
+
 ### 03a. Audit rationale coverage in chapters 00 through 03
 
 Identify each independent decision or claim. Reuse an existing rationale ID when it explains the current content. Add an entry only for a distinct reason. Check that subordinate prose, tables, definitions, and diagrams have an unambiguous governing decision.
@@ -488,8 +504,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02m reviewed all three files in `docs/agent-architecture/08_user_interaction/`. The plan records a disposition for each. `R-AGENTIC-01` now cites the tagged feedback-loop contrast. No independent SDLC decision emerged, so the snapshot did not change.
-Evidence: all three interaction files resolve in `docs-history-2026-09-24` and match the active sources. Input routing was compared with `R-UNIT-01`; repair and approval feedback with Chapter 4 and `R-AGENTIC-01`; rendering with Chapter 12's distinction between a reported result and independent outcome evidence.
+Completed scope: step 02n reviewed `docs/ai_agent_evaluation_metrics_kpis_2026.md`. The plan records accepted contrasts and historical proposals above. `R-UNIT-01` and `R-AGENTIC-01` cite the tagged report; the snapshot did not change because no independent SDLC decision emerged.
+Evidence: the report resolves in `docs-history-2026-09-24` and matches the active source. Its outcome, trajectory, cost, and safety taxonomy was compared with Chapters 4, 9, 11, and 12 and `R-UNIT-01`, `R-AGENTIC-01`, `R-GATE-01`, and `R-GATE-02`. Fixed KPI weights and blanket production gates were not adopted.
 Changed files: `docs/RATIONALE.md` and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02m complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02n by comparing `docs/ai_agent_evaluation_metrics_kpis_2026.md` with the current snapshot and rationale. Keep only accepted current criteria, support them with the September history tag, and classify the remaining report claims as historical.
+Verification state: step 02n complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 03a by auditing independent decisions in snapshot chapters 00 through 03 against the rationale ledger. Reuse existing IDs where sufficient; add only missing reasons and check links.
