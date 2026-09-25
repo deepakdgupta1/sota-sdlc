@@ -135,7 +135,13 @@ Rejected ideas appear only where they explain why a surviving decision has its c
 - **Applies to.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/12-agentic-sdlc.md`,
   `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
-  E9. This is a design assumption for the non-persistent branch, not a claim about every agent system.
+  E9. Implementation contrasts in
+  `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/command_execution.md`
+  distinguish tool permission checks from sandbox enforcement, while
+  `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/extensibility.md`
+  notes that extension-provided safety annotations can be self-declared. Model-visible tool definitions
+  alone are not an enforcement boundary. This is a design assumption for the non-persistent branch,
+  not a claim about every agent system.
 - **Superseded.** Treating task-level incentives as the response to non-persistent inference.
 
 ### <a id="r-bedrock-05"></a>R-BEDROCK-05 · Cost-asymmetry is a derived law, not a stone

@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02i` complete
-Next step: `02j`
+Current step: `02j` complete
+Next step: `02k`
 
 ## Objective
 
@@ -296,6 +296,31 @@ Compare `docs/agent-architecture/05_action_and_tools/` with the current model an
 
 Exit: current action and tool decisions have the right shape and historical support.
 
+Disposition at `723671f`:
+
+- `tool_architecture.md` compares model-facing tool schemas, registry filtering, dispatch, and result
+  framing. Exposing a tool definition does not establish authorized effects or a checked outcome.
+  Registry shapes remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/tool_architecture.md`.
+- `code_modification.md` compares edit formats, parsing, guarded application, Git checkpoints, and
+  lint/test feedback. Those mechanisms can staff `do` and `check`; an applied patch or commit alone
+  does not accept the accountable work unit. The tagged source remains historical at
+  `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/code_modification.md`.
+- `command_execution.md` separates command permission decisions, execution isolation, and tool
+  results. Its implementation contrasts support the capability-containment limit in `R-BEDROCK-06`
+  at `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/command_execution.md`.
+- `browser_interaction.md` compares screenshot-driven actions, per-action approval, and delegated
+  browser tooling. A screenshot is an observation for the next turn, not independent acceptance of the
+  intended result. Browser methods remain historical at
+  `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/browser_interaction.md`.
+- `extensibility.md` compares external protocols, in-process plugins, and other extension surfaces.
+  Self-declared tool safety metadata is not an operator-enforced boundary; this tagged source supports
+  `R-BEDROCK-06` at
+  `docs-history-2026-09-24:docs/agent-architecture/05_action_and_tools/extensibility.md`.
+
+No independent SDLC decision emerged. Chapter 12 already separates capability containment from
+outcome evidence and accountable acceptance; tool and browser implementations remain historical.
+
 ### 02k. Reconcile orchestration
 
 Compare `docs/agent-architecture/06_orchestration/` with the current model and rationale.
@@ -402,8 +427,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02i reviewed all four files in `docs/agent-architecture/04_memory/`. Their memory mechanisms map to the current artifact and reflect requirements. `R-ARTIFACT-01` now cites the tagged persistence-versus-recall contrast; file-level dispositions are recorded above.
-Evidence: all four memory files resolve in `docs-history-2026-09-24`. The source distinctions were compared with snapshot chapter 10 and `R-ARTIFACT-01`, `R-LOOP-02`, and `R-ARTIFACT-03`. Q4's possible attention boundary remains open and is assigned to step 03c, not silently admitted as a new model decision.
+Completed scope: step 02j reviewed all five files in `docs/agent-architecture/05_action_and_tools/`. Their action mechanisms map to Chapter 12's capability containment and outcome evidence, with file-level dispositions above. `R-BEDROCK-06` now cites the tagged permission-versus-execution and self-declared-annotation contrasts.
+Evidence: all five action-and-tools files resolve in `docs-history-2026-09-24`. They were compared with snapshot chapter 12 and `R-BEDROCK-06` and `R-AGENTIC-01`. No independent SDLC decision emerged; product-specific registries, edit formats, browser methods, and extension transports remain historical.
 Changed files: `docs/RATIONALE.md` and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02i complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02j by comparing `docs/agent-architecture/05_action_and_tools/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific tool methods as historical evidence.
+Verification state: step 02j complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02k by comparing `docs/agent-architecture/06_orchestration/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific orchestration methods as historical evidence.
