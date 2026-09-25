@@ -26,10 +26,10 @@ gap. This "self-test" is how the model grows — and it has fired **in reverse t
 needed response was found resting on no stone: the security defenses exposed stone #8; the loop's own
 checker, resting on an unguaranteed *independence*, exposed stone #9; and the loop's own executor,
 resting on an unguaranteed *faithfulness*, exposed stone #10. A **third direction** of the self-test
-guards against double-counting — two faces of a pressure are **one** stone only if they share a *single*
-forced response (the **bundling rule**). That is why "distributed" and "perishable" fold into one stone
-(#7 — both answered by *artifacts*), while "change" and "uncertain" stay two (#5 and #6 — answered by
-different machinery).
+checks for double-counting: a shared forced response is evidence for bundling two descriptions, while
+distinct responses are evidence for separate stones. This **bundling rule** is a heuristic because one
+stone can force several responses and several stones can share one. On that basis, "distributed" and
+"perishable" sit under #7, while "change" and "uncertain" remain #5 and #6.
 
 ### The eight first-order stones
 
@@ -68,9 +68,14 @@ to nothing when one aligned mind does everything), and each erodes **reliable** 
 `check` into a bare `declare`. The tier has **two seats**, because the loop makes two silent assumptions
 about the minds it delegates to — that the checker is **independent**, and that the doer is
 **faithful**. *Two* is the count the admission criterion currently yields, not a proven ceiling: two
-further candidates (a delegate's **capability** and its **liveness**) were judged to fold into #4 and #7
-respectively rather than open a third seat. Those folds are judgments made under the criterion, and
-whether they are adequately argued is an open question (`ROADMAP.md` §8, Q10).
+further candidates (a delegate's **capability** and its **liveness**) remain outside this tier under
+the current admission judgment. Capability mismatch is a contingent property of the selected delegate
+and task, handled through `design`, `verify`, and escalation under #3 and #4. It leaves a distinct need
+for capability selection, tool access, and routing. Liveness failure is a contingent interruption of
+the selected execution, handled through bounded work, recovery, and durable artifacts under #2, #5,
+and #7. It leaves a distinct need for timeouts, checkpoints, and resumption. These residues are design
+obligations, not evidence that either candidate is an irreducible brute fact. A case that meets the
+admission criterion would change this judgment. <sup>[↪ Why](#r-bedrock-03)</sup>
 
 9. **Reflexivity — the checker shares the doer's fault.** *(Second-order, conditional — it bites in an
    automated, autonomous, multi-agent pipeline.)* The agents that staff `check` and `reflect` are the

@@ -14,17 +14,29 @@ software you are building.
 - **Origination (the root).** An accountable work unit has a **boundary** (scope, exclusions, delegated
   authority, and budget) and an **acceptance vector** (targets for `reliable`, `predictable`, `resilient`,
   and `secure`, plus named qualities relevant to the work). `specify` elicits the outcome from intent;
-  `scope` records its boundary. The root has no parent target to inherit.
+  `scope` records its boundary. Name performance, accessibility, maintainability, privacy, or other
+  relevant qualities as criteria with applicable contexts and thresholds. Map each criterion to the
+  apex property whose failure it represents (Chapter 2). The root has no parent target to inherit.
+  <sup>[↪ Why](#r-apex-03)</sup>
 - **Propagation (internal nodes).** `design` decomposes parent target *P* into child targets
   {L₁ … Lₙ}. Each child inherits the boundary constraints and acceptance criteria that apply to its
   part. The projection may add a local check or omit an irrelevant quality; it may not silently relax a
   parent constraint. In short: `Done(part)` is the applicable projection of `Done(parent)`.
 - **Termination (the leaf).** Decomposition stops where a target can be checked *without further
-  decomposition* — where `check` yields a genuine yes/no. There are two kinds of leaf:
-  - a **deterministic** leaf (logic → an assertion or unit test — passes or fails), and
-  - a **statistical** leaf (an irreducible proxy → a threshold on a sampled value: "done with
-    confidence ≥ c"). The statistical leaf is where uncertainty and change (stones #5, #6) keep the
-    check from ever being perfectly deterministic.
+  decomposition*. The chosen check modality supplies the acceptance rule. No modality proves that the
+  target itself captures the intended outcome. <sup>[↪ Why](#r-done-02)</sup>
+
+| Check modality | Acceptance evidence | Residue and Goodhart surface |
+|---|---|---|
+| Deterministic | An assertion or test passes for specified cases. | Unchecked cases and a test oracle that encodes the wrong behavior. |
+| Statistical | A sampled measure meets a threshold with stated confidence. | Sampling error, distribution shift, and a proxy optimized instead of the outcome. |
+| Formal | A proof establishes a property against a formal specification. | Specification or model error; a verifier can be satisfied by a weak specification. |
+| Simulated | Runs in a model meet the target across chosen scenarios. | Missing real-world conditions and optimization for the simulator. |
+| Human-experiential | People in the intended context judge the experience against stated criteria. | Panel bias, limited contexts, and optimization for the review rather than actual use. |
+| Runtime-assured | Live signals and controls keep the outcome within a monitored envelope. | Sensor gaps, delayed intervention, and optimization for the monitored signal. |
+
+One target can use several modalities. State what each check covers and what evidence remains necessary
+at the parent acceptance point. <sup>[↪ Why](#r-done-02)</sup>
 
 ### Decomposition is a bet — the composition hypothesis
 
@@ -56,8 +68,9 @@ thresholds, and proxies depend on the work unit. The root is elicited; internal 
 and refined against it.
 
 > ▸ **Chart — "Done propagation"** <sup>[↪ Why](#r-unit-01)</sup> · *L3 · inside a beat.* Intent becomes a bounded root target;
-> `design` decomposes it (each edge a composition hypothesis); leaves bottom out into deterministic or
-> statistical checks; rejected parent acceptance routes through `analyze` to the failed assumption.
+> `design` decomposes it (each edge a composition hypothesis); the diagram shows deterministic and
+> statistical leaves as examples; rejected parent acceptance routes through `analyze` to the failed
+> assumption.
 
 ```pipeline-graph
 {
@@ -118,9 +131,9 @@ them, and the conjecture that they compose to *P*. The valuable property of a be
 - **It separates three remaining premises:**
   - **Premise A — the leaves are real** (each stub behaves like the real component). Discharged at
     **build time** by `verify` (a unit test on the real leaf) → the *deterministic* leaf.
-  - **Premise B — the contract holds across its *whole* range of inputs.** Only *sampled* at build
-    (property tests); the residue is caught at **run time** by `observe` (telemetry) → the *statistical*
-    leaf.
+  - **Premise B — the contract holds across its *whole* range of inputs.** Property tests sample it
+    at build time; `observe` can catch remaining failures at run time. This is one use of a
+    *statistical* or *runtime-assured* leaf, not an exhaustive way to check B.
   - **Premise C — the contract set, even if perfectly honoured, delivers *P*.** Review the design
     against the parent acceptance vector, then seek integration and acceptance evidence on the composed
     system. Neither compatible wiring nor green leaf checks establish this premise.
@@ -181,8 +194,9 @@ is something `design` **chooses**, by how tightly it draws each interface contra
 quality bar.
 
 - **A tight contract manufactures `predictable` at the seam.** Premise B's residue *is* the
-  unpredictability at an interface (the unforeseen input combinations). Tightening dials that residue
-  down through the leaf-kinds: **loose** → a range too big to exhaust (a *statistical* leaf, sampled at
+  unpredictability at an interface (the unforeseen input combinations). For input-range checks,
+  tightening can reduce that residue along this path: **loose** → a range too big to exhaust (a
+  *statistical* leaf, sampled at
   `observe`, residue > 0); **tight** → a range small enough to exhaust (a *deterministic* leaf at
   `verify`, residue → 0); **type-encoded** → illegal values can't even be *constructed* (discharged at
   compile time, never reaching run time).

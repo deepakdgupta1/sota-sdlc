@@ -36,11 +36,14 @@ Plain-language definitions of the recurring terms.
 - **Stub-composition.** Wiring together behaviour-less stubs of each component at design time, to cheaply
   refute a bad decomposition before building. <sup>[↪ Why](#r-done-01)</sup>
 - **Premises A, B, and C.** After stub-composition, A says the leaves behave as contracted (`verify`);
-  B says the contracts hold across their input range (sampled at build and monitored by `observe`);
+  B says the contracts hold across their input range (checked with an appropriate modality and
+  monitored by `observe` where needed);
   C says the contract set would deliver the parent target even if perfectly honoured (design review,
   followed by integration and acceptance evidence). <sup>[↪ Why](#r-done-01)</sup>
-- **Leaf.** A target checkable without further decomposition — *deterministic* (an assertion) or
-  *statistical* (a threshold on a sampled value). <sup>[↪ Why](#r-done-02)</sup>
+- **Leaf.** A target checkable without further decomposition. Its evidence can be deterministic,
+  statistical, formal, simulated, human-experiential, runtime-assured, or a combination. Each modality
+  leaves a stated residue and can be optimized as a proxy for the wrong outcome (§9).
+  <sup>[↪ Why](#r-done-02)</sup>
 - **Repertoire.** A set of cross-cutting responses invoked from `reflect`: the *resilience* repertoire
   (escalate, degrade, recover, roll back) and the *security* repertoire (authn/authz, sanitize, harden,
   red-team). <sup>[↪ Why](#r-apex-02)</sup>
@@ -96,11 +99,10 @@ Plain-language definitions of the recurring terms.
   payoff to the intended result. <sup>[↪ Why](#r-bedrock-04)</sup> For non-persistent inference, use
   capability containment, proxy-resistant evaluation, and independent evidence; the model assumes no
   continuing payoff that task-level rewards can shape. <sup>[↪ Why](#r-bedrock-06)</sup>
-- **Bundling rule.** The self-test's third direction: two faces of a pressure are **one** stone only if
-  they share a *single* forced response, else they are **sibling** stones — why "distributed + perishable"
-  is one stone (#7) but "change" and "uncertain" are two (#5, #6), and why #9 and #10 are siblings, not
-  one stone. It is a **self-test heuristic, not an identity criterion** — the pressure→response relation
-  is many-to-many, so the rule cannot establish a closed count. <sup>[↪ Why](#r-bedrock-02)</sup>
+- **Bundling rule.** The self-test's third direction compares forced responses to detect duplicate
+  pressure descriptions. A shared response supports bundling; distinct responses support separation.
+  It is a **self-test heuristic, not an identity criterion**, because pressures and responses have a
+  many-to-many relation. The rule cannot establish a closed count. <sup>[↪ Why](#r-bedrock-02)</sup>
 - **Admission criterion.** What earns a pressure a seat in the bedrock: it is a brute fact rather than a
   contingent choice, it forces a response the existing stones do not already force, and it survives the
   three-direction self-test. This — not a proof of exhaustiveness — is what the bedrock rests on, and
@@ -141,9 +143,8 @@ One table, the whole causal skeleton.
   does **not** audit any particular real-world setup against the ideal — that is a separate exercise,
   kept out so the ideal stays uncontaminated. It is **frozen as of 2026-07-30** (`asOf` in
   `docs/snapshot.parts.json`): historical truth as of that date, not a claim of perpetual freshness.
-- **What is not yet in it.** Tier E repairs E1 through E6 are represented in this snapshot. The
-  remaining repairs in `ROADMAP.md` §3 are pending. Read the current sections with their rationale
-  entries; the roadmap records work that has not yet changed the model.
+- **Accepted model repairs.** Tier E repairs E1 through E13 are represented in this snapshot and its
+  rationale entries.
 - **Source of the derivation.** Every claim here is derived, step by step, in the companion
   [canvas](index.html), which also holds the audit trail
   — the Socratic question-and-answer history, the iteration log, and the open-tracks register (§11

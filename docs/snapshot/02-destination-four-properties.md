@@ -72,6 +72,20 @@ Each property is independent of its family sibling — you can hold one and fail
 Because each combination exists, none of the four reduces to another. All four must be produced on
 purpose.
 
+### Where other qualities belong
+
+<sup>[↪ Why](#r-apex-03)</sup>
+
+The four properties classify *how* an outcome can fail; they do not replace the qualities a work unit
+must deliver. `specify` names those qualities in the acceptance vector with the people, contexts, and
+thresholds that matter. Map each quality to the apex property affected by its failure, and map it to
+more than one when the failure crosses contexts or time. For example, latency targets make performance
+part of `predictable`, while performance under load also concerns `resilient`. Accessibility for named
+users and assistive technologies is part of `reliable`. Maintainability across changes concerns
+`resilient` and may set a `predictable` change-time target. Privacy constrains `secure` when disclosure
+is the risk and `reliable` when correct data handling is the task. These are acceptance criteria, not
+new apex properties. Chapter 9 shows how the criteria pass to child targets.
+
 > ▸ **Chart — "The four properties"** <sup>[↪ Why](#r-apex-01)</sup> · *L1 · the destination.* A zoom into the top band of the
 > complete circuit: the two families, the behaviour that produces each property, and the two
 > independence relations (⟂).

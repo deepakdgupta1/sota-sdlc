@@ -14,10 +14,7 @@ current document, not a historical one. Where the reasoning lived in a document 
 entries cite the annotated tag: `docs-history-2026-07-30:<path>#<heading>`. Retrieve either with
 `git show docs-history-2026-07-30:<path>`. Never a line number — see [R-METHOD-04](#r-method-04).
 
-**Every entry here is accepted.** There is no status field. Unresolved work lives in `ROADMAP.md`;
-rejected ideas appear only where they explain why a surviving piece has its shape. The **Tier E model
-repairs are not applied to this snapshot** (Appendix C says so plainly), so no entry below should be read
-as having repaired them.
+Rejected ideas appear only where they explain why a surviving decision has its current shape.
 
 ---
 
@@ -46,6 +43,19 @@ as having repaired them.
 - **Superseded.** A single `resilient` envelope with security as its hardest case. Rejected: it predicts
   that more redundancy buys more security, which is false at the seam an adversary chooses.
 
+### <a id="r-apex-03"></a>R-APEX-03 · Named qualities belong in acceptance vectors
+
+- **Decision.** `specify` records performance, accessibility, maintainability, privacy, and other
+  relevant qualities as acceptance criteria, with contexts and thresholds. Map each criterion to the
+  apex property affected by its failure; one criterion can map to several properties.
+- **Why.** The apex classifies failure modes. A quality such as performance can affect foreseeable
+  latency and survival under load without becoming a fifth property. Naming the quality at the work
+  unit preserves its specific target as `design` projects criteria into child work.
+- **Applies to.** `docs/snapshot/02-destination-four-properties.md`,
+  `docs/snapshot/09-mechanism-of-done.md`.
+- **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
+  E10.
+
 ### <a id="r-bedrock-01"></a>R-BEDROCK-01 · The bedrock is a pressure-tested taxonomy, not a proof
 
 - **Decision.** The bedrock is a **derived, pressure-tested hazard taxonomy with an explicit admission
@@ -55,48 +65,50 @@ as having repaired them.
   seats" — are **retracted**. Every stone stands.
 - **Why.** The document itself grants that the pressure→response relation is many-to-many, so the
   bundling rule cannot function as an identity criterion; it is a **self-test heuristic**. A count
-  derived from a heuristic is a well-tested judgment, not a theorem. Stating it as a theorem is the one
-  overclaim that discredits the whole model on contact with a serious reviewer — and stating it as a
-  criterion instead makes the taxonomy *falsifiable*, which is stronger, not weaker: a candidate
-  eleventh stone is now admitted by meeting the criterion rather than excluded by a closed count.
+  derived from a heuristic is a tested judgment, not a theorem. The criterion allows a candidate
+  eleventh stone to be assessed on its facts and required response instead of excluding it by count.
 - **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
-- **Trace.** `ROADMAP.md` §3 · E12 · `sdlc-canvas/01-bedrock-atom-fractal.md`.
+- **Trace.** `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0` E12 ·
+  `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** "The bundling rule establishes exactly eight first-order stones." Retracted 2026-07-30.
   This does **not** reopen canvas track T6, which closed the pressure-test; it corrects the *epistemic
   status* of the count, not its content.
 
-### <a id="r-bedrock-02"></a>R-BEDROCK-02 · The bundling rule, and why #7 is one stone but #5/#6 are two
+### <a id="r-bedrock-02"></a>R-BEDROCK-02 · The bundling rule is a self-test heuristic
 
-- **Decision.** Two faces of a pressure are **one** stone only if they share a *single* forced response.
-  "Distributed" and "perishable" therefore fold into stone #7 — both are answered by *artifacts* —
-  while "change" (#5) and "uncertain" (#6) stay siblings, because they are answered by different
-  machinery.
-- **Why.** Without a bundling test the taxonomy double-counts: any pressure can be described at two
-  granularities, and a model that admits both descriptions inflates without adding predictive power.
-  The shared-response test is the cheapest available discriminator that is about the *model's own
-  obligations* rather than about wording.
+- **Decision.** A shared forced response supports bundling two pressure descriptions; distinct
+  responses support separate stones. This is a self-test heuristic, not a necessary or sufficient
+  identity test. "Distributed" and "perishable" currently sit under #7; "change" and "uncertain"
+  remain #5 and #6.
+- **Why.** A pressure can force several responses, and several pressures can share one. Response
+  comparison helps detect duplicate descriptions but cannot prove a closed stone count.
 - **Governs.** `docs/snapshot/03-bedrock.md`.
-- **Trace.** `sdlc-canvas/01-bedrock-atom-fractal.md` — the bundling rule (T6).
+- **Trace.** `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` — the bundling rule (T6).
 - **See also.** [R-BEDROCK-01](#r-bedrock-01) — the rule is a heuristic, so it cannot close the count.
 
-### <a id="r-bedrock-03"></a>R-BEDROCK-03 · The second-order tier, and the two folds it rests on
+### <a id="r-bedrock-03"></a>R-BEDROCK-03 · The second-order tier and candidate residues
 
 - **Decision.** Stones #9 and #10 sit on a formalized **second-order tier**, where *order = the arity of
   the stone's referent*: first-order stones are monadic (solver × world — so "we err" (#4) stays
   first-order), second-order stones are relational (solver × solver, or solver × self). The tier has
   **two seats** — independence (#9) and alignment (#10) — because the loop makes two silent assumptions
   about the minds it delegates to: that the checker is independent, and that the doer is faithful.
+  Capability and liveness are not admitted as separate stones under the current criterion.
 - **Why.** The partition is not cosmetic: it *predicts* the class's shape. Second-order stones are
   relational, **conditional** (they collapse to nothing when one aligned mind does everything), and they
   erode a point-property by breaking a staffing assumption rather than by making the problem harder.
-- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/12-agentic-sdlc.md`.
-- **Trace.** `sdlc-canvas/01-bedrock-atom-fractal.md` · `sdlc-canvas/05-laws-and-insights.md`.
-- **Superseded.** Two candidate third seats were **judged** to fold rather than open: a delegate's
-  **capability** folds to #4 (monadic), its **liveness** to #7. Both are judgments under the admission
-  criterion, **not** passing assertions, and their residue is *not yet recorded* — capability's forced
-  responses (routing, decomposition, tool acquisition, capability selection, escalation) are not #4's
-  verify-and-analyze, and liveness's (budgets, timeouts, checkpointing, durable execution) are not #7's
-  artifact. Whether the folds are adequately argued is **Q10** in `ROADMAP.md` §8 — open.
+  Capability mismatch is contingent on the selected delegate and task.
+  `design`, `verify`, and escalation answer it under #3 and #4; capability selection, tool access, and
+  routing remain distinct design needs. Liveness failure is a contingent interruption of the selected
+  execution. Bounded work, recovery, and artifacts answer it under #2, #5, and #7; timeouts,
+  checkpoints, and resumption remain distinct design needs. Neither candidate currently meets the
+  brute-fact requirement for another stone. This judgment can change on new evidence.
+- **Applies to.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/12-agentic-sdlc.md`,
+  `docs/snapshot/13-appendices.md`.
+- **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`,
+  `docs-history-2026-07-30:sdlc-canvas/05-laws-and-insights.md`; correction:
+  `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0` E12.
+- **Superseded.** The unexplained one-line folds of capability into #4 and liveness into #7.
 
 ### <a id="r-bedrock-04"></a>R-BEDROCK-04 · Incentives apply to persistent delegated parties
 
@@ -227,23 +239,25 @@ as having repaired them.
 
 - **Decision.** Formal proof is a check modality that **relocates** the reflexivity blind spot from the
   code into the specification. It does not escape it, and it does not make a check non-Goodhartable.
+  A leaf can use deterministic, statistical, formal, simulated, human-experiential, or runtime-assured
+  evidence. Each modality has a residue and a proxy that can be optimized instead of the outcome.
 - **Why.** Two independent arguments converge. Internally, stacking correlated checkers cannot multiply
   into confidence — there is a common-mode floor of shared error that iteration never crosses, and a
   proof shares the specification's error. Externally, models have been observed **Goodharting a formal
   verifier**: exploiting weak formal specifications instead of implementing the intended solution.
+  Other check modalities also differ in evidence, residual uncertainty, and opportunities to optimize
+  the proxy rather than the intended result.
 - **Governs.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/09-mechanism-of-done.md`.
-- **Evidence.** arXiv 2605.30914, *Automating Formal Verification with RL and Recursive Inference*
-  (Max Tan, 29 May 2026) — reports "specification hacking", where "models exploit weak formal
-  specifications instead of implementing the intended solutions" (Dafny 9.7%→31.1%, Lean 46.2%→69.2%).
-  Accessed 2026-07-29. *The paper was originally cited here under an inaccurate title; the label was
-  wrong, the content does support the claim.*
+- **Evidence.** Max Tan, [*Automating Formal Verification with Reinforcement Learning and Recursive
+  Inference*](https://arxiv.org/abs/2605.30914), 29 May 2026, reports specification hacking against
+  weak formal specifications. Accessed 2026-09-25. Historical support for the modality expansion:
+  `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0` E13.
 - **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` row 12 ·
   `docs-history-2026-07-30:sdlc-evolution-ideas.md#a3-formal-verification`.
 - **Superseded.** "A formal proof is non-Goodhartable, and drives premise B to zero." Retracted: it
   contradicted this snapshot's own text, which already said a proof only relocates the blind spot.
-- **Open.** Extending the leaf taxonomy from {deterministic, statistical} to include formal, simulated,
-  human-experiential and runtime-assured modalities — each with its own residue and Goodhart surface —
-  is E13 in `ROADMAP.md` §3, not applied here.
+  The deterministic and statistical examples were also treated as exhaustive; they are now two of six
+  check modalities.
 
 ### <a id="r-done-03"></a>R-DONE-03 · Diagnose a green-check acceptance failure before routing it
 
@@ -460,56 +474,50 @@ as having repaired them.
   `docs-history-2026-07-30:sdlc-evolution-ideas.md#open-structural-questions` ·
   `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#5-bottom-line`.
 
-### <a id="r-evidence-01"></a>R-EVIDENCE-01 · EU AI Act status, and why this snapshot carries none of it
+### <a id="r-evidence-01"></a>R-EVIDENCE-01 · Dated EU AI Act status
 
 - **Decision.** No legal-status prose appears in the snapshot. The regulatory position is recorded here,
-  dated, and treated as an input to `ROADMAP.md` priorities rather than as part of the model.
+  with a verification date, rather than as an enduring part of the model. An outside legal obligation
+  may still create a gate under [R-GATE-01](#r-gate-01).
 - **Why.** Legal status decays faster than anything else in this repository, and it decayed twice inside
   a single month of editing. A model whose text asserts what a statute currently requires becomes wrong
   without anyone touching it. The durable claims — that exogenous authority can create a
   non-compensatory gate — belong to the gate calculus; the dates belong in a dated ledger entry.
-- **Evidence.** Regulation (EU) 2026/1744 (the Digital Omnibus on AI) — published in the *Official
-  Journal* 24 Jul 2026, **in force 27 Jul 2026** (a three-day vacatio legis, taken as a matter of
-  urgency because the date it amends falls on 2 August). It **replaces** Article 4 with a softened duty
-  to *support* AI literacy, expressly not to guarantee any level of it, applicable from 27 Jul 2026.
-  **Article 50 applies from 2 Aug 2026**, with a transitional to 2 Dec 2026 for Article 50(2)
-  machine-readable marking of generative systems already on the market. Annex III high-risk moves to
-  2 Dec 2027; Annex I to 2 Aug 2028. Penalties under Article 99 are unchanged (€35M/7% for prohibited
-  practices; €15M/3% other obligations; €7.5M/1% for supplying incorrect information). OJ identifier
-  `L_202601744`. Accessed 2026-07-29. **Caveat: the primary text has not been read** — EUR-Lex returned
-  an empty body to direct fetch on both the ELI and OJ-HTML routes, and all four points were confirmed
-  against three independent legal analyses in agreement. A conformance decision should not be taken on
-  this entry until the primary text is read.
+- **Evidence.** [Regulation (EU) 2026/1744](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32026R1744),
+  *Official Journal* 24 July 2026, entered into force 27 July 2026 and replaced Article 4 with a duty
+  to support AI literacy. Article 50 obligations apply from 2 August 2026 where their conditions are
+  met. Providers whose systems were on the market before that date have until 2 December 2026 for the
+  Article 50(2) marking requirement. The amended Article 113 moves specified Annex III high-risk
+  obligations to 2 December 2027 and specified Annex I obligations to 2 August 2028. Classification
+  depends on the system's intended use; a coding assistant is not automatically high-risk. Verified
+  against the primary text 2026-09-25. A specific conformance decision still requires checking the
+  applicable provisions and facts of the use case.
 - **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` rows 1–4 ·
   `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#3-errors-in-our-own-documents-that-the-review-did-not-catch` R1–R2.
-- **Superseded.** Three earlier claims, each wrong: that the Act "classifies most enterprise autonomous
-  agents as high-risk" (general code generation maps to neither Annex I nor Annex III; standard coding
-  assistants are limited-risk); that the Omnibus was still *pending*; and that Articles 4 and 50 were
-  left untouched by it and were "biting now". A nuance both earlier documents missed and worth keeping:
-  using AI to **evaluate developer productivity, rank engineers, or allocate work algorithmically**
-  *does* fall under Annex III (employment) — a real trap for a software factory that measures its
-  engineers.
+- **Superseded.** The Act does not classify all autonomous coding agents as high-risk. The Omnibus is
+  in force, replaces Article 4, and changes the applicable dates. Earlier claims that it was pending or
+  left Articles 4 and 50 untouched were wrong. Employment-related uses, such as evaluating workers,
+  require their own Annex III assessment.
 
-### <a id="r-evidence-02"></a>R-EVIDENCE-02 · CVE-2026-25253, per NVD, and the mechanism we invented
+### <a id="r-evidence-02"></a>R-EVIDENCE-02 · CVE-2026-25253 and its token-exfiltration mechanism
 
-- **Decision.** CVE-2026-25253 **is** a code vulnerability, and it is **not** evidence for the sandbox
-  component. The ephemeral hermetic execution plane rests on containment and defence-in-depth — and on
-  the general fact that isolation layers carry their own vulnerabilities — not on this CVE.
+- **Decision.** CVE-2026-25253 is a code vulnerability in the Control UI's handling of `gatewayUrl`.
+  It does not show a sandbox escape or a malicious skill package.
 - **Why.** The mechanism matters for routing: a client-side URL-handling flaw argues for input
-  validation and egress control at the agent's own boundary, not for stronger workload isolation. Citing
-  it for the sandbox would have justified the right component with the wrong argument.
-- **Evidence.** NVD (authoritative over vendor posts and reconstruction) —
-  `nvd.nist.gov/vuln/detail/CVE-2026-25253`: OpenClaw before `2026.1.29` "obtains a `gatewayUrl` value
-  from a query string and automatically makes a WebSocket connection **without prompting**, sending a
-  token value". CVSS 8.8. Accessed 2026-07-29.
+  validation and egress control at the client boundary. It cannot support a claim about workload
+  isolation failure.
+- **Evidence.** The [NVD record](https://nvd.nist.gov/vuln/detail/CVE-2026-25253) describes OpenClaw
+  before `2026.1.29` reading `gatewayUrl` from a query string and automatically opening a WebSocket
+  connection that sends a token. The [vendor advisory](https://github.com/openclaw/openclaw/security/advisories/GHSA-g8p2-7wf7-98mq)
+  confirms token exfiltration through the Control UI and a fix in `2026.1.29`. Verified 2026-09-25.
 - **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` row 13 ·
   `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#3-errors-in-our-own-documents-that-the-review-did-not-catch` R3.
 - **Superseded.** Two claims, in sequence, and the second was worse than the first: originally "a
   malicious skill package, not a code vulnerability"; then, correcting it, "a Docker sandbox escape via a
   crafted skill package, patched in v2.3.1". The second mechanism was **invented**, unsourced, and had
-  already propagated into a P1 justification before it was caught. The lesson is recorded as a rule: NVD
-  is authoritative for a CVE's mechanism, and a plausible reconstruction is not a source. "First agentic
-  CVE" is also dropped, absent a defensible definition.
+  already propagated into a P1 justification before it was caught. The record and vendor advisory
+  support the actual mechanism; a plausible reconstruction is not a source. "First agentic CVE" is
+  also dropped, absent a defensible definition.
 
 ### <a id="r-evidence-03"></a>R-EVIDENCE-03 · NIST SP 800-218A does not cover deployment or operation
 
@@ -533,8 +541,9 @@ as having repaired them.
   instrument rather than a strategy.
 - **Evidence.** arXiv 2511.17330, *Agentic Verification of Software Systems* — full text, not abstract:
   formal capture "requires significant efforts in manually annotating specifications and crafting loop
-  invariants", and it prices proof at **seL4 ≈ 22 person-years** and **CompCert ≈ 6 person-years /
-  100,000 proof lines**. Accessed 2026-07-29.
+  invariants", and reports **seL4 ≈ 22 person-years** and **CompCert ≈ 6 person-years and
+  100,000 proof lines**. Verified in the [paper's introduction](https://arxiv.org/html/2511.17330v3)
+  2026-09-25.
 - **Trace.** `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#4-verification-log` row 11 ·
   `docs-history-2026-07-30:REVIEW-ASSESSMENT-2026-07.md#1-disagreements` D10.
 - **Superseded.** An earlier round judged this paper *unsupportive* by reading only its **abstract**;

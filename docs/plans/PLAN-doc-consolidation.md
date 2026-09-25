@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02c` complete
-Next step: `02d`
+Current step: `02d` complete
+Next step: `02e`
 
 ## Objective
 
@@ -287,8 +287,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02c applied E7 to telemetry: gate only a named seam's required signal, allow risk-based sampling elsewhere, and separate debug from audit records with redaction, cost, and retention policies. E8 now retains each regression lesson and rationale while allowing documented retirement or replacement of obsolete, redundant, or misleading test instances. E9 distinguishes incentives for persistent parties from capability containment, proxy-resistant evaluation, and independent evidence for non-persistent inference.
-Evidence: `docs-history-2026-09-24:ROADMAP.md` §3 E7–E9 is byte-identical to the active roadmap at source revision `a38623b`. Referenced September and July historical files resolve. `node scripts/verify-docs.mjs` passes with 14 chapters, 38 rationale entries, and 29 charts; `git diff --check` passes. Browser QA confirmed the revised bedrock, regression, and second-order diagrams rendered after Fit, with no console errors.
-Changed files: `docs/RATIONALE.md`; snapshot chapters 01, 02, 03, 10, 11, 12, and 13; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02c complete at `HEAD` (this checkpoint commit). The structural checker verifies links and chart data; browser QA verifies the three affected diagrams. Semantic review compared E7–E9 with the roadmap and affected passages. The old `asOf` date and later Tier E repairs remain for scheduled packets.
-Exact next action: start step 02d by inspecting E10 through E13 in `ROADMAP.md` §3. Apply E10, E12, and E13; use E11 to correct factual errors while retaining the formal-proof caveat. Do not import Tier D implementation plans.
+Completed scope: step 02d maps named qualities into work-unit acceptance vectors (E10); states the bedrock count as a tested judgment and records capability and liveness residues without adding stones (E12); and expands leaves to six check modalities, each with a residue and proxy risk (E13). E11 retains the formal-proof caveat and corrects the cited paper title, EU AI Act status, and OpenClaw CVE mechanism. No Tier D implementation plan was added.
+Evidence: `docs-history-2026-09-24:ROADMAP.md` §3 E10–E13 supplies the accepted repairs. The September roadmap and July canvas history paths resolve. EUR-Lex primary text, the NVD CVE API, the OpenClaw vendor advisory, and arXiv papers 2605.30914 and 2511.17330 were checked on 2026-09-25. `node scripts/verify-docs.mjs` passes with 14 chapters, 39 rationale entries, and 29 charts; `git diff --check` passes. Semantic review checked each accepted repair against the affected chapters and ledger.
+Changed files: `docs/RATIONALE.md`; snapshot chapters 02, 03, 09, and 13; and this plan. Dirty files: none after this packet's commit.
+Verification state: step 02d complete at `HEAD` (this checkpoint commit). The structural checker verifies rationale links and chart data. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02e by comparing `docs/agent-architecture/00_meta/` with the current snapshot and rationale. Represent each relevant concept in the current model or identify it as historical support.
