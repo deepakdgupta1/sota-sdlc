@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02d` complete
-Next step: `02e`
+Current step: `02e` complete
+Next step: `02f`
 
 ## Objective
 
@@ -154,6 +154,27 @@ Compare `docs/agent-architecture/00_meta/` with the current model and rationale.
 
 Exit: each relevant concept is represented in the current model or identified as historical support.
 
+Disposition at `b17f44d`:
+
+- `agent_registry.md` identifies the 14 products studied and their source repositories. It is research
+  provenance, preserved at `docs-history-2026-09-24:docs/agent-architecture/00_meta/agent_registry.md`.
+- `architectural_hierarchy.md` compares product loop families, prompts, memory stores, plugins,
+  transports, permission models, and interfaces. The model-level loop, bounded work, retained lessons,
+  and delegated controls already appear in snapshot chapters 04, 09, 10, and 12. Product-specific
+  patterns, including source-controlled rules, generated skills, worktree orchestration, and the
+  approval-versus-sandbox comparison, are historical implementation evidence, not additional SDLC
+  stages. The source resolves at `docs-history-2026-09-24:docs/agent-architecture/00_meta/architectural_hierarchy.md`.
+- `glossary.md` supplies vocabulary for that product comparison. Its generic loop, memory, tool, and
+  delegation terms map to chapters 04, 10, and 12; vendor symbols and protocol details remain historical
+  support for the later module packets. The tagged glossary resolves at
+  `docs-history-2026-09-24:docs/agent-architecture/00_meta/glossary.md`.
+- `quality_report.md` records May 2026 completeness, attribution, diagram, and link checks for the old
+  30-module set. Its counts are historical QA evidence, not current model claims. The tagged report
+  resolves at `docs-history-2026-09-24:docs/agent-architecture/00_meta/quality_report.md`.
+
+No new independent model decision was found in the metadata. The module packets 02f through 02m will
+review the underlying source chapters for any decision that the metadata only names.
+
 ### 02f. Reconcile the agent core loop
 
 Compare `docs/agent-architecture/01_core_loop/` with the current model and rationale.
@@ -287,8 +308,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02d maps named qualities into work-unit acceptance vectors (E10); states the bedrock count as a tested judgment and records capability and liveness residues without adding stones (E12); and expands leaves to six check modalities, each with a residue and proxy risk (E13). E11 retains the formal-proof caveat and corrects the cited paper title, EU AI Act status, and OpenClaw CVE mechanism. No Tier D implementation plan was added.
-Evidence: `docs-history-2026-09-24:ROADMAP.md` §3 E10–E13 supplies the accepted repairs. The September roadmap and July canvas history paths resolve. EUR-Lex primary text, the NVD CVE API, the OpenClaw vendor advisory, and arXiv papers 2605.30914 and 2511.17330 were checked on 2026-09-25. `node scripts/verify-docs.mjs` passes with 14 chapters, 39 rationale entries, and 29 charts; `git diff --check` passes. Semantic review checked each accepted repair against the affected chapters and ledger.
-Changed files: `docs/RATIONALE.md`; snapshot chapters 02, 03, 09, and 13; and this plan. Dirty files: none after this packet's commit.
-Verification state: step 02d complete at `HEAD` (this checkpoint commit). The structural checker verifies rationale links and chart data. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02e by comparing `docs/agent-architecture/00_meta/` with the current snapshot and rationale. Represent each relevant concept in the current model or identify it as historical support.
+Completed scope: step 02e reviewed all four files in `docs/agent-architecture/00_meta/`. The registry and QA report are historical provenance. The hierarchy and glossary describe product implementations; their general loop, boundary, lesson, and delegation concepts are already present in snapshot chapters 04, 09, 10, and 12. No new independent model decision emerged. Exact file dispositions are recorded above.
+Evidence: all four metadata files resolve in `docs-history-2026-09-24`. The hierarchy's v_FINAL and earlier version scopes were compared with the cited snapshot sections, `R-AGENTIC-01`, and `R-METHOD-02`. Product-specific claims were classified from the tagged source, not adopted as current facts.
+Changed files: this plan only. Dirty files: none after this packet's commit.
+Verification state: step 02e complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02f by comparing `docs/agent-architecture/01_core_loop/` with the current snapshot and rationale. Carry over accepted current loop decisions and cite the tagged history; classify implementation details as historical support.
