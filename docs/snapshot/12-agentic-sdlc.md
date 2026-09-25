@@ -75,6 +75,13 @@ The response has three parts:
 These controls reduce risk; they do not establish perfect alignment or eliminate shared blind spots.
 <sup>[↪ Why](#r-bedrock-06)</sup>
 
+An agent turn may assemble context, call a model, dispatch tools, feed observations back, and stop when
+the assistant returns a final response or reaches a limit. Those iterations can staff any beat of a
+work unit. A final response closes the turn; acceptance still requires the work unit's target, a bounded
+attempt, an outcome check with evidence suited to the risk, and `reflect`'s accept, re-target, or
+escalate decision. Tool authorization bounds effects; it does not establish that the result met the
+target. <sup>[↪ Why](#r-agentic-01)</sup>
+
 ### The consequence: two risks in a delegated loop
 
 <sup>[↪ Why](#r-agentic-01)</sup>

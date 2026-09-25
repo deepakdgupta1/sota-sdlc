@@ -4,8 +4,8 @@ Status: active
 Owner: Codex
 Source revision: `a38623b`
 Current revision: `HEAD`
-Current step: `02e` complete
-Next step: `02f`
+Current step: `02f` complete
+Next step: `02g`
 
 ## Objective
 
@@ -181,6 +181,27 @@ Compare `docs/agent-architecture/01_core_loop/` with the current model and ratio
 
 Exit: current loop decisions have the right shape and historical support.
 
+Disposition at `18b690b`:
+
+- `agentic_loop.md` compares product model/tool cycles, authorization, observation, and stop conditions.
+  Its general turn mechanics support the new Chapter 12 distinction between an agent turn and work-unit
+  acceptance. Product protocols, transports, and provider details remain historical evidence at
+  `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/agentic_loop.md`.
+- `turn_lifecycle.md` shows how one incoming request can contain several model/tool iterations and end
+  on a turn-level stop condition. Chapter 12 and `R-AGENTIC-01` now state that the enclosing work
+  unit still needs its own outcome check and decision. The tagged source resolves at
+  `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/turn_lifecycle.md`.
+- `prompt_orchestration.md` describes product-specific context selection, prompt ordering, output
+  contracts, and token handling. These are ways to staff a turn, not new SDLC beats. Its tagged source
+  resolves at `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/prompt_orchestration.md`.
+- `modular-agent-architecture-canvas.md` is a proposed modular agent design. Its small kernel,
+  authorization, observation, and pause/stop ideas are compatible with Chapters 04 and 12; its module
+  contracts and topology are design options, not current SDLC requirements. The tagged source resolves
+  at `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/modular-agent-architecture-canvas.md`.
+
+The current four-beat SDLC loop remains unchanged. A model/tool turn can execute within any beat, but
+its final message or tool stop condition does not discharge the work unit's acceptance check.
+
 ### 02g. Reconcile agent cognition
 
 Compare `docs/agent-architecture/02_cognition/` with the current model and rationale.
@@ -308,8 +329,8 @@ Exit: the worktree is clean, the final active structure matches this plan, the s
 
 ## Findings and handoff
 
-Completed scope: step 02e reviewed all four files in `docs/agent-architecture/00_meta/`. The registry and QA report are historical provenance. The hierarchy and glossary describe product implementations; their general loop, boundary, lesson, and delegation concepts are already present in snapshot chapters 04, 09, 10, and 12. No new independent model decision emerged. Exact file dispositions are recorded above.
-Evidence: all four metadata files resolve in `docs-history-2026-09-24`. The hierarchy's v_FINAL and earlier version scopes were compared with the cited snapshot sections, `R-AGENTIC-01`, and `R-METHOD-02`. Product-specific claims were classified from the tagged source, not adopted as current facts.
-Changed files: this plan only. Dirty files: none after this packet's commit.
-Verification state: step 02e complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
-Exact next action: start step 02f by comparing `docs/agent-architecture/01_core_loop/` with the current snapshot and rationale. Carry over accepted current loop decisions and cite the tagged history; classify implementation details as historical support.
+Completed scope: step 02f reviewed all four files in `docs/agent-architecture/01_core_loop/`. Chapter 12 now distinguishes an agent's model/tool turn from work-unit acceptance, and `R-AGENTIC-01` explains the distinction with tagged historical support. The four-beat SDLC loop remains intact. File-level dispositions are recorded above.
+Evidence: all four core-loop files resolve in `docs-history-2026-09-24`. The general loop and turn mechanics were compared with snapshot chapters 04, 06, and 12 and `R-LOOP-01` through `R-LOOP-04`. Product protocols, prompt composition choices, and the modular-agent blueprint remain historical implementation or design support.
+Changed files: `docs/snapshot/12-agentic-sdlc.md`, `docs/RATIONALE.md`, and this plan. Dirty files: none after this packet's commit.
+Verification state: step 02f complete at `HEAD` (this checkpoint commit). The documentation checker and `git diff --check` pass. Browser QA remains scheduled for step 07. The old `asOf` date and historical prose remain for their scheduled packets.
+Exact next action: start step 02g by comparing `docs/agent-architecture/02_cognition/` with the current snapshot and rationale. Carry over any independent model decision with tagged support; classify product-specific cognition methods as historical evidence.

@@ -383,15 +383,19 @@ Rejected ideas appear only where they explain why a surviving decision has its c
   to the delegate. Persistent parties need suitable incentives; non-persistent inference needs
   containment and proxy-resistant evaluation as well as independent evidence. A human decides matters requiring
   human accountability, value judgment, or exceptional authority. `Resilient` refers to continued
-  operation and recovery, not intent-faithfulness.
+  operation and recovery, not intent-faithfulness. An agent turn's stop condition alone does not
+  establish acceptance of the work unit.
 - **Why.** A human is one possible independent judge, but removing a human does not make every check
   correlated or every doer unfaithful. The two risks need different evidence and responses. Naming
   the human's authority role prevents a staffing choice from being mistaken for a proof of either
-  independence or alignment.
+  independence or alignment. Model/tool loops can terminate on a final response without outcome
+  evidence; an authorization decision bounds effects rather than proving correctness.
 - **Applies to.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
   `docs/snapshot/06-fractal.md`, `docs/snapshot/08-repertoires.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
-  E5 and E9; earlier second-order argument: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
+  E5 and E9; agent-turn mechanics: `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/agentic_loop.md`
+  and `docs-history-2026-09-24:docs/agent-architecture/01_core_loop/turn_lifecycle.md`; earlier
+  second-order argument: `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** The claim that removing the human drives independence and alignment to zero.
 
 ### <a id="r-method-01"></a>R-METHOD-01 · Four sources of truth, with declared precedence
