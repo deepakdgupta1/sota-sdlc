@@ -29,7 +29,8 @@ const PROBES = [
   {name: 'history path that does not exist', file: LEDGER, from: 'sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`\n  — historical', to: 'sdlc-canvas/00-framing-typo.md#2-the-destination-four-properties-the-apex`\n  — historical', fails: 'missing historical source'},
   {name: 'chapter missing from the manifest', file: 'docs/snapshot.parts.json', from: '    "docs/snapshot/05-elements.md",\n', to: '', fails: 'chapter not listed: docs/snapshot/05-elements.md'},
   {name: 'second root Markdown file', add: ['CONTRIBUTING.md', '# Contributing\n'], fails: 'README.md must be the only root Markdown file'},
-  {name: 'chart node in a group the viewer does not style', file: BEDROCK, from: '"label":"1 · intent is hidden","group":"stone"', to: '"label":"1 · intent is hidden","group":"stoen"', fails: 'in unstyled group stoen', gap: true},
+  {name: 'chart node in a group the viewer does not style', file: BEDROCK, from: '"label":"1 · intent is hidden","group":"stone"', to: '"label":"1 · intent is hidden","group":"stoen"', fails: 'in unstyled group stoen'},
+  {name: 'viewer that styles no chart groups', file: 'index.html', from: 'node[group=', to: 'node[grp=', fails: 'viewer styles no chart node groups'},
   {name: 'ladder row with the wrong level', file: FRONT, from: '| **L1** | The four properties |', to: '| **L3** | The four properties |', fails: 'ladder row The four properties says L3', gap: true},
   {name: 'ladder row linking the wrong chapter', file: FRONT, from: "acceptance properties | [Ch. 2](#2-the-destination-four-properties) |", to: "acceptance properties | [Ch. 3](#3-the-bedrock-why-the-work-is-hard) |", fails: 'ladder row The four properties should link Ch. 2', gap: true},
   {name: 'ledger scope naming a file that does not exist', file: LEDGER, from: '`docs/snapshot/01-system-at-a-glance.md`.\n- **Trace.**', to: '`docs/snapshot/99-missing.md`.\n- **Trace.**', fails: 'references a missing path: docs/snapshot/99-missing.md', gap: true},
@@ -63,7 +64,7 @@ function mutate(scratch, probe) {
     const file = path.join(scratch, probe.file);
     const original = readFileSync(file, 'utf8');
     if (!original.includes(probe.from)) throw new Error(`stale probe "${probe.name}": ${probe.file} no longer contains the text it mutates`);
-    writeFileSync(file, original.replace(probe.from, () => probe.to));
+    writeFileSync(file, original.replaceAll(probe.from, () => probe.to));
     return () => writeFileSync(file, original);
   }
   if (probe.add) {
