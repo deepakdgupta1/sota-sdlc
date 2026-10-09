@@ -83,7 +83,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   eleventh stone to be assessed on its facts and required response instead of excluding it by count.
 - **Governs.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/01-system-at-a-glance.md`,
   `docs/snapshot/03-bedrock.md`,
-  `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
+  `docs/snapshot/13-appendices.md#appendix-b--the-stones-to-responses-matrix`.
 - **Trace.** `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0` E12 ·
   `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
 - **Superseded.** "The bundling rule establishes exactly eight first-order stones." Retracted 2026-07-30.
@@ -304,7 +304,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   it as the licensed exception keeps the self-test sharp everywhere else.
 - **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/04-atom-unit-control-loop.md`,
   `docs/snapshot/05-elements.md`, `docs/snapshot/06-fractal.md`, `docs/snapshot/07-lifecycle.md`,
-  `docs/snapshot/13-appendices.md#appendix-b-the-stones-to-responses-matrix`.
+  `docs/snapshot/13-appendices.md#appendix-b--the-stones-to-responses-matrix`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.10.
 
 ### <a id="r-unit-01"></a>R-UNIT-01 · A work unit has a boundary and an acceptance vector
@@ -561,7 +561,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   and each closer view explains how one part serves the whole. Keeping charts beside their explanations
   lets readers check the visual claim against the prose.
 - **Governs.** `docs/snapshot/00-front-matter.md#how-to-read-this-document`,
-  `docs/snapshot/13-appendices.md#appendix-a-glossary`.
+  `docs/snapshot/13-appendices.md#appendix-a--glossary`.
 
 ### <a id="r-method-02"></a>R-METHOD-02 · Keep the reference model separate from concrete audits
 
