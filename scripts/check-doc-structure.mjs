@@ -217,21 +217,39 @@ for (const [file, markdown] of content) {
 }
 for (const id of entryIds) if (!referenced.has(id)) fail(LEDGER, `unused rationale ID: ${id}`);
 
+const missingTags = new Set();
 for (const tag of TAGS) {
   try { execFileSync('git', ['rev-parse', '--verify', `${tag}^{tag}`], {stdio: 'ignore'}); }
-  catch { fail(tag, 'annotated history tag is missing'); continue; }
-  const cache = new Map();
-  const traces = new RegExp(`${tag}:([A-Za-z0-9_./-]+\\.md)(?:#([a-z0-9-]+))?`, 'g');
-  for (const [file, markdown] of content) {
-    for (const match of withoutFences(markdown).matchAll(traces)) {
-      const [, source, fragment] = match;
-      if (!cache.has(source)) {
-        try { cache.set(source, readFileSyncFromTag(tag, source)); }
-        catch { cache.set(source, null); }
+  catch { fail(tag, 'annotated history tag is missing'); missingTags.add(tag); }
+}
+const historyCache = new Map();
+function historicalText(tag, source) {
+  const key = `${tag}:${source}`;
+  if (!historyCache.has(key)) {
+    try { historyCache.set(key, readFileSyncFromTag(tag, source)); }
+    catch { historyCache.set(key, null); }
+  }
+  return historyCache.get(key);
+}
+const historyToken = new RegExp(`(${TAGS.join('|')}):([A-Za-z0-9_./-]+\\.md)(?:#([a-z0-9-]+))?|§(\\d+(?:\\.\\d+)*)(?:[–-](\\d+(?:\\.\\d+)*))?`, 'g');
+for (const [file, markdown] of content) {
+  let cited = null;
+  for (const line of withoutFences(markdown).split('\n')) {
+    if (/^#{1,6} /.test(line)) cited = null;
+    for (const [, tag, source, fragment, ...numbers] of line.matchAll(historyToken)) {
+      if (tag) {
+        cited = {tag, source, sections: null};
+        if (missingTags.has(tag)) continue;
+        const text = historicalText(tag, source);
+        if (text === null) { fail(file, `missing historical source: ${tag}:${source}`); continue; }
+        if (fragment && ![...anchors(text)].some(anchor => anchor.startsWith(fragment))) fail(file, `missing historical heading: ${tag}:${source}#${fragment}`);
+        cited = {tag, source, sections: new Set(sectionNumbers(text))};
+      } else if (file === LEDGER) {
+        for (const number of numbers.filter(Boolean)) {
+          if (!cited) fail(file, `section sign §${number} follows no historical source`);
+          else if (cited.sections && !cited.sections.has(number)) fail(file, `missing historical locator: §${number} in ${cited.tag}:${cited.source}`);
+        }
       }
-      const text = cache.get(source);
-      if (text === null) { fail(file, `missing historical source: ${tag}:${source}`); continue; }
-      if (fragment && ![...anchors(text)].some(anchor => anchor.startsWith(fragment))) fail(file, `missing historical heading: ${tag}:${source}#${fragment}`);
     }
   }
 }
