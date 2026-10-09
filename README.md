@@ -8,15 +8,19 @@ explains the decisions linked from those chapters. The model's scope and assumpt
 
 ## Read and serve
 
-Open the Markdown chapters directly, or serve the repository root to use the interactive viewer:
+Read the model in the interactive viewer, the supported reader. Serve the repository root:
 
 ```bash
 python3 -m http.server 4321
 ```
 
 Open `http://localhost:4321/`. The viewer fetches Markdown, so opening `index.html` as a local file
-will not load the model. Select a **↪ Why** link to open its rationale entry; a URL ending in that
-entry's `#r-*` ID opens the same panel.
+will not load the model. It joins the chapters into one page, so links between chapters work. Select
+a **↪ Why** link to open its rationale entry; a URL ending in that entry's `#r-*` ID opens the same
+panel.
+
+The chapters also read as plain Markdown, but each file then stands alone. Links to other chapters
+and **↪ Why** links do nothing there.
 
 ## Change the model
 
@@ -36,6 +40,17 @@ node scripts/check-doc-structure.mjs
 The checker verifies structure and link targets. Review whether the model's claims and their
 rationale are sound separately.
 
+## Change the checker
+
+After editing `scripts/check-doc-structure.mjs`, run:
+
+```bash
+node scripts/check-doc-structure.test.mjs
+```
+
+It applies each known defect to a scratch clone and confirms the checker rejects it. Add a probe
+beside any new check.
+
 ## Retrieve history
 
 Earlier derivations, audits, plans, and parallel document sets remain in Git under the annotated
@@ -45,5 +60,8 @@ Earlier derivations, audits, plans, and parallel document sets remain in Git und
 git show docs-history-2026-07-30:sdlc-canvas/00-framing.md
 git show docs-history-2026-09-24:docs/agent-architecture/00_meta/agent_registry.md
 ```
+
+The checker reads both tags. A clone made with `--no-tags` or `--depth` lacks them, and the checker's
+error names the `git fetch` command that restores each.
 
 Completed plans remain in Git history rather than the active documentation tree.
