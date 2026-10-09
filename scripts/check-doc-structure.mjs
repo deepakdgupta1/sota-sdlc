@@ -19,7 +19,8 @@ const RETIRED = [
   'docs/agent-architecture/', 'docs/ai_agent_evaluation_metrics_kpis_2026.md',
 ];
 const errors = [];
-const fail = (file, message) => errors.push(`${file}: ${message}`);
+// One line per finding, even when the message quotes source text that spans lines, as a JSON parse error does.
+const fail = (file, message) => errors.push(`${file}: ${message}`.replace(/\s*\n\s*/g, ' '));
 const slug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const headingSlug = text => slug(text.replace(/<[^>]*>|[`*_]/g, ''));
 const githubSlug = text => text.replace(/<[^>]*>|[`*]/g, '').toLowerCase().replace(/[^\p{L}\p{N}\p{M} _-]/gu, '').replace(/ /g, '-');

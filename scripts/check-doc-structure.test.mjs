@@ -29,6 +29,8 @@ const PROBES = [
   {name: 'rationale ID that no entry defines', file: PROPERTIES, from: '(#r-apex-01)', to: '(#r-apex-99)', fails: 'unknown rationale ID: r-apex-99'},
   {name: 'rationale entry no chapter links', file: LEDGER, from: 'see\n[R-METHOD-04](#r-method-04)', to: 'see\nR-METHOD-04', fails: 'unused rationale ID: r-method-04'},
   {name: 'two charts with one title', file: 'docs/snapshot/08-repertoires.md', from: '"title": "The two repertoires"', to: '"title": "The four properties"', fails: 'duplicate chart title: The four properties'},
+  {name: 'chart JSON with a stray token at the start of a node line', file: 'docs/snapshot/11-hard-gates-vs-graded.md', from: '    {"id":"leaf","label":"candidate constraint"', to: '    T{"id":"leaf","label":"candidate constraint"', fails: 'invalid chart JSON'},
+  {name: 'manifest that is not valid JSON', file: 'docs/snapshot.parts.json', from: '    "docs/snapshot/05-elements.md",\n', to: '    "docs/snapshot/05-elements.md",,\n', fails: 'missing or invalid manifest'},
   {name: 'chart edge to a node that does not exist', file: 'docs/snapshot/10-artifacts.md', from: '"target":"a_spec","label":"carrier role"', to: '"target":"a_spec_typo","label":"carrier role"', fails: 'has an edge to an unknown node'},
   {name: 'file URL in prose', file: 'docs/snapshot/01-system-at-a-glance.md', from: '## 1. The system at a glance', to: '## 1. The system at a glance\n\nSee file:///Users/x/y.md', fails: 'contains a file:/// URL'},
   {name: 'history path that does not exist', file: LEDGER, from: 'sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`\n  — historical', to: 'sdlc-canvas/00-framing-typo.md#2-the-destination-four-properties-the-apex`\n  — historical', fails: 'missing historical source'},
