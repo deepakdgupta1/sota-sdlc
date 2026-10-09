@@ -79,7 +79,7 @@ if (parts.length === expectedParts.length && parts.some((part, index) => part !=
 const rootMarkdown = readdirSync('.').filter(file => file.endsWith('.md')).sort();
 if (rootMarkdown.join(',') !== 'README.md') fail('.', `README.md must be the only root Markdown file (found: ${rootMarkdown.join(', ') || 'none'})`);
 if (!existsSync('index.html')) fail('index.html', 'model viewer is missing');
-const styledGroups = new Set([...read('index.html').matchAll(/node\[group="([^"]+)"\]/g)].map(match => match[1]));
+const styledGroups = new Set([...read('index.html').matchAll(/node\[group=(["'])(.+?)\1\]/g)].map(match => match[2]));
 if (existsSync('index.html') && !styledGroups.size) fail('index.html', 'viewer styles no chart node groups');
 if (!existsSync(LEDGER)) fail(LEDGER, 'rationale ledger is missing');
 for (const retired of RETIRED) if (existsSync(retired)) fail(retired, 'retired path is still active');
@@ -135,7 +135,8 @@ for (const file of expectedParts.filter(existsSync)) {
       if (typeof node?.id !== 'string' || !node.id || nodeIds.has(node.id)) fail(file, `chart ${chart.title} has a missing or duplicate node ID`);
       else nodeIds.add(node.id);
       if (typeof node?.label !== 'string' || !Number.isFinite(node.x) || !Number.isFinite(node.y)) fail(file, `chart ${chart.title} has an invalid node`);
-      if (styledGroups.size && node?.group !== undefined && !styledGroups.has(node.group)) fail(file, `chart ${chart.title} has a node in unstyled group ${node.group}`);
+      // The viewer draws a falsy group as `element`, so only a set group can be unstyled.
+      if (styledGroups.size && node?.group && !styledGroups.has(node.group)) fail(file, `chart ${chart.title} has a node in unstyled group ${node.group}`);
     }
     for (const edge of chart.edges) {
       if (!nodeIds.has(edge?.source) || !nodeIds.has(edge?.target)) fail(file, `chart ${chart.title} has an edge to an unknown node`);
