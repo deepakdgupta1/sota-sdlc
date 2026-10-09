@@ -283,8 +283,14 @@ for (const id of entryIds) if (!referenced.has(id)) fail(LEDGER, `unused rationa
 
 const missingTags = new Set();
 for (const tag of TAGS) {
-  try { execFileSync('git', ['rev-parse', '--verify', `${tag}^{tag}`], {stdio: 'ignore'}); }
-  catch { fail(tag, `annotated history tag is missing; run: git fetch origin tag ${tag}`); missingTags.add(tag); }
+  try { execFileSync('git', ['rev-parse', '--verify', '--quiet', `${tag}^{tag}`], {stdio: ['ignore', 'ignore', 'pipe'], encoding: 'utf8'}); }
+  catch (error) {
+    // With --quiet, exit 1 means git ran and found no such tag. Any other failure means git could not answer.
+    fail(tag, error.status === 1
+      ? `annotated history tag is missing; run: git fetch origin tag ${tag}`
+      : `cannot look up the annotated history tag: ${(error.stderr || error.message).split('\n')[0]}`);
+    missingTags.add(tag);
+  }
 }
 const historyCache = new Map();
 function historicalText(tag, source) {

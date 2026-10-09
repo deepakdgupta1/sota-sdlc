@@ -3,7 +3,7 @@
  * Mutate a scratch clone and confirm the doc checker rejects every defect it claims to catch.
  * Pass a substring to run only the probes whose name contains it.
  */
-import {copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, unlinkSync, writeFileSync} from 'node:fs';
+import {copyFileSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, unlinkSync, writeFileSync} from 'node:fs';
 import {execFileSync, spawnSync} from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
@@ -86,6 +86,8 @@ const PROBES = [
   {name: 'backticked path with the wrong case', file: 'README.md', from: '\n## Read and serve', to: '\nSee `docs/Rationale.md`.\n\n## Read and serve', fails: 'references a missing path: docs/Rationale.md'},
   {name: 'checker run from a subdirectory', cwd: 'docs'},
   {name: 'missing history tag names the fetch command', dropTag: 'docs-history-2026-09-24', fails: 'git fetch origin tag docs-history-2026-09-24', absent: 'missing historical source'},
+  {name: 'history tags checked outside a git repository', hideGit: true, fails: 'not a git repository', absent: 'git fetch origin tag'},
+  {name: 'history tags checked with git missing from PATH', env: {PATH: ''}, fails: 'ENOENT', absent: 'git fetch origin tag'},
 ];
 
 function prepare(scratch) {
@@ -115,6 +117,12 @@ function mutate(scratch, probe) {
     writeFileSync(file, probe.add[1]);
     return () => unlinkSync(file);
   }
+  if (probe.hideGit) {
+    const repository = path.join(scratch, '.git');
+    const hidden = path.join(scratch, '.git-hidden');
+    renameSync(repository, hidden);
+    return () => renameSync(hidden, repository);
+  }
   if (probe.dropTag) {
     const target = git(['rev-parse', `refs/tags/${probe.dropTag}`], {cwd: scratch}).trim();
     git(['tag', '-d', probe.dropTag], {cwd: scratch, stdio: 'ignore'});
@@ -137,7 +145,7 @@ try {
   prepare(scratch);
   for (const probe of selected) {
     const undo = mutate(scratch, probe);
-    const result = spawnSync(process.execPath, [path.join(scratch, CHECKER)], {cwd: path.join(scratch, probe.cwd ?? ''), encoding: 'utf8', env});
+    const result = spawnSync(process.execPath, [path.join(scratch, CHECKER)], {cwd: path.join(scratch, probe.cwd ?? ''), encoding: 'utf8', env: {...env, ...probe.env, GIT_CEILING_DIRECTORIES: realpathSync(path.dirname(scratch))}});
     undo();
     const problem = problemWith(probe, result);
     const detail = `${result.stderr}\n${result.stdout}`.split('\n').find(line => /^[✓✗]/.test(line)) ?? '';
