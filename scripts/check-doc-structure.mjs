@@ -200,10 +200,10 @@ const plainText = markdown => [withoutFences(markdown), ...[...markdown.matchAll
 const plain = new Map([...content].map(([file, markdown]) => [file, plainText(markdown)]));
 const SECTION_REF = '§(\\d+(?:\\.\\d+)*)(?:[–-](\\d+(?:\\.\\d+)*))?';
 for (const [file, text] of plain) {
-  if (file === LEDGER) continue; // its chapter and section numbers may cite retired documents; the history check below owns them
   for (const [, list] of text.matchAll(/\b(?:Chapters?|Ch\.) (\d+(?:(?:, | and |[–-])\d+)*)/gi)) {
     for (const number of list.match(/\d+/g)) if (!snapshotSections.has(number)) fail(file, `references missing chapter ${number}`);
   }
+  if (file === LEDGER) continue; // its section signs cite retired documents; the history check below validates them
   for (const [, first, last] of text.matchAll(new RegExp(SECTION_REF, 'g'))) {
     for (const number of [first, last].filter(Boolean)) if (!snapshotSections.has(number)) fail(file, `references missing section §${number}`);
   }
