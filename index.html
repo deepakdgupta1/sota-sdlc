@@ -63,7 +63,7 @@ header.top{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px) saturate(
 
 .wrap{max-width:1500px;margin:0 auto;padding:28px 24px 120px;display:grid;grid-template-columns:236px minmax(0,1fr) 232px;gap:34px}
 @media(max-width:1240px){.wrap{grid-template-columns:236px minmax(0,1fr)}aside.ladder{display:none}}
-@media(max-width:960px){.wrap{grid-template-columns:1fr;padding-top:16px}aside{display:none}}
+@media(max-width:960px){.wrap{grid-template-columns:minmax(0,1fr);padding-top:16px}aside{display:none}}
 aside{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);overflow:auto;padding-right:6px}
 aside .toc-h{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--faint);margin:0 0 12px 8px}
 #toc a{display:block;color:var(--muted);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:8px;
