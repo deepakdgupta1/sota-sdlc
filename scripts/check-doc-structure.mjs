@@ -24,6 +24,21 @@ const slug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-
 const headingSlug = text => slug(text.replace(/<[^>]*>|[`*_]/g, ''));
 const githubSlug = text => text.replace(/<[^>]*>|[`*]/g, '').toLowerCase().replace(/[^\p{L}\p{N}\p{M} _-]/gu, '').replace(/ /g, '-');
 const read = file => existsSync(file) && statSync(file).isFile() ? readFileSync(file, 'utf8') : '';
+
+// existsSync ignores case on macOS and Windows, but GitHub does not, so match each name against its directory listing.
+const listings = new Map();
+const entriesOf = directory => {
+  if (!listings.has(directory)) listings.set(directory, existsSync(directory) && statSync(directory).isDirectory() ? new Set(readdirSync(directory)) : new Set());
+  return listings.get(directory);
+};
+function existsExactCase(target) {
+  let directory = '.';
+  for (const name of target.split('/').filter(part => part && part !== '.')) {
+    if (!entriesOf(directory).has(name)) return false;
+    directory = path.posix.join(directory, name);
+  }
+  return existsSync(target);
+}
 const chartBlocks = /^```pipeline-graph\s*\n([\s\S]*?)^```\s*$/gm;
 
 function scanFences(markdown) {
@@ -198,7 +213,7 @@ const rootNames = readdirSync('.').filter(name => !name.startsWith('.')).map(nam
 const repoPath = new RegExp(`\`(?:\\./)?((?:${rootNames.join('|')})(?:/[A-Za-z0-9_.-]*)*)(?:#([^\`\\s]+))?\``, 'g');
 for (const [file, markdown] of content) {
   for (const [, target, fragment] of withoutFences(markdown).matchAll(repoPath)) {
-    if (!existsSync(target)) fail(file, `references a missing path: ${target}`);
+    if (!existsExactCase(target)) fail(file, `references a missing path: ${target}`);
     else if (fragment && !githubAnchors.get(target)?.has(fragment)) fail(file, `references a missing heading: ${target}#${fragment}`);
   }
 }
@@ -254,7 +269,7 @@ for (const [file, markdown] of content) {
     if (/^[a-z][a-z0-9+.-]*:/i.test(target) || target.startsWith('//')) continue;
     const [pathname, fragment] = target.split('#', 2);
     const destination = !pathname ? file : pathname.startsWith('/') ? pathname.slice(1) : path.posix.normalize(path.posix.join(path.posix.dirname(file), pathname));
-    if (!existsSync(destination)) { fail(file, `broken local link: ${target}`); continue; }
+    if (!existsExactCase(destination)) { fail(file, `broken local link: ${target}`); continue; }
     if (!fragment) continue;
     if (fragment.startsWith('r-')) referenced.add(fragment);
     let known = githubAnchors.get(destination);
