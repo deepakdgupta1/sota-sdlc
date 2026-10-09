@@ -194,9 +194,13 @@ for (const [key, chart] of chartsByKey) if (!listedCharts.has(key)) fail(chart.f
 
 const sectionNumbers = markdown => [...withoutFences(markdown).matchAll(/^#{2,6} (\d+(?:\.\d+)*)\.? /gm)].map(match => match[1]);
 const snapshotSections = new Set(expectedParts.flatMap(file => sectionNumbers(read(file))));
-// Prose and chart text with markup removed and each paragraph on one line, so a hard wrap or emphasis cannot hide a phrase.
+// Prose and chart text with markup removed and each paragraph on one line, so a hard wrap, a blockquote marker,
+// link syntax or emphasis cannot hide a phrase.
 const plainText = markdown => [withoutFences(markdown), ...[...markdown.matchAll(chartBlocks)].map(block => block[1])]
-  .join('\n\n').split(/\n\s*\n/).map(paragraph => paragraph.replace(/[*_`]/g, '').replace(/\s+/g, ' ')).join('\n\n');
+  .join('\n\n').split(/\n\s*\n/).map(paragraph => paragraph
+    .replace(/^[ \t]*(?:>[ \t]?)+/gm, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/[*_`]/g, '').replace(/\s+/g, ' ')).join('\n\n');
 const plain = new Map([...content].map(([file, markdown]) => [file, plainText(markdown)]));
 const SECTION_REF = '§(\\d+(?:\\.\\d+)*)(?:[–-](\\d+(?:\\.\\d+)*))?';
 for (const [file, text] of plain) {
