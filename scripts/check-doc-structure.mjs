@@ -41,14 +41,25 @@ function existsExactCase(target) {
 }
 const chartBlocks = /^```pipeline-graph\s*\n([\s\S]*?)^```\s*$/gm;
 
+// CommonMark: a fence closes only on the same character, at least as long as the opener, with nothing after it.
+// CommonMark would read a longer-or-equal marker with an info string inside a fence as content. Here it means an
+// earlier fence was never closed and has swallowed the next one, so it counts as unclosed.
+const FENCE_LINE = /^\s*(?:(`{3,})([^`]*)|(~{3,})(.*))$/;
 function scanFences(markdown) {
   let fence = null;
+  let swallowed = false;
   const lines = markdown.split('\n').map(line => {
-    const marker = line.match(/^\s*(```|~~~)/)?.[1];
-    if (marker && (!fence || marker === fence)) { fence = fence ? null : marker; return ''; }
+    const found = line.match(FENCE_LINE);
+    const marker = found?.[1] ?? found?.[3];
+    if (marker && !fence) { fence = marker; return ''; }
+    if (marker && marker[0] === fence[0] && marker.length >= fence.length) {
+      if ((found[2] ?? found[4]).trim()) swallowed = true;
+      else fence = null;
+      return '';
+    }
     return fence ? '' : line;
   });
-  return {prose: lines.join('\n'), unclosed: fence !== null};
+  return {prose: lines.join('\n'), unclosed: fence !== null || swallowed};
 }
 const withoutFences = markdown => scanFences(markdown).prose;
 
