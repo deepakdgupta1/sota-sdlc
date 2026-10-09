@@ -173,6 +173,15 @@ for (const [file, markdown] of content) {
   }
 }
 
+const rootNames = readdirSync('.').filter(name => !name.startsWith('.')).map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+const repoPath = new RegExp(`\`((?:${rootNames.join('|')})(?:/[A-Za-z0-9_.-]*)*)(?:#([a-z0-9-]+))?\``, 'g');
+for (const [file, markdown] of content) {
+  for (const [, target, fragment] of withoutFences(markdown).matchAll(repoPath)) {
+    if (!existsSync(target)) fail(file, `references a missing path: ${target}`);
+    else if (fragment && !githubAnchors.get(target)?.has(fragment)) fail(file, `references a missing heading: ${target}#${fragment}`);
+  }
+}
+
 const referenced = new Set();
 const linkPattern = /\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
 for (const [file, markdown] of content) {
