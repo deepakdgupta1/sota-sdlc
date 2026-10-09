@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-/** Mutate a scratch clone and confirm the doc checker rejects every defect it claims to catch. */
+/**
+ * Mutate a scratch clone and confirm the doc checker rejects every defect it claims to catch.
+ * Pass a substring to run only the probes whose name contains it.
+ */
 import {copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, unlinkSync, writeFileSync} from 'node:fs';
 import {execFileSync, spawnSync} from 'node:child_process';
 import os from 'node:os';
@@ -16,9 +19,7 @@ const LADDER_LAW_ROW = '| **L3** | The convergent law | Required evidence gated,
 const GITHUB_SLUG_LINK = '\n[section](docs/snapshot/09-mechanism-of-done.md#91-design-as-a-bet--stub-composition)\n';
 const VIEWER_SLUG_LINK = '\n[section](docs/snapshot/09-mechanism-of-done.md#9-1-design-as-a-bet-stub-composition)\n';
 
-// A `fails` probe must be rejected with that message, and any other probe must pass. A `gap` probe marks
-// behavior the checker lacks. The suite fails once the checker meets a gap probe, so the commit that adds
-// the check also removes the flag.
+// A `fails` probe must be rejected with that message, and any other probe must pass.
 const PROBES = [
   {name: 'unmodified tree is accepted'},
   {name: 'chart ladder anchor that does not exist', file: FRONT, from: '(#3-the-bedrock-why-the-work-is-hard)', to: '(#3-bedrock-typo)', fails: 'broken local anchor: #3-bedrock-typo'},
@@ -96,9 +97,9 @@ function mutate(scratch, probe) {
 const behavesAsExpected = (probe, result) => probe.fails ? result.status === 1 && result.stderr.includes(probe.fails) : result.status === 0;
 const only = process.argv[2];
 const selected = only ? PROBES.filter(probe => probe.name.includes(only)) : PROBES;
+if (!selected.length) { console.error(`no probe name contains "${only}"`); process.exit(2); }
 const scratch = mkdtempSync(path.join(os.tmpdir(), 'doc-checker-'));
 let failed = 0;
-let gaps = 0;
 try {
   prepare(scratch);
   for (const probe of selected) {
@@ -107,13 +108,11 @@ try {
     undo();
     const matches = behavesAsExpected(probe, result);
     const detail = (result.stderr || result.stdout).split('\n').find(line => line.trim()) ?? '';
-    if (probe.gap && !matches) { gaps++; console.log(`gap   ${probe.name}\n      checker exit ${result.status}: ${detail}`); }
-    else if (probe.gap) { failed++; console.log(`FAIL  ${probe.name}\n      the gap is closed, so remove its \`gap\` flag`); }
-    else if (matches) console.log(`ok    ${probe.name}`);
+    if (matches) console.log(`ok    ${probe.name}`);
     else { failed++; console.log(`FAIL  ${probe.name}\n      expected ${probe.fails ? `a rejection containing "${probe.fails}"` : 'a pass'}, got exit ${result.status}: ${detail}`); }
   }
 } finally {
   rmSync(scratch, {recursive: true, force: true});
 }
-console.log(`\n${selected.length} probes · ${selected.length - gaps - failed} ok · ${gaps} known gaps · ${failed} failed`);
+console.log(`\n${selected.length} probes · ${selected.length - failed} ok · ${failed} failed`);
 process.exit(failed ? 1 : 0);
