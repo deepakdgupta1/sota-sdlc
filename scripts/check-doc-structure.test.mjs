@@ -12,6 +12,7 @@ const FRONT = 'docs/snapshot/00-front-matter.md';
 const PROPERTIES = 'docs/snapshot/02-destination-four-properties.md';
 const BEDROCK = 'docs/snapshot/03-bedrock.md';
 const LEDGER = 'docs/RATIONALE.md';
+const LADDER_LAW_ROW = '| **L3** | The convergent law | Required evidence gated, fidelity graded | [Ch. 11](#11-hard-gates-versus-graded-targets) |';
 const GITHUB_SLUG_LINK = '\n[section](docs/snapshot/09-mechanism-of-done.md#91-design-as-a-bet--stub-composition)\n';
 const VIEWER_SLUG_LINK = '\n[section](docs/snapshot/09-mechanism-of-done.md#9-1-design-as-a-bet-stub-composition)\n';
 
@@ -31,8 +32,12 @@ const PROBES = [
   {name: 'second root Markdown file', add: ['CONTRIBUTING.md', '# Contributing\n'], fails: 'README.md must be the only root Markdown file'},
   {name: 'chart node in a group the viewer does not style', file: BEDROCK, from: '"label":"1 · intent is hidden","group":"stone"', to: '"label":"1 · intent is hidden","group":"stoen"', fails: 'in unstyled group stoen'},
   {name: 'viewer that styles no chart groups', file: 'index.html', from: 'node[group=', to: 'node[grp=', fails: 'viewer styles no chart node groups'},
-  {name: 'ladder row with the wrong level', file: FRONT, from: '| **L1** | The four properties |', to: '| **L3** | The four properties |', fails: 'ladder row The four properties says L3', gap: true},
-  {name: 'ladder row linking the wrong chapter', file: FRONT, from: "acceptance properties | [Ch. 2](#2-the-destination-four-properties) |", to: "acceptance properties | [Ch. 3](#3-the-bedrock-why-the-work-is-hard) |", fails: 'ladder row The four properties should link Ch. 2', gap: true},
+  {name: 'ladder row with the wrong level', file: FRONT, from: '| **L1** | The four properties |', to: '| **L3** | The four properties |', fails: 'ladder row The four properties says L3'},
+  {name: 'ladder row linking the wrong chapter', file: FRONT, from: "acceptance properties | [Ch. 2](#2-the-destination-four-properties) |", to: "acceptance properties | [Ch. 3](#3-the-bedrock-why-the-work-is-hard) |", fails: 'ladder row The four properties should link [Ch. 2](#2-the-destination-four-properties)'},
+  {name: 'ladder row naming a chart that does not exist', file: FRONT, from: '| **L0** | The complete circuit |', to: '| **L0** | The complete circuit board |', fails: 'ladder row names an unknown chart: The complete circuit board'},
+  {name: 'chart missing from the ladder', file: FRONT, from: '| **L1** | The bedrock — ten forces | The current hazard taxonomy | [Ch. 3](#3-the-bedrock-why-the-work-is-hard) |\n', to: '', fails: 'chart ladder is missing The bedrock — ten forces'},
+  {name: 'chart listed twice in the ladder', file: FRONT, from: LADDER_LAW_ROW, to: `${LADDER_LAW_ROW}\n${LADDER_LAW_ROW}`, fails: 'chart ladder lists The convergent law twice'},
+  {name: 'chart ladder removed', file: FRONT, from: '| **L', to: '| L', fails: 'chart ladder table is missing'},
   {name: 'ledger scope naming a file that does not exist', file: LEDGER, from: '`docs/snapshot/01-system-at-a-glance.md`.\n- **Trace.**', to: '`docs/snapshot/99-missing.md`.\n- **Trace.**', fails: 'references a missing path: docs/snapshot/99-missing.md', gap: true},
   {name: 'ledger scope naming a heading that does not exist', file: LEDGER, from: '13-appendices.md#appendix-b-the-stones-to-responses-matrix`', to: '13-appendices.md#appendix-z-nothing`', fails: 'references a missing heading: docs/snapshot/13-appendices.md#appendix-z-nothing', gap: true},
   {name: 'section reference to a section that does not exist', file: PROPERTIES, from: '(§9.2)', to: '(§9.9)', fails: 'references missing section §9.9', gap: true},
@@ -81,12 +86,14 @@ function mutate(scratch, probe) {
 }
 
 const behavesAsExpected = (probe, result) => probe.fails ? result.status === 1 && result.stderr.includes(probe.fails) : result.status === 0;
+const only = process.argv[2];
+const selected = only ? PROBES.filter(probe => probe.name.includes(only)) : PROBES;
 const scratch = mkdtempSync(path.join(os.tmpdir(), 'doc-checker-'));
 let failed = 0;
 let gaps = 0;
 try {
   prepare(scratch);
-  for (const probe of PROBES) {
+  for (const probe of selected) {
     const undo = mutate(scratch, probe);
     const result = spawnSync(process.execPath, [path.join(scratch, CHECKER)], {cwd: path.join(scratch, probe.cwd ?? ''), encoding: 'utf8'});
     undo();
@@ -100,5 +107,5 @@ try {
 } finally {
   rmSync(scratch, {recursive: true, force: true});
 }
-console.log(`\n${PROBES.length} probes · ${PROBES.length - gaps - failed} ok · ${gaps} known gaps · ${failed} failed`);
+console.log(`\n${selected.length} probes · ${selected.length - gaps - failed} ok · ${gaps} known gaps · ${failed} failed`);
 process.exit(failed ? 1 : 0);

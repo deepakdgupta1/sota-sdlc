@@ -20,6 +20,7 @@ const RETIRED = [
 const errors = [];
 const fail = (file, message) => errors.push(`${file}: ${message}`);
 const slug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const headingSlug = text => slug(text.replace(/<[^>]*>|[`*_]/g, ''));
 const read = file => existsSync(file) && statSync(file).isFile() ? readFileSync(file, 'utf8') : '';
 
 function withoutFences(markdown) {
@@ -35,7 +36,7 @@ function anchors(markdown) {
   const found = new Set();
   for (const line of withoutFences(markdown).split('\n')) {
     const heading = line.match(/^#{1,6} (.+)$/);
-    if (heading) found.add(slug(heading[1].replace(/<[^>]*>|[`*_]/g, '')));
+    if (heading) found.add(headingSlug(heading[1]));
     for (const match of line.matchAll(/<[a-z][^>]*\sid="([^"]+)"[^>]*>/g)) found.add(match[1]);
   }
   return found;
@@ -95,7 +96,7 @@ const documents = [...expectedParts.filter(existsSync), LEDGER, 'README.md'].fil
 const content = new Map(documents.map(file => [file, read(file)]));
 const fileAnchors = new Map([...content].map(([file, markdown]) => [file, anchors(markdown)]));
 const snapshotAnchors = new Set(expectedParts.flatMap(file => [...(fileAnchors.get(file) || [])]));
-const chartTitles = new Set();
+const chartsByKey = new Map();
 const chartRefs = [];
 let chartCount = 0;
 for (const file of expectedParts.filter(existsSync)) {
@@ -110,8 +111,8 @@ for (const file of expectedParts.filter(existsSync)) {
     catch (error) { fail(file, `invalid chart JSON: ${error.message}`); continue; }
     if (typeof chart.title !== 'string' || !chart.title.trim()) { fail(file, 'chart title is missing'); continue; }
     const chartKey = slug(chart.title);
-    if (chartTitles.has(chartKey)) fail(file, `duplicate chart title: ${chart.title}`);
-    chartTitles.add(chartKey);
+    if (chartsByKey.has(chartKey)) fail(file, `duplicate chart title: ${chart.title}`);
+    chartsByKey.set(chartKey, {file, title: chart.title, level: chart.level});
     snapshotAnchors.add(`chart-${chartKey}`);
     if (!Array.isArray(chart.nodes) || !Array.isArray(chart.edges)) { fail(file, `chart ${chart.title} needs nodes and edges arrays`); continue; }
     const nodeIds = new Set();
@@ -130,8 +131,32 @@ for (const file of expectedParts.filter(existsSync)) {
   }
 }
 for (const [file, title, target] of chartRefs) {
-  if (typeof target !== 'string' || !chartTitles.has(slug(target))) fail(file, `chart ${title} links to unknown chart ${String(target)}`);
+  if (typeof target !== 'string' || !chartsByKey.has(slug(target))) fail(file, `chart ${title} links to unknown chart ${String(target)}`);
 }
+
+const ladderRow = /^\| \*\*(L\d+)\*\* \| (.+?) \| .+ \| (\[Ch\. \d+\]\(#[^)]+\)) \|$/;
+const chapterAnchor = file => headingSlug(withoutFences(read(file)).match(/^## (.+)$/m)?.[1] ?? '');
+const listedCharts = new Set();
+let ladderRows = 0;
+for (const file of expectedParts) {
+  for (const line of withoutFences(read(file)).split('\n')) {
+    const row = line.match(ladderRow);
+    if (!row) continue;
+    ladderRows++;
+    const [, level, title, link] = row;
+    const key = slug(title);
+    const chart = chartsByKey.get(key);
+    if (!chart) { fail(file, `ladder row names an unknown chart: ${title}`); continue; }
+    if (listedCharts.has(key)) fail(file, `chart ladder lists ${title} twice`);
+    listedCharts.add(key);
+    const chartLevel = String(chart.level).match(/^L\d+/)?.[0];
+    if (level !== chartLevel) fail(file, `ladder row ${title} says ${level} but its chart is ${chartLevel ?? 'unlabelled'}`);
+    const home = `[Ch. ${expectedParts.indexOf(chart.file)}](#${chapterAnchor(chart.file)})`;
+    if (link !== home) fail(file, `ladder row ${title} should link ${home}`);
+  }
+}
+if (!ladderRows) fail(SNAPSHOT, 'chart ladder table is missing');
+for (const [key, chart] of chartsByKey) if (!listedCharts.has(key)) fail(chart.file, `chart ladder is missing ${chart.title}`);
 
 const referenced = new Set();
 const linkPattern = /\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
