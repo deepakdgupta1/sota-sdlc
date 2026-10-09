@@ -328,7 +328,7 @@ for (const [file, markdown] of content) {
 }
 
 function readFileSyncFromTag(tag, source) {
-  return execFileSync('git', ['show', `${tag}:${source}`], {encoding: 'utf8', maxBuffer: 1 << 26});
+  return execFileSync('git', ['show', `${tag}:${source}`], {encoding: 'utf8', maxBuffer: 1 << 26, stdio: ['ignore', 'pipe', 'pipe']});
 }
 
 if (errors.length) {

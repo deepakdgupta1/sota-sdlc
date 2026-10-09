@@ -131,10 +131,14 @@ function mutate(scratch, probe) {
   return () => {};
 }
 
+// The checker writes one "✗ " line per finding. Any other stderr line is a crash or stray output, whatever it says.
 function problemWith(probe, result) {
-  if (probe.absent && result.stderr.includes(probe.absent)) return `output must not contain "${probe.absent}"`;
+  const lines = result.stderr.split('\n').filter(Boolean);
+  const stray = lines.find(line => !line.startsWith('✗ '));
+  if (stray) return `stderr holds a line that is not a finding: ${stray}`;
+  if (probe.absent && lines.some(line => line.includes(probe.absent))) return `output must not contain "${probe.absent}"`;
   if (!probe.fails) return result.status === 0 ? null : 'expected a pass';
-  return result.status === 1 && result.stderr.includes(probe.fails) ? null : `expected a rejection containing "${probe.fails}"`;
+  return result.status === 1 && lines.some(line => line.includes(probe.fails)) ? null : `expected a rejection containing "${probe.fails}"`;
 }
 const only = process.argv[2];
 const selected = only ? PROBES.filter(probe => probe.name.includes(only)) : PROBES;
