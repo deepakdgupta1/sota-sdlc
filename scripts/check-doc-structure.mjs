@@ -3,6 +3,9 @@
 import {existsSync, readFileSync, readdirSync, statSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+
+process.chdir(path.join(path.dirname(fileURLToPath(import.meta.url)), '..'));
 
 const MANIFEST = 'docs/snapshot.parts.json';
 const SNAPSHOT = 'docs/snapshot';
