@@ -26,15 +26,14 @@ const githubSlug = text => text.replace(/<[^>]*>|[`*]/g, '').toLowerCase().repla
 const read = file => existsSync(file) && statSync(file).isFile() ? readFileSync(file, 'utf8') : '';
 
 // existsSync ignores case on macOS and Windows, but GitHub does not, so match each name against its directory listing.
+// A `..` only moves the walk up, after the name before it was found, and existsSync still rules on the whole path.
 const listings = new Map();
-const entriesOf = directory => {
-  if (!listings.has(directory)) listings.set(directory, existsSync(directory) && statSync(directory).isDirectory() ? new Set(readdirSync(directory)) : new Set());
-  return listings.get(directory);
-};
 function existsExactCase(target) {
   let directory = '.';
   for (const name of target.split('/').filter(part => part && part !== '.')) {
-    if (!entriesOf(directory).has(name)) return false;
+    if (name === '..') { directory = path.posix.dirname(directory); continue; }
+    if (!listings.has(directory)) listings.set(directory, existsSync(directory) && statSync(directory).isDirectory() ? new Set(readdirSync(directory)) : null);
+    if (!listings.get(directory)?.has(name)) return false;
     directory = path.posix.join(directory, name);
   }
   return existsSync(target);
@@ -231,9 +230,8 @@ const rootNames = readdirSync('.').filter(name => !name.startsWith('.')).map(nam
 const repoPath = new RegExp(`\`(?:\\./)?((?:${rootNames.join('|')})(?:/[A-Za-z0-9_.-]*)*)(?:#([^\`\\s]+))?\``, 'gi');
 for (const [file, markdown] of content) {
   for (const [, written, fragment] of withoutFences(markdown).matchAll(repoPath)) {
-    const target = path.posix.normalize(written);
-    if (!existsExactCase(target)) fail(file, `references a missing path: ${written}`);
-    else if (fragment && !githubAnchors.get(target)?.has(fragment)) fail(file, `references a missing heading: ${written}#${fragment}`);
+    if (!existsExactCase(written)) fail(file, `references a missing path: ${written}`);
+    else if (fragment && !githubAnchors.get(path.posix.normalize(written))?.has(fragment)) fail(file, `references a missing heading: ${written}#${fragment}`);
   }
 }
 
