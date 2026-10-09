@@ -23,7 +23,8 @@ Historical sources are available under `docs-history-2026-07-30` and
   correct-but-unforeseeable setup is reliable and not predictable; a foreseeable-but-wrong setup is the
   reverse. Neither can absorb the other, so both get a seat. Random hardship and directed search also
   demand distinct envelopes; [R-APEX-02](#r-apex-02) gives that argument.
-- **Governs.** `docs/snapshot/02-destination-four-properties.md`, `docs/snapshot/01-system-at-a-glance.md`.
+- **Governs.** `docs/snapshot/02-destination-four-properties.md`, `docs/snapshot/01-system-at-a-glance.md`,
+  `docs/snapshot/00-front-matter.md`, `docs/snapshot/13-appendices.md`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`
   — historical support for the destination.
 
@@ -36,7 +37,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   degrade — actively fails against a directed opponent, because retries feed a denial-of-service. Same
   shape, different opponent, and a distinct security repertoire is therefore forced.
 - **Governs.** `docs/snapshot/02-destination-four-properties.md`,
-  `docs/snapshot/08-repertoires.md`.
+  `docs/snapshot/08-repertoires.md`, `docs/snapshot/13-appendices.md`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`.
 - **Superseded.** A single `resilient` envelope with security as its hardest case. Rejected: it predicts
   that more redundancy buys more security, which is false at the seam an adversary chooses.
@@ -82,7 +83,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   derived from a heuristic is a tested judgment, not a theorem. The criterion allows a candidate
   eleventh stone to be assessed on its facts and required response instead of excluding it by count.
 - **Governs.** `docs/snapshot/00-front-matter.md`, `docs/snapshot/01-system-at-a-glance.md`,
-  `docs/snapshot/03-bedrock.md`,
+  `docs/snapshot/03-bedrock.md`, `docs/snapshot/12-agentic-sdlc.md`,
   `docs/snapshot/13-appendices.md#appendix-b--the-stones-to-responses-matrix`.
 - **Trace.** `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0` E12 ·
   `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md`.
@@ -98,7 +99,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   remain #5 and #6.
 - **Why.** A pressure can force several responses, and several pressures can share one. Response
   comparison helps detect duplicate descriptions but cannot prove a closed stone count.
-- **Governs.** `docs/snapshot/03-bedrock.md`.
+- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/13-appendices.md`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` — the bundling rule (T6).
 - **See also.** [R-BEDROCK-01](#r-bedrock-01) — the rule is a heuristic, so it cannot close the count.
 
@@ -184,7 +185,8 @@ Historical sources are available under `docs-history-2026-07-30` and
   loop turns again (`reflect`). Runtime learning feeds the same re-target step at product scale.
 - **Governs.** `docs/snapshot/01-system-at-a-glance.md`,
   `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`,
-  `docs/snapshot/07-lifecycle.md`.
+  `docs/snapshot/07-lifecycle.md`, `docs/snapshot/00-front-matter.md`,
+  `docs/snapshot/13-appendices.md`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/01-bedrock-atom-fractal.md` §4;
   product-scale projection: `docs-history-2026-07-30:sdlc-canvas/02-elements-flow-circuit-artifacts.md`
   §7–8.
@@ -197,7 +199,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   the same attempt, so the loop cannot converge — it oscillates. Convergence is what `reliable`
   *is*, so removing `reflect` removes the property.
 - **Governs.** `docs/snapshot/04-atom-unit-control-loop.md`, `docs/snapshot/05-elements.md`,
-  `docs/snapshot/10-artifacts.md`.
+  `docs/snapshot/10-artifacts.md`, `docs/snapshot/06-fractal.md`.
 - **Trace.** `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.5.
   [R-GATE-04](#r-gate-04) supplies the current accountable-unit attachment point.
 
@@ -220,7 +222,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   nothing, and a model that demanded full ceremony everywhere would be self-refuting: it would spend the
   finite resources that stone #2 says are scarce. The collapse rule is what makes the ideal *affordable*
   without making it optional where it matters.
-- **Applies to.** `docs/snapshot/06-fractal.md`.
+- **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`
   §10.7, the inward base case. [R-GATE-04](#r-gate-04) sets the gate's attachment point.
 
@@ -355,7 +357,8 @@ Historical sources are available under `docs-history-2026-07-30` and
   verifier**: exploiting weak formal specifications instead of implementing the intended solution.
   Other check modalities also differ in evidence, residual uncertainty, and opportunities to optimize
   the proxy rather than the intended result.
-- **Governs.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/09-mechanism-of-done.md`.
+- **Governs.** `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/09-mechanism-of-done.md`,
+  `docs/snapshot/13-appendices.md`.
 - **Evidence.** Max Tan, [*Automating Formal Verification with Reinforcement Learning and Recursive
   Inference*](https://arxiv.org/abs/2605.30914), 29 May 2026, reports specification hacking against
   weak formal specifications. Accessed 2026-09-25. Historical support for the modality expansion:
@@ -408,8 +411,8 @@ Historical sources are available under `docs-history-2026-07-30` and
   violation is local. A per-seam reachability result is checkable; an undivided assertion that all of
   `secure` passes is not.
 - **Applies to.** `docs/snapshot/11-hard-gates-vs-graded.md`, `docs/snapshot/09-mechanism-of-done.md`,
-  `docs/snapshot/10-artifacts.md`, `docs/snapshot/06-fractal.md`, and
-  `docs/snapshot/13-appendices.md`.
+  `docs/snapshot/10-artifacts.md`, `docs/snapshot/06-fractal.md`,
+  `docs/snapshot/08-repertoires.md`, and `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E3; prior harm rule: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`.
 - **Superseded.** "Hard gate iff non-local" as an exhaustive rule, and "secure is hard wholesale" as
@@ -463,7 +466,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   not a granularity derived from the bedrock. Seam gates retain their own location because harm can
   occur before the unit completes.
 - **Applies to.** `docs/snapshot/06-fractal.md`, `docs/snapshot/10-artifacts.md`, `docs/snapshot/11-hard-gates-vs-graded.md`,
-  `docs/snapshot/13-appendices.md`.
+  `docs/snapshot/12-agentic-sdlc.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-09-24:ROADMAP.md#3-tier-e-model-repairs-phase-0`
   E4 and Q7. The accountable work-unit boundary is [R-UNIT-01](#r-unit-01).
 - **Superseded.** The reading of the convergent law that gated an artifact at every fractal node.
@@ -501,7 +504,7 @@ Historical sources are available under `docs-history-2026-07-30` and
   undone can amplify an ordinary mistake into non-local loss. The two answer opposite halves of the same
   stone: the ratchet makes fixes stick, rollback keeps changes reversible.
 - **Applies to.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/08-repertoires.md`,
-  `docs/snapshot/10-artifacts.md`, `docs/snapshot/13-appendices.md`.
+  `docs/snapshot/10-artifacts.md`, `docs/snapshot/05-elements.md`, `docs/snapshot/13-appendices.md`.
 - **Evidence.** Historical support: `docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md`, §10.8.
   [R-ARTIFACT-03](#r-artifact-03) distinguishes the retained lesson from a governed test instance.
 
