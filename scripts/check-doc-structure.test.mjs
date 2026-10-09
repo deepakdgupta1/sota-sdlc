@@ -86,6 +86,8 @@ const PROBES = [
   {name: 'README heading containing an HTML tag', file: 'README.md', from: '\n## Read and serve', to: '\n## Press <kbd>Enter</kbd> to run\n\n[link](#press-enter-to-run)\n\n## Read and serve'},
   {name: 'README link whose file name has the wrong case', file: 'README.md', from: '(docs/RATIONALE.md)', to: '(docs/Rationale.md)', fails: 'broken local link: docs/Rationale.md'},
   {name: 'README link whose directory name has the wrong case', file: 'README.md', from: '(docs/RATIONALE.md)', to: '(Docs/RATIONALE.md)', fails: 'broken local link: Docs/RATIONALE.md'},
+  {name: 'backticked path whose first name has the wrong case', file: 'README.md', from: '\n## Read and serve', to: '\nSee `Docs/RATIONALE.md`.\n\n## Read and serve', fails: 'references a missing path: Docs/RATIONALE.md'},
+  {name: 'backticked root file whose extension has the wrong case', file: 'README.md', from: '\n## Read and serve', to: '\nSee `README.MD`.\n\n## Read and serve', fails: 'references a missing path: README.MD'},
   {name: 'backticked path with the wrong case', file: 'README.md', from: '\n## Read and serve', to: '\nSee `docs/Rationale.md`.\n\n## Read and serve', fails: 'references a missing path: docs/Rationale.md'},
   {name: 'checker run from a subdirectory', cwd: 'docs'},
   {name: 'missing history tag names the fetch command', dropTag: 'docs-history-2026-09-24', fails: 'git fetch origin tag docs-history-2026-09-24', absent: 'missing historical source'},

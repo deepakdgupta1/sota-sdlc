@@ -210,7 +210,7 @@ for (const [file, text] of plain) {
 }
 
 const rootNames = readdirSync('.').filter(name => !name.startsWith('.')).map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-const repoPath = new RegExp(`\`(?:\\./)?((?:${rootNames.join('|')})(?:/[A-Za-z0-9_.-]*)*)(?:#([^\`\\s]+))?\``, 'g');
+const repoPath = new RegExp(`\`(?:\\./)?((?:${rootNames.join('|')})(?:/[A-Za-z0-9_.-]*)*)(?:#([^\`\\s]+))?\``, 'gi');
 for (const [file, markdown] of content) {
   for (const [, written, fragment] of withoutFences(markdown).matchAll(repoPath)) {
     const target = path.posix.normalize(written);
