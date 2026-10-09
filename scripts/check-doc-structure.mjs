@@ -24,6 +24,7 @@ const slug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-
 const headingSlug = text => slug(text.replace(/<[^>]*>|[`*_]/g, ''));
 const githubSlug = text => text.replace(/<[^>]*>|[`*]/g, '').toLowerCase().replace(/[^\p{L}\p{N}\p{M} _-]/gu, '').replace(/ /g, '-');
 const read = file => existsSync(file) && statSync(file).isFile() ? readFileSync(file, 'utf8') : '';
+const chartBlocks = /^```pipeline-graph\s*\n([\s\S]*?)^```\s*$/gm;
 
 function scanFences(markdown) {
   let fence = null;
@@ -116,7 +117,7 @@ let chartCount = 0;
 for (const file of expectedParts.filter(existsSync)) {
   const markdown = read(file);
   const starts = [...markdown.matchAll(/^```pipeline-graph\s*$/gm)].length;
-  const blocks = [...markdown.matchAll(/^```pipeline-graph\s*\n([\s\S]*?)^```\s*$/gm)];
+  const blocks = [...markdown.matchAll(chartBlocks)];
   if (starts !== blocks.length) fail(file, 'unclosed pipeline-graph block');
   for (const block of blocks) {
     chartCount++;
@@ -174,14 +175,18 @@ for (const [key, chart] of chartsByKey) if (!listedCharts.has(key)) fail(chart.f
 
 const sectionNumbers = markdown => [...withoutFences(markdown).matchAll(/^#{2,6} (\d+(?:\.\d+)*)\.? /gm)].map(match => match[1]);
 const snapshotSections = new Set(expectedParts.flatMap(file => sectionNumbers(read(file))));
-for (const [file, markdown] of content) {
-  const prose = withoutFences(markdown);
-  for (const match of prose.matchAll(/\b(?:Chapter|Ch\.) (\d+)\b/g)) {
-    if (!snapshotSections.has(match[1])) fail(file, `references missing chapter ${match[1]}`);
+// Prose and chart text with markup removed and each paragraph on one line, so a hard wrap or emphasis cannot hide a phrase.
+const plainText = markdown => [withoutFences(markdown), ...[...markdown.matchAll(chartBlocks)].map(block => block[1])]
+  .join('\n\n').split(/\n\s*\n/).map(paragraph => paragraph.replace(/[*_`]/g, '').replace(/\s+/g, ' ')).join('\n\n');
+const plain = new Map([...content].map(([file, markdown]) => [file, plainText(markdown)]));
+const SECTION_REF = '§(\\d+(?:\\.\\d+)*)(?:[–-](\\d+(?:\\.\\d+)*))?';
+for (const [file, text] of plain) {
+  if (file === LEDGER) continue; // its chapter and section numbers may cite retired documents; the history check below owns them
+  for (const [, list] of text.matchAll(/\b(?:Chapters?|Ch\.) (\d+(?:(?:, | and |[–-])\d+)*)/gi)) {
+    for (const number of list.match(/\d+/g)) if (!snapshotSections.has(number)) fail(file, `references missing chapter ${number}`);
   }
-  if (file === LEDGER) continue; // its section signs locate sections in tagged history, checked below
-  for (const match of prose.matchAll(/§(\d+(?:\.\d+)*)/g)) {
-    if (!snapshotSections.has(match[1])) fail(file, `references missing section §${match[1]}`);
+  for (const [, first, last] of text.matchAll(new RegExp(SECTION_REF, 'g'))) {
+    for (const number of [first, last].filter(Boolean)) if (!snapshotSections.has(number)) fail(file, `references missing section §${number}`);
   }
 }
 
@@ -194,25 +199,27 @@ for (const [file, markdown] of content) {
   }
 }
 
-const countWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
-const countPattern = (before, after) => new RegExp(`${before}\\b(${countWords.join('|')})\\b\\**${after}`, 'gi');
+const COUNT_WORDS = {two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12};
+const countPattern = (before, after) => new RegExp(`${before}\\b(${Object.keys(COUNT_WORDS).join('|')})\\b${after}`, 'gi');
 const bedrock = withoutFences(expectedParts.map(read).find(markdown => /^### The \w+ first-order stones$/m.test(markdown)) ?? '');
 const firstOrder = [...bedrock.matchAll(/^\| \d+ \| \*\*/gm)].length;
 const secondOrder = [...bedrock.matchAll(/^\d+\. \*\*/gm)].length;
 const stonesFound = firstOrder > 0 && secondOrder > 0;
 if (!stonesFound) fail(SNAPSHOT, 'stone table or second-order list not found');
-// Chapters only: the ledger quotes retired counts on purpose.
+const stonesTotal = firstOrder + secondOrder;
+// Chapters only: the ledger quotes retired counts on purpose. Nouns that name no single tier accept any tier's count.
 const stoneClaims = !stonesFound ? [] : [
-  [countPattern('', ' first-order stones'), firstOrder, 'the stone table has'],
-  [countPattern('\\bfirst ', ' stones'), firstOrder, 'the stone table has'],
-  [countPattern('', ' (?:conditional )?second-order (?:stones|seats)'), secondOrder, 'the second-order list has'],
-  [countPattern('', ' forces'), firstOrder + secondOrder, 'the stones number'],
+  [countPattern('', ' first-order stones'), [firstOrder], 'the stone table has'],
+  [countPattern('\\bfirst ', ' stones'), [firstOrder], 'the stone table has'],
+  [countPattern('', ' (?:conditional )?second-order (?:stones|seats)'), [secondOrder], 'the second-order list has'],
+  [countPattern('', ' seats'), [secondOrder], 'the second-order list has'],
+  [countPattern('', ' forces'), [stonesTotal], 'the stones number'],
+  [countPattern('(?<!first )', ' (?:stones|pressures)'), [firstOrder, secondOrder, stonesTotal], 'the stones number'],
 ];
 for (const file of expectedParts) {
-  const prose = withoutFences(read(file));
-  for (const [pattern, actual, counted] of stoneClaims) {
-    for (const [phrase, word] of prose.matchAll(pattern)) {
-      if (countWords.indexOf(word.toLowerCase()) + 1 !== actual) fail(file, `says ${phrase.replaceAll('*', '')} but ${counted} ${actual}`);
+  for (const [pattern, expected, counted] of stoneClaims) {
+    for (const [phrase, word] of (plain.get(file) ?? '').matchAll(pattern)) {
+      if (!expected.includes(COUNT_WORDS[word.toLowerCase()])) fail(file, `says ${phrase} but ${counted} ${expected.join(' or ')}`);
     }
   }
 }
@@ -283,7 +290,7 @@ function checkLocators(file, cited, numbers) {
     else if (cited.sections && !cited.sections.has(number)) fail(file, `missing historical locator: §${number} in ${cited.tag}:${cited.source}`);
   }
 }
-const historyToken = new RegExp(`(${TAGS.join('|')}):([A-Za-z0-9_./-]+\\.md)(?:#([a-z0-9-]+))?|§(\\d+(?:\\.\\d+)*)(?:[–-](\\d+(?:\\.\\d+)*))?`, 'g');
+const historyToken = new RegExp(`(${TAGS.join('|')}):([A-Za-z0-9_./-]+\\.md)(?:#([a-z0-9-]+))?|${SECTION_REF}`, 'g');
 for (const [file, markdown] of content) {
   let cited = null;
   for (const line of withoutFences(markdown).split('\n')) {
