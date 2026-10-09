@@ -25,14 +25,16 @@ const headingSlug = text => slug(text.replace(/<[^>]*>|[`*_]/g, ''));
 const githubSlug = text => text.replace(/<[^>]*>|[`*]/g, '').toLowerCase().replace(/[^\p{L}\p{N}\p{M} _-]/gu, '').replace(/ /g, '-');
 const read = file => existsSync(file) && statSync(file).isFile() ? readFileSync(file, 'utf8') : '';
 
-function withoutFences(markdown) {
+function scanFences(markdown) {
   let fence = null;
-  return markdown.split('\n').map(line => {
+  const lines = markdown.split('\n').map(line => {
     const marker = line.match(/^\s*(```|~~~)/)?.[1];
     if (marker && (!fence || marker === fence)) { fence = fence ? null : marker; return ''; }
     return fence ? '' : line;
-  }).join('\n');
+  });
+  return {prose: lines.join('\n'), unclosed: fence !== null};
 }
+const withoutFences = markdown => scanFences(markdown).prose;
 
 function anchors(markdown, toSlug = headingSlug) {
   const found = new Set();
@@ -102,6 +104,7 @@ for (const entry of withoutFences(ledger).split(/^(?=### )/m)) {
 
 const documents = [...expectedParts.filter(existsSync), LEDGER, 'README.md'].filter(file => read(file));
 const content = new Map(documents.map(file => [file, read(file)]));
+for (const [file, markdown] of content) if (scanFences(markdown).unclosed) fail(file, 'unclosed code fence');
 const fileAnchors = new Map([...content].map(([file, markdown]) => [file, anchors(markdown)]));
 // GitHub renders the README and the ledger one file at a time with its own heading anchors. The viewer
 // joins the chapters into one page and slugs headings differently, so chapter links keep fileAnchors.

@@ -34,6 +34,7 @@ const PROBES = [
   {name: 'history path that does not exist', file: LEDGER, from: 'sdlc-canvas/00-framing.md#2-the-destination-four-properties-the-apex`\n  — historical', to: 'sdlc-canvas/00-framing-typo.md#2-the-destination-four-properties-the-apex`\n  — historical', fails: 'missing historical source'},
   {name: 'chapter missing from the manifest', file: 'docs/snapshot.parts.json', from: '    "docs/snapshot/05-elements.md",\n', to: '', fails: 'chapter not listed: docs/snapshot/05-elements.md'},
   {name: 'second root Markdown file', add: ['CONTRIBUTING.md', '# Contributing\n'], fails: 'README.md must be the only root Markdown file'},
+  {name: 'code fence that is never closed', file: 'docs/snapshot/12-agentic-sdlc.md', from: '## 12. The autonomous / agentic SDLC', to: '## 12. The autonomous / agentic SDLC\n\n```bash\nnever closed', fails: 'unclosed code fence'},
   {name: 'chart node in a group the viewer does not style', file: BEDROCK, from: '"label":"1 · intent is hidden","group":"stone"', to: '"label":"1 · intent is hidden","group":"stoen"', fails: 'in unstyled group stoen'},
   {name: 'viewer that styles no chart groups', file: 'index.html', from: 'node[group=', to: 'node[grp=', fails: 'viewer styles no chart node groups'},
   {name: 'ladder row with the wrong level', file: FRONT, from: '| **L1** | The four properties |', to: '| **L3** | The four properties |', fails: 'ladder row The four properties says L3'},
