@@ -220,7 +220,7 @@ for (const id of entryIds) if (!referenced.has(id)) fail(LEDGER, `unused rationa
 const missingTags = new Set();
 for (const tag of TAGS) {
   try { execFileSync('git', ['rev-parse', '--verify', `${tag}^{tag}`], {stdio: 'ignore'}); }
-  catch { fail(tag, 'annotated history tag is missing'); missingTags.add(tag); }
+  catch { fail(tag, `annotated history tag is missing; run: git fetch origin tag ${tag}`); missingTags.add(tag); }
 }
 const historyCache = new Map();
 function historicalText(tag, source) {
