@@ -10,6 +10,9 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+// Hooks and `git rebase --exec` export GIT_DIR, which would point the scratch clone's git calls at this repo.
+const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('GIT_')));
+const git = (args, options = {}) => execFileSync('git', args, {env, encoding: 'utf8', ...options});
 const CHECKER = 'scripts/check-doc-structure.mjs';
 const FRONT = 'docs/snapshot/00-front-matter.md';
 const PROPERTIES = 'docs/snapshot/02-destination-four-properties.md';
@@ -19,7 +22,7 @@ const LADDER_LAW_ROW = '| **L3** | The convergent law | Required evidence gated,
 const GITHUB_SLUG_LINK = '\n[section](docs/snapshot/09-mechanism-of-done.md#91-design-as-a-bet--stub-composition)\n';
 const VIEWER_SLUG_LINK = '\n[section](docs/snapshot/09-mechanism-of-done.md#9-1-design-as-a-bet-stub-composition)\n';
 
-// A `fails` probe must be rejected with that message, and any other probe must pass.
+// A `fails` probe must be rejected with that message, and any other probe must pass. No output may contain `absent`.
 const PROBES = [
   {name: 'unmodified tree is accepted'},
   {name: 'chart ladder anchor that does not exist', file: FRONT, from: '(#3-the-bedrock-why-the-work-is-hard)', to: '(#3-bedrock-typo)', fails: 'broken local anchor: #3-bedrock-typo'},
@@ -57,12 +60,12 @@ const PROBES = [
   {name: 'README link written with the GitHub anchor', file: 'README.md', from: '\n## Read and serve', to: `${GITHUB_SLUG_LINK}\n## Read and serve`},
   {name: 'README link written with the viewer anchor', file: 'README.md', from: '\n## Read and serve', to: `${VIEWER_SLUG_LINK}\n## Read and serve`, fails: 'broken local anchor'},
   {name: 'checker run from a subdirectory', cwd: 'docs'},
-  {name: 'missing history tag names the fetch command', dropTag: 'docs-history-2026-09-24', fails: 'git fetch origin tag docs-history-2026-09-24'},
+  {name: 'missing history tag names the fetch command', dropTag: 'docs-history-2026-09-24', fails: 'git fetch origin tag docs-history-2026-09-24', absent: 'missing historical source'},
 ];
 
 function prepare(scratch) {
-  execFileSync('git', ['clone', '--quiet', '--no-hardlinks', root, scratch]);
-  const listed = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], {cwd: root, encoding: 'utf8'});
+  git(['clone', '--quiet', '--no-hardlinks', root, scratch]);
+  const listed = git(['ls-files', '--cached', '--others', '--exclude-standard', '-z'], {cwd: root});
   for (const file of listed.split('\0').filter(Boolean)) {
     mkdirSync(path.dirname(path.join(scratch, file)), {recursive: true});
     try { copyFileSync(path.join(root, file), path.join(scratch, file)); }
@@ -88,14 +91,18 @@ function mutate(scratch, probe) {
     return () => unlinkSync(file);
   }
   if (probe.dropTag) {
-    const target = execFileSync('git', ['rev-parse', `refs/tags/${probe.dropTag}`], {cwd: scratch, encoding: 'utf8'}).trim();
-    execFileSync('git', ['tag', '-d', probe.dropTag], {cwd: scratch, stdio: 'ignore'});
-    return () => execFileSync('git', ['update-ref', `refs/tags/${probe.dropTag}`, target], {cwd: scratch});
+    const target = git(['rev-parse', `refs/tags/${probe.dropTag}`], {cwd: scratch}).trim();
+    git(['tag', '-d', probe.dropTag], {cwd: scratch, stdio: 'ignore'});
+    return () => git(['update-ref', `refs/tags/${probe.dropTag}`, target], {cwd: scratch});
   }
   return () => {};
 }
 
-const behavesAsExpected = (probe, result) => probe.fails ? result.status === 1 && result.stderr.includes(probe.fails) : result.status === 0;
+function problemWith(probe, result) {
+  if (probe.absent && result.stderr.includes(probe.absent)) return `output must not contain "${probe.absent}"`;
+  if (!probe.fails) return result.status === 0 ? null : 'expected a pass';
+  return result.status === 1 && result.stderr.includes(probe.fails) ? null : `expected a rejection containing "${probe.fails}"`;
+}
 const only = process.argv[2];
 const selected = only ? PROBES.filter(probe => probe.name.includes(only)) : PROBES;
 if (!selected.length) { console.error(`no probe name contains "${only}"`); process.exit(2); }
@@ -105,12 +112,12 @@ try {
   prepare(scratch);
   for (const probe of selected) {
     const undo = mutate(scratch, probe);
-    const result = spawnSync(process.execPath, [path.join(scratch, CHECKER)], {cwd: path.join(scratch, probe.cwd ?? ''), encoding: 'utf8'});
+    const result = spawnSync(process.execPath, [path.join(scratch, CHECKER)], {cwd: path.join(scratch, probe.cwd ?? ''), encoding: 'utf8', env});
     undo();
-    const matches = behavesAsExpected(probe, result);
-    const detail = (result.stderr || result.stdout).split('\n').find(line => line.trim()) ?? '';
-    if (matches) console.log(`ok    ${probe.name}`);
-    else { failed++; console.log(`FAIL  ${probe.name}\n      expected ${probe.fails ? `a rejection containing "${probe.fails}"` : 'a pass'}, got exit ${result.status}: ${detail}`); }
+    const problem = problemWith(probe, result);
+    const detail = `${result.stderr}\n${result.stdout}`.split('\n').find(line => /^[✓✗]/.test(line)) ?? '';
+    if (!problem) console.log(`ok    ${probe.name}`);
+    else { failed++; console.log(`FAIL  ${probe.name}\n      ${problem}, got exit ${result.status}: ${detail}`); }
   }
 } finally {
   rmSync(scratch, {recursive: true, force: true});
