@@ -21,6 +21,7 @@ const errors = [];
 const fail = (file, message) => errors.push(`${file}: ${message}`);
 const slug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 const headingSlug = text => slug(text.replace(/<[^>]*>|[`*_]/g, ''));
+const githubSlug = text => text.replace(/<[^>]*>|[`*]/g, '').toLowerCase().replace(/[^\p{L}\p{N}\p{M} _-]/gu, '').replace(/ /g, '-');
 const read = file => existsSync(file) && statSync(file).isFile() ? readFileSync(file, 'utf8') : '';
 
 function withoutFences(markdown) {
@@ -32,11 +33,11 @@ function withoutFences(markdown) {
   }).join('\n');
 }
 
-function anchors(markdown) {
+function anchors(markdown, toSlug = headingSlug) {
   const found = new Set();
   for (const line of withoutFences(markdown).split('\n')) {
     const heading = line.match(/^#{1,6} (.+)$/);
-    if (heading) found.add(headingSlug(heading[1]));
+    if (heading) found.add(toSlug(heading[1]));
     for (const match of line.matchAll(/<[a-z][^>]*\sid="([^"]+)"[^>]*>/g)) found.add(match[1]);
   }
   return found;
@@ -95,6 +96,7 @@ if ([...withoutFences(ledger).matchAll(/<a id="[^"]+"><\/a>/g)].length !== entry
 const documents = [...expectedParts.filter(existsSync), LEDGER, 'README.md'].filter(file => read(file));
 const content = new Map(documents.map(file => [file, read(file)]));
 const fileAnchors = new Map([...content].map(([file, markdown]) => [file, anchors(markdown)]));
+const githubAnchors = new Map([...content].map(([file, markdown]) => [file, anchors(markdown, githubSlug)]));
 const snapshotAnchors = new Set(expectedParts.flatMap(file => [...(fileAnchors.get(file) || [])]));
 const chartsByKey = new Map();
 const chartRefs = [];
@@ -197,7 +199,8 @@ for (const [file, markdown] of content) {
     if (!existsSync(destination)) { fail(file, `broken local link: ${target}`); continue; }
     if (!fragment) continue;
     if (fragment.startsWith('r-')) referenced.add(fragment);
-    const known = !pathname && file.startsWith(`${SNAPSHOT}/`) ? snapshotAnchors : fileAnchors.get(destination);
+    let known = githubAnchors.get(destination);
+    if (file.startsWith(`${SNAPSHOT}/`)) known = pathname ? fileAnchors.get(destination) : snapshotAnchors;
     if (fragment.startsWith('r-') && !pathname) {
       if (!entryIds.has(fragment)) fail(file, `unknown rationale ID: ${fragment}`);
     } else if (!known?.has(fragment)) fail(file, `broken local anchor: ${target}`);

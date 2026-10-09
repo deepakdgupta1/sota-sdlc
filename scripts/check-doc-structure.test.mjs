@@ -45,8 +45,8 @@ const PROBES = [
   {name: 'historical section number that does not exist', file: LEDGER, from: 'sdlc-canvas/03-mechanism-of-done.md` §10.5.', to: 'sdlc-canvas/03-mechanism-of-done.md` §10.95.', fails: 'missing historical locator: §10.95', gap: true},
   {name: 'stone count that disagrees with the stone table', file: BEDROCK, from: '### The eight first-order stones', to: '### The nine first-order stones', fails: 'says nine first-order stones but the stone table has 8', gap: true},
   {name: 'chapter linking a ledger entry that omits it from its scope', file: LEDGER, from: '- **Applies to.** `docs/snapshot/07-lifecycle.md`, `docs/snapshot/13-appendices.md`.\n- **Evidence.** Historical schedule bet', to: '- **Applies to.** `docs/snapshot/13-appendices.md`.\n- **Evidence.** Historical schedule bet', fails: 'does not declare docs/snapshot/07-lifecycle.md', gap: true},
-  {name: 'README link written with the GitHub anchor', file: 'README.md', from: '\n## Read and serve', to: `${GITHUB_SLUG_LINK}\n## Read and serve`, gap: true},
-  {name: 'README link written with the viewer anchor', file: 'README.md', from: '\n## Read and serve', to: `${VIEWER_SLUG_LINK}\n## Read and serve`, fails: 'broken local anchor', gap: true},
+  {name: 'README link written with the GitHub anchor', file: 'README.md', from: '\n## Read and serve', to: `${GITHUB_SLUG_LINK}\n## Read and serve`},
+  {name: 'README link written with the viewer anchor', file: 'README.md', from: '\n## Read and serve', to: `${VIEWER_SLUG_LINK}\n## Read and serve`, fails: 'broken local anchor'},
   {name: 'checker run from a subdirectory', cwd: 'docs'},
   {name: 'missing history tag names the fetch command', dropTag: 'docs-history-2026-09-24', fails: 'git fetch origin tag docs-history-2026-09-24', gap: true},
 ];
