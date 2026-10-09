@@ -5,6 +5,7 @@ import {execFileSync} from 'node:child_process';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
+// Every path below is relative to the repository root, whichever directory runs the checker.
 process.chdir(path.join(path.dirname(fileURLToPath(import.meta.url)), '..'));
 
 const MANIFEST = 'docs/snapshot.parts.json';
@@ -89,19 +90,21 @@ for (const line of withoutFences(ledger).split('\n').filter(line => line.startsW
   entryIds.add(marker[1]);
 }
 if (!entryIds.size) fail(LEDGER, 'no rationale decisions found');
+if ([...withoutFences(ledger).matchAll(/<a id="[^"]+"><\/a>/g)].length !== entryIds.size) {
+  fail(LEDGER, 'every decision anchor must use one canonical H3 marker');
+}
 const scopes = new Map();
 for (const entry of withoutFences(ledger).split(/^(?=### )/m)) {
   const id = entry.match(/^### <a id="(r-[a-z]+-\d+)">/)?.[1];
   const scope = [...entry.matchAll(/^- \*\*(?:Governs|Applies to)\.\*\*([\s\S]*?)(?=^- \*\*|(?![\s\S]))/gm)].map(match => match[1]).join('\n');
   if (id) scopes.set(id, new Set(scope.match(new RegExp(`${SNAPSHOT}/[\\w.-]+\\.md`, 'g')) ?? []));
 }
-if ([...withoutFences(ledger).matchAll(/<a id="[^"]+"><\/a>/g)].length !== entryIds.size) {
-  fail(LEDGER, 'every decision anchor must use one canonical H3 marker');
-}
 
 const documents = [...expectedParts.filter(existsSync), LEDGER, 'README.md'].filter(file => read(file));
 const content = new Map(documents.map(file => [file, read(file)]));
 const fileAnchors = new Map([...content].map(([file, markdown]) => [file, anchors(markdown)]));
+// GitHub renders the README and the ledger one file at a time with its own heading anchors. The viewer
+// joins the chapters into one page and slugs headings differently, so chapter links keep fileAnchors.
 const githubAnchors = new Map([...content].map(([file, markdown]) => [file, anchors(markdown, githubSlug)]));
 const snapshotAnchors = new Set(expectedParts.flatMap(file => [...(fileAnchors.get(file) || [])]));
 const chartsByKey = new Map();
@@ -159,8 +162,8 @@ for (const file of expectedParts) {
     listedCharts.add(key);
     const chartLevel = String(chart.level).match(/^L\d+/)?.[0];
     if (level !== chartLevel) fail(file, `ladder row ${title} says ${level} but its chart is ${chartLevel ?? 'unlabelled'}`);
-    const home = `[Ch. ${expectedParts.indexOf(chart.file)}](#${chapterAnchor(chart.file)})`;
-    if (link !== home) fail(file, `ladder row ${title} should link ${home}`);
+    const expectedLink = `[Ch. ${expectedParts.indexOf(chart.file)}](#${chapterAnchor(chart.file)})`;
+    if (link !== expectedLink) fail(file, `ladder row ${title} should link ${expectedLink}`);
   }
 }
 if (!ladderRows) fail(SNAPSHOT, 'chart ladder table is missing');
@@ -173,7 +176,7 @@ for (const [file, markdown] of content) {
   for (const match of prose.matchAll(/\b(?:Chapter|Ch\.) (\d+)\b/g)) {
     if (!snapshotSections.has(match[1])) fail(file, `references missing chapter ${match[1]}`);
   }
-  if (file === LEDGER) continue;
+  if (file === LEDGER) continue; // its section signs locate sections in tagged history, checked below
   for (const match of prose.matchAll(/§(\d+(?:\.\d+)*)/g)) {
     if (!snapshotSections.has(match[1])) fail(file, `references missing section §${match[1]}`);
   }
@@ -189,18 +192,20 @@ for (const [file, markdown] of content) {
 }
 
 const countWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
-const claim = (before, after) => new RegExp(`${before}\\b(${countWords.join('|')})\\b\\**${after}`, 'gi');
+const countPattern = (before, after) => new RegExp(`${before}\\b(${countWords.join('|')})\\b\\**${after}`, 'gi');
 const bedrock = withoutFences(expectedParts.map(read).find(markdown => /^### The \w+ first-order stones$/m.test(markdown)) ?? '');
 const firstOrder = [...bedrock.matchAll(/^\| \d+ \| \*\*/gm)].length;
 const secondOrder = [...bedrock.matchAll(/^\d+\. \*\*/gm)].length;
-if (!firstOrder || !secondOrder) fail(SNAPSHOT, 'stone table or second-order list not found');
-const stoneClaims = [
-  [claim('', ' first-order stones'), firstOrder, 'the stone table has'],
-  [claim('\\bfirst ', ' stones'), firstOrder, 'the stone table has'],
-  [claim('', ' (?:conditional )?second-order (?:stones|seats)'), secondOrder, 'the second-order list has'],
-  [claim('', ' forces'), firstOrder + secondOrder, 'the stones number'],
+const stonesFound = firstOrder > 0 && secondOrder > 0;
+if (!stonesFound) fail(SNAPSHOT, 'stone table or second-order list not found');
+// Chapters only: the ledger quotes retired counts on purpose.
+const stoneClaims = !stonesFound ? [] : [
+  [countPattern('', ' first-order stones'), firstOrder, 'the stone table has'],
+  [countPattern('\\bfirst ', ' stones'), firstOrder, 'the stone table has'],
+  [countPattern('', ' (?:conditional )?second-order (?:stones|seats)'), secondOrder, 'the second-order list has'],
+  [countPattern('', ' forces'), firstOrder + secondOrder, 'the stones number'],
 ];
-for (const file of firstOrder && secondOrder ? expectedParts : []) {
+for (const file of expectedParts) {
   const prose = withoutFences(read(file));
   for (const [pattern, actual, counted] of stoneClaims) {
     for (const [phrase, word] of prose.matchAll(pattern)) {
@@ -261,25 +266,28 @@ function historicalText(tag, source) {
   }
   return historyCache.get(key);
 }
+function checkHistoricalSource(file, tag, source, fragment) {
+  const cited = {tag, source, sections: null};
+  if (missingTags.has(tag)) return cited;
+  const text = historicalText(tag, source);
+  if (text === null) { fail(file, `missing historical source: ${tag}:${source}`); return cited; }
+  if (fragment && ![...anchors(text)].some(anchor => anchor.startsWith(fragment))) fail(file, `missing historical heading: ${tag}:${source}#${fragment}`);
+  return {...cited, sections: new Set(sectionNumbers(text))};
+}
+function checkLocators(file, cited, numbers) {
+  for (const number of numbers) {
+    if (!cited) fail(file, `section sign §${number} follows no historical source`);
+    else if (cited.sections && !cited.sections.has(number)) fail(file, `missing historical locator: §${number} in ${cited.tag}:${cited.source}`);
+  }
+}
 const historyToken = new RegExp(`(${TAGS.join('|')}):([A-Za-z0-9_./-]+\\.md)(?:#([a-z0-9-]+))?|§(\\d+(?:\\.\\d+)*)(?:[–-](\\d+(?:\\.\\d+)*))?`, 'g');
 for (const [file, markdown] of content) {
   let cited = null;
   for (const line of withoutFences(markdown).split('\n')) {
     if (/^#{1,6} /.test(line)) cited = null;
     for (const [, tag, source, fragment, ...numbers] of line.matchAll(historyToken)) {
-      if (tag) {
-        cited = {tag, source, sections: null};
-        if (missingTags.has(tag)) continue;
-        const text = historicalText(tag, source);
-        if (text === null) { fail(file, `missing historical source: ${tag}:${source}`); continue; }
-        if (fragment && ![...anchors(text)].some(anchor => anchor.startsWith(fragment))) fail(file, `missing historical heading: ${tag}:${source}#${fragment}`);
-        cited = {tag, source, sections: new Set(sectionNumbers(text))};
-      } else if (file === LEDGER) {
-        for (const number of numbers.filter(Boolean)) {
-          if (!cited) fail(file, `section sign §${number} follows no historical source`);
-          else if (cited.sections && !cited.sections.has(number)) fail(file, `missing historical locator: §${number} in ${cited.tag}:${cited.source}`);
-        }
-      }
+      if (tag) cited = checkHistoricalSource(file, tag, source, fragment);
+      else if (file === LEDGER) checkLocators(file, cited, numbers.filter(Boolean));
     }
   }
 }

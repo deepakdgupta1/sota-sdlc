@@ -68,6 +68,7 @@ function prepare(scratch) {
     try { copyFileSync(path.join(root, file), path.join(scratch, file)); }
     catch (error) {
       if (error.code !== 'ENOENT') throw error;
+      // A tracked file deleted in the working tree must not survive from the clone's HEAD.
       rmSync(path.join(scratch, file), {force: true});
     }
   }
