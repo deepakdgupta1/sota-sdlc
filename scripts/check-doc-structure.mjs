@@ -301,6 +301,8 @@ for (const [file, markdown] of content) {
 }
 for (const id of entryIds) if (!referenced.has(id)) fail(LEDGER, `unused rationale ID: ${id}`);
 
+const GIT_READ = {encoding: 'utf8', maxBuffer: 1 << 26, stdio: ['ignore', 'pipe', 'pipe']};
+const gitComplaint = error => (error.stderr || error.message).split('\n')[0];
 const missingTags = new Set();
 for (const tag of TAGS) {
   try { execFileSync('git', ['rev-parse', '--verify', '--quiet', `${tag}^{tag}`], {stdio: ['ignore', 'ignore', 'pipe'], encoding: 'utf8'}); }
@@ -308,16 +310,20 @@ for (const tag of TAGS) {
     // With --quiet, exit 1 means git ran and found no such tag. Any other failure means git could not answer.
     fail(tag, error.status === 1
       ? `annotated history tag is missing; run: git fetch origin tag ${tag}`
-      : `cannot look up the annotated history tag: ${(error.stderr || error.message).split('\n')[0]}`);
+      : `cannot look up the annotated history tag: ${gitComplaint(error)}`);
     missingTags.add(tag);
   }
 }
 const historyCache = new Map();
+// The text of tag:source, null when the tagged tree has no such path, or the Error when git could not answer.
+// git show exits 128 for a missing path and for every other failure, so a tree listing tells the two apart.
 function historicalText(tag, source) {
   const key = `${tag}:${source}`;
   if (!historyCache.has(key)) {
-    try { historyCache.set(key, readFileSyncFromTag(tag, source)); }
-    catch { historyCache.set(key, null); }
+    try {
+      const listed = execFileSync('git', ['ls-tree', '--name-only', tag, '--', source], GIT_READ);
+      historyCache.set(key, listed.trim() ? readFileSyncFromTag(tag, source) : null);
+    } catch (error) { historyCache.set(key, error); }
   }
   return historyCache.get(key);
 }
@@ -326,6 +332,7 @@ function checkHistoricalSource(file, tag, source, fragment) {
   if (missingTags.has(tag)) return cited;
   const text = historicalText(tag, source);
   if (text === null) { fail(file, `missing historical source: ${tag}:${source}`); return cited; }
+  if (text instanceof Error) { fail(file, `cannot read historical source ${tag}:${source}: ${gitComplaint(text)}`); return cited; }
   if (fragment && ![...anchors(text)].some(anchor => anchor.startsWith(fragment))) fail(file, `missing historical heading: ${tag}:${source}#${fragment}`);
   return {...cited, sections: new Set(sectionNumbers(text))};
 }
@@ -348,7 +355,7 @@ for (const [file, markdown] of content) {
 }
 
 function readFileSyncFromTag(tag, source) {
-  return execFileSync('git', ['show', `${tag}:${source}`], {encoding: 'utf8', maxBuffer: 1 << 26, stdio: ['ignore', 'pipe', 'pipe']});
+  return execFileSync('git', ['show', `${tag}:${source}`], GIT_READ);
 }
 
 if (errors.length) {

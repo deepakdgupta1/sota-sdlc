@@ -73,6 +73,7 @@ const PROBES = [
   {name: 'historical section number that does not exist', file: LEDGER, from: 'sdlc-canvas/03-mechanism-of-done.md` §10.5.', to: 'sdlc-canvas/03-mechanism-of-done.md` §10.95.', fails: 'missing historical locator: §10.95'},
   {name: 'historical range ending at a section that does not exist', file: LEDGER, from: '§7–8', to: '§7–88', fails: 'missing historical locator: §88'},
   {name: 'section sign that follows no historical source', file: LEDGER, from: '`docs-history-2026-07-30:sdlc-canvas/03-mechanism-of-done.md` §10.5.', to: '§10.5.', fails: 'section sign §10.5 follows no historical source'},
+  {name: 'historical source path that git cannot read', file: LEDGER, from: 'docs-history-2026-07-30:sdlc-canvas/00-framing.md#resume-instructions-read-first-on-a-fresh-context', to: 'docs-history-2026-07-30:../sdlc-canvas/00-framing.md#resume-instructions-read-first-on-a-fresh-context', fails: 'is outside repository', absent: 'missing historical source'},
   {name: 'historical heading that does not exist', file: LEDGER, from: '00-framing.md#2-the-destination-four-properties-the-apex', to: '00-framing.md#2-the-destination-four-properties-the-typo', fails: 'missing historical heading'},
   {name: 'stone count that disagrees with the stone table', file: BEDROCK, from: '### The eight first-order stones', to: '### The nine first-order stones', fails: 'says nine first-order stones but the stone table has 8'},
   {name: 'second-order count that disagrees with the tier list', file: BEDROCK, from: '**two** conditional second-order stones', to: '**three** conditional second-order stones', fails: 'says three conditional second-order stones but the second-order list has 2'},
@@ -177,7 +178,7 @@ try {
   prepare(scratch);
   for (const probe of selected) {
     const undo = mutate(scratch, probe);
-    const result = spawnSync(process.execPath, [path.join(scratch, CHECKER)], {cwd: path.join(scratch, probe.cwd ?? ''), encoding: 'utf8', env: {...env, ...probe.env, GIT_CEILING_DIRECTORIES: realpathSync(path.dirname(scratch))}});
+    const result = spawnSync(process.execPath, [path.join(scratch, CHECKER)], {cwd: path.join(scratch, probe.cwd ?? ''), encoding: 'utf8', env: {...env, LC_ALL: 'C', ...probe.env, GIT_CEILING_DIRECTORIES: realpathSync(path.dirname(scratch))}});
     undo();
     const problem = problemWith(probe, result);
     const detail = `${result.stderr}\n${result.stdout}`.split('\n').find(line => /^[✓✗]/.test(line)) ?? '';
