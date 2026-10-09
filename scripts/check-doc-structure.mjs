@@ -181,10 +181,13 @@ const chapterAnchor = file => headingSlug(withoutFences(read(file)).match(/^## (
 const listedCharts = new Set();
 let ladderRows = 0;
 for (const file of expectedParts) {
-  for (const line of withoutFences(read(file)).split('\n')) {
+  const lines = withoutFences(read(file)).split('\n');
+  // Another table may label its rows with bold levels, so only the file that holds the ladder must read as one.
+  const holdsLadder = lines.some(line => ladderRow.test(line));
+  for (const line of lines) {
     const row = line.match(ladderRow);
     if (!row) {
-      if (/^\| \*\*L\d+\*\*/.test(line)) fail(file, `malformed ladder row: ${line.slice(0, 50)}`);
+      if (holdsLadder && /^\| \*\*L\d+\*\*/.test(line)) fail(file, `malformed ladder row: ${line.slice(0, 50)}`);
       continue;
     }
     ladderRows++;
