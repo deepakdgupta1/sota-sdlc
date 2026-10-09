@@ -182,6 +182,27 @@ for (const [file, markdown] of content) {
   }
 }
 
+const countWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const claim = (before, after) => new RegExp(`${before}\\b(${countWords.join('|')})\\b\\**${after}`, 'gi');
+const bedrock = withoutFences(expectedParts.map(read).find(markdown => /^### The \w+ first-order stones$/m.test(markdown)) ?? '');
+const firstOrder = [...bedrock.matchAll(/^\| \d+ \| \*\*/gm)].length;
+const secondOrder = [...bedrock.matchAll(/^\d+\. \*\*/gm)].length;
+if (!firstOrder || !secondOrder) fail(SNAPSHOT, 'stone table or second-order list not found');
+const stoneClaims = [
+  [claim('', ' first-order stones'), firstOrder, 'the stone table has'],
+  [claim('\\bfirst ', ' stones'), firstOrder, 'the stone table has'],
+  [claim('', ' (?:conditional )?second-order (?:stones|seats)'), secondOrder, 'the second-order list has'],
+  [claim('', ' forces'), firstOrder + secondOrder, 'the stones number'],
+];
+for (const file of firstOrder && secondOrder ? expectedParts : []) {
+  const prose = withoutFences(read(file));
+  for (const [pattern, actual, counted] of stoneClaims) {
+    for (const [phrase, word] of prose.matchAll(pattern)) {
+      if (countWords.indexOf(word.toLowerCase()) + 1 !== actual) fail(file, `says ${phrase.replaceAll('*', '')} but ${counted} ${actual}`);
+    }
+  }
+}
+
 const referenced = new Set();
 const linkPattern = /\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
 for (const [file, markdown] of content) {
