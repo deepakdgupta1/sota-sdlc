@@ -212,9 +212,10 @@ for (const [file, text] of plain) {
 const rootNames = readdirSync('.').filter(name => !name.startsWith('.')).map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
 const repoPath = new RegExp(`\`(?:\\./)?((?:${rootNames.join('|')})(?:/[A-Za-z0-9_.-]*)*)(?:#([^\`\\s]+))?\``, 'g');
 for (const [file, markdown] of content) {
-  for (const [, target, fragment] of withoutFences(markdown).matchAll(repoPath)) {
-    if (!existsExactCase(target)) fail(file, `references a missing path: ${target}`);
-    else if (fragment && !githubAnchors.get(target)?.has(fragment)) fail(file, `references a missing heading: ${target}#${fragment}`);
+  for (const [, written, fragment] of withoutFences(markdown).matchAll(repoPath)) {
+    const target = path.posix.normalize(written);
+    if (!existsExactCase(target)) fail(file, `references a missing path: ${written}`);
+    else if (fragment && !githubAnchors.get(target)?.has(fragment)) fail(file, `references a missing heading: ${written}#${fragment}`);
   }
 }
 
