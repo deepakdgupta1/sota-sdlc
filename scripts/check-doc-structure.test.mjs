@@ -76,6 +76,8 @@ const PROBES = [
   {name: 'ledger entry whose scope line is not recognised', file: LEDGER, from: '- **Governs.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/13-appendices.md`.', to: '- **Covers.** `docs/snapshot/03-bedrock.md`, `docs/snapshot/13-appendices.md`.', fails: 'does not declare docs/snapshot/03-bedrock.md'},
   {name: 'README link written with the GitHub anchor', file: 'README.md', from: '\n## Read and serve', to: `${GITHUB_SLUG_LINK}\n## Read and serve`},
   {name: 'README link written with the viewer anchor', file: 'README.md', from: '\n## Read and serve', to: `${VIEWER_SLUG_LINK}\n## Read and serve`, fails: 'broken local anchor'},
+  {name: 'README heading padded with spaces', file: 'README.md', from: '\n## Read and serve', to: '\n##   Padded out   \n\n[link](#padded-out)\n\n## Read and serve'},
+  {name: 'README heading containing an HTML tag', file: 'README.md', from: '\n## Read and serve', to: '\n## Press <kbd>Enter</kbd> to run\n\n[link](#press-enter-to-run)\n\n## Read and serve'},
   {name: 'checker run from a subdirectory', cwd: 'docs'},
   {name: 'missing history tag names the fetch command', dropTag: 'docs-history-2026-09-24', fails: 'git fetch origin tag docs-history-2026-09-24', absent: 'missing historical source'},
 ];

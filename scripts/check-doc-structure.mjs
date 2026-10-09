@@ -41,7 +41,7 @@ function anchors(markdown, toSlug = headingSlug) {
   const found = new Set();
   for (const line of withoutFences(markdown).split('\n')) {
     const heading = line.match(/^#{1,6} (.+)$/);
-    if (heading) found.add(toSlug(heading[1]));
+    if (heading) found.add(toSlug(heading[1].trim()));
     for (const match of line.matchAll(/<[a-z][^>]*\sid="([^"]+)"[^>]*>/g)) found.add(match[1]);
   }
   return found;
