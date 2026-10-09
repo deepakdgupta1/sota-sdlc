@@ -158,6 +158,19 @@ for (const file of expectedParts) {
 if (!ladderRows) fail(SNAPSHOT, 'chart ladder table is missing');
 for (const [key, chart] of chartsByKey) if (!listedCharts.has(key)) fail(chart.file, `chart ladder is missing ${chart.title}`);
 
+const sectionNumbers = markdown => [...withoutFences(markdown).matchAll(/^#{2,6} (\d+(?:\.\d+)*)\.? /gm)].map(match => match[1]);
+const snapshotSections = new Set(expectedParts.flatMap(file => sectionNumbers(read(file))));
+for (const [file, markdown] of content) {
+  const prose = withoutFences(markdown);
+  for (const match of prose.matchAll(/\b(?:Chapter|Ch\.) (\d+)\b/g)) {
+    if (!snapshotSections.has(match[1])) fail(file, `references missing chapter ${match[1]}`);
+  }
+  if (file === LEDGER) continue;
+  for (const match of prose.matchAll(/§(\d+(?:\.\d+)*)/g)) {
+    if (!snapshotSections.has(match[1])) fail(file, `references missing section §${match[1]}`);
+  }
+}
+
 const referenced = new Set();
 const linkPattern = /\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
 for (const [file, markdown] of content) {
