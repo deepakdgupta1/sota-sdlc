@@ -99,7 +99,7 @@ if ([...withoutFences(ledger).matchAll(/<a id="[^"]+"><\/a>/g)].length !== entry
 const scopes = new Map();
 for (const entry of withoutFences(ledger).split(/^(?=### )/m)) {
   const id = entry.match(/^### <a id="(r-[a-z]+-\d+)">/)?.[1];
-  const scope = [...entry.matchAll(/^- \*\*(?:Governs|Applies to)\.\*\*([\s\S]*?)(?=^- \*\*|(?![\s\S]))/gm)].map(match => match[1]).join('\n');
+  const scope = [...entry.matchAll(/^- \*\*(?:Governs|Applies to)\.\*\*([\s\S]*?)(?=\n\n|^- \*\*|(?![\s\S]))/gm)].map(match => match[1]).join('\n');
   if (id) scopes.set(id, new Set(scope.match(new RegExp(`${SNAPSHOT}/[\\w.-]+\\.md`, 'g')) ?? []));
 }
 
@@ -149,14 +149,17 @@ for (const [file, title, target] of chartRefs) {
   if (typeof target !== 'string' || !chartsByKey.has(slug(target))) fail(file, `chart ${title} links to unknown chart ${String(target)}`);
 }
 
-const ladderRow = /^\| \*\*(L\d+)\*\* \| (.+?) \| .+ \| (\[Ch\. \d+\]\(#[^)]+\)) \|$/;
+const ladderRow = /^\| \*\*(L\d+)\*\* \| (.+?) \| .+ \| (\[Ch\. \d+\]\(#[^)]+\)) \|\s*$/;
 const chapterAnchor = file => headingSlug(withoutFences(read(file)).match(/^## (.+)$/m)?.[1] ?? '');
 const listedCharts = new Set();
 let ladderRows = 0;
 for (const file of expectedParts) {
   for (const line of withoutFences(read(file)).split('\n')) {
     const row = line.match(ladderRow);
-    if (!row) continue;
+    if (!row) {
+      if (/^\| \*\*L\d+\*\*/.test(line)) fail(file, `malformed ladder row: ${line.slice(0, 50)}`);
+      continue;
+    }
     ladderRows++;
     const [, level, title, link] = row;
     const key = slug(title);
