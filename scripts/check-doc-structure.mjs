@@ -125,7 +125,7 @@ if ([...withoutFences(ledger).matchAll(/<a id="[^"]+"><\/a>/g)].length !== entry
 const scopes = new Map();
 for (const entry of withoutFences(ledger).split(/^(?=### )/m)) {
   const id = entry.match(/^### <a id="(r-[a-z]+-\d+)">/)?.[1];
-  const scope = [...entry.matchAll(/^- \*\*(?:Governs|Applies to)\.\*\*([\s\S]*?)(?=\n\n|^- \*\*|(?![\s\S]))/gm)].map(match => match[1]).join('\n');
+  const scope = [...entry.matchAll(/^- \*\*(?:Governs|Applies to)\.\*\*([\s\S]*?)(?=\n[ \t]*\n(?! {2})|^- \*\*|(?![\s\S]))/gm)].map(match => match[1]).join('\n');
   if (id) scopes.set(id, new Set(scope.match(new RegExp(`${SNAPSHOT}/[\\w.-]+\\.md`, 'g')) ?? []));
 }
 
