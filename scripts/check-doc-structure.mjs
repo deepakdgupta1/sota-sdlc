@@ -239,26 +239,26 @@ for (const [file, markdown] of content) {
 
 const COUNT_WORDS = {two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12};
 const countPattern = (before, after) => new RegExp(`${before}\\b(${Object.keys(COUNT_WORDS).join('|')})\\b${after}`, 'gi');
-const bedrockFile = expectedParts.find(file => /^### The \w+ first-order stones$/m.test(read(file)));
-const bedrock = withoutFences(bedrockFile ? read(bedrockFile) : '');
+const bedrock = withoutFences(expectedParts.map(read).find(markdown => /^### The \w+ first-order stones$/m.test(markdown)) ?? '');
 const firstOrder = [...bedrock.matchAll(/^\| \d+ \| \*\*/gm)].length;
 const secondOrder = [...bedrock.matchAll(/^\d+\. \*\*/gm)].length;
 const stonesFound = firstOrder > 0 && secondOrder > 0;
 if (!stonesFound) fail(SNAPSHOT, 'stone table or second-order list not found');
 const stonesTotal = firstOrder + secondOrder;
 // Chapters only: the ledger quotes retired counts on purpose. Nouns that name no single tier accept any tier's count.
-// A claim with a fourth entry is checked in that chapter alone, because "seat" also names an apex property elsewhere.
+// A claim with a fourth entry skips that chapter, because "seat" also names an apex property there.
+const APEX_CHAPTER = `${SNAPSHOT}/02-destination-four-properties.md`;
 const stoneClaims = !stonesFound ? [] : [
   [countPattern('', ' first-order stones'), [firstOrder], 'the stone table has'],
   [countPattern('\\bfirst ', ' stones'), [firstOrder], 'the stone table has'],
   [countPattern('', ' (?:conditional )?second-order (?:stones|seats)'), [secondOrder], 'the second-order list has'],
-  [countPattern('', ' seats'), [secondOrder], 'the second-order list has', bedrockFile],
+  [countPattern('', ' seats'), [secondOrder], 'the second-order list has', APEX_CHAPTER],
   [countPattern('', ' forces'), [stonesTotal], 'the stones number'],
   [countPattern('(?<!first )', ' (?:stones|pressures)'), [firstOrder, secondOrder, stonesTotal], 'the stones number'],
 ];
 for (const file of expectedParts) {
-  for (const [pattern, expected, counted, only = file] of stoneClaims) {
-    if (only !== file) continue;
+  for (const [pattern, expected, counted, skip] of stoneClaims) {
+    if (file === skip) continue;
     for (const [phrase, word] of (plain.get(file) ?? '').matchAll(pattern)) {
       if (!expected.includes(COUNT_WORDS[word.toLowerCase()])) fail(file, `says ${phrase} but ${counted} ${expected.join(' or ')}`);
     }
