@@ -89,6 +89,12 @@ for (const line of withoutFences(ledger).split('\n').filter(line => line.startsW
   entryIds.add(marker[1]);
 }
 if (!entryIds.size) fail(LEDGER, 'no rationale decisions found');
+const scopes = new Map();
+for (const entry of withoutFences(ledger).split(/^(?=### )/m)) {
+  const id = entry.match(/^### <a id="(r-[a-z]+-\d+)">/)?.[1];
+  const scope = [...entry.matchAll(/^- \*\*(?:Governs|Applies to)\.\*\*([\s\S]*?)(?=^- \*\*|(?![\s\S]))/gm)].map(match => match[1]).join('\n');
+  if (id) scopes.set(id, new Set(scope.match(new RegExp(`${SNAPSHOT}/[\\w.-]+\\.md`, 'g')) ?? []));
+}
 if ([...withoutFences(ledger).matchAll(/<a id="[^"]+"><\/a>/g)].length !== entryIds.size) {
   fail(LEDGER, 'every decision anchor must use one canonical H3 marker');
 }
@@ -217,6 +223,9 @@ for (const [file, markdown] of content) {
   if (file.startsWith(`${SNAPSHOT}/`)) {
     const markers = [...prose.matchAll(/\[↪ Why[^\]]*\]\(#(r-[a-z]+-\d+)\)/g)];
     if ((prose.match(/↪ Why/g) || []).length !== markers.length) fail(file, 'malformed ↪ Why marker');
+    for (const [, id] of markers) {
+      if (entryIds.has(id) && !scopes.get(id)?.has(file)) fail(file, `links ${id} but its ledger entry does not declare ${file}`);
+    }
   }
   for (const match of prose.replace(/`[^`\n]*`/g, '').matchAll(linkPattern)) {
     let target = match[1].replace(/^<|>$/g, '');
